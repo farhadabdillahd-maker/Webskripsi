@@ -126,7 +126,9 @@ if "Judul Media Nasional" not in df.columns:
 
     st.stop()
 
+# ====================================
 # AMBIL KOLOM
+# ====================================
 df = df[["Judul Media Nasional"]]
 
 # ====================================
@@ -143,7 +145,7 @@ stemmer = factory.create_stemmer()
 # ====================================
 def case_folding(text):
 
-    return text.lower()
+    return str(text).lower()
 
 # ====================================
 # TOKENIZING
@@ -192,7 +194,7 @@ malam_keywords = [
 
 def auto_label(text):
 
-    text = text.lower()
+    text = str(text).lower()
 
     for keyword in malam_keywords:
 
