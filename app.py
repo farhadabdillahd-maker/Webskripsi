@@ -342,13 +342,37 @@ if uploaded_file is not None:
 
             if st.button("Prediksi"):
 
-                processed_text = preprocessing(input_text)
+    input_lower = input_text.lower()
 
-                vector = tfidf.transform([processed_text])
+    # Rule-based detection
+    malam_keywords = [
+        "malam",
+        "subuh",
+        "dini hari",
+        "tengah malam",
+        "jam 2",
+        "jam 3",
+        "jam 4"
+    ]
 
-                prediction = model.predict(vector)[0]
+    detected = False
 
-                st.success(f"Hasil Prediksi: {prediction}")
+    for keyword in malam_keywords:
+        if keyword in input_lower:
+            prediction = "Kasus Malam"
+            detected = True
+            break
+
+    # Jika tidak ada keyword malam
+    if not detected:
+
+        processed_text = preprocessing(input_text)
+
+        vector = tfidf.transform([processed_text])
+
+        prediction = model.predict(vector)[0]
+
+    st.success(f"Hasil Prediksi: {prediction}")
 
         except:
             st.warning("Silakan training model terlebih dahulu!")
