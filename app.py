@@ -5,7 +5,7 @@ import re
 import nltk
 import joblib
 
-from nltk.tokenize import word_tokenize
+
 from nltk.corpus import stopwords
 
 from Sastrawi.Stemmer.StemmerFactory import StemmerFactory
@@ -25,11 +25,11 @@ from sklearn.metrics import (
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-# =========================
-# DOWNLOAD NLTK
-# =========================
-nltk.download('punkt')
-nltk.download('stopwords')
+# # =========================
+# # DOWNLOAD NLTK
+# # =========================
+# nltk.download('punkt')
+# nltk.download('stopwords')
 
 # =========================
 # PAGE CONFIG
@@ -161,7 +161,7 @@ if uploaded_file is not None:
         text = re.sub(r'[^\w\s]', '', text)
 
         # tokenizing
-        tokens = word_tokenize(text)
+        tokens = text.split()
 
         # stopword removal
         tokens = [word for word in tokens if word not in stop_words]
