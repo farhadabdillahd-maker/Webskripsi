@@ -328,59 +328,59 @@ if uploaded_file is not None:
     # =========================
     # PREDIKSI
     # =========================
+        # =========================
+    # PREDIKSI
+    # =========================
     elif menu == "Prediksi":
 
-    st.header("🔍 Prediksi Tingkat Kejahatan")
+        st.header("🔍 Prediksi Tingkat Kejahatan")
 
-    try:
-        model = joblib.load('model/model_naive_bayes.pkl')
-        tfidf = joblib.load('model/tfidf_vectorizer.pkl')
+        try:
+            model = joblib.load('model/model_naive_bayes.pkl')
+            tfidf = joblib.load('model/tfidf_vectorizer.pkl')
 
-        input_text = st.text_area(
-            "Masukkan Judul Berita"
-        )
+            input_text = st.text_area(
+                "Masukkan Judul Berita"
+            )
 
-        if st.button("Prediksi"):
+            if st.button("Prediksi"):
 
-            input_lower = input_text.lower()
+                input_lower = input_text.lower()
 
-            # keyword malam
-            malam_keywords = [
-                "malam",
-                "subuh",
-                "dini hari",
-                "tengah malam",
-                "larut malam",
-                "jam 1",
-                "jam 2",
-                "jam 3",
-                "jam 4",
-                "jam 5"
-            ]
+                malam_keywords = [
+                    "malam",
+                    "subuh",
+                    "dini hari",
+                    "tengah malam",
+                    "larut malam",
+                    "jam 1",
+                    "jam 2",
+                    "jam 3",
+                    "jam 4",
+                    "jam 5"
+                ]
 
-            detected = False
+                detected = False
 
-            # cek keyword malam
-            for keyword in malam_keywords:
+                for keyword in malam_keywords:
 
-                if keyword in input_lower:
-                    prediction = "Kasus Malam"
-                    detected = True
-                    break
+                    if keyword in input_lower:
+                        prediction = "Kasus Malam"
+                        detected = True
+                        break
 
-            # jika tidak ada keyword malam
-            if not detected:
+                if not detected:
 
-                processed_text = preprocessing(input_text)
+                    processed_text = preprocessing(input_text)
 
-                vector = tfidf.transform([processed_text])
+                    vector = tfidf.transform([processed_text])
 
-                prediction = model.predict(vector)[0]
+                    prediction = model.predict(vector)[0]
 
-            st.success(f"Hasil Prediksi: {prediction}")
+                st.success(f"Hasil Prediksi: {prediction}")
 
-    except:
-        st.warning("Silakan training model terlebih dahulu!")
+        except:
+            st.warning("Silakan training model terlebih dahulu!")
 
 else:
     st.info("Silakan upload dataset CSV terlebih dahulu.")
