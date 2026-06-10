@@ -32,34 +32,71 @@ st.set_page_config(
 )
 
 # =========================================
+# DARK MODE
+# =========================================
+if "dark_mode" not in st.session_state:
+    st.session_state.dark_mode = False
+
+# =========================================
+# TOGGLE MODE
+# =========================================
+top1, top2, top3 = st.columns([12,1,1])
+
+with top3:
+    if st.button("🌙" if not st.session_state.dark_mode else "☀️"):
+        st.session_state.dark_mode = not st.session_state.dark_mode
+
+# =========================================
+# COLOR MODE
+# =========================================
+if st.session_state.dark_mode:
+
+    bg_main = "#0f172a"
+    bg_sidebar = "#111827"
+    card_bg = "#1e293b"
+    text_color = "#f8fafc"
+    sub_text = "#94a3b8"
+    border = "#334155"
+    info_bg = "#1e3a8a"
+
+else:
+
+    bg_main = "#f7faff"
+    bg_sidebar = "#ffffff"
+    card_bg = "rgba(255,255,255,0.92)"
+    text_color = "#0f172a"
+    sub_text = "#64748b"
+    border = "#e5e7eb"
+    info_bg = "#dbeafe"
+
+# =========================================
 # CUSTOM CSS
 # =========================================
-st.markdown("""
+st.markdown(f"""
 <style>
 
-/* GOOGLE FONT */
+/* FONT */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
-html, body, [class*="css"] {
+html, body, [class*="css"] {{
     font-family: 'Poppins', sans-serif;
-}
+}}
 
-/* HIDE STREAMLIT */
-#MainMenu {
+/* HIDE */
+#MainMenu {{
     visibility: hidden;
-}
+}}
 
-footer {
+footer {{
     visibility: hidden;
-}
+}}
 
-/* HEADER */
-header {
+header {{
     background: transparent !important;
-}
+}}
 
-/* TOMBOL SIDEBAR */
-[data-testid="collapsedControl"] {
+/* SIDEBAR BUTTON */
+[data-testid="collapsedControl"] {{
     display: block !important;
     position: fixed;
     top: 20px;
@@ -69,40 +106,31 @@ header {
     border-radius: 14px;
     padding: 8px;
     box-shadow: 0px 5px 15px rgba(0,0,0,0.08);
-}
+}}
 
-/* MAIN BACKGROUND */
-.stApp {
-    background: linear-gradient(
-        135deg,
-        #f7faff 0%,
-        #eef4ff 100%
-    );
-}
+/* BACKGROUND */
+.stApp {{
+    background: {bg_main};
+}}
 
 /* SIDEBAR */
-section[data-testid="stSidebar"] {
-    background: #ffffff;
-    border-right: 1px solid #e5e7eb;
-    width: 330px !important;
-}
-
-/* SIDEBAR CONTENT */
-.sidebar-container {
-    padding-top: 10px;
-}
+section[data-testid="stSidebar"] {{
+    background: {bg_sidebar};
+    border-right: 1px solid {border};
+    width: 320px !important;
+}}
 
 /* LOGO */
-.logo-container {
+.logo-container {{
     display: flex;
     align-items: center;
     gap: 16px;
     margin-bottom: 45px;
-}
+}}
 
-.logo-icon {
-    width: 70px;
-    height: 70px;
+.logo-icon {{
+    width: 72px;
+    height: 72px;
     border-radius: 20px;
     background: linear-gradient(
         135deg,
@@ -110,146 +138,125 @@ section[data-testid="stSidebar"] {
         #3b82f6
     );
     display: flex;
-    justify-content: center;
     align-items: center;
-    font-size: 34px;
+    justify-content: center;
+    font-size: 36px;
     color: white;
     box-shadow: 0px 10px 30px rgba(37,99,235,0.35);
-}
+}}
 
-.logo-title {
+.logo-title {{
     font-size: 32px;
     font-weight: 800;
-    color: #0f172a;
+    color: {text_color};
     line-height: 1;
-}
+}}
 
-.logo-sub {
-    color: #64748b;
+.logo-sub {{
+    color: {sub_text};
     font-size: 15px;
     margin-top: 4px;
-}
+}}
 
-/* MENU TEXT */
-.menu-label {
+/* MENU */
+.menu-title {{
     font-size: 14px;
     color: #94a3b8;
     font-weight: 700;
     letter-spacing: 1px;
     margin-bottom: 10px;
-}
+}}
 
-/* RADIO */
-.stRadio > div {
+.stRadio > div {{
     gap: 12px;
-}
+}}
 
-/* RADIO BUTTON */
-.stRadio label {
+.stRadio label {{
     background: transparent;
     padding: 14px 18px;
     border-radius: 18px;
     transition: 0.3s;
-    font-weight: 500;
-    color: #334155;
-}
+    font-weight: 600;
+    color: {text_color};
+}}
 
-.stRadio label:hover {
-    background: #eff6ff;
-}
-
-/* FILE UPLOADER */
-[data-testid="stFileUploader"] {
-    background: white;
-    border: 1px solid #e5e7eb;
-    padding: 20px;
-    border-radius: 24px;
-}
-
-/* MAIN CARD */
-.main-card {
-    background: rgba(255,255,255,0.85);
-    padding: 40px;
-    border-radius: 40px;
-    box-shadow: 0px 15px 40px rgba(0,0,0,0.04);
-    backdrop-filter: blur(10px);
-}
+.stRadio label:hover {{
+    background: rgba(37,99,235,0.08);
+}}
 
 /* HERO */
-.hero {
+.main-card {{
+    background: {card_bg};
+    border-radius: 40px;
+    padding: 40px;
+    box-shadow: 0px 15px 40px rgba(0,0,0,0.04);
+}}
+
+.hero {{
     display: flex;
     align-items: center;
     gap: 35px;
-}
+}}
 
-/* HERO ICON */
-.hero-icon {
+.hero-icon {{
     width: 140px;
     height: 140px;
-    background: white;
     border-radius: 40px;
+    background: white;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     font-size: 75px;
     box-shadow: 0px 10px 30px rgba(0,0,0,0.05);
-}
+}}
 
-/* HERO TITLE */
-.hero-title {
+.hero-title {{
     font-size: 74px;
     font-weight: 800;
-    color: #0f172a;
+    color: {text_color};
     line-height: 1.1;
     margin-bottom: 14px;
-}
+}}
 
-/* BLUE LINE */
-.blue-line {
+.blue-line {{
     width: 90px;
     height: 7px;
-    background: #2563eb;
     border-radius: 20px;
+    background: #2563eb;
     margin-bottom: 24px;
-}
+}}
 
-/* SUBTITLE */
-.hero-subtitle {
+.hero-subtitle {{
     font-size: 30px;
     font-weight: 700;
-    color: #0f172a;
+    color: {text_color};
     margin-bottom: 18px;
-}
+}}
 
-/* DESCRIPTION */
-.hero-desc {
-    color: #64748b;
+.hero-desc {{
+    color: {sub_text};
     font-size: 19px;
     line-height: 1.8;
-}
+}}
 
 /* INFO BOX */
-.info-box {
+.info-box {{
     margin-top: 35px;
-    background: linear-gradient(
-        135deg,
-        #eff6ff,
-        #dbeafe
-    );
+    background: {info_bg};
     border-radius: 35px;
     padding: 35px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
+}}
 
-.info-left {
+.info-left {{
     display: flex;
     align-items: center;
     gap: 25px;
-}
+}}
 
-.info-circle {
+.info-circle {{
     width: 70px;
     height: 70px;
     border-radius: 50%;
@@ -260,26 +267,34 @@ section[data-testid="stSidebar"] {
     align-items: center;
     font-size: 34px;
     font-weight: bold;
-}
+}}
 
-.info-title {
+.info-title {{
     font-size: 28px;
     font-weight: 700;
-    color: #0f172a;
-}
+    color: {text_color};
+}}
 
-.info-desc {
-    color: #64748b;
+.info-desc {{
+    color: {sub_text};
     font-size: 18px;
     margin-top: 8px;
-}
+}}
 
-.csv-icon {
-    font-size: 90px;
-}
+.csv-icon {{
+    font-size: 95px;
+}}
+
+/* FILE UPLOADER */
+[data-testid="stFileUploader"] {{
+    background: {card_bg};
+    border: 1px solid {border};
+    border-radius: 24px;
+    padding: 20px;
+}}
 
 /* BUTTON */
-.stButton > button {
+.stButton > button {{
     background: linear-gradient(
         90deg,
         #2563eb,
@@ -293,43 +308,36 @@ section[data-testid="stSidebar"] {
     font-size: 16px;
     font-weight: 700;
     box-shadow: 0px 10px 25px rgba(37,99,235,0.3);
-    transition: 0.3s;
-}
+}}
 
-.stButton > button:hover {
+.stButton > button:hover {{
     transform: translateY(-2px);
-}
+}}
 
 /* METRIC */
-[data-testid="metric-container"] {
-    background: white;
+[data-testid="metric-container"] {{
+    background: {card_bg};
     border-radius: 24px;
     padding: 24px;
-    border: 1px solid #e5e7eb;
-    box-shadow: 0px 10px 25px rgba(0,0,0,0.04);
-}
+    border: 1px solid {border};
+}}
 
 /* DATAFRAME */
-[data-testid="stDataFrame"] {
+[data-testid="stDataFrame"] {{
     border-radius: 25px;
     overflow: hidden;
-    border: 1px solid #e5e7eb;
-}
+    border: 1px solid {border};
+}}
+
+/* TEXT */
+h1,h2,h3,h4,h5,h6,p,span,label {{
+    color: {text_color} !important;
+}}
 
 /* TEXT AREA */
-textarea {
+textarea {{
     border-radius: 18px !important;
-}
-
-/* SUCCESS */
-.stSuccess {
-    border-radius: 18px;
-}
-
-/* ALERT */
-.stAlert {
-    border-radius: 20px;
-}
+}}
 
 </style>
 """, unsafe_allow_html=True)
@@ -338,8 +346,6 @@ textarea {
 # SIDEBAR
 # =========================================
 st.sidebar.markdown("""
-<div class="sidebar-container">
-
 <div class="logo-container">
 
 <div class="logo-icon">
@@ -358,10 +364,8 @@ TINGKAT KEJAHATAN
 
 </div>
 
-<div class="menu-label">
+<div class="menu-title">
 MENU
-</div>
-
 </div>
 """, unsafe_allow_html=True)
 
@@ -379,10 +383,10 @@ menu = st.sidebar.radio(
 )
 
 # =========================================
-# FILE UPLOADER
+# UPLOAD
 # =========================================
 st.sidebar.markdown("""
-<div class="menu-label" style="margin-top:30px;">
+<div class="menu-title" style="margin-top:30px;">
 DATASET
 </div>
 """, unsafe_allow_html=True)
@@ -393,7 +397,7 @@ uploaded_file = st.sidebar.file_uploader(
 )
 
 # =========================================
-# HERO SECTION
+# HERO
 # =========================================
 st.markdown("""
 <div class="main-card">
@@ -427,7 +431,7 @@ untuk klasifikasi tingkat kejahatan berdasarkan berita kriminal.
 """, unsafe_allow_html=True)
 
 # =========================================
-# JIKA BELUM UPLOAD
+# BELUM UPLOAD
 # =========================================
 if uploaded_file is None:
 
@@ -461,43 +465,33 @@ if uploaded_file is None:
     </div>
     """, unsafe_allow_html=True)
 
-# =========================================
-# JIKA FILE ADA
-# =========================================
 else:
 
-    # READ CSV
     df = pd.read_csv(uploaded_file)
 
-    # VALIDASI
     if "Judul Media Nasional" not in df.columns:
 
         st.error("Kolom 'Judul Media Nasional' tidak ditemukan!")
 
         st.stop()
 
-    # AMBIL KOLOM
     df = df[["Judul Media Nasional"]]
 
-    # STOPWORD
     stop_words = set(stopwords.words('indonesian'))
 
-    # STEMMER
     factory = StemmerFactory()
+
     stemmer = factory.create_stemmer()
 
-    # CASE FOLDING
     def case_folding(text):
         return str(text).lower()
 
-    # TOKENIZING
     def tokenizing(text):
 
         text = re.sub(r'[^\w\s]', '', text)
 
         return text.split()
 
-    # STOPWORD
     def stopword_removal(tokens):
 
         return [
@@ -505,7 +499,6 @@ else:
             if word not in stop_words
         ]
 
-    # STEMMING
     def stemming(tokens):
 
         return [
@@ -513,7 +506,6 @@ else:
             for word in tokens
         ]
 
-    # KEYWORD MALAM
     malam_keywords = [
         "malam",
         "subuh",
@@ -527,7 +519,6 @@ else:
         "jam 5"
     ]
 
-    # LABEL
     def auto_label(text):
 
         text = str(text).lower()
@@ -539,7 +530,6 @@ else:
 
         return "Kasus Umum"
 
-    # PREPROCESSING
     df["Case Folding"] = df["Judul Media Nasional"].apply(case_folding)
 
     df["Tokenizing"] = df["Case Folding"].apply(tokenizing)
@@ -555,7 +545,7 @@ else:
     df["Label"] = df["Judul Media Nasional"].apply(auto_label)
 
     # =========================================
-    # MENU DATASET
+    # DATASET
     # =========================================
     if menu == "📂 Upload Dataset":
 
@@ -571,9 +561,10 @@ else:
     # =========================================
     elif menu == "🧹 Preprocessing":
 
-        st.subheader("🧹 Preprocessing Text")
+        st.subheader("🧹 Preprocessing")
 
         st.write("### 1. Case Folding")
+
         st.dataframe(
             df[
                 [
@@ -585,6 +576,7 @@ else:
         )
 
         st.write("### 2. Tokenizing")
+
         st.dataframe(
             df[
                 [
@@ -596,6 +588,7 @@ else:
         )
 
         st.write("### 3. Stopword Removal")
+
         st.dataframe(
             df[
                 [
@@ -607,6 +600,7 @@ else:
         )
 
         st.write("### 4. Stemming")
+
         st.dataframe(
             df[
                 [
@@ -617,7 +611,8 @@ else:
             use_container_width=True
         )
 
-        st.write("### 5. Pelabelan Dataset")
+        st.write("### 5. Pelabelan")
+
         st.dataframe(
             df[
                 [
@@ -636,6 +631,7 @@ else:
         st.subheader("📊 Klasifikasi Naïve Bayes")
 
         X = df["Final Text"]
+
         y = df["Label"]
 
         tfidf = TfidfVectorizer()
