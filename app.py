@@ -21,22 +21,42 @@ from sklearn.metrics import (
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-# ====================================
+# =========================================
 # PAGE CONFIG
-# ====================================
+# =========================================
 st.set_page_config(
     page_title="Klasifikasi Tingkat Kejahatan",
     page_icon="🚔",
     layout="wide"
 )
 
-# ====================================
-# CUSTOM CSS MODERN
-# ====================================
+# =========================================
+# CUSTOM CSS
+# =========================================
 st.markdown("""
 <style>
 
-/* BACKGROUND */
+/* IMPORT FONT */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+html, body, [class*="css"]  {
+    font-family: 'Poppins', sans-serif;
+}
+
+/* HIDE STREAMLIT */
+#MainMenu {
+    visibility: hidden;
+}
+
+footer {
+    visibility: hidden;
+}
+
+header {
+    visibility: hidden;
+}
+
+/* MAIN BACKGROUND */
 .stApp {
     background: linear-gradient(
         135deg,
@@ -47,31 +67,90 @@ st.markdown("""
 
 /* SIDEBAR */
 section[data-testid="stSidebar"] {
-    background-color: white;
+    background-color: #ffffff;
     border-right: 1px solid #e5e7eb;
+    width: 320px !important;
 }
 
-/* TITLE */
-.main-title {
-    font-size: 52px;
+/* SIDEBAR CONTENT */
+.sidebar-content {
+    padding-top: 10px;
+}
+
+/* LOGO */
+.logo-box {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 40px;
+}
+
+.logo-icon {
+    width: 65px;
+    height: 65px;
+    background: linear-gradient(135deg,#2563eb,#3b82f6);
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 34px;
+    color: white;
+    box-shadow: 0px 10px 25px rgba(37,99,235,0.3);
+}
+
+.logo-text h1 {
+    font-size: 34px;
     font-weight: 800;
     color: #0f172a;
-    margin-bottom: 10px;
+    margin: 0;
+    line-height: 1;
 }
 
-.sub-title {
-    font-size: 20px;
-    color: #334155;
-    margin-bottom: 30px;
+.logo-text p {
+    margin: 0;
+    color: #64748b;
+    font-size: 15px;
+}
+
+/* MENU TITLE */
+.menu-title {
+    font-size: 14px;
+    color: #94a3b8;
+    font-weight: 700;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
 }
 
 /* CARD */
 .custom-card {
-    background: white;
-    padding: 30px;
-    border-radius: 25px;
-    box-shadow: 0px 10px 30px rgba(0,0,0,0.05);
+    background: rgba(255,255,255,0.9);
+    padding: 35px;
+    border-radius: 35px;
+    box-shadow: 0px 15px 40px rgba(0,0,0,0.04);
+    margin-bottom: 25px;
+    backdrop-filter: blur(10px);
+}
+
+/* TITLE */
+.main-title {
+    font-size: 72px;
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1.1;
+    margin-bottom: 10px;
+}
+
+.sub-title {
+    font-size: 28px;
+    color: #1e293b;
+    font-weight: 700;
     margin-bottom: 20px;
+}
+
+.desc {
+    color: #64748b;
+    font-size: 18px;
+    line-height: 1.8;
 }
 
 /* BUTTON */
@@ -83,16 +162,17 @@ section[data-testid="stSidebar"] {
     );
     color: white;
     border: none;
-    border-radius: 14px;
-    height: 50px;
+    border-radius: 18px;
+    height: 55px;
     width: 100%;
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 700;
     transition: 0.3s;
+    box-shadow: 0px 10px 25px rgba(37,99,235,0.3);
 }
 
 .stButton > button:hover {
-    transform: scale(1.02);
+    transform: translateY(-2px);
     background: linear-gradient(
         90deg,
         #1d4ed8,
@@ -102,16 +182,16 @@ section[data-testid="stSidebar"] {
 
 /* METRIC */
 [data-testid="metric-container"] {
-    background-color: white;
+    background: white;
+    border-radius: 25px;
+    padding: 25px;
     border: 1px solid #e5e7eb;
-    padding: 20px;
-    border-radius: 20px;
-    box-shadow: 0px 5px 20px rgba(0,0,0,0.05);
+    box-shadow: 0px 10px 25px rgba(0,0,0,0.04);
 }
 
 /* DATAFRAME */
 [data-testid="stDataFrame"] {
-    border-radius: 20px;
+    border-radius: 25px;
     overflow: hidden;
     border: 1px solid #e5e7eb;
 }
@@ -120,74 +200,180 @@ section[data-testid="stSidebar"] {
 [data-testid="stFileUploader"] {
     background: white;
     padding: 20px;
-    border-radius: 20px;
+    border-radius: 25px;
     border: 1px solid #e5e7eb;
 }
 
 /* TEXT AREA */
 textarea {
-    border-radius: 15px !important;
+    border-radius: 18px !important;
 }
 
 /* SUCCESS */
 .stSuccess {
+    border-radius: 18px;
+}
+
+/* ALERT */
+.stAlert {
     border-radius: 20px;
+}
+
+/* RADIO */
+.stRadio > div {
+    gap: 12px;
+}
+
+/* SECTION TITLE */
+.section-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #94a3b8;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+/* INFO BOX */
+.info-box {
+    background: linear-gradient(
+        135deg,
+        #eff6ff,
+        #dbeafe
+    );
+    border-radius: 30px;
+    padding: 35px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.info-text h2 {
+    color: #0f172a;
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.info-text p {
+    color: #64748b;
+    font-size: 18px;
+}
+
+.info-icon {
+    font-size: 80px;
 }
 
 </style>
 """, unsafe_allow_html=True)
 
-# ====================================
-# HEADER
-# ====================================
-st.markdown("""
-<div class="custom-card">
+# =========================================
+# SIDEBAR HEADER
+# =========================================
+st.sidebar.markdown("""
+<div class="sidebar-content">
 
-<div class="main-title">
-🚔 KLASIFIKASI TINGKAT KEJAHATAN
+<div class="logo-box">
+
+<div class="logo-icon">
+🛡️
 </div>
 
-<div class="sub-title">
-Naïve Bayes - Polres Pasaman
+<div class="logo-text">
+<h1>KLASIFIKASI</h1>
+<p>TINGKAT KEJAHATAN</p>
 </div>
 
-<p style="font-size:18px;color:#475569;">
-Sistem Machine Learning menggunakan algoritma Naïve Bayes
-untuk klasifikasi tingkat kejahatan berdasarkan berita kriminal.
-</p>
+</div>
+
+<div class="menu-title">
+MENU
+</div>
 
 </div>
 """, unsafe_allow_html=True)
 
-# ====================================
-# SIDEBAR
-# ====================================
-st.sidebar.markdown("""
-# 🛡️ KLASIFIKASI
-### Tingkat Kejahatan
-""")
-
+# =========================================
+# SIDEBAR MENU
+# =========================================
 menu = st.sidebar.radio(
-    "📌 Pilih Menu",
+    "",
     [
-        "Upload Dataset",
-        "Preprocessing",
-        "Klasifikasi Naïve Bayes",
-        "Prediksi"
+        "📂 Upload Dataset",
+        "🧹 Preprocessing",
+        "🤖 Klasifikasi Naïve Bayes",
+        "🔍 Prediksi"
     ]
 )
 
-# ====================================
-# UPLOAD DATASET
-# ====================================
+# =========================================
+# FILE UPLOADER
+# =========================================
+st.sidebar.markdown("""
+<div class="section-title">
+DATASET
+</div>
+""", unsafe_allow_html=True)
+
 uploaded_file = st.sidebar.file_uploader(
     "Upload Dataset CSV",
     type=["csv"]
 )
 
-# ====================================
+# =========================================
+# HEADER
+# =========================================
+st.markdown("""
+<div class="custom-card">
+
+<div style="display:flex;align-items:center;gap:30px;">
+
+<div style="
+width:130px;
+height:130px;
+border-radius:35px;
+background:white;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:70px;
+box-shadow:0px 10px 25px rgba(0,0,0,0.05);
+">
+🚔
+</div>
+
+<div>
+
+<div class="main-title">
+KLASIFIKASI TINGKAT KEJAHATAN
+</div>
+
+<div style="
+width:90px;
+height:8px;
+border-radius:20px;
+background:#2563eb;
+margin-bottom:20px;
+"></div>
+
+<div class="sub-title">
+Naïve Bayes - Polres Pasaman
+</div>
+
+<div class="desc">
+Sistem Machine Learning menggunakan algoritma Naïve Bayes
+untuk klasifikasi tingkat kejahatan berdasarkan berita kriminal.
+</div>
+
+</div>
+
+</div>
+
+</div>
+""", unsafe_allow_html=True)
+
+# =========================================
 # JIKA FILE ADA
-# ====================================
+# =========================================
 if uploaded_file is not None:
 
     # READ CSV
@@ -203,32 +389,26 @@ if uploaded_file is not None:
     # AMBIL KOLOM
     df = df[["Judul Media Nasional"]]
 
-    # STOPWORD & STEMMER
+    # STOPWORD
     stop_words = set(stopwords.words('indonesian'))
 
+    # STEMMER
     factory = StemmerFactory()
-
     stemmer = factory.create_stemmer()
 
-    # ====================================
     # CASE FOLDING
-    # ====================================
     def case_folding(text):
 
         return str(text).lower()
 
-    # ====================================
     # TOKENIZING
-    # ====================================
     def tokenizing(text):
 
         text = re.sub(r'[^\w\s]', '', text)
 
         return text.split()
 
-    # ====================================
     # STOPWORD REMOVAL
-    # ====================================
     def stopword_removal(tokens):
 
         return [
@@ -236,9 +416,7 @@ if uploaded_file is not None:
             if word not in stop_words
         ]
 
-    # ====================================
     # STEMMING
-    # ====================================
     def stemming(tokens):
 
         return [
@@ -246,9 +424,7 @@ if uploaded_file is not None:
             for word in tokens
         ]
 
-    # ====================================
-    # AUTO LABELING
-    # ====================================
+    # KEYWORD MALAM
     malam_keywords = [
         "malam",
         "subuh",
@@ -262,6 +438,7 @@ if uploaded_file is not None:
         "jam 5"
     ]
 
+    # AUTO LABEL
     def auto_label(text):
 
         text = str(text).lower()
@@ -274,9 +451,7 @@ if uploaded_file is not None:
 
         return "Kasus Umum"
 
-    # ====================================
     # PREPROCESSING
-    # ====================================
     df["Case Folding"] = df["Judul Media Nasional"].apply(
         case_folding
     )
@@ -301,27 +476,28 @@ if uploaded_file is not None:
         auto_label
     )
 
-    # ====================================
+    # =========================================
     # MENU DATASET
-    # ====================================
-    if menu == "Upload Dataset":
+    # =========================================
+    if menu == "📂 Upload Dataset":
 
         st.markdown('<div class="custom-card">', unsafe_allow_html=True)
 
         st.header("📂 Dataset Awal")
 
         st.dataframe(
-            df[["Judul Media Nasional"]]
+            df[["Judul Media Nasional"]],
+            use_container_width=True
         )
 
         st.success("Dataset berhasil diupload!")
 
         st.markdown('</div>', unsafe_allow_html=True)
 
-    # ====================================
-    # MENU PREPROCESSING
-    # ====================================
-    elif menu == "Preprocessing":
+    # =========================================
+    # PREPROCESSING
+    # =========================================
+    elif menu == "🧹 Preprocessing":
 
         st.markdown('<div class="custom-card">', unsafe_allow_html=True)
 
@@ -335,7 +511,8 @@ if uploaded_file is not None:
                     "Judul Media Nasional",
                     "Case Folding"
                 ]
-            ]
+            ],
+            use_container_width=True
         )
 
         st.subheader("2. Tokenizing")
@@ -346,7 +523,8 @@ if uploaded_file is not None:
                     "Case Folding",
                     "Tokenizing"
                 ]
-            ]
+            ],
+            use_container_width=True
         )
 
         st.subheader("3. Stopword Removal")
@@ -357,7 +535,8 @@ if uploaded_file is not None:
                     "Tokenizing",
                     "Stopword Removal"
                 ]
-            ]
+            ],
+            use_container_width=True
         )
 
         st.subheader("4. Stemming")
@@ -368,7 +547,8 @@ if uploaded_file is not None:
                     "Stopword Removal",
                     "Stemming"
                 ]
-            ]
+            ],
+            use_container_width=True
         )
 
         st.subheader("5. Pelabelan Dataset")
@@ -379,15 +559,16 @@ if uploaded_file is not None:
                     "Judul Media Nasional",
                     "Label"
                 ]
-            ]
+            ],
+            use_container_width=True
         )
 
         st.markdown('</div>', unsafe_allow_html=True)
 
-    # ====================================
-    # MENU KLASIFIKASI
-    # ====================================
-    elif menu == "Klasifikasi Naïve Bayes":
+    # =========================================
+    # KLASIFIKASI
+    # =========================================
+    elif menu == "🤖 Klasifikasi Naïve Bayes":
 
         st.markdown('<div class="custom-card">', unsafe_allow_html=True)
 
@@ -420,10 +601,7 @@ if uploaded_file is not None:
         y_pred = model.predict(X_test)
 
         # METRIK
-        accuracy = accuracy_score(
-            y_test,
-            y_pred
-        )
+        accuracy = accuracy_score(y_test, y_pred)
 
         precision = precision_score(
             y_test,
@@ -446,25 +624,10 @@ if uploaded_file is not None:
         # METRIC UI
         col1, col2, col3, col4 = st.columns(4)
 
-        col1.metric(
-            "Accuracy",
-            f"{accuracy:.2f}"
-        )
-
-        col2.metric(
-            "Precision",
-            f"{precision:.2f}"
-        )
-
-        col3.metric(
-            "Recall",
-            f"{recall:.2f}"
-        )
-
-        col4.metric(
-            "F1-Score",
-            f"{f1:.2f}"
-        )
+        col1.metric("Accuracy", f"{accuracy:.2f}")
+        col2.metric("Precision", f"{precision:.2f}")
+        col3.metric("Recall", f"{recall:.2f}")
+        col4.metric("F1-Score", f"{f1:.2f}")
 
         # CONFUSION MATRIX
         st.subheader("📊 Confusion Matrix")
@@ -474,7 +637,7 @@ if uploaded_file is not None:
             y_pred
         )
 
-        fig, ax = plt.subplots(figsize=(5,4))
+        fig, ax = plt.subplots(figsize=(6,4))
 
         sns.heatmap(
             cm,
@@ -486,12 +649,11 @@ if uploaded_file is not None:
         )
 
         plt.xlabel("Prediksi")
-
         plt.ylabel("Aktual")
 
         st.pyplot(fig)
 
-        # CLASSIFICATION REPORT
+        # REPORT
         st.subheader("📄 Classification Report")
 
         report = classification_report(
@@ -516,10 +678,10 @@ if uploaded_file is not None:
 
         st.markdown('</div>', unsafe_allow_html=True)
 
-    # ====================================
-    # MENU PREDIKSI
-    # ====================================
-    elif menu == "Prediksi":
+    # =========================================
+    # PREDIKSI
+    # =========================================
+    elif menu == "🔍 Prediksi":
 
         st.markdown('<div class="custom-card">', unsafe_allow_html=True)
 
@@ -545,7 +707,6 @@ if uploaded_file is not None:
 
                 detected = False
 
-                # RULE-BASED MALAM
                 for keyword in malam_keywords:
 
                     if keyword in input_lower:
@@ -556,7 +717,6 @@ if uploaded_file is not None:
 
                         break
 
-                # JIKA TIDAK ADA KEYWORD
                 if not detected:
 
                     text = input_text.lower()
@@ -601,16 +761,24 @@ if uploaded_file is not None:
 
         st.markdown('</div>', unsafe_allow_html=True)
 
-# ====================================
-# JIKA BELUM UPLOAD
-# ====================================
+# =========================================
+# BELUM UPLOAD
+# =========================================
 else:
 
     st.markdown("""
-    <div class="custom-card">
-        <h2>📂 Upload Dataset CSV</h2>
-        <p style="font-size:18px;color:#475569;">
-        Silakan upload dataset CSV terlebih dahulu untuk memulai proses klasifikasi.
+    <div class="info-box">
+
+    <div class="info-text">
+        <h2>Silakan upload dataset CSV terlebih dahulu.</h2>
+        <p>
+        Pastikan file berformat CSV dan sesuai dengan struktur data.
         </p>
+    </div>
+
+    <div class="info-icon">
+        📄
+    </div>
+
     </div>
     """, unsafe_allow_html=True)
