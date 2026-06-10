@@ -38,7 +38,7 @@ if "dark_mode" not in st.session_state:
     st.session_state.dark_mode = False
 
 # =========================================
-# TOGGLE MODE
+# TOGGLE BUTTON
 # =========================================
 top1, top2, top3 = st.columns([12,1,1])
 
@@ -47,52 +47,46 @@ with top3:
         st.session_state.dark_mode = not st.session_state.dark_mode
 
 # =========================================
+# COLOR MODE
+# =========================================
+if st.session_state.dark_mode:
+
+    bg_main = "#0f172a"
+    bg_sidebar = "#111827"
+    bg_card = "#172033"
+    text_color = "#f8fafc"
+    sub_text = "#94a3b8"
+    border = "#334155"
+    hover = "#1e40af"
+    upload_bg = "#1e3a8a"
+
+else:
+
+    bg_main = "#f4f7fb"
+    bg_sidebar = "#ffffff"
+    bg_card = "#ffffff"
+    text_color = "#0f172a"
+    sub_text = "#64748b"
+    border = "#e5e7eb"
+    hover = "#eff6ff"
+    upload_bg = "#dbeafe"
+
+# =========================================
 # CUSTOM CSS
 # =========================================
 st.markdown(f"""
 <style>
 
-/* =========================
-FONT
-========================= */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
 html, body, [class*="css"] {{
     font-family: 'Poppins', sans-serif;
 }}
 
-/* =========================
-GLOBAL COLOR
-========================= */
-:root {{
-
-    --bg-main: {"#0f172a" if st.session_state.dark_mode else "#f4f7fb"};
-
-    --bg-card: {"#1e293b" if st.session_state.dark_mode else "#ffffff"};
-
-    --bg-sidebar: {"#111827" if st.session_state.dark_mode else "#ffffff"};
-
-    --text-main: {"#ffffff" if st.session_state.dark_mode else "#0f172a"};
-
-    --text-sub: {"#cbd5e1" if st.session_state.dark_mode else "#64748b"};
-
-    --border: {"#334155" if st.session_state.dark_mode else "#e5e7eb"};
-
-    --hover: {"#1e40af" if st.session_state.dark_mode else "#eff6ff"};
-
-    --upload-bg: {"#1e3a8a" if st.session_state.dark_mode else "#dbeafe"};
-}}
-
-/* =========================
-BACKGROUND
-========================= */
 .stApp {{
-    background: var(--bg-main);
+    background: {bg_main};
 }}
 
-/* =========================
-HIDE STREAMLIT
-========================= */
 #MainMenu {{
     visibility: hidden;
 }}
@@ -105,18 +99,12 @@ header {{
     background: transparent !important;
 }}
 
-/* =========================
-SIDEBAR
-========================= */
 section[data-testid="stSidebar"] {{
-    background: var(--bg-sidebar);
-    border-right: 1px solid var(--border);
+    background: {bg_sidebar};
+    border-right: 1px solid {border};
     width: 320px !important;
 }}
 
-/* =========================
-SIDEBAR BUTTON
-========================= */
 [data-testid="collapsedControl"] {{
     display: block !important;
     background: white;
@@ -124,16 +112,6 @@ SIDEBAR BUTTON
     padding: 8px;
 }}
 
-/* =========================
-TEXT
-========================= */
-h1,h2,h3,h4,h5,h6,p,label,span,div {{
-    color: var(--text-main) !important;
-}}
-
-/* =========================
-LOGO
-========================= */
 .logo-container {{
     display: flex;
     align-items: center;
@@ -142,9 +120,9 @@ LOGO
 }}
 
 .logo-icon {{
-    width: 68px;
-    height: 68px;
-    border-radius: 22px;
+    width: 70px;
+    height: 70px;
+    border-radius: 20px;
     background: linear-gradient(
         135deg,
         #2563eb,
@@ -155,35 +133,27 @@ LOGO
     align-items: center;
     font-size: 34px;
     color: white;
-    box-shadow: 0px 10px 25px rgba(37,99,235,0.3);
 }}
 
 .logo-title {{
-    font-size: 32px;
+    font-size: 30px;
     font-weight: 800;
+    color: {text_color};
     line-height: 1;
 }}
 
 .logo-sub {{
-    color: var(--text-sub) !important;
+    color: {sub_text};
     font-size: 14px;
-    margin-top: 4px;
 }}
 
-/* =========================
-MENU TITLE
-========================= */
 .menu-title {{
     font-size: 13px;
     font-weight: 700;
-    color: #94a3b8 !important;
-    letter-spacing: 1px;
+    color: #94a3b8;
     margin-bottom: 10px;
 }}
 
-/* =========================
-RADIO MENU
-========================= */
 .stRadio > div {{
     gap: 12px;
 }}
@@ -193,36 +163,25 @@ RADIO MENU
     border-radius: 18px;
     transition: 0.3s;
     font-weight: 600;
-    background: transparent;
 }}
 
 .stRadio label:hover {{
-    background: var(--hover);
+    background: {hover};
 }}
 
-/* =========================
-UPLOAD
-========================= */
 [data-testid="stFileUploader"] {{
-    background: var(--bg-card);
-    border: 1px solid var(--border);
+    background: {bg_card};
+    border: 1px solid {border};
     border-radius: 24px;
     padding: 20px;
 }}
 
-/* =========================
-CARD
-========================= */
 .main-card {{
-    background: var(--bg-card);
+    background: {bg_card};
     border-radius: 40px;
     padding: 40px;
-    box-shadow: 0px 15px 40px rgba(0,0,0,0.04);
 }}
 
-/* =========================
-HERO
-========================= */
 .hero {{
     display: flex;
     align-items: center;
@@ -233,7 +192,7 @@ HERO
     width: 140px;
     height: 140px;
     border-radius: 40px;
-    background: {"#0f172a" if st.session_state.dark_mode else "#ffffff"};
+    background: white;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -241,9 +200,22 @@ HERO
 }}
 
 .hero-title {{
-    font-size: 72px;
+    font-size: 65px;
     font-weight: 800;
+    color: {text_color};
     line-height: 1.1;
+}}
+
+.hero-subtitle {{
+    font-size: 28px;
+    font-weight: 700;
+    color: {text_color};
+}}
+
+.hero-desc {{
+    color: {sub_text};
+    font-size: 18px;
+    line-height: 1.8;
 }}
 
 .blue-line {{
@@ -254,66 +226,23 @@ HERO
     margin: 20px 0;
 }}
 
-.hero-subtitle {{
-    font-size: 30px;
-    font-weight: 700;
-}}
-
-.hero-desc {{
-    color: var(--text-sub) !important;
-    font-size: 18px;
-    line-height: 1.8;
-}}
-
-/* =========================
-INFO BOX
-========================= */
 .info-box {{
     margin-top: 35px;
-    background: var(--upload-bg);
+    background: {upload_bg};
     border-radius: 35px;
     padding: 35px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}}
-
-.info-left {{
-    display: flex;
-    align-items: center;
-    gap: 25px;
-}}
-
-.info-circle {{
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    background: #2563eb;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white !important;
-    font-size: 32px;
-    font-weight: bold;
 }}
 
 .info-title {{
-    font-size: 28px;
+    font-size: 26px;
     font-weight: 700;
+    color: {text_color};
 }}
 
 .info-desc {{
-    color: var(--text-sub) !important;
-    font-size: 17px;
+    color: {sub_text};
 }}
 
-.csv-icon {{
-    font-size: 90px;
-}}
-
-/* =========================
-BUTTON
-========================= */
 .stButton > button {{
     background: linear-gradient(
         90deg,
@@ -329,41 +258,40 @@ BUTTON
     font-weight: 700;
 }}
 
-/* =========================
-INPUT
-========================= */
-.stTextInput input,
 .stTextArea textarea {{
-    background: var(--bg-card) !important;
-    color: var(--text-main) !important;
-    border: 1px solid var(--border) !important;
-    border-radius: 16px !important;
+    background: {bg_card} !important;
+    color: {text_color} !important;
+    border: 1px solid {border} !important;
 }}
 
-/* =========================
-DATAFRAME
-========================= */
-[data-testid="stDataFrame"] {{
-    border-radius: 22px;
-    overflow: hidden;
-    border: 1px solid var(--border);
-}}
-
-/* =========================
-METRIC
-========================= */
 [data-testid="metric-container"] {{
-    background: var(--bg-card);
-    border: 1px solid var(--border);
+    background: {bg_card};
+    border: 1px solid {border};
     border-radius: 24px;
     padding: 20px;
 }}
 
-/* =========================
-SUCCESS
-========================= */
-.stSuccess {{
-    border-radius: 18px;
+[data-testid="metric-container"] * {{
+    color: {text_color} !important;
+}}
+
+[data-testid="stDataFrame"] {{
+    border-radius: 20px;
+    overflow: hidden;
+}}
+
+thead tr th {{
+    background: #2563eb !important;
+    color: white !important;
+}}
+
+tbody tr td {{
+    background: {bg_card} !important;
+    color: {text_color} !important;
+}}
+
+h1,h2,h3,h4,h5,h6,p,span,label,div {{
+    color: {text_color} !important;
 }}
 
 </style>
@@ -424,9 +352,9 @@ uploaded_file = st.sidebar.file_uploader(
 )
 
 # =========================================
-# HERO
+# HERO SECTION
 # =========================================
-st.markdown("""
+st.markdown(f"""
 <div class="main-card">
 
 <div class="hero">
@@ -457,38 +385,28 @@ untuk klasifikasi tingkat kejahatan berdasarkan berita kriminal.
 </div>
 """, unsafe_allow_html=True)
 
+# =========================================
+# JIKA BELUM UPLOAD
+# =========================================
 if uploaded_file is None:
 
-    st.markdown("""
+    st.markdown(f"""
     <div class="info-box">
 
-    <div class="info-left">
-
-    <div class="info-circle">
-    i
-    </div>
-
-    <div>
-
     <div class="info-title">
-    Silakan upload dataset CSV terlebih dahulu.
+    Silakan upload dataset CSV terlebih dahulu
     </div>
 
     <div class="info-desc">
-    Pastikan file berformat CSV dan sesuai dengan struktur data.
-    </div>
-
-    </div>
-
-    </div>
-
-    <div class="csv-icon">
-    📄
+    Pastikan file memiliki kolom "Judul Media Nasional"
     </div>
 
     </div>
     """, unsafe_allow_html=True)
 
+# =========================================
+# JIKA FILE ADA
+# =========================================
 else:
 
     df = pd.read_csv(uploaded_file)
@@ -501,12 +419,18 @@ else:
 
     df = df[["Judul Media Nasional"]]
 
+    # =========================================
+    # STOPWORD & STEMMER
+    # =========================================
     stop_words = set(stopwords.words('indonesian'))
 
     factory = StemmerFactory()
 
     stemmer = factory.create_stemmer()
 
+    # =========================================
+    # PREPROCESSING
+    # =========================================
     def case_folding(text):
         return str(text).lower()
 
@@ -554,6 +478,9 @@ else:
 
         return "Kasus Umum"
 
+    # =========================================
+    # PREPROCESSING PROCESS
+    # =========================================
     df["Case Folding"] = df["Judul Media Nasional"].apply(case_folding)
 
     df["Tokenizing"] = df["Case Folding"].apply(tokenizing)
@@ -569,11 +496,11 @@ else:
     df["Label"] = df["Judul Media Nasional"].apply(auto_label)
 
     # =========================================
-    # DATASET
+    # UPLOAD MENU
     # =========================================
     if menu == "📂 Upload Dataset":
 
-        st.subheader("📂 Dataset Awal")
+        st.subheader("📂 Dataset")
 
         st.dataframe(
             df[["Judul Media Nasional"]],
@@ -581,7 +508,7 @@ else:
         )
 
     # =========================================
-    # PREPROCESSING
+    # PREPROCESSING MENU
     # =========================================
     elif menu == "🧹 Preprocessing":
 
@@ -635,7 +562,7 @@ else:
             use_container_width=True
         )
 
-        st.write("### 5. Pelabelan")
+        st.write("### 5. Pelabelan Dataset")
 
         st.dataframe(
             df[
@@ -698,9 +625,12 @@ else:
         col1, col2, col3, col4 = st.columns(4)
 
         col1.metric("Accuracy", f"{accuracy:.2f}")
+
         col2.metric("Precision", f"{precision:.2f}")
+
         col3.metric("Recall", f"{recall:.2f}")
-        col4.metric("F1-Score", f"{f1:.2f}")
+
+        col4.metric("F1 Score", f"{f1:.2f}")
 
         st.write("### 📊 Confusion Matrix")
 
@@ -718,6 +648,7 @@ else:
         )
 
         plt.xlabel("Prediksi")
+
         plt.ylabel("Aktual")
 
         st.pyplot(fig)
