@@ -38,16 +38,13 @@ if "dark_mode" not in st.session_state:
     st.session_state.dark_mode = False
 
 # =========================================
-# DARK MODE TOGGLE
+# TOGGLE BUTTON
 # =========================================
-st.sidebar.markdown("### 🎨 Theme")
+top1, top2, top3 = st.columns([12,1,1])
 
-dark_toggle = st.sidebar.toggle(
-    "Dark Mode",
-    value=st.session_state.dark_mode
-)
-
-st.session_state.dark_mode = dark_toggle
+with top3:
+    if st.button("🌙" if not st.session_state.dark_mode else "☀️"):
+        st.session_state.dark_mode = not st.session_state.dark_mode
 
 # =========================================
 # COLOR MODE
@@ -81,15 +78,6 @@ st.markdown(f"""
 <style>
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
-
-:root {{
-
-    --text-main: {text_color};
-    --text-sub: {sub_text};
-    --bg-card: {bg_card};
-    --border: {border};
-
-}}
 
 html, body, [class*="css"] {{
     font-family: 'Poppins', sans-serif;
@@ -204,7 +192,7 @@ section[data-testid="stSidebar"] {{
     width: 140px;
     height: 140px;
     border-radius: 40px;
-    background: {"#0f172a" if st.session_state.dark_mode else "#ffffff"};
+    background: white;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -306,62 +294,6 @@ h1,h2,h3,h4,h5,h6,p,span,label,div {{
     color: {text_color} !important;
 }}
 
-section[data-testid="stSidebar"] * {{
-    color: {text_color} !important;
-}}
-
-/* =========================================
-UPLOAD FIX DARK MODE
-========================================= */
-
-[data-testid="stFileUploader"] * {{
-    color: var(--text-main) !important;
-}}
-
-[data-testid="stFileUploaderDropzone"] * {{
-    color: var(--text-main) !important;
-}}
-
-[data-testid="stFileUploaderDropzoneInstructions"] * {{
-    color: var(--text-main) !important;
-}}
-
-small {{
-    color: var(--text-sub) !important;
-}}
-
-.stRadio label p {{
-    color: var(--text-main) !important;
-}}
-
-[data-testid="stDataFrameToolbar"] * {{
-    color: var(--text-main) !important;
-}}
-
-.glideDataEditor * {{
-    color: var(--text-main) !important;
-}}
-
-[data-testid="stWidgetLabel"] * {{
-    color: var(--text-main) !important;
-}}
-
-[data-testid="stFileUploader"] small {{
-    color: var(--text-sub) !important;
-}}
-
-.row_heading {{
-    color: var(--text-main) !important;
-}}
-
-[data-testid="stMarkdownContainer"] * {{
-    color: var(--text-main) !important;
-}}
-
-[data-baseweb="tooltip"] {{
-    color: white !important;
-}}
-
 </style>
 """, unsafe_allow_html=True)
 
@@ -418,3 +350,407 @@ uploaded_file = st.sidebar.file_uploader(
     "Upload Dataset CSV",
     type=["csv"]
 )
+
+# =========================================
+# HERO SECTION
+# =========================================
+st.markdown(f"""
+<div class="main-card">
+
+<div class="hero">
+
+<div class="hero-icon">
+🚔
+</div>
+
+<div>
+
+<div class="hero-title">
+KLASIFIKASI TINGKAT KEJAHATAN
+</div>
+
+<div class="blue-line"></div>
+
+<div class="hero-subtitle">
+Naïve Bayes - Polres Pasaman
+</div>
+
+<div class="hero-desc">
+Sistem Machine Learning menggunakan algoritma Naïve Bayes
+untuk klasifikasi tingkat kejahatan berdasarkan berita kriminal.
+</div>
+
+</div>
+
+</div>
+""", unsafe_allow_html=True)
+
+# =========================================
+# JIKA BELUM UPLOAD
+# =========================================
+if uploaded_file is None:
+
+    st.markdown(f"""
+    <div class="info-box">
+
+    <div class="info-title">
+    Silakan upload dataset CSV terlebih dahulu
+    </div>
+
+    <div class="info-desc">
+    Pastikan file memiliki kolom "Judul Media Nasional"
+    </div>
+
+    </div>
+    """, unsafe_allow_html=True)
+
+# =========================================
+# JIKA FILE ADA
+# =========================================
+else:
+
+    df = pd.read_csv(uploaded_file)
+
+    if "Judul Media Nasional" not in df.columns:
+
+        st.error("Kolom 'Judul Media Nasional' tidak ditemukan!")
+
+        st.stop()
+
+    df = df[["Judul Media Nasional"]]
+
+    # =========================================
+    # STOPWORD & STEMMER
+    # =========================================
+    stop_words = set(stopwords.words('indonesian'))
+
+    factory = StemmerFactory()
+
+    stemmer = factory.create_stemmer()
+
+    # =========================================
+    # PREPROCESSING
+    # =========================================
+    def case_folding(text):
+        return str(text).lower()
+
+    def tokenizing(text):
+
+        text = re.sub(r'[^\w\s]', '', text)
+
+        return text.split()
+
+    def stopword_removal(tokens):
+
+        return [
+            word for word in tokens
+            if word not in stop_words
+        ]
+
+    def stemming(tokens):
+
+        return [
+            stemmer.stem(word)
+            for word in tokens
+        ]
+
+    malam_keywords = [
+        "malam",
+        "subuh",
+        "dini hari",
+        "tengah malam",
+        "larut malam",
+        "jam 1",
+        "jam 2",
+        "jam 3",
+        "jam 4",
+        "jam 5"
+    ]
+
+    def auto_label(text):
+
+        text = str(text).lower()
+
+        for keyword in malam_keywords:
+
+            if keyword in text:
+                return "Kasus Malam"
+
+        return "Kasus Umum"
+
+    # =========================================
+    # PREPROCESSING PROCESS
+    # =========================================
+    df["Case Folding"] = df["Judul Media Nasional"].apply(case_folding)
+
+    df["Tokenizing"] = df["Case Folding"].apply(tokenizing)
+
+    df["Stopword Removal"] = df["Tokenizing"].apply(stopword_removal)
+
+    df["Stemming"] = df["Stopword Removal"].apply(stemming)
+
+    df["Final Text"] = df["Stemming"].apply(
+        lambda x: " ".join(x)
+    )
+
+    df["Label"] = df["Judul Media Nasional"].apply(auto_label)
+
+    # =========================================
+    # UPLOAD MENU
+    # =========================================
+    if menu == "📂 Upload Dataset":
+
+        st.subheader("📂 Dataset")
+
+        st.dataframe(
+            df[["Judul Media Nasional"]],
+            use_container_width=True
+        )
+
+    # =========================================
+    # PREPROCESSING MENU
+    # =========================================
+    elif menu == "🧹 Preprocessing":
+
+        st.subheader("🧹 Preprocessing")
+
+        st.write("### 1. Case Folding")
+
+        st.dataframe(
+            df[
+                [
+                    "Judul Media Nasional",
+                    "Case Folding"
+                ]
+            ],
+            use_container_width=True
+        )
+
+        st.write("### 2. Tokenizing")
+
+        st.dataframe(
+            df[
+                [
+                    "Case Folding",
+                    "Tokenizing"
+                ]
+            ],
+            use_container_width=True
+        )
+
+        st.write("### 3. Stopword Removal")
+
+        st.dataframe(
+            df[
+                [
+                    "Tokenizing",
+                    "Stopword Removal"
+                ]
+            ],
+            use_container_width=True
+        )
+
+        st.write("### 4. Stemming")
+
+        st.dataframe(
+            df[
+                [
+                    "Stopword Removal",
+                    "Stemming"
+                ]
+            ],
+            use_container_width=True
+        )
+
+        st.write("### 5. Pelabelan Dataset")
+
+        st.dataframe(
+            df[
+                [
+                    "Judul Media Nasional",
+                    "Label"
+                ]
+            ],
+            use_container_width=True
+        )
+
+    # =========================================
+    # KLASIFIKASI
+    # =========================================
+    elif menu == "📊 Klasifikasi Naïve Bayes":
+
+        st.subheader("📊 Klasifikasi Naïve Bayes")
+
+        X = df["Final Text"]
+
+        y = df["Label"]
+
+        tfidf = TfidfVectorizer()
+
+        X_tfidf = tfidf.fit_transform(X)
+
+        X_train, X_test, y_train, y_test = train_test_split(
+            X_tfidf,
+            y,
+            test_size=0.2,
+            random_state=42
+        )
+
+        model = MultinomialNB()
+
+        model.fit(X_train, y_train)
+
+        y_pred = model.predict(X_test)
+
+        accuracy = accuracy_score(y_test, y_pred)
+
+        precision = precision_score(
+            y_test,
+            y_pred,
+            average='weighted'
+        )
+
+        recall = recall_score(
+            y_test,
+            y_pred,
+            average='weighted'
+        )
+
+        f1 = f1_score(
+            y_test,
+            y_pred,
+            average='weighted'
+        )
+
+        col1, col2, col3, col4 = st.columns(4)
+
+        col1.metric("Accuracy", f"{accuracy:.2f}")
+
+        col2.metric("Precision", f"{precision:.2f}")
+
+        col3.metric("Recall", f"{recall:.2f}")
+
+        col4.metric("F1 Score", f"{f1:.2f}")
+
+        st.write("### 📊 Confusion Matrix")
+
+        cm = confusion_matrix(y_test, y_pred)
+
+        fig, ax = plt.subplots(figsize=(6,4))
+
+        sns.heatmap(
+            cm,
+            annot=True,
+            fmt='d',
+            cmap='Blues',
+            xticklabels=model.classes_,
+            yticklabels=model.classes_
+        )
+
+        plt.xlabel("Prediksi")
+
+        plt.ylabel("Aktual")
+
+        st.pyplot(fig)
+
+        st.write("### 📄 Classification Report")
+
+        report = classification_report(
+            y_test,
+            y_pred
+        )
+
+        st.text(report)
+
+        joblib.dump(
+            model,
+            "model_naive_bayes.pkl"
+        )
+
+        joblib.dump(
+            tfidf,
+            "tfidf_vectorizer.pkl"
+        )
+
+        st.success("Model berhasil disimpan!")
+
+    # =========================================
+    # PREDIKSI
+    # =========================================
+    elif menu == "📈 Prediksi":
+
+        st.subheader("📈 Prediksi Tingkat Kejahatan")
+
+        try:
+
+            model = joblib.load(
+                "model_naive_bayes.pkl"
+            )
+
+            tfidf = joblib.load(
+                "tfidf_vectorizer.pkl"
+            )
+
+            input_text = st.text_area(
+                "Masukkan Judul Berita"
+            )
+
+            if st.button("Prediksi"):
+
+                input_lower = input_text.lower()
+
+                detected = False
+
+                for keyword in malam_keywords:
+
+                    if keyword in input_lower:
+
+                        prediction = "Kasus Malam"
+
+                        detected = True
+
+                        break
+
+                if not detected:
+
+                    text = input_text.lower()
+
+                    text = re.sub(
+                        r'[^\w\s]',
+                        '',
+                        text
+                    )
+
+                    tokens = text.split()
+
+                    tokens = [
+                        word for word in tokens
+                        if word not in stop_words
+                    ]
+
+                    tokens = [
+                        stemmer.stem(word)
+                        for word in tokens
+                    ]
+
+                    final_text = " ".join(tokens)
+
+                    vector = tfidf.transform(
+                        [final_text]
+                    )
+
+                    prediction = model.predict(
+                        vector
+                    )[0]
+
+                st.success(
+                    f"Hasil Prediksi: {prediction}"
+                )
+
+        except:
+
+            st.warning(
+                "Silakan lakukan klasifikasi terlebih dahulu!"
+            )
+
+st.markdown("</div>", unsafe_allow_html=True)
