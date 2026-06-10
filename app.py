@@ -47,42 +47,52 @@ with top3:
         st.session_state.dark_mode = not st.session_state.dark_mode
 
 # =========================================
-# COLOR MODE
-# =========================================
-if st.session_state.dark_mode:
-
-    bg_main = "#0f172a"
-    bg_sidebar = "#111827"
-    card_bg = "#1e293b"
-    text_color = "#f8fafc"
-    sub_text = "#94a3b8"
-    border = "#334155"
-    info_bg = "#1e3a8a"
-
-else:
-
-    bg_main = "#f7faff"
-    bg_sidebar = "#ffffff"
-    card_bg = "rgba(255,255,255,0.92)"
-    text_color = "#0f172a"
-    sub_text = "#64748b"
-    border = "#e5e7eb"
-    info_bg = "#dbeafe"
-
-# =========================================
 # CUSTOM CSS
 # =========================================
 st.markdown(f"""
 <style>
 
-/* FONT */
+/* =========================
+FONT
+========================= */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
 html, body, [class*="css"] {{
     font-family: 'Poppins', sans-serif;
 }}
 
-/* HIDE */
+/* =========================
+GLOBAL COLOR
+========================= */
+:root {{
+
+    --bg-main: {"#0f172a" if st.session_state.dark_mode else "#f4f7fb"};
+
+    --bg-card: {"#1e293b" if st.session_state.dark_mode else "#ffffff"};
+
+    --bg-sidebar: {"#111827" if st.session_state.dark_mode else "#ffffff"};
+
+    --text-main: {"#ffffff" if st.session_state.dark_mode else "#0f172a"};
+
+    --text-sub: {"#cbd5e1" if st.session_state.dark_mode else "#64748b"};
+
+    --border: {"#334155" if st.session_state.dark_mode else "#e5e7eb"};
+
+    --hover: {"#1e40af" if st.session_state.dark_mode else "#eff6ff"};
+
+    --upload-bg: {"#1e3a8a" if st.session_state.dark_mode else "#dbeafe"};
+}}
+
+/* =========================
+BACKGROUND
+========================= */
+.stApp {{
+    background: var(--bg-main);
+}}
+
+/* =========================
+HIDE STREAMLIT
+========================= */
 #MainMenu {{
     visibility: hidden;
 }}
@@ -95,103 +105,124 @@ header {{
     background: transparent !important;
 }}
 
-/* SIDEBAR BUTTON */
-[data-testid="collapsedControl"] {{
-    display: block !important;
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    z-index: 999999;
-    background: white;
-    border-radius: 14px;
-    padding: 8px;
-    box-shadow: 0px 5px 15px rgba(0,0,0,0.08);
-}}
-
-/* BACKGROUND */
-.stApp {{
-    background: {bg_main};
-}}
-
-/* SIDEBAR */
+/* =========================
+SIDEBAR
+========================= */
 section[data-testid="stSidebar"] {{
-    background: {bg_sidebar};
-    border-right: 1px solid {border};
+    background: var(--bg-sidebar);
+    border-right: 1px solid var(--border);
     width: 320px !important;
 }}
 
-/* LOGO */
+/* =========================
+SIDEBAR BUTTON
+========================= */
+[data-testid="collapsedControl"] {{
+    display: block !important;
+    background: white;
+    border-radius: 12px;
+    padding: 8px;
+}}
+
+/* =========================
+TEXT
+========================= */
+h1,h2,h3,h4,h5,h6,p,label,span,div {{
+    color: var(--text-main) !important;
+}}
+
+/* =========================
+LOGO
+========================= */
 .logo-container {{
     display: flex;
     align-items: center;
     gap: 16px;
-    margin-bottom: 45px;
+    margin-bottom: 40px;
 }}
 
 .logo-icon {{
-    width: 72px;
-    height: 72px;
-    border-radius: 20px;
+    width: 68px;
+    height: 68px;
+    border-radius: 22px;
     background: linear-gradient(
         135deg,
         #2563eb,
         #3b82f6
     );
     display: flex;
-    align-items: center;
     justify-content: center;
-    font-size: 36px;
+    align-items: center;
+    font-size: 34px;
     color: white;
-    box-shadow: 0px 10px 30px rgba(37,99,235,0.35);
+    box-shadow: 0px 10px 25px rgba(37,99,235,0.3);
 }}
 
 .logo-title {{
     font-size: 32px;
     font-weight: 800;
-    color: {text_color};
     line-height: 1;
 }}
 
 .logo-sub {{
-    color: {sub_text};
-    font-size: 15px;
+    color: var(--text-sub) !important;
+    font-size: 14px;
     margin-top: 4px;
 }}
 
-/* MENU */
+/* =========================
+MENU TITLE
+========================= */
 .menu-title {{
-    font-size: 14px;
-    color: #94a3b8;
+    font-size: 13px;
     font-weight: 700;
+    color: #94a3b8 !important;
     letter-spacing: 1px;
     margin-bottom: 10px;
 }}
 
+/* =========================
+RADIO MENU
+========================= */
 .stRadio > div {{
     gap: 12px;
 }}
 
 .stRadio label {{
-    background: transparent;
     padding: 14px 18px;
     border-radius: 18px;
     transition: 0.3s;
     font-weight: 600;
-    color: {text_color};
+    background: transparent;
 }}
 
 .stRadio label:hover {{
-    background: rgba(37,99,235,0.08);
+    background: var(--hover);
 }}
 
-/* HERO */
+/* =========================
+UPLOAD
+========================= */
+[data-testid="stFileUploader"] {{
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 20px;
+}}
+
+/* =========================
+CARD
+========================= */
 .main-card {{
-    background: {card_bg};
+    background: var(--bg-card);
     border-radius: 40px;
     padding: 40px;
     box-shadow: 0px 15px 40px rgba(0,0,0,0.04);
 }}
 
+/* =========================
+HERO
+========================= */
 .hero {{
     display: flex;
     align-items: center;
@@ -202,20 +233,17 @@ section[data-testid="stSidebar"] {{
     width: 140px;
     height: 140px;
     border-radius: 40px;
-    background: white;
+    background: {"#0f172a" if st.session_state.dark_mode else "#ffffff"};
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     font-size: 75px;
-    box-shadow: 0px 10px 30px rgba(0,0,0,0.05);
 }}
 
 .hero-title {{
-    font-size: 74px;
+    font-size: 72px;
     font-weight: 800;
-    color: {text_color};
     line-height: 1.1;
-    margin-bottom: 14px;
 }}
 
 .blue-line {{
@@ -223,26 +251,26 @@ section[data-testid="stSidebar"] {{
     height: 7px;
     border-radius: 20px;
     background: #2563eb;
-    margin-bottom: 24px;
+    margin: 20px 0;
 }}
 
 .hero-subtitle {{
     font-size: 30px;
     font-weight: 700;
-    color: {text_color};
-    margin-bottom: 18px;
 }}
 
 .hero-desc {{
-    color: {sub_text};
-    font-size: 19px;
+    color: var(--text-sub) !important;
+    font-size: 18px;
     line-height: 1.8;
 }}
 
-/* INFO BOX */
+/* =========================
+INFO BOX
+========================= */
 .info-box {{
     margin-top: 35px;
-    background: {info_bg};
+    background: var(--upload-bg);
     border-radius: 35px;
     padding: 35px;
     display: flex;
@@ -261,82 +289,81 @@ section[data-testid="stSidebar"] {{
     height: 70px;
     border-radius: 50%;
     background: #2563eb;
-    color: white;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 34px;
+    color: white !important;
+    font-size: 32px;
     font-weight: bold;
 }}
 
 .info-title {{
     font-size: 28px;
     font-weight: 700;
-    color: {text_color};
 }}
 
 .info-desc {{
-    color: {sub_text};
-    font-size: 18px;
-    margin-top: 8px;
+    color: var(--text-sub) !important;
+    font-size: 17px;
 }}
 
 .csv-icon {{
-    font-size: 95px;
+    font-size: 90px;
 }}
 
-/* FILE UPLOADER */
-[data-testid="stFileUploader"] {{
-    background: {card_bg};
-    border: 1px solid {border};
-    border-radius: 24px;
-    padding: 20px;
-}}
-
-/* BUTTON */
+/* =========================
+BUTTON
+========================= */
 .stButton > button {{
     background: linear-gradient(
         90deg,
         #2563eb,
         #3b82f6
     );
-    color: white;
+    color: white !important;
     border: none;
     border-radius: 18px;
     height: 55px;
     width: 100%;
     font-size: 16px;
     font-weight: 700;
-    box-shadow: 0px 10px 25px rgba(37,99,235,0.3);
 }}
 
-.stButton > button:hover {{
-    transform: translateY(-2px);
+/* =========================
+INPUT
+========================= */
+.stTextInput input,
+.stTextArea textarea {{
+    background: var(--bg-card) !important;
+    color: var(--text-main) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 16px !important;
 }}
 
-/* METRIC */
-[data-testid="metric-container"] {{
-    background: {card_bg};
-    border-radius: 24px;
-    padding: 24px;
-    border: 1px solid {border};
-}}
-
-/* DATAFRAME */
+/* =========================
+DATAFRAME
+========================= */
 [data-testid="stDataFrame"] {{
-    border-radius: 25px;
+    border-radius: 22px;
     overflow: hidden;
-    border: 1px solid {border};
+    border: 1px solid var(--border);
 }}
 
-/* TEXT */
-h1,h2,h3,h4,h5,h6,p,span,label {{
-    color: {text_color} !important;
+/* =========================
+METRIC
+========================= */
+[data-testid="metric-container"] {{
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 20px;
 }}
 
-/* TEXT AREA */
-textarea {{
-    border-radius: 18px !important;
+/* =========================
+SUCCESS
+========================= */
+.stSuccess {{
+    border-radius: 18px;
 }}
 
 </style>
@@ -430,9 +457,6 @@ untuk klasifikasi tingkat kejahatan berdasarkan berita kriminal.
 </div>
 """, unsafe_allow_html=True)
 
-# =========================================
-# BELUM UPLOAD
-# =========================================
 if uploaded_file is None:
 
     st.markdown("""
@@ -798,5 +822,4 @@ else:
                 "Silakan lakukan klasifikasi terlebih dahulu!"
             )
 
-# CLOSE CARD
 st.markdown("</div>", unsafe_allow_html=True)
