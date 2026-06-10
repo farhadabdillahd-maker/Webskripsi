@@ -26,7 +26,7 @@ import seaborn as sns
 # =========================================
 st.set_page_config(
     page_title="Klasifikasi Tingkat Kejahatan",
-    page_icon="🛡️",
+    page_icon="🚔",
     layout="wide"
 )
 
@@ -36,10 +36,10 @@ st.set_page_config(
 st.markdown("""
 <style>
 
-/* GOOGLE FONT */
+/* IMPORT FONT */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
-html, body, [class*="css"] {
+html, body, [class*="css"]  {
     font-family: 'Poppins', sans-serif;
 }
 
@@ -60,207 +60,97 @@ header {
 .stApp {
     background: linear-gradient(
         135deg,
-        #f7faff 0%,
+        #f8fbff 0%,
         #eef4ff 100%
     );
 }
 
 /* SIDEBAR */
 section[data-testid="stSidebar"] {
-    background: #ffffff;
+    background-color: #ffffff;
     border-right: 1px solid #e5e7eb;
-    width: 330px !important;
+    width: 320px !important;
 }
 
 /* SIDEBAR CONTENT */
-.sidebar-container {
+.sidebar-content {
     padding-top: 10px;
 }
 
 /* LOGO */
-.logo-container {
+.logo-box {
     display: flex;
     align-items: center;
-    gap: 16px;
-    margin-bottom: 45px;
+    gap: 14px;
+    margin-bottom: 40px;
 }
 
 .logo-icon {
-    width: 70px;
-    height: 70px;
-    border-radius: 20px;
-    background: linear-gradient(
-        135deg,
-        #2563eb,
-        #3b82f6
-    );
+    width: 65px;
+    height: 65px;
+    background: linear-gradient(135deg,#2563eb,#3b82f6);
+    border-radius: 18px;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     font-size: 34px;
     color: white;
-    box-shadow: 0px 10px 30px rgba(37,99,235,0.35);
+    box-shadow: 0px 10px 25px rgba(37,99,235,0.3);
 }
 
-.logo-title {
-    font-size: 32px;
+.logo-text h1 {
+    font-size: 34px;
     font-weight: 800;
     color: #0f172a;
+    margin: 0;
     line-height: 1;
 }
 
-.logo-sub {
+.logo-text p {
+    margin: 0;
     color: #64748b;
     font-size: 15px;
-    margin-top: 4px;
 }
 
-/* MENU TEXT */
-.menu-label {
+/* MENU TITLE */
+.menu-title {
     font-size: 14px;
     color: #94a3b8;
     font-weight: 700;
-    letter-spacing: 1px;
     margin-bottom: 10px;
+    letter-spacing: 1px;
 }
 
-/* RADIO */
-.stRadio > div {
-    gap: 12px;
-}
-
-/* RADIO BUTTON */
-.stRadio label {
-    background: transparent;
-    padding: 14px 18px;
-    border-radius: 18px;
-    transition: 0.3s;
-    font-weight: 500;
-    color: #334155;
-}
-
-.stRadio label:hover {
-    background: #eff6ff;
-}
-
-/* FILE UPLOADER */
-[data-testid="stFileUploader"] {
-    background: white;
-    border: 1px solid #e5e7eb;
-    padding: 20px;
-    border-radius: 24px;
-}
-
-/* MAIN CARD */
-.main-card {
-    background: rgba(255,255,255,0.85);
-    padding: 40px;
-    border-radius: 40px;
+/* CARD */
+.custom-card {
+    background: rgba(255,255,255,0.9);
+    padding: 35px;
+    border-radius: 35px;
     box-shadow: 0px 15px 40px rgba(0,0,0,0.04);
+    margin-bottom: 25px;
     backdrop-filter: blur(10px);
 }
 
-/* HERO */
-.hero {
-    display: flex;
-    align-items: center;
-    gap: 35px;
-}
-
-/* HERO ICON */
-.hero-icon {
-    width: 140px;
-    height: 140px;
-    background: white;
-    border-radius: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 75px;
-    box-shadow: 0px 10px 30px rgba(0,0,0,0.05);
-}
-
-/* HERO TITLE */
-.hero-title {
-    font-size: 74px;
+/* TITLE */
+.main-title {
+    font-size: 72px;
     font-weight: 800;
     color: #0f172a;
     line-height: 1.1;
-    margin-bottom: 14px;
+    margin-bottom: 10px;
 }
 
-/* BLUE LINE */
-.blue-line {
-    width: 90px;
-    height: 7px;
-    background: #2563eb;
-    border-radius: 20px;
-    margin-bottom: 24px;
-}
-
-/* SUBTITLE */
-.hero-subtitle {
-    font-size: 30px;
-    font-weight: 700;
-    color: #0f172a;
-    margin-bottom: 18px;
-}
-
-/* DESCRIPTION */
-.hero-desc {
-    color: #64748b;
-    font-size: 19px;
-    line-height: 1.8;
-}
-
-/* INFO BOX */
-.info-box {
-    margin-top: 35px;
-    background: linear-gradient(
-        135deg,
-        #eff6ff,
-        #dbeafe
-    );
-    border-radius: 35px;
-    padding: 35px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.info-left {
-    display: flex;
-    align-items: center;
-    gap: 25px;
-}
-
-.info-circle {
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    background: #2563eb;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 34px;
-    font-weight: bold;
-}
-
-.info-title {
+.sub-title {
     font-size: 28px;
+    color: #1e293b;
     font-weight: 700;
-    color: #0f172a;
+    margin-bottom: 20px;
 }
 
-.info-desc {
+.desc {
     color: #64748b;
     font-size: 18px;
-    margin-top: 8px;
-}
-
-.csv-icon {
-    font-size: 90px;
+    line-height: 1.8;
 }
 
 /* BUTTON */
@@ -277,19 +167,24 @@ section[data-testid="stSidebar"] {
     width: 100%;
     font-size: 16px;
     font-weight: 700;
-    box-shadow: 0px 10px 25px rgba(37,99,235,0.3);
     transition: 0.3s;
+    box-shadow: 0px 10px 25px rgba(37,99,235,0.3);
 }
 
 .stButton > button:hover {
     transform: translateY(-2px);
+    background: linear-gradient(
+        90deg,
+        #1d4ed8,
+        #2563eb
+    );
 }
 
 /* METRIC */
 [data-testid="metric-container"] {
     background: white;
-    border-radius: 24px;
-    padding: 24px;
+    border-radius: 25px;
+    padding: 25px;
     border: 1px solid #e5e7eb;
     box-shadow: 0px 10px 25px rgba(0,0,0,0.04);
 }
@@ -298,6 +193,14 @@ section[data-testid="stSidebar"] {
 [data-testid="stDataFrame"] {
     border-radius: 25px;
     overflow: hidden;
+    border: 1px solid #e5e7eb;
+}
+
+/* FILE UPLOADER */
+[data-testid="stFileUploader"] {
+    background: white;
+    padding: 20px;
+    border-radius: 25px;
     border: 1px solid #e5e7eb;
 }
 
@@ -316,34 +219,73 @@ textarea {
     border-radius: 20px;
 }
 
+/* RADIO */
+.stRadio > div {
+    gap: 12px;
+}
+
+/* SECTION TITLE */
+.section-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #94a3b8;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+/* INFO BOX */
+.info-box {
+    background: linear-gradient(
+        135deg,
+        #eff6ff,
+        #dbeafe
+    );
+    border-radius: 30px;
+    padding: 35px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.info-text h2 {
+    color: #0f172a;
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.info-text p {
+    color: #64748b;
+    font-size: 18px;
+}
+
+.info-icon {
+    font-size: 80px;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
 # =========================================
-# SIDEBAR
+# SIDEBAR HEADER
 # =========================================
 st.sidebar.markdown("""
-<div class="sidebar-container">
+<div class="sidebar-content">
 
-<div class="logo-container">
+<div class="logo-box">
 
 <div class="logo-icon">
 🛡️
 </div>
 
-<div>
-<div class="logo-title">
-KLASIFIKASI
-</div>
-
-<div class="logo-sub">
-TINGKAT KEJAHATAN
-</div>
+<div class="logo-text">
+<h1>KLASIFIKASI</h1>
+<p>TINGKAT KEJAHATAN</p>
 </div>
 
 </div>
 
-<div class="menu-label">
+<div class="menu-title">
 MENU
 </div>
 
@@ -351,15 +293,15 @@ MENU
 """, unsafe_allow_html=True)
 
 # =========================================
-# MENU
+# SIDEBAR MENU
 # =========================================
 menu = st.sidebar.radio(
     "",
     [
         "📂 Upload Dataset",
         "🧹 Preprocessing",
-        "📊 Klasifikasi Naïve Bayes",
-        "📈 Prediksi"
+        "🤖 Klasifikasi Naïve Bayes",
+        "🔍 Prediksi"
     ]
 )
 
@@ -367,7 +309,7 @@ menu = st.sidebar.radio(
 # FILE UPLOADER
 # =========================================
 st.sidebar.markdown("""
-<div class="menu-label" style="margin-top:30px;">
+<div class="section-title">
 DATASET
 </div>
 """, unsafe_allow_html=True)
@@ -378,32 +320,50 @@ uploaded_file = st.sidebar.file_uploader(
 )
 
 # =========================================
-# HERO SECTION
+# HEADER
 # =========================================
 st.markdown("""
-<div class="main-card">
+<div class="custom-card">
 
-<div class="hero">
+<div style="display:flex;align-items:center;gap:30px;">
 
-<div class="hero-icon">
+<div style="
+width:130px;
+height:130px;
+border-radius:35px;
+background:white;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:70px;
+box-shadow:0px 10px 25px rgba(0,0,0,0.05);
+">
 🚔
 </div>
 
 <div>
 
-<div class="hero-title">
+<div class="main-title">
 KLASIFIKASI TINGKAT KEJAHATAN
 </div>
 
-<div class="blue-line"></div>
+<div style="
+width:90px;
+height:8px;
+border-radius:20px;
+background:#2563eb;
+margin-bottom:20px;
+"></div>
 
-<div class="hero-subtitle">
+<div class="sub-title">
 Naïve Bayes - Polres Pasaman
 </div>
 
-<div class="hero-desc">
+<div class="desc">
 Sistem Machine Learning menggunakan algoritma Naïve Bayes
 untuk klasifikasi tingkat kejahatan berdasarkan berita kriminal.
+</div>
+
 </div>
 
 </div>
@@ -412,49 +372,14 @@ untuk klasifikasi tingkat kejahatan berdasarkan berita kriminal.
 """, unsafe_allow_html=True)
 
 # =========================================
-# JIKA BELUM UPLOAD
-# =========================================
-if uploaded_file is None:
-
-    st.markdown("""
-    <div class="info-box">
-
-    <div class="info-left">
-
-    <div class="info-circle">
-    i
-    </div>
-
-    <div>
-
-    <div class="info-title">
-    Silakan upload dataset CSV terlebih dahulu.
-    </div>
-
-    <div class="info-desc">
-    Pastikan file berformat CSV dan sesuai dengan struktur data.
-    </div>
-
-    </div>
-
-    </div>
-
-    <div class="csv-icon">
-    📄
-    </div>
-
-    </div>
-    """, unsafe_allow_html=True)
-
-# =========================================
 # JIKA FILE ADA
 # =========================================
-else:
+if uploaded_file is not None:
 
     # READ CSV
     df = pd.read_csv(uploaded_file)
 
-    # VALIDASI
+    # VALIDASI KOLOM
     if "Judul Media Nasional" not in df.columns:
 
         st.error("Kolom 'Judul Media Nasional' tidak ditemukan!")
@@ -483,7 +408,7 @@ else:
 
         return text.split()
 
-    # STOPWORD
+    # STOPWORD REMOVAL
     def stopword_removal(tokens):
 
         return [
@@ -513,7 +438,7 @@ else:
         "jam 5"
     ]
 
-    # LABEL
+    # AUTO LABEL
     def auto_label(text):
 
         text = str(text).lower()
@@ -527,40 +452,58 @@ else:
         return "Kasus Umum"
 
     # PREPROCESSING
-    df["Case Folding"] = df["Judul Media Nasional"].apply(case_folding)
+    df["Case Folding"] = df["Judul Media Nasional"].apply(
+        case_folding
+    )
 
-    df["Tokenizing"] = df["Case Folding"].apply(tokenizing)
+    df["Tokenizing"] = df["Case Folding"].apply(
+        tokenizing
+    )
 
-    df["Stopword Removal"] = df["Tokenizing"].apply(stopword_removal)
+    df["Stopword Removal"] = df["Tokenizing"].apply(
+        stopword_removal
+    )
 
-    df["Stemming"] = df["Stopword Removal"].apply(stemming)
+    df["Stemming"] = df["Stopword Removal"].apply(
+        stemming
+    )
 
     df["Final Text"] = df["Stemming"].apply(
         lambda x: " ".join(x)
     )
 
-    df["Label"] = df["Judul Media Nasional"].apply(auto_label)
+    df["Label"] = df["Judul Media Nasional"].apply(
+        auto_label
+    )
 
     # =========================================
     # MENU DATASET
     # =========================================
     if menu == "📂 Upload Dataset":
 
-        st.subheader("📂 Dataset Awal")
+        st.markdown('<div class="custom-card">', unsafe_allow_html=True)
+
+        st.header("📂 Dataset Awal")
 
         st.dataframe(
             df[["Judul Media Nasional"]],
             use_container_width=True
         )
 
+        st.success("Dataset berhasil diupload!")
+
+        st.markdown('</div>', unsafe_allow_html=True)
+
     # =========================================
     # PREPROCESSING
     # =========================================
     elif menu == "🧹 Preprocessing":
 
-        st.subheader("🧹 Preprocessing Text")
+        st.markdown('<div class="custom-card">', unsafe_allow_html=True)
 
-        st.write("### 1. Case Folding")
+        st.header("🧹 Preprocessing Text")
+
+        st.subheader("1. Case Folding")
 
         st.dataframe(
             df[
@@ -572,7 +515,7 @@ else:
             use_container_width=True
         )
 
-        st.write("### 2. Tokenizing")
+        st.subheader("2. Tokenizing")
 
         st.dataframe(
             df[
@@ -584,7 +527,7 @@ else:
             use_container_width=True
         )
 
-        st.write("### 3. Stopword Removal")
+        st.subheader("3. Stopword Removal")
 
         st.dataframe(
             df[
@@ -596,7 +539,7 @@ else:
             use_container_width=True
         )
 
-        st.write("### 4. Stemming")
+        st.subheader("4. Stemming")
 
         st.dataframe(
             df[
@@ -608,7 +551,7 @@ else:
             use_container_width=True
         )
 
-        st.write("### 5. Pelabelan Dataset")
+        st.subheader("5. Pelabelan Dataset")
 
         st.dataframe(
             df[
@@ -620,12 +563,16 @@ else:
             use_container_width=True
         )
 
+        st.markdown('</div>', unsafe_allow_html=True)
+
     # =========================================
     # KLASIFIKASI
     # =========================================
-    elif menu == "📊 Klasifikasi Naïve Bayes":
+    elif menu == "🤖 Klasifikasi Naïve Bayes":
 
-        st.subheader("📊 Klasifikasi Naïve Bayes")
+        st.markdown('<div class="custom-card">', unsafe_allow_html=True)
+
+        st.header("🤖 Klasifikasi Naïve Bayes")
 
         X = df["Final Text"]
 
@@ -636,7 +583,7 @@ else:
 
         X_tfidf = tfidf.fit_transform(X)
 
-        # SPLIT
+        # SPLIT DATA
         X_train, X_test, y_train, y_test = train_test_split(
             X_tfidf,
             y,
@@ -647,8 +594,10 @@ else:
         # MODEL
         model = MultinomialNB()
 
+        # TRAINING
         model.fit(X_train, y_train)
 
+        # PREDIKSI
         y_pred = model.predict(X_test)
 
         # METRIK
@@ -672,21 +621,21 @@ else:
             average='weighted'
         )
 
-        # METRIC
+        # METRIC UI
         col1, col2, col3, col4 = st.columns(4)
 
         col1.metric("Accuracy", f"{accuracy:.2f}")
-
         col2.metric("Precision", f"{precision:.2f}")
-
         col3.metric("Recall", f"{recall:.2f}")
-
         col4.metric("F1-Score", f"{f1:.2f}")
 
-        # CM
-        st.write("### 📊 Confusion Matrix")
+        # CONFUSION MATRIX
+        st.subheader("📊 Confusion Matrix")
 
-        cm = confusion_matrix(y_test, y_pred)
+        cm = confusion_matrix(
+            y_test,
+            y_pred
+        )
 
         fig, ax = plt.subplots(figsize=(6,4))
 
@@ -705,7 +654,7 @@ else:
         st.pyplot(fig)
 
         # REPORT
-        st.write("### 📄 Classification Report")
+        st.subheader("📄 Classification Report")
 
         report = classification_report(
             y_test,
@@ -714,7 +663,7 @@ else:
 
         st.text(report)
 
-        # SAVE
+        # SAVE MODEL
         joblib.dump(
             model,
             "model_naive_bayes.pkl"
@@ -727,12 +676,16 @@ else:
 
         st.success("Model berhasil disimpan!")
 
+        st.markdown('</div>', unsafe_allow_html=True)
+
     # =========================================
     # PREDIKSI
     # =========================================
-    elif menu == "📈 Prediksi":
+    elif menu == "🔍 Prediksi":
 
-        st.subheader("📈 Prediksi Tingkat Kejahatan")
+        st.markdown('<div class="custom-card">', unsafe_allow_html=True)
+
+        st.header("🔍 Prediksi Tingkat Kejahatan")
 
         try:
 
@@ -806,5 +759,26 @@ else:
                 "Silakan lakukan klasifikasi terlebih dahulu!"
             )
 
-# CLOSE MAIN CARD
-st.markdown("</div>", unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
+
+# =========================================
+# BELUM UPLOAD
+# =========================================
+else:
+
+    st.markdown("""
+    <div class="info-box">
+
+    <div class="info-text">
+        <h2>Silakan upload dataset CSV terlebih dahulu.</h2>
+        <p>
+        Pastikan file berformat CSV dan sesuai dengan struktur data.
+        </p>
+    </div>
+
+    <div class="info-icon">
+        📄
+    </div>
+
+    </div>
+    """, unsafe_allow_html=True)
