@@ -116,85 +116,63 @@ if uploaded_file is not None:
     # ====================================
     # STOPWORD & STEMMER
     # ====================================
+    
     # ====================================
-# STOPWORD & STEMMER
-# ====================================
-# ====================================
-# STOPWORD & STEMMER
-# ====================================
-try:
-    stop_words = set(stopwords.words('indonesian'))
-except LookupError:
-    nltk.download('stopwords')
-    stop_words = set(stopwords.words('indonesian'))
+    # STOPWORD & STEMMER
+    # ====================================
+    try:
+        stop_words = set(stopwords.words('indonesian'))
+    except LookupError:
+        nltk.download('stopwords')
+        stop_words = set(stopwords.words('indonesian'))
 
-factory = StemmerFactory()
-stemmer = factory.create_stemmer()
+    factory = StemmerFactory()
+    stemmer = factory.create_stemmer()
 
-# ====================================
-# CASE FOLDING
-# ====================================
-def case_folding(text):
-    return str(text).lower()
+    # ====================================
+    # CASE FOLDING
+    # ====================================
+    def case_folding(text):
+        return str(text).lower()
 
-# ====================================
-# TOKENIZING
-# ====================================
-def tokenizing(text):
-    text = re.sub(r'[^\w\s]', '', text)
-    return text.split()
+    # ====================================
+    # TOKENIZING
+    # ====================================
+    def tokenizing(text):
+        text = re.sub(r'[^\w\s]', '', text)
+        return text.split()
+
     # ====================================
     # STOPWORD REMOVAL
     # ====================================
     def stopword_removal(tokens):
-
-        return [
-            word for word in tokens
-            if word not in stop_words
-        ]
+        return [word for word in tokens if word not in stop_words]
 
     # ====================================
     # STEMMING
     # ====================================
     def stemming(tokens):
-
-        return [
-            stemmer.stem(word)
-            for word in tokens
-        ]
+        return [stemmer.stem(word) for word in tokens]
 
     # ====================================
     # AUTO LABELING
     # ====================================
     malam_keywords = [
-        "malam",
-        "subuh",
-        "dini hari",
-        "tengah malam",
-        "larut malam",
-        "jam 1",
-        "jam 2",
-        "jam 3",
-        "jam 4",
-        "jam 5"
+        "malam","subuh","dini hari","tengah malam","larut malam",
+        "jam 1","jam 2","jam 3","jam 4","jam 5"
     ]
 
     def auto_label(text):
-
         text = str(text).lower()
-
         for keyword in malam_keywords:
-
             if keyword in text:
-
                 return "Kasus Malam"
-
         return "Kasus Umum"
 
     # ====================================
     # PREPROCESSING
     # ====================================
-    df["Case Folding"] = df["Judul Media Nasional"].apply(
+df["Case Folding"] = df["Judul Media Nasional"].apply(
         case_folding
     )
 
