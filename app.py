@@ -116,10 +116,6 @@ if uploaded_file is not None:
     # ====================================
     # STOPWORD & STEMMER
     # ====================================
-    
-    # ====================================
-    # STOPWORD & STEMMER
-    # ====================================
     try:
         stop_words = set(stopwords.words('indonesian'))
     except LookupError:
@@ -157,10 +153,7 @@ if uploaded_file is not None:
     # ====================================
     # AUTO LABELING
     # ====================================
-    malam_keywords = [
-        "malam","subuh","dini hari","tengah malam","larut malam",
-        "jam 1","jam 2","jam 3","jam 4","jam 5"
-    ]
+    malam_keywords = ["malam","subuh","dini hari","tengah malam","larut malam","jam 1","jam 2","jam 3","jam 4","jam 5"]
 
     def auto_label(text):
         text = str(text).lower()
@@ -169,10 +162,7 @@ if uploaded_file is not None:
                 return "Kasus Malam"
         return "Kasus Umum"
 
-    # ====================================
-    # PREPROCESSING
-    # ====================================
-df["Case Folding"] = df["Judul Media Nasional"].apply(
+    df["Case Folding"] = df["Judul Media Nasional"].apply(
         case_folding
     )
 
