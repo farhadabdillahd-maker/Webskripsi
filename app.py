@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import re
 import joblib
+import nltk
 
 from nltk.corpus import stopwords
 from Sastrawi.Stemmer.StemmerFactory import StemmerFactory
