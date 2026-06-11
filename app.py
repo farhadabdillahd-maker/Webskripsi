@@ -119,6 +119,9 @@ if uploaded_file is not None:
     # ====================================
 # STOPWORD & STEMMER
 # ====================================
+# ====================================
+# STOPWORD & STEMMER
+# ====================================
 try:
     stop_words = set(stopwords.words('indonesian'))
 except LookupError:
@@ -128,22 +131,18 @@ except LookupError:
 factory = StemmerFactory()
 stemmer = factory.create_stemmer()
 
-    # ====================================
-    # CASE FOLDING
-    # ====================================
-    def case_folding(text):
+# ====================================
+# CASE FOLDING
+# ====================================
+def case_folding(text):
+    return str(text).lower()
 
-        return str(text).lower()
-
-    # ====================================
-    # TOKENIZING
-    # ====================================
-    def tokenizing(text):
-
-        text = re.sub(r'[^\w\s]', '', text)
-
-        return text.split()
-
+# ====================================
+# TOKENIZING
+# ====================================
+def tokenizing(text):
+    text = re.sub(r'[^\w\s]', '', text)
+    return text.split()
     # ====================================
     # STOPWORD REMOVAL
     # ====================================
