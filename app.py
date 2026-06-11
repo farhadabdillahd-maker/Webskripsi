@@ -116,11 +116,17 @@ if uploaded_file is not None:
     # ====================================
     # STOPWORD & STEMMER
     # ====================================
+    # ====================================
+# STOPWORD & STEMMER
+# ====================================
+try:
+    stop_words = set(stopwords.words('indonesian'))
+except LookupError:
+    nltk.download('stopwords')
     stop_words = set(stopwords.words('indonesian'))
 
-    factory = StemmerFactory()
-
-    stemmer = factory.create_stemmer()
+factory = StemmerFactory()
+stemmer = factory.create_stemmer()
 
     # ====================================
     # CASE FOLDING
