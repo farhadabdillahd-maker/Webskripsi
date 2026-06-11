@@ -32,94 +32,75 @@ st.set_page_config(
 )
 
 # =========================================
-# DARK MODE
-# =========================================
-if "dark_mode" not in st.session_state:
-    st.session_state.dark_mode = False
-
-# =========================================
-# TOGGLE BUTTON
-# =========================================
-top1, top2, top3 = st.columns([12,1,1])
-
-with top3:
-    if st.button("🌙" if not st.session_state.dark_mode else "☀️"):
-        st.session_state.dark_mode = not st.session_state.dark_mode
-
-# =========================================
-# COLOR MODE
-# =========================================
-if st.session_state.dark_mode:
-
-    bg_main = "#0f172a"
-    bg_sidebar = "#111827"
-    bg_card = "#172033"
-    text_color = "#f8fafc"
-    sub_text = "#94a3b8"
-    border = "#334155"
-    hover = "#1e40af"
-    upload_bg = "#1e3a8a"
-
-else:
-
-    bg_main = "#f4f7fb"
-    bg_sidebar = "#ffffff"
-    bg_card = "#ffffff"
-    text_color = "#0f172a"
-    sub_text = "#64748b"
-    border = "#e5e7eb"
-    hover = "#eff6ff"
-    upload_bg = "#dbeafe"
-
-# =========================================
 # CUSTOM CSS
 # =========================================
-st.markdown(f"""
+st.markdown("""
 <style>
 
+/* GOOGLE FONT */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
 
-html, body, [class*="css"] {{
+html, body, [class*="css"] {
     font-family: 'Poppins', sans-serif;
-}}
+}
 
-.stApp {{
-    background: {bg_main};
-}}
-
-#MainMenu {{
+/* HIDE STREAMLIT */
+#MainMenu {
     visibility: hidden;
-}}
+}
 
-footer {{
+footer {
     visibility: hidden;
-}}
+}
 
-header {{
+/* HEADER */
+header {
     background: transparent !important;
-}}
+}
 
-section[data-testid="stSidebar"] {{
-    background: {bg_sidebar};
-    border-right: 1px solid {border};
-    width: 320px !important;
-}}
-
-[data-testid="collapsedControl"] {{
+/* TOMBOL SIDEBAR */
+[data-testid="collapsedControl"] {
     display: block !important;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 999999;
     background: white;
-    border-radius: 12px;
+    border-radius: 14px;
     padding: 8px;
-}}
+    box-shadow: 0px 5px 15px rgba(0,0,0,0.08);
+}
 
-.logo-container {{
+/* MAIN BACKGROUND */
+.stApp {
+    background: linear-gradient(
+        135deg,
+        #f7faff 0%,
+        #eef4ff 100%
+    );
+}
+
+/* SIDEBAR */
+section[data-testid="stSidebar"] {
+    background: #ffffff;
+    border-right: 1px solid #e5e7eb;
+    width: 330px !important;
+}
+
+/* SIDEBAR CONTENT */
+.sidebar-container {
+    padding-top: 10px;
+}
+
+/* LOGO */
+.logo-container {
     display: flex;
     align-items: center;
     gap: 16px;
-    margin-bottom: 40px;
-}}
+    margin-bottom: 45px;
+}
 
-.logo-icon {{
+.logo-icon {
     width: 70px;
     height: 70px;
     border-radius: 20px;
@@ -133,166 +114,222 @@ section[data-testid="stSidebar"] {{
     align-items: center;
     font-size: 34px;
     color: white;
-}}
+    box-shadow: 0px 10px 30px rgba(37,99,235,0.35);
+}
 
-.logo-title {{
-    font-size: 30px;
+.logo-title {
+    font-size: 32px;
     font-weight: 800;
-    color: {text_color};
+    color: #0f172a;
     line-height: 1;
-}}
+}
 
-.logo-sub {{
-    color: {sub_text};
+.logo-sub {
+    color: #64748b;
+    font-size: 15px;
+    margin-top: 4px;
+}
+
+/* MENU TEXT */
+.menu-label {
     font-size: 14px;
-}}
-
-.menu-title {{
-    font-size: 13px;
-    font-weight: 700;
     color: #94a3b8;
+    font-weight: 700;
+    letter-spacing: 1px;
     margin-bottom: 10px;
-}}
+}
 
-.stRadio > div {{
+/* RADIO */
+.stRadio > div {
     gap: 12px;
-}}
+}
 
-.stRadio label {{
+/* RADIO BUTTON */
+.stRadio label {
+    background: transparent;
     padding: 14px 18px;
     border-radius: 18px;
     transition: 0.3s;
-    font-weight: 600;
-}}
+    font-weight: 500;
+    color: #334155;
+}
 
-.stRadio label:hover {{
-    background: {hover};
-}}
+.stRadio label:hover {
+    background: #eff6ff;
+}
 
-[data-testid="stFileUploader"] {{
-    background: {bg_card};
-    border: 1px solid {border};
-    border-radius: 24px;
+/* FILE UPLOADER */
+[data-testid="stFileUploader"] {
+    background: white;
+    border: 1px solid #e5e7eb;
     padding: 20px;
-}}
+    border-radius: 24px;
+}
 
-.main-card {{
-    background: {bg_card};
-    border-radius: 40px;
+/* MAIN CARD */
+.main-card {
+    background: rgba(255,255,255,0.85);
     padding: 40px;
-}}
+    border-radius: 40px;
+    box-shadow: 0px 15px 40px rgba(0,0,0,0.04);
+    backdrop-filter: blur(10px);
+}
 
-.hero {{
+/* HERO */
+.hero {
     display: flex;
     align-items: center;
     gap: 35px;
-}}
+}
 
-.hero-icon {{
+/* HERO ICON */
+.hero-icon {
     width: 140px;
     height: 140px;
-    border-radius: 40px;
     background: white;
+    border-radius: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 75px;
-}}
+    box-shadow: 0px 10px 30px rgba(0,0,0,0.05);
+}
 
-.hero-title {{
-    font-size: 65px;
+/* HERO TITLE */
+.hero-title {
+    font-size: 74px;
     font-weight: 800;
-    color: {text_color};
+    color: #0f172a;
     line-height: 1.1;
-}}
+    margin-bottom: 14px;
+}
 
-.hero-subtitle {{
-    font-size: 28px;
-    font-weight: 700;
-    color: {text_color};
-}}
-
-.hero-desc {{
-    color: {sub_text};
-    font-size: 18px;
-    line-height: 1.8;
-}}
-
-.blue-line {{
+/* BLUE LINE */
+.blue-line {
     width: 90px;
     height: 7px;
-    border-radius: 20px;
     background: #2563eb;
-    margin: 20px 0;
-}}
+    border-radius: 20px;
+    margin-bottom: 24px;
+}
 
-.info-box {{
+/* SUBTITLE */
+.hero-subtitle {
+    font-size: 30px;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 18px;
+}
+
+/* DESCRIPTION */
+.hero-desc {
+    color: #64748b;
+    font-size: 19px;
+    line-height: 1.8;
+}
+
+/* INFO BOX */
+.info-box {
     margin-top: 35px;
-    background: {upload_bg};
+    background: linear-gradient(
+        135deg,
+        #eff6ff,
+        #dbeafe
+    );
     border-radius: 35px;
     padding: 35px;
-}}
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-.info-title {{
-    font-size: 26px;
+.info-left {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.info-circle {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: #2563eb;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 34px;
+    font-weight: bold;
+}
+
+.info-title {
+    font-size: 28px;
     font-weight: 700;
-    color: {text_color};
-}}
+    color: #0f172a;
+}
 
-.info-desc {{
-    color: {sub_text};
-}}
+.info-desc {
+    color: #64748b;
+    font-size: 18px;
+    margin-top: 8px;
+}
 
-.stButton > button {{
+.csv-icon {
+    font-size: 90px;
+}
+
+/* BUTTON */
+.stButton > button {
     background: linear-gradient(
         90deg,
         #2563eb,
         #3b82f6
     );
-    color: white !important;
+    color: white;
     border: none;
     border-radius: 18px;
     height: 55px;
     width: 100%;
     font-size: 16px;
     font-weight: 700;
-}}
+    box-shadow: 0px 10px 25px rgba(37,99,235,0.3);
+    transition: 0.3s;
+}
 
-.stTextArea textarea {{
-    background: {bg_card} !important;
-    color: {text_color} !important;
-    border: 1px solid {border} !important;
-}}
+.stButton > button:hover {
+    transform: translateY(-2px);
+}
 
-[data-testid="metric-container"] {{
-    background: {bg_card};
-    border: 1px solid {border};
+/* METRIC */
+[data-testid="metric-container"] {
+    background: white;
     border-radius: 24px;
-    padding: 20px;
-}}
+    padding: 24px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0px 10px 25px rgba(0,0,0,0.04);
+}
 
-[data-testid="metric-container"] * {{
-    color: {text_color} !important;
-}}
-
-[data-testid="stDataFrame"] {{
-    border-radius: 20px;
+/* DATAFRAME */
+[data-testid="stDataFrame"] {
+    border-radius: 25px;
     overflow: hidden;
-}}
+    border: 1px solid #e5e7eb;
+}
 
-thead tr th {{
-    background: #2563eb !important;
-    color: white !important;
-}}
+/* TEXT AREA */
+textarea {
+    border-radius: 18px !important;
+}
 
-tbody tr td {{
-    background: {bg_card} !important;
-    color: {text_color} !important;
-}}
+/* SUCCESS */
+.stSuccess {
+    border-radius: 18px;
+}
 
-h1,h2,h3,h4,h5,h6,p,span,label,div {{
-    color: {text_color} !important;
-}}
+/* ALERT */
+.stAlert {
+    border-radius: 20px;
+}
 
 </style>
 """, unsafe_allow_html=True)
@@ -301,6 +338,8 @@ h1,h2,h3,h4,h5,h6,p,span,label,div {{
 # SIDEBAR
 # =========================================
 st.sidebar.markdown("""
+<div class="sidebar-container">
+
 <div class="logo-container">
 
 <div class="logo-icon">
@@ -319,8 +358,10 @@ TINGKAT KEJAHATAN
 
 </div>
 
-<div class="menu-title">
+<div class="menu-label">
 MENU
+</div>
+
 </div>
 """, unsafe_allow_html=True)
 
@@ -338,10 +379,10 @@ menu = st.sidebar.radio(
 )
 
 # =========================================
-# UPLOAD
+# FILE UPLOADER
 # =========================================
 st.sidebar.markdown("""
-<div class="menu-title" style="margin-top:30px;">
+<div class="menu-label" style="margin-top:30px;">
 DATASET
 </div>
 """, unsafe_allow_html=True)
@@ -354,7 +395,7 @@ uploaded_file = st.sidebar.file_uploader(
 # =========================================
 # HERO SECTION
 # =========================================
-st.markdown(f"""
+st.markdown("""
 <div class="main-card">
 
 <div class="hero">
@@ -390,15 +431,31 @@ untuk klasifikasi tingkat kejahatan berdasarkan berita kriminal.
 # =========================================
 if uploaded_file is None:
 
-    st.markdown(f"""
+    st.markdown("""
     <div class="info-box">
 
+    <div class="info-left">
+
+    <div class="info-circle">
+    i
+    </div>
+
+    <div>
+
     <div class="info-title">
-    Silakan upload dataset CSV terlebih dahulu
+    Silakan upload dataset CSV terlebih dahulu.
     </div>
 
     <div class="info-desc">
-    Pastikan file memiliki kolom "Judul Media Nasional"
+    Pastikan file berformat CSV dan sesuai dengan struktur data.
+    </div>
+
+    </div>
+
+    </div>
+
+    <div class="csv-icon">
+    📄
     </div>
 
     </div>
@@ -409,37 +466,38 @@ if uploaded_file is None:
 # =========================================
 else:
 
+    # READ CSV
     df = pd.read_csv(uploaded_file)
 
+    # VALIDASI
     if "Judul Media Nasional" not in df.columns:
 
         st.error("Kolom 'Judul Media Nasional' tidak ditemukan!")
 
         st.stop()
 
+    # AMBIL KOLOM
     df = df[["Judul Media Nasional"]]
 
-    # =========================================
-    # STOPWORD & STEMMER
-    # =========================================
+    # STOPWORD
     stop_words = set(stopwords.words('indonesian'))
 
+    # STEMMER
     factory = StemmerFactory()
-
     stemmer = factory.create_stemmer()
 
-    # =========================================
-    # PREPROCESSING
-    # =========================================
+    # CASE FOLDING
     def case_folding(text):
         return str(text).lower()
 
+    # TOKENIZING
     def tokenizing(text):
 
         text = re.sub(r'[^\w\s]', '', text)
 
         return text.split()
 
+    # STOPWORD
     def stopword_removal(tokens):
 
         return [
@@ -447,6 +505,7 @@ else:
             if word not in stop_words
         ]
 
+    # STEMMING
     def stemming(tokens):
 
         return [
@@ -454,6 +513,7 @@ else:
             for word in tokens
         ]
 
+    # KEYWORD MALAM
     malam_keywords = [
         "malam",
         "subuh",
@@ -467,6 +527,7 @@ else:
         "jam 5"
     ]
 
+    # LABEL
     def auto_label(text):
 
         text = str(text).lower()
@@ -478,9 +539,7 @@ else:
 
         return "Kasus Umum"
 
-    # =========================================
-    # PREPROCESSING PROCESS
-    # =========================================
+    # PREPROCESSING
     df["Case Folding"] = df["Judul Media Nasional"].apply(case_folding)
 
     df["Tokenizing"] = df["Case Folding"].apply(tokenizing)
@@ -496,11 +555,11 @@ else:
     df["Label"] = df["Judul Media Nasional"].apply(auto_label)
 
     # =========================================
-    # UPLOAD MENU
+    # MENU DATASET
     # =========================================
     if menu == "📂 Upload Dataset":
 
-        st.subheader("📂 Dataset")
+        st.subheader("📂 Dataset Awal")
 
         st.dataframe(
             df[["Judul Media Nasional"]],
@@ -508,14 +567,13 @@ else:
         )
 
     # =========================================
-    # PREPROCESSING MENU
+    # PREPROCESSING
     # =========================================
     elif menu == "🧹 Preprocessing":
 
-        st.subheader("🧹 Preprocessing")
+        st.subheader("🧹 Preprocessing Text")
 
         st.write("### 1. Case Folding")
-
         st.dataframe(
             df[
                 [
@@ -527,7 +585,6 @@ else:
         )
 
         st.write("### 2. Tokenizing")
-
         st.dataframe(
             df[
                 [
@@ -539,7 +596,6 @@ else:
         )
 
         st.write("### 3. Stopword Removal")
-
         st.dataframe(
             df[
                 [
@@ -551,7 +607,6 @@ else:
         )
 
         st.write("### 4. Stemming")
-
         st.dataframe(
             df[
                 [
@@ -563,7 +618,6 @@ else:
         )
 
         st.write("### 5. Pelabelan Dataset")
-
         st.dataframe(
             df[
                 [
@@ -582,7 +636,6 @@ else:
         st.subheader("📊 Klasifikasi Naïve Bayes")
 
         X = df["Final Text"]
-
         y = df["Label"]
 
         tfidf = TfidfVectorizer()
@@ -625,12 +678,9 @@ else:
         col1, col2, col3, col4 = st.columns(4)
 
         col1.metric("Accuracy", f"{accuracy:.2f}")
-
         col2.metric("Precision", f"{precision:.2f}")
-
         col3.metric("Recall", f"{recall:.2f}")
-
-        col4.metric("F1 Score", f"{f1:.2f}")
+        col4.metric("F1-Score", f"{f1:.2f}")
 
         st.write("### 📊 Confusion Matrix")
 
@@ -648,7 +698,6 @@ else:
         )
 
         plt.xlabel("Prediksi")
-
         plt.ylabel("Aktual")
 
         st.pyplot(fig)
@@ -753,4 +802,5 @@ else:
                 "Silakan lakukan klasifikasi terlebih dahulu!"
             )
 
+# CLOSE CARD
 st.markdown("</div>", unsafe_allow_html=True)
