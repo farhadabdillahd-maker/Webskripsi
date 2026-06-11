@@ -31,142 +31,45 @@ st.set_page_config(
 )
 
 # ====================================
-# CUSTOM CSS MODERN
+# CUSTOM CSS
 # ====================================
 st.markdown("""
 <style>
 
-/* BACKGROUND */
-.stApp {
-    background: linear-gradient(
-        135deg,
-        #f8fbff 0%,
-        #eef4ff 100%
-    );
+.main {
+    background-color: #f8f9fa;
 }
 
-/* SIDEBAR */
-section[data-testid="stSidebar"] {
-    background-color: white;
-    border-right: 1px solid #e5e7eb;
-}
-
-/* TITLE */
-.main-title {
-    font-size: 52px;
-    font-weight: 800;
+h1, h2, h3 {
     color: #0f172a;
-    margin-bottom: 10px;
 }
 
-.sub-title {
-    font-size: 20px;
-    color: #334155;
-    margin-bottom: 30px;
-}
-
-/* CARD */
-.custom-card {
-    background: white;
-    padding: 30px;
-    border-radius: 25px;
-    box-shadow: 0px 10px 30px rgba(0,0,0,0.05);
-    margin-bottom: 20px;
-}
-
-/* BUTTON */
-.stButton > button {
-    background: linear-gradient(
-        90deg,
-        #2563eb,
-        #3b82f6
-    );
+.stButton>button {
+    background-color: #2563eb;
     color: white;
-    border: none;
-    border-radius: 14px;
-    height: 50px;
+    border-radius: 10px;
+    height: 45px;
     width: 100%;
     font-size: 16px;
-    font-weight: 600;
-    transition: 0.3s;
-}
-
-.stButton > button:hover {
-    transform: scale(1.02);
-    background: linear-gradient(
-        90deg,
-        #1d4ed8,
-        #2563eb
-    );
-}
-
-/* METRIC */
-[data-testid="metric-container"] {
-    background-color: white;
-    border: 1px solid #e5e7eb;
-    padding: 20px;
-    border-radius: 20px;
-    box-shadow: 0px 5px 20px rgba(0,0,0,0.05);
-}
-
-/* DATAFRAME */
-[data-testid="stDataFrame"] {
-    border-radius: 20px;
-    overflow: hidden;
-    border: 1px solid #e5e7eb;
-}
-
-/* FILE UPLOADER */
-[data-testid="stFileUploader"] {
-    background: white;
-    padding: 20px;
-    border-radius: 20px;
-    border: 1px solid #e5e7eb;
-}
-
-/* TEXT AREA */
-textarea {
-    border-radius: 15px !important;
-}
-
-/* SUCCESS */
-.stSuccess {
-    border-radius: 20px;
 }
 
 </style>
 """, unsafe_allow_html=True)
 
 # ====================================
-# HEADER
+# TITLE
 # ====================================
-st.markdown("""
-<div class="custom-card">
+st.title("🚔 KLASIFIKASI TINGKAT KEJAHATAN")
+st.subheader("Naïve Bayes - Polres Pasaman")
 
-<div class="main-title">
-🚔 KLASIFIKASI TINGKAT KEJAHATAN
-</div>
-
-<div class="sub-title">
-Naïve Bayes - Polres Pasaman
-</div>
-
-<p style="font-size:18px;color:#475569;">
+st.write("""
 Sistem Machine Learning menggunakan algoritma Naïve Bayes
 untuk klasifikasi tingkat kejahatan berdasarkan berita kriminal.
-</p>
-
-</div>
-""", unsafe_allow_html=True)
-
-# ====================================
-# SIDEBAR
-# ====================================
-st.sidebar.markdown("""
-# 🛡️ KLASIFIKASI
-### Tingkat Kejahatan
 """)
 
+# ====================================
+# SIDEBAR MENU
+# ====================================
 menu = st.sidebar.radio(
     "📌 Pilih Menu",
     [
@@ -190,20 +93,28 @@ uploaded_file = st.sidebar.file_uploader(
 # ====================================
 if uploaded_file is not None:
 
+    # ====================================
     # READ CSV
+    # ====================================
     df = pd.read_csv(uploaded_file)
 
+    # ====================================
     # VALIDASI KOLOM
+    # ====================================
     if "Judul Media Nasional" not in df.columns:
 
         st.error("Kolom 'Judul Media Nasional' tidak ditemukan!")
 
         st.stop()
 
+    # ====================================
     # AMBIL KOLOM
+    # ====================================
     df = df[["Judul Media Nasional"]]
 
+    # ====================================
     # STOPWORD & STEMMER
+    # ====================================
     stop_words = set(stopwords.words('indonesian'))
 
     factory = StemmerFactory()
@@ -302,11 +213,9 @@ if uploaded_file is not None:
     )
 
     # ====================================
-    # MENU DATASET
+    # MENU UPLOAD DATASET
     # ====================================
     if menu == "Upload Dataset":
-
-        st.markdown('<div class="custom-card">', unsafe_allow_html=True)
 
         st.header("📂 Dataset Awal")
 
@@ -316,17 +225,14 @@ if uploaded_file is not None:
 
         st.success("Dataset berhasil diupload!")
 
-        st.markdown('</div>', unsafe_allow_html=True)
-
     # ====================================
     # MENU PREPROCESSING
     # ====================================
     elif menu == "Preprocessing":
 
-        st.markdown('<div class="custom-card">', unsafe_allow_html=True)
-
         st.header("🧹 Preprocessing Text")
 
+        # CASE FOLDING
         st.subheader("1. Case Folding")
 
         st.dataframe(
@@ -338,6 +244,7 @@ if uploaded_file is not None:
             ]
         )
 
+        # TOKENIZING
         st.subheader("2. Tokenizing")
 
         st.dataframe(
@@ -349,6 +256,7 @@ if uploaded_file is not None:
             ]
         )
 
+        # STOPWORD REMOVAL
         st.subheader("3. Stopword Removal")
 
         st.dataframe(
@@ -360,6 +268,7 @@ if uploaded_file is not None:
             ]
         )
 
+        # STEMMING
         st.subheader("4. Stemming")
 
         st.dataframe(
@@ -371,6 +280,7 @@ if uploaded_file is not None:
             ]
         )
 
+        # LABELING
         st.subheader("5. Pelabelan Dataset")
 
         st.dataframe(
@@ -382,14 +292,10 @@ if uploaded_file is not None:
             ]
         )
 
-        st.markdown('</div>', unsafe_allow_html=True)
-
     # ====================================
     # MENU KLASIFIKASI
     # ====================================
     elif menu == "Klasifikasi Naïve Bayes":
-
-        st.markdown('<div class="custom-card">', unsafe_allow_html=True)
 
         st.header("🤖 Klasifikasi Naïve Bayes")
 
@@ -397,12 +303,16 @@ if uploaded_file is not None:
 
         y = df["Label"]
 
+        # ====================================
         # TF-IDF
+        # ====================================
         tfidf = TfidfVectorizer()
 
         X_tfidf = tfidf.fit_transform(X)
 
+        # ====================================
         # SPLIT DATA
+        # ====================================
         X_train, X_test, y_train, y_test = train_test_split(
             X_tfidf,
             y,
@@ -410,16 +320,24 @@ if uploaded_file is not None:
             random_state=42
         )
 
+        # ====================================
         # MODEL
+        # ====================================
         model = MultinomialNB()
 
+        # ====================================
         # TRAINING
+        # ====================================
         model.fit(X_train, y_train)
 
+        # ====================================
         # PREDIKSI
+        # ====================================
         y_pred = model.predict(X_test)
 
+        # ====================================
         # METRIK
+        # ====================================
         accuracy = accuracy_score(
             y_test,
             y_pred
@@ -443,7 +361,9 @@ if uploaded_file is not None:
             average='weighted'
         )
 
-        # METRIC UI
+        # ====================================
+        # TAMPILKAN METRIK
+        # ====================================
         col1, col2, col3, col4 = st.columns(4)
 
         col1.metric(
@@ -466,7 +386,9 @@ if uploaded_file is not None:
             f"{f1:.2f}"
         )
 
+        # ====================================
         # CONFUSION MATRIX
+        # ====================================
         st.subheader("📊 Confusion Matrix")
 
         cm = confusion_matrix(
@@ -491,7 +413,9 @@ if uploaded_file is not None:
 
         st.pyplot(fig)
 
+        # ====================================
         # CLASSIFICATION REPORT
+        # ====================================
         st.subheader("📄 Classification Report")
 
         report = classification_report(
@@ -501,7 +425,9 @@ if uploaded_file is not None:
 
         st.text(report)
 
-        # SAVE MODEL
+        # ====================================
+        # SIMPAN MODEL
+        # ====================================
         joblib.dump(
             model,
             "model_naive_bayes.pkl"
@@ -514,14 +440,10 @@ if uploaded_file is not None:
 
         st.success("Model berhasil disimpan!")
 
-        st.markdown('</div>', unsafe_allow_html=True)
-
     # ====================================
     # MENU PREDIKSI
     # ====================================
     elif menu == "Prediksi":
-
-        st.markdown('<div class="custom-card">', unsafe_allow_html=True)
 
         st.header("🔍 Prediksi Tingkat Kejahatan")
 
@@ -599,18 +521,11 @@ if uploaded_file is not None:
                 "Silakan lakukan klasifikasi terlebih dahulu!"
             )
 
-        st.markdown('</div>', unsafe_allow_html=True)
-
 # ====================================
 # JIKA BELUM UPLOAD
 # ====================================
 else:
 
-    st.markdown("""
-    <div class="custom-card">
-        <h2>📂 Upload Dataset CSV</h2>
-        <p style="font-size:18px;color:#475569;">
-        Silakan upload dataset CSV terlebih dahulu untuk memulai proses klasifikasi.
-        </p>
-    </div>
-    """, unsafe_allow_html=True)
+    st.info(
+        "Silakan upload dataset CSV terlebih dahulu."
+    )
