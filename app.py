@@ -235,6 +235,41 @@ div[role="radiogroup"] label:hover{
     color:#cbd5e1 !important;
 }
 
+
+/* UPLOAD BOX PREMIUM */
+[data-testid="stFileUploader"]{
+    background:linear-gradient(
+        135deg,
+        rgba(59,130,246,.25),
+        rgba(124,58,237,.25)
+    ) !important;
+    border:1px solid rgba(255,255,255,.15);
+    border-radius:24px;
+    padding:20px;
+    backdrop-filter:blur(20px);
+    box-shadow:
+        0 0 20px rgba(59,130,246,.35),
+        0 0 40px rgba(124,58,237,.25),
+        inset 0 0 20px rgba(255,255,255,.05);
+}
+
+[data-testid="stFileUploader"] *{
+    color:white !important;
+}
+
+[data-testid="stFileUploader"] button{
+    background:linear-gradient(
+        135deg,
+        #06b6d4,
+        #2563eb,
+        #7c3aed
+    ) !important;
+    color:white !important;
+    border:none !important;
+    border-radius:14px !important;
+    font-weight:700 !important;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
