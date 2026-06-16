@@ -786,7 +786,7 @@ if uploaded_file is not None:
     # MENU PREPROCESSING
     # =====================================================
 
-    elif menu == "🧹 Preprocessing":
+if menu == "🧹 Preprocessing":
 
         st.markdown("""
         <div class="card">
@@ -956,7 +956,7 @@ if uploaded_file is not None:
     # MENU KLASIFIKASI
     # =====================================================
 
-    elif menu == "🤖 Klasifikasi":
+if menu == "🤖 Klasifikasi":
 
         st.markdown("""
         <div class="card">
@@ -1341,7 +1341,7 @@ if uploaded_file is not None:
     # MENU PREDIKSI
     # =====================================================
 
-    elif menu == "🔍 Prediksi":
+if menu == "🔍 Prediksi":
 
         st.markdown("""
         <div class="card">
