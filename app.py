@@ -186,8 +186,8 @@ section[data-testid="stSidebar"]{
 
 .logo-box{
     text-align:center;
-    margin-top:-100px !important;
-    margin-bottom:-20px !important;
+    margin-top:-40px !important;
+    margin-bottom:10px !important;
 }
 
 /* Hilangkan jarak atas bawaan sidebar */
@@ -195,23 +195,27 @@ section[data-testid="stSidebar"] > div{
     padding-top:0rem !important;
 }
 
-/* Naikkan logo */
+/* Logo Sidebar */
 [data-testid="stSidebar"] img{
-    margin-top:-120px !important;
     display:block !important;
     margin-left:auto !important;
     margin-right:auto !important;
+    margin-top:-60px !important;
     filter:drop-shadow(0 0 15px rgba(59,130,246,.4));
 }
 
 /* Naikkan judul */
 .logo-title{
-    margin-top:-40px !important;
+    margin-top:15px !important;
+    color:white !important;
+    font-size:24px !important;
+    font-weight:800 !important;
 }
 
 /* Naikkan subtitle */
 .logo-sub{
-    margin-top:-15px !important;
+    margin-top:4px !important;
+    color:#cbd5e1 !important;
 }
 
 .logo-icon{
@@ -384,22 +388,17 @@ st.sidebar.markdown("""
 col1, col2, col3 = st.sidebar.columns([1,3,1])
 
 with col2:
-    st.markdown(
-        "<div style='margin-top:-120px'></div>",
-        unsafe_allow_html=True
-    )
-
     st.image(
         "assets/logo.png",
-        width=170
+        width=165
     )
 
 st.sidebar.markdown("""
-<div class="logo-title" style="text-align:center;margin-top:-15px;">
+<div class="logo-title" style="text-align:center;">
 CRIME ANALYTICS
 </div>
 
-<div class="logo-sub" style="text-align:center;margin-top:-8px;">
+<div class="logo-sub" style="text-align:center;">
 Naïve Bayes Dashboard
 </div>
 """, unsafe_allow_html=True)
