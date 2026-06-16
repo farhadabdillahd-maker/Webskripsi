@@ -65,12 +65,12 @@ header[data-testid="stHeader"]{
 /* BACKGROUND */
 
 .stApp{
-    background:
-    linear-gradient(
+    background:linear-gradient(
     135deg,
-    #f8fafc,
-    #eef2ff,
-    #ffffff
+    #eff6ff 0%,
+    #dbeafe 30%,
+    #eef2ff 60%,
+    #ffffff 100%
     );
 }
 
@@ -84,23 +84,22 @@ section[data-testid="stSidebar"]{
 /* HERO */
 
 .hero{
-    background:white;
-    padding:35px;
-    border-radius:28px;
-    box-shadow:
-    0 10px 35px rgba(0,0,0,.05);
+    background:linear-gradient(135deg,#2563eb,#4f46e5,#7c3aed);
+    padding:45px;
+    border-radius:30px;
+    box-shadow:0 20px 60px rgba(79,70,229,.25);
     margin-bottom:25px;
 }
 
 .hero-title{
-    font-size:42px;
-    font-weight:800;
-    color:#0f172a;
+    font-size:48px;
+    font-weight:900;
+    color:white;
 }
 
 .hero-sub{
-    color:#64748b;
-    font-size:16px;
+    color:#e2e8f0;
+    font-size:17px;
     line-height:1.8;
 }
 
@@ -108,11 +107,10 @@ section[data-testid="stSidebar"]{
 
 [data-testid="metric-container"]{
     background:white;
-    border:none;
-    border-radius:20px;
+    border:1px solid #dbeafe;
+    border-radius:24px;
     padding:20px;
-    box-shadow:
-    0 8px 25px rgba(0,0,0,.05);
+    box-shadow:0 10px 30px rgba(37,99,235,.08);
 }
 
 /* BUTTON */
