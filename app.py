@@ -186,8 +186,8 @@ section[data-testid="stSidebar"]{
 
 .logo-box{
     text-align:center;
-    margin-top:10px;
-    margin-bottom:25px;
+    margin-top:-25px;
+    margin-bottom:5px;
 }
 
 .logo-icon{
@@ -360,17 +360,22 @@ st.sidebar.markdown("""
 col1, col2, col3 = st.sidebar.columns([1,3,1])
 
 with col2:
+    st.markdown(
+        "<div style='margin-top:-40px'></div>",
+        unsafe_allow_html=True
+    )
+
     st.image(
         "assets/logo.png",
         width=170
     )
 
 st.sidebar.markdown("""
-<div class="logo-title" style="text-align:center;">
+<div class="logo-title" style="text-align:center;margin-top:-15px;">
 CRIME ANALYTICS
 </div>
 
-<div class="logo-sub" style="text-align:center;">
+<div class="logo-sub" style="text-align:center;margin-top:-8px;">
 Naïve Bayes Dashboard
 </div>
 """, unsafe_allow_html=True)
