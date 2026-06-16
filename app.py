@@ -247,15 +247,28 @@ Naïve Bayes Dashboard
 
 """, unsafe_allow_html=True)
 
-menu = st.sidebar.radio(
-    "MENU",
-    [
-        "📂 Upload Dataset",
-        "🧹 Preprocessing",
-        "🤖 Klasifikasi",
-        "🔍 Prediksi"
-    ]
-)
+if "show_menu" not in st.session_state:
+    st.session_state.show_menu = False
+
+if st.sidebar.button("☰ MENU"):
+    st.session_state.show_menu = not st.session_state.show_menu
+
+menu = None
+
+if st.session_state.show_menu:
+    menu = st.sidebar.radio(
+        "",
+        [
+            "📂 Upload Dataset",
+            "🧹 Preprocessing",
+            "🤖 Klasifikasi",
+            "🔍 Prediksi"
+        ]
+    )
+
+if menu is None:
+    st.info("Klik tombol ☰ MENU untuk membuka navigasi.")
+    st.stop()
 
 uploaded_file = st.sidebar.file_uploader(
     "Upload Dataset CSV",
