@@ -1112,146 +1112,147 @@ if uploaded_file is not None:
             st.warning(
                 "⚠️ Model masih perlu ditingkatkan."
             )
-              # =====================================================
-    # MENU PREDIKSI
-    # =====================================================
-
     elif menu == "🔍 Prediksi":
 
-        st.markdown("""
-        <div class="card">
-        <h2>🔍 Prediksi Tingkat Kejahatan</h2>
+    st.markdown("""
+    <div class="card">
+    <h2>🔍 Prediksi Tingkat Kejahatan</h2>
 
-        <p>
-        Masukkan judul berita kriminal,
-        sistem akan melakukan preprocessing
-        dan klasifikasi secara otomatis.
-        </p>
+    <p>
+    Masukkan judul berita kriminal,
+    sistem akan melakukan preprocessing
+    dan klasifikasi secara otomatis.
+    </p>
 
-        </div>
-        """, unsafe_allow_html=True)
+    </div>
+    """, unsafe_allow_html=True)
 
-        st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown("<br>", unsafe_allow_html=True)
 
-        try:
+    # =====================================
+    # STOPWORD & STEMMER
+    # =====================================
 
-            model = joblib.load(
-                "model_naive_bayes.pkl"
-            )
+    try:
+        stop_words = set(stopwords.words("indonesian"))
+    except:
+        nltk.download("stopwords")
+        stop_words = set(stopwords.words("indonesian"))
 
-            tfidf = joblib.load(
-                "tfidf_vectorizer.pkl"
-            )
+    factory = StemmerFactory()
+    stemmer = factory.create_stemmer()
 
-            input_text = st.text_area(
-                "Masukkan Judul Berita",
-                height=150,
-                placeholder="Contoh: Polisi menangkap pelaku pencurian pada dini hari..."
-            )
+    malam_keywords = [
+        "malam",
+        "subuh",
+        "dini hari",
+        "tengah malam",
+        "larut malam",
+        "jam 1",
+        "jam 2",
+        "jam 3",
+        "jam 4",
+        "jam 5"
+    ]
 
-            col1, col2 = st.columns([1,3])
+    # =====================================
+    # LOAD MODEL
+    # =====================================
 
-            with col1:
+    try:
 
-                prediksi_btn = st.button(
-                    "🚀 Prediksi"
+        model = joblib.load(
+            "model_naive_bayes.pkl"
+        )
+
+        tfidf = joblib.load(
+            "tfidf_vectorizer.pkl"
+        )
+
+        input_text = st.text_area(
+            "Masukkan Judul Berita",
+            height=150,
+            placeholder="Contoh: Polisi menangkap pelaku pencurian pada dini hari..."
+        )
+
+        if st.button("🚀 Prediksi"):
+
+            if not input_text.strip():
+
+                st.warning(
+                    "Masukkan judul berita terlebih dahulu."
                 )
 
-            if prediksi_btn:
+            else:
 
-                if not input_text.strip():
+                input_lower = input_text.lower()
 
-                    st.warning(
-                        "Masukkan judul berita terlebih dahulu."
+                detected = False
+
+                # ==========================
+                # RULE BASED
+                # ==========================
+
+                for keyword in malam_keywords:
+
+                    if keyword in input_lower:
+
+                        prediction = "Kasus Malam"
+                        detected = True
+                        break
+
+                # ==========================
+                # MACHINE LEARNING
+                # ==========================
+
+                if not detected:
+
+                    text = input_text.lower()
+
+                    text = re.sub(
+                        r"[^\w\s]",
+                        "",
+                        text
                     )
 
-                else:
+                    tokens = text.split()
 
-                    with st.spinner(
-                        "Menganalisis teks..."
-                    ):
+                    tokens = [
+                        word
+                        for word in tokens
+                        if word not in stop_words
+                    ]
 
-                        input_lower = input_text.lower()
+                    tokens = [
+                        stemmer.stem(word)
+                        for word in tokens
+                    ]
 
-                        detected = False
+                    final_text = " ".join(tokens)
 
-                        confidence = 0.0
+                    vector = tfidf.transform(
+                        [final_text]
+                    )
 
-                        # =================================
-                        # RULE BASED
-                        # =================================
+                    prediction = model.predict(
+                        vector
+                    )[0]
 
-                        for keyword in malam_keywords:
+                st.success(
+                    f"Hasil Prediksi : {prediction}"
+                )
 
-                            if keyword in input_lower:
+    except:
 
-                                prediction = "Kasus Malam"
+        st.error("""
+Model belum tersedia.
 
-                                confidence = 1.0
+Silakan jalankan menu 🤖 Klasifikasi sekali
+agar file berikut dibuat:
 
-                                detected = True
-
-                                break
-
-                        # =================================
-                        # MACHINE LEARNING
-                        # =================================
-
-                        if not detected:
-
-                            text = input_text.lower()
-
-                            text = re.sub(
-                                r"[^\w\s]",
-                                "",
-                                text
-                            )
-
-                            tokens = text.split()
-
-                            tokens = [
-
-                                word
-
-                                for word in tokens
-
-                                if word not in stop_words
-
-                            ]
-
-                            tokens = [
-
-                                stemmer.stem(word)
-
-                                for word in tokens
-
-                            ]
-
-                            final_text = " ".join(
-                                tokens
-                            )
-
-                            vector = tfidf.transform(
-                                [final_text]
-                            )
-
-                            prediction = model.predict(
-                                vector
-                            )[0]
-
-                            try:
-
-                                confidence = max(
-                                    model.predict_proba(
-                                        vector
-                                    )[0]
-                                )
-
-                            except:
-
-                                confidence = 0.0
-
-                    st.markdown("<br>", unsafe_allow_html=True)
+• model_naive_bayes.pkl
+• tfidf_vectorizer.pkl
+""")
 
                     # ===============================
                     # HASIL
