@@ -57,7 +57,7 @@ footer {
     visibility:hidden;
 }
 
-/* Header tetap tampil agar tombol menu ☰ muncul */
+/* Header tetap tampil agar tombol menu  muncul */
 header[data-testid="stHeader"]{
     background: transparent;
 }
