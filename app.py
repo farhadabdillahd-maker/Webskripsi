@@ -261,6 +261,64 @@ uploaded_file = st.sidebar.file_uploader(
     "Upload Dataset CSV",
     type=["csv"]
 )
+
+
+# =====================================================
+# MENU PREDIKSI TANPA UPLOAD DATASET
+# =====================================================
+if menu == "🔍 Prediksi" and uploaded_file is None:
+
+    st.markdown("""
+    <div class="card">
+    <h2>🔍 Prediksi Tingkat Kejahatan</h2>
+    <p>Prediksi dapat digunakan tanpa upload dataset.</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    try:
+        model = joblib.load("model_naive_bayes.pkl")
+        tfidf = joblib.load("tfidf_vectorizer.pkl")
+
+        try:
+            stop_words = set(stopwords.words("indonesian"))
+        except:
+            nltk.download("stopwords")
+            stop_words = set(stopwords.words("indonesian"))
+
+        stemmer = StemmerFactory().create_stemmer()
+
+        malam_keywords = [
+            "malam","subuh","dini hari","tengah malam",
+            "larut malam","jam 1","jam 2","jam 3","jam 4","jam 5"
+        ]
+
+        input_text = st.text_area("Masukkan Judul Berita", height=150)
+
+        if st.button("🚀 Prediksi"):
+            if input_text.strip():
+                detected = False
+                txt = input_text.lower()
+
+                for k in malam_keywords:
+                    if k in txt:
+                        prediction = "Kasus Malam"
+                        detected = True
+                        break
+
+                if not detected:
+                    txt = re.sub(r"[^\w\s]", "", txt)
+                    tokens = [w for w in txt.split() if w not in stop_words]
+                    tokens = [stemmer.stem(w) for w in tokens]
+                    vector = tfidf.transform([" ".join(tokens)])
+                    prediction = model.predict(vector)[0]
+
+                st.success(f"Hasil Prediksi : {prediction}")
+            else:
+                st.warning("Masukkan judul berita terlebih dahulu.")
+    except:
+        st.error("Model belum tersedia. Jalankan menu Klasifikasi terlebih dahulu untuk membuat model.")
+
+
 # =====================================================
 # FILE UPLOAD
 # =====================================================
