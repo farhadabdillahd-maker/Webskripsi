@@ -1255,67 +1255,6 @@ agar file berikut dibuat:
 • tfidf_vectorizer.pkl
 """)
 
-                    # ===============================
-                    # HASIL
-                    # ===============================
-
-                    if prediction == "Kasus Malam":
-
-                        st.markdown(f"""
-                        <div style="
-                        background:#ecfdf5;
-                        padding:25px;
-                        border-radius:20px;
-                        border-left:6px solid #10b981;
-                        ">
-
-                        <h2>
-                        🌙 {prediction}
-                        </h2>
-
-                        <p>
-                        Sistem mendeteksi berita
-                        termasuk kategori
-                        <b>Kasus Malam</b>.
-                        </p>
-
-                        <p>
-                        Confidence :
-                        <b>{confidence:.2%}</b>
-                        </p>
-
-                        </div>
-                        """, unsafe_allow_html=True)
-
-                    else:
-
-                        st.markdown(f"""
-                        <div style="
-                        background:#eff6ff;
-                        padding:25px;
-                        border-radius:20px;
-                        border-left:6px solid #2563eb;
-                        ">
-
-                        <h2>
-                        ☀️ {prediction}
-                        </h2>
-
-                        <p>
-                        Sistem mendeteksi berita
-                        termasuk kategori
-                        <b>Kasus Umum</b>.
-                        </p>
-
-                        <p>
-                        Confidence :
-                        <b>{confidence:.2%}</b>
-                        </p>
-
-                        </div>
-                        """, unsafe_allow_html=True)
-
-                        st.markdown("<br>", unsafe_allow_html=True)
 
                                         # ===============================
                     # PREPROCESSING HASIL
