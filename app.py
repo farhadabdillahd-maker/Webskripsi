@@ -10,6 +10,7 @@ from Sastrawi.Stemmer.StemmerFactory import StemmerFactory
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import MultinomialNB
+
 from sklearn.metrics import (
     accuracy_score,
     precision_score,
@@ -22,271 +23,752 @@ from sklearn.metrics import (
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-# ====================================
+# =====================================================
 # PAGE CONFIG
-# ====================================
+# =====================================================
+
 st.set_page_config(
-    page_title="Klasifikasi Tingkat Kejahatan",
-    page_icon="🚔",
-    layout="wide"
+    page_title="Crime Analytics Dashboard",
+    page_icon="🛡️",
+    layout="wide",
+    initial_sidebar_state="expanded"
 )
 
-# ====================================
-# CUSTOM CSS
-# ====================================
+# =====================================================
+# CSS PREMIUM DASHBOARD
+# =====================================================
+
 st.markdown("""
 <style>
 
-.main {
-    background-color: #f8f9fa;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+html, body, [class*="css"]{
+    font-family:'Inter',sans-serif;
 }
 
-h1, h2, h3 {
-    color: #0f172a;
+/* HIDE STREAMLIT */
+
+#MainMenu {
+    visibility:hidden;
 }
 
-.stButton>button {
-    background-color: #2563eb;
-    color: white;
-    border-radius: 10px;
-    height: 45px;
-    width: 100%;
-    font-size: 16px;
+footer {
+    visibility:hidden;
+}
+
+header {
+    visibility:hidden;
+}
+
+/* BACKGROUND */
+
+.stApp{
+    background:
+    linear-gradient(
+    135deg,
+    #f8fafc,
+    #eef2ff,
+    #ffffff
+    );
+}
+
+/* SIDEBAR */
+
+section[data-testid="stSidebar"]{
+    background:white;
+    border-right:1px solid #e5e7eb;
+}
+
+/* HERO */
+
+.hero{
+    background:white;
+    padding:35px;
+    border-radius:28px;
+    box-shadow:
+    0 10px 35px rgba(0,0,0,.05);
+    margin-bottom:25px;
+}
+
+.hero-title{
+    font-size:42px;
+    font-weight:800;
+    color:#0f172a;
+}
+
+.hero-sub{
+    color:#64748b;
+    font-size:16px;
+    line-height:1.8;
+}
+
+/* KPI */
+
+[data-testid="metric-container"]{
+    background:white;
+    border:none;
+    border-radius:20px;
+    padding:20px;
+    box-shadow:
+    0 8px 25px rgba(0,0,0,.05);
+}
+
+/* BUTTON */
+
+.stButton button{
+    width:100%;
+    height:50px;
+    border:none;
+    border-radius:14px;
+    font-weight:700;
+    color:white;
+    background:
+    linear-gradient(
+    90deg,
+    #2563eb,
+    #4f46e5
+    );
+}
+
+/* DATAFRAME */
+
+[data-testid="stDataFrame"]{
+    border-radius:18px;
+    overflow:hidden;
+}
+
+/* UPLOADER */
+
+[data-testid="stFileUploader"]{
+    border-radius:18px;
+    background:#f8fafc;
+    padding:15px;
+}
+
+/* SUCCESS */
+
+.stSuccess{
+    border-radius:16px;
+}
+
+/* WARNING */
+
+.stWarning{
+    border-radius:16px;
+}
+
+/* INFO */
+
+.stInfo{
+    border-radius:16px;
+}
+
+/* CUSTOM CARD */
+
+.card{
+    background:white;
+    padding:25px;
+    border-radius:20px;
+    box-shadow:
+    0 10px 25px rgba(0,0,0,.05);
+}
+
+/* SIDEBAR LOGO */
+
+.logo-box{
+    text-align:center;
+    margin-top:10px;
+    margin-bottom:25px;
+}
+
+.logo-icon{
+    font-size:45px;
+}
+
+.logo-title{
+    font-size:18px;
+    font-weight:800;
+    color:#111827;
+}
+
+.logo-sub{
+    font-size:12px;
+    color:#6b7280;
 }
 
 </style>
 """, unsafe_allow_html=True)
 
-# ====================================
-# TITLE
-# ====================================
-st.title("🚔 KLASIFIKASI TINGKAT KEJAHATAN")
-st.subheader("Naïve Bayes - Polres Pasaman")
+# =====================================================
+# HERO DASHBOARD
+# =====================================================
 
-st.write("""
-Sistem Machine Learning menggunakan algoritma Naïve Bayes
-untuk klasifikasi tingkat kejahatan berdasarkan berita kriminal.
-""")
+st.markdown("""
+<div class="hero">
 
-# ====================================
-# SIDEBAR MENU
-# ====================================
+<div class="hero-title">
+🚔 Crime Analytics Dashboard
+</div>
+
+<br>
+
+<div class="hero-sub">
+Sistem Machine Learning menggunakan algoritma
+Naïve Bayes dan TF-IDF untuk klasifikasi tingkat
+kejahatan berdasarkan berita kriminal.
+</div>
+
+</div>
+""", unsafe_allow_html=True)
+
+# =====================================================
+# SIDEBAR
+# =====================================================
+
+st.sidebar.markdown("""
+
+<div class="logo-box">
+
+<div class="logo-icon">
+🛡️
+</div>
+
+<div class="logo-title">
+CRIME ANALYTICS
+</div>
+
+<div class="logo-sub">
+Naïve Bayes Dashboard
+</div>
+
+</div>
+
+""", unsafe_allow_html=True)
+
 menu = st.sidebar.radio(
-    "📌 Pilih Menu",
+    "MENU",
     [
-        "Upload Dataset",
-        "Preprocessing",
-        "Klasifikasi Naïve Bayes",
-        "Prediksi"
+        "📂 Upload Dataset",
+        "🧹 Preprocessing",
+        "🤖 Klasifikasi",
+        "🔍 Prediksi"
     ]
 )
 
-# ====================================
-# UPLOAD DATASET
-# ====================================
 uploaded_file = st.sidebar.file_uploader(
     "Upload Dataset CSV",
     type=["csv"]
 )
+# =====================================================
+# FILE UPLOAD
+# =====================================================
 
-# ====================================
-# JIKA FILE ADA
-# ====================================
 if uploaded_file is not None:
 
-    # ====================================
-    # READ CSV
-    # ====================================
     df = pd.read_csv(uploaded_file)
 
-    # ====================================
+    # =====================================================
     # VALIDASI KOLOM
-    # ====================================
+    # =====================================================
+
     if "Judul Media Nasional" not in df.columns:
 
-        st.error("Kolom 'Judul Media Nasional' tidak ditemukan!")
+        st.error(
+            "Kolom 'Judul Media Nasional' tidak ditemukan!"
+        )
 
         st.stop()
 
-    # ====================================
+    # =====================================================
     # AMBIL KOLOM
-    # ====================================
-    df = df[["Judul Media Nasional"]]
+    # =====================================================
 
-    # ====================================
-    # STOPWORD & STEMMER
-    # ====================================
+    df = df[
+        [
+            "Judul Media Nasional"
+        ]
+    ]
+
+    # =====================================================
+    # STOPWORD
+    # =====================================================
+
     try:
-        stop_words = set(stopwords.words('indonesian'))
-    except LookupError:
-        nltk.download('stopwords')
-        stop_words = set(stopwords.words('indonesian'))
+
+        stop_words = set(
+            stopwords.words("indonesian")
+        )
+
+    except:
+
+        nltk.download("stopwords")
+
+        stop_words = set(
+            stopwords.words("indonesian")
+        )
+
+    # =====================================================
+    # STEMMER
+    # =====================================================
 
     factory = StemmerFactory()
+
     stemmer = factory.create_stemmer()
 
-    # ====================================
-    # CASE FOLDING
-    # ====================================
+    # =====================================================
+    # PREPROCESSING FUNCTION
+    # =====================================================
+
     def case_folding(text):
+
         return str(text).lower()
 
-    # ====================================
-    # TOKENIZING
-    # ====================================
     def tokenizing(text):
-        text = re.sub(r'[^\w\s]', '', text)
+
+        text = re.sub(
+            r"[^\w\s]",
+            "",
+            text
+        )
+
         return text.split()
 
-    # ====================================
-    # STOPWORD REMOVAL
-    # ====================================
     def stopword_removal(tokens):
-        return [word for word in tokens if word not in stop_words]
 
-    # ====================================
-    # STEMMING
-    # ====================================
+        return [
+            word
+            for word in tokens
+            if word not in stop_words
+        ]
+
     def stemming(tokens):
-        return [stemmer.stem(word) for word in tokens]
 
-    # ====================================
-    # AUTO LABELING
-    # ====================================
-    malam_keywords = ["malam","subuh","dini hari","tengah malam","larut malam","jam 1","jam 2","jam 3","jam 4","jam 5"]
+        return [
+            stemmer.stem(word)
+            for word in tokens
+        ]
+
+    # =====================================================
+    # AUTO LABEL
+    # =====================================================
+
+    malam_keywords = [
+
+        "malam",
+        "subuh",
+        "dini hari",
+        "tengah malam",
+        "larut malam",
+        "jam 1",
+        "jam 2",
+        "jam 3",
+        "jam 4",
+        "jam 5"
+
+    ]
 
     def auto_label(text):
+
         text = str(text).lower()
+
         for keyword in malam_keywords:
+
             if keyword in text:
+
                 return "Kasus Malam"
+
         return "Kasus Umum"
 
-    df["Case Folding"] = df["Judul Media Nasional"].apply(
-        case_folding
-    )
+    # =====================================================
+    # PREPROCESSING
+    # =====================================================
 
-    df["Tokenizing"] = df["Case Folding"].apply(
-        tokenizing
-    )
+    with st.spinner(
+        "Melakukan preprocessing dataset..."
+    ):
 
-    df["Stopword Removal"] = df["Tokenizing"].apply(
-        stopword_removal
-    )
+        df["Case Folding"] = df[
+            "Judul Media Nasional"
+        ].apply(case_folding)
 
-    df["Stemming"] = df["Stopword Removal"].apply(
-        stemming
-    )
+        df["Tokenizing"] = df[
+            "Case Folding"
+        ].apply(tokenizing)
 
-    df["Final Text"] = df["Stemming"].apply(
-        lambda x: " ".join(x)
-    )
+        df["Stopword Removal"] = df[
+            "Tokenizing"
+        ].apply(stopword_removal)
 
-    df["Label"] = df["Judul Media Nasional"].apply(
-        auto_label
-    )
+        df["Stemming"] = df[
+            "Stopword Removal"
+        ].apply(stemming)
 
-    # ====================================
-    # MENU UPLOAD DATASET
-    # ====================================
-    if menu == "Upload Dataset":
-
-        st.header("📂 Dataset Awal")
-
-        st.dataframe(
-            df[["Judul Media Nasional"]]
+        df["Final Text"] = df[
+            "Stemming"
+        ].apply(
+            lambda x: " ".join(x)
         )
 
-        st.success("Dataset berhasil diupload!")
+        df["Label"] = df[
+            "Judul Media Nasional"
+        ].apply(auto_label)
 
-    # ====================================
+    # =====================================================
+    # KPI DASHBOARD
+    # =====================================================
+
+    total_data = len(df)
+
+    total_malam = len(
+        df[
+            df["Label"] == "Kasus Malam"
+        ]
+    )
+
+    total_umum = len(
+        df[
+            df["Label"] == "Kasus Umum"
+        ]
+    )
+
+    col1, col2, col3, col4 = st.columns(4)
+
+    with col1:
+
+        st.metric(
+            "📄 Total Data",
+            f"{total_data:,}"
+        )
+
+    with col2:
+
+        st.metric(
+            "🌙 Kasus Malam",
+            f"{total_malam:,}"
+        )
+
+    with col3:
+
+        st.metric(
+            "☀️ Kasus Umum",
+            f"{total_umum:,}"
+        )
+
+    with col4:
+
+        st.metric(
+            "📊 Status",
+            "Loaded"
+        )
+
+    st.markdown("<br>", unsafe_allow_html=True)
+
+    # =====================================================
+    # DISTRIBUSI LABEL
+    # =====================================================
+
+    chart_col1, chart_col2 = st.columns([2,1])
+
+    with chart_col1:
+
+        st.markdown("""
+        <div class="card">
+        <h3>Distribusi Dataset</h3>
+        </div>
+        """, unsafe_allow_html=True)
+
+        distribusi = df["Label"].value_counts()
+
+        fig, ax = plt.subplots(
+            figsize=(8,4)
+        )
+
+        distribusi.plot(
+            kind="bar",
+            ax=ax
+        )
+
+        plt.xlabel("Label")
+
+        plt.ylabel("Jumlah")
+
+        plt.title(
+            "Distribusi Kasus"
+        )
+
+        st.pyplot(fig)
+
+    with chart_col2:
+
+        st.markdown("""
+        <div class="card">
+
+        <h4>Informasi Dataset</h4>
+
+        <br>
+
+        <b>Kolom:</b><br>
+        Judul Media Nasional
+
+        <br><br>
+
+        <b>Metode:</b><br>
+        Naïve Bayes
+
+        <br><br>
+
+        <b>Ekstraksi Fitur:</b><br>
+        TF-IDF
+
+        <br><br>
+
+        <b>Stemming:</b><br>
+        Sastrawi
+
+        </div>
+        """, unsafe_allow_html=True)
+
+    st.markdown("<br>", unsafe_allow_html=True)
+    # =====================================================
+# MENU UPLOAD DATASET
+# =====================================================
+
+    if menu == "📂 Upload Dataset":
+
+        st.markdown("""
+        <div class="card">
+        <h2>📂 Dataset Awal</h2>
+        <p>Dataset berita kriminal yang berhasil diupload.</p>
+        </div>
+        """, unsafe_allow_html=True)
+
+        st.markdown("<br>", unsafe_allow_html=True)
+
+        st.dataframe(
+            df[
+                ["Judul Media Nasional"]
+            ],
+            use_container_width=True,
+            height=500
+        )
+
+        st.success(
+            f"Dataset berhasil dimuat ({len(df)} data)"
+        )
+
+    # =====================================================
     # MENU PREPROCESSING
-    # ====================================
-    elif menu == "Preprocessing":
+    # =====================================================
 
-        st.header("🧹 Preprocessing Text")
+    elif menu == "🧹 Preprocessing":
 
+        st.markdown("""
+        <div class="card">
+        <h2>🧹 Tahapan Preprocessing</h2>
+        <p>
+        Menampilkan seluruh proses preprocessing
+        yang dilakukan sebelum klasifikasi.
+        </p>
+        </div>
+        """, unsafe_allow_html=True)
+
+        st.markdown("<br>", unsafe_allow_html=True)
+
+        tab1, tab2, tab3, tab4, tab5 = st.tabs(
+            [
+                "Case Folding",
+                "Tokenizing",
+                "Stopword",
+                "Stemming",
+                "Labeling"
+            ]
+        )
+
+        # =====================================
         # CASE FOLDING
-        st.subheader("1. Case Folding")
+        # =====================================
 
-        st.dataframe(
-            df[
-                [
-                    "Judul Media Nasional",
-                    "Case Folding"
-                ]
-            ]
-        )
+        with tab1:
 
+            st.subheader(
+                "Case Folding"
+            )
+
+            st.info(
+                "Mengubah seluruh huruf menjadi huruf kecil."
+            )
+
+            st.dataframe(
+                df[
+                    [
+                        "Judul Media Nasional",
+                        "Case Folding"
+                    ]
+                ],
+                use_container_width=True,
+                height=500
+            )
+
+        # =====================================
         # TOKENIZING
-        st.subheader("2. Tokenizing")
+        # =====================================
 
-        st.dataframe(
-            df[
-                [
-                    "Case Folding",
-                    "Tokenizing"
-                ]
-            ]
-        )
+        with tab2:
 
-        # STOPWORD REMOVAL
-        st.subheader("3. Stopword Removal")
+            st.subheader(
+                "Tokenizing"
+            )
 
-        st.dataframe(
-            df[
-                [
-                    "Tokenizing",
-                    "Stopword Removal"
-                ]
-            ]
-        )
+            st.info(
+                "Memecah kalimat menjadi token kata."
+            )
 
+            st.dataframe(
+                df[
+                    [
+                        "Case Folding",
+                        "Tokenizing"
+                    ]
+                ],
+                use_container_width=True,
+                height=500
+            )
+
+        # =====================================
+        # STOPWORD
+        # =====================================
+
+        with tab3:
+
+            st.subheader(
+                "Stopword Removal"
+            )
+
+            st.info(
+                "Menghapus kata-kata yang tidak memiliki makna penting."
+            )
+
+            st.dataframe(
+                df[
+                    [
+                        "Tokenizing",
+                        "Stopword Removal"
+                    ]
+                ],
+                use_container_width=True,
+                height=500
+            )
+
+        # =====================================
         # STEMMING
-        st.subheader("4. Stemming")
+        # =====================================
 
-        st.dataframe(
-            df[
-                [
-                    "Stopword Removal",
-                    "Stemming"
-                ]
-            ]
-        )
+        with tab4:
 
+            st.subheader(
+                "Stemming"
+            )
+
+            st.info(
+                "Mengubah kata menjadi bentuk dasar."
+            )
+
+            st.dataframe(
+                df[
+                    [
+                        "Stopword Removal",
+                        "Stemming"
+                    ]
+                ],
+                use_container_width=True,
+                height=500
+            )
+
+        # =====================================
         # LABELING
-        st.subheader("5. Pelabelan Dataset")
+        # =====================================
 
-        st.dataframe(
-            df[
-                [
-                    "Judul Media Nasional",
-                    "Label"
-                ]
-            ]
-        )
+        with tab5:
 
-    # ====================================
+            st.subheader(
+                "Pelabelan Dataset"
+            )
+
+            st.info(
+                "Pelabelan otomatis Kasus Malam dan Kasus Umum."
+            )
+
+            st.dataframe(
+                df[
+                    [
+                        "Judul Media Nasional",
+                        "Label"
+                    ]
+                ],
+                use_container_width=True,
+                height=500
+            )
+
+            st.markdown("<br>", unsafe_allow_html=True)
+
+            col_a, col_b = st.columns(2)
+
+            with col_a:
+
+                st.metric(
+                    "Kasus Malam",
+                    total_malam
+                )
+
+            with col_b:
+
+                st.metric(
+                    "Kasus Umum",
+                    total_umum
+                )
+    # =====================================================
     # MENU KLASIFIKASI
-    # ====================================
-    elif menu == "Klasifikasi Naïve Bayes":
+    # =====================================================
 
-        st.header("🤖 Klasifikasi Naïve Bayes")
+    elif menu == "🤖 Klasifikasi":
+
+        st.markdown("""
+        <div class="card">
+        <h2>🤖 Klasifikasi Naïve Bayes</h2>
+        <p>
+        Proses training model menggunakan
+        TF-IDF dan Multinomial Naïve Bayes.
+        </p>
+        </div>
+        """, unsafe_allow_html=True)
+
+        st.markdown("<br>", unsafe_allow_html=True)
+
+        # =====================================
+        # DATA
+        # =====================================
 
         X = df["Final Text"]
 
         y = df["Label"]
 
-        # ====================================
+        # =====================================
         # TF-IDF
-        # ====================================
-        tfidf = TfidfVectorizer()
+        # =====================================
 
-        X_tfidf = tfidf.fit_transform(X)
+        with st.spinner(
+            "Melakukan ekstraksi fitur TF-IDF..."
+        ):
 
-        # ====================================
+            tfidf = TfidfVectorizer()
+
+            X_tfidf = tfidf.fit_transform(X)
+
+        # =====================================
         # SPLIT DATA
-        # ====================================
+        # =====================================
+
         X_train, X_test, y_train, y_test = train_test_split(
             X_tfidf,
             y,
@@ -294,24 +776,58 @@ if uploaded_file is not None:
             random_state=42
         )
 
-        # ====================================
-        # MODEL
-        # ====================================
-        model = MultinomialNB()
+        # =====================================
+        # INFO SPLIT
+        # =====================================
 
-        # ====================================
+        split1, split2, split3 = st.columns(3)
+
+        with split1:
+
+            st.metric(
+                "Training Data",
+                len(y_train)
+            )
+
+        with split2:
+
+            st.metric(
+                "Testing Data",
+                len(y_test)
+            )
+
+        with split3:
+
+            st.metric(
+                "Vocabulary",
+                X_tfidf.shape[1]
+            )
+
+        st.markdown("<br>", unsafe_allow_html=True)
+
+        # =====================================
         # TRAINING
-        # ====================================
-        model.fit(X_train, y_train)
+        # =====================================
 
-        # ====================================
-        # PREDIKSI
-        # ====================================
-        y_pred = model.predict(X_test)
+        with st.spinner(
+            "Training Naïve Bayes..."
+        ):
 
-        # ====================================
+            model = MultinomialNB()
+
+            model.fit(
+                X_train,
+                y_train
+            )
+
+            y_pred = model.predict(
+                X_test
+            )
+
+        # =====================================
         # METRIK
-        # ====================================
+        # =====================================
+
         accuracy = accuracy_score(
             y_test,
             y_pred
@@ -320,88 +836,105 @@ if uploaded_file is not None:
         precision = precision_score(
             y_test,
             y_pred,
-            average='weighted'
+            average="weighted"
         )
 
         recall = recall_score(
             y_test,
             y_pred,
-            average='weighted'
+            average="weighted"
         )
 
         f1 = f1_score(
             y_test,
             y_pred,
-            average='weighted'
+            average="weighted"
         )
 
-        # ====================================
-        # TAMPILKAN METRIK
-        # ====================================
+        # =====================================
+        # KPI METRIK
+        # =====================================
+
         col1, col2, col3, col4 = st.columns(4)
 
-        col1.metric(
-            "Accuracy",
-            f"{accuracy:.2f}"
+        with col1:
+
+            st.metric(
+                "Accuracy",
+                f"{accuracy:.4f}"
+            )
+
+        with col2:
+
+            st.metric(
+                "Precision",
+                f"{precision:.4f}"
+            )
+
+        with col3:
+
+            st.metric(
+                "Recall",
+                f"{recall:.4f}"
+            )
+
+        with col4:
+
+            st.metric(
+                "F1 Score",
+                f"{f1:.4f}"
+            )
+
+        st.markdown("<br>", unsafe_allow_html=True)
+
+        # =====================================
+        # RINGKASAN MODEL
+        # =====================================
+
+        st.markdown("""
+        <div class="card">
+
+        <h3>📊 Ringkasan Model</h3>
+
+        <ul>
+        <li>Algoritma : Multinomial Naïve Bayes</li>
+        <li>Ekstraksi Fitur : TF-IDF</li>
+        <li>Data Split : 80% Training - 20% Testing</li>
+        <li>Random State : 42</li>
+        </ul>
+
+        </div>
+        """, unsafe_allow_html=True)
+
+        st.markdown("<br>", unsafe_allow_html=True)
+
+        # =====================================
+        # PREDIKSI SAMPLE
+        # =====================================
+
+        hasil_df = pd.DataFrame({
+
+            "Actual": y_test.values,
+            "Prediction": y_pred
+
+        })
+
+        st.subheader(
+            "📋 Hasil Prediksi Testing"
         )
 
-        col2.metric(
-            "Precision",
-            f"{precision:.2f}"
+        st.dataframe(
+            hasil_df,
+            use_container_width=True,
+            height=300
         )
 
-        col3.metric(
-            "Recall",
-            f"{recall:.2f}"
-        )
+        st.markdown("<br>", unsafe_allow_html=True)
 
-        col4.metric(
-            "F1-Score",
-            f"{f1:.2f}"
-        )
-
-        # ====================================
-        # CONFUSION MATRIX
-        # ====================================
-        st.subheader("📊 Confusion Matrix")
-
-        cm = confusion_matrix(
-            y_test,
-            y_pred
-        )
-
-        fig, ax = plt.subplots(figsize=(5,4))
-
-        sns.heatmap(
-            cm,
-            annot=True,
-            fmt='d',
-            cmap='Blues',
-            xticklabels=model.classes_,
-            yticklabels=model.classes_
-        )
-
-        plt.xlabel("Prediksi")
-
-        plt.ylabel("Aktual")
-
-        st.pyplot(fig)
-
-        # ====================================
-        # CLASSIFICATION REPORT
-        # ====================================
-        st.subheader("📄 Classification Report")
-
-        report = classification_report(
-            y_test,
-            y_pred
-        )
-
-        st.text(report)
-
-        # ====================================
+        # =====================================
         # SIMPAN MODEL
-        # ====================================
+        # =====================================
+
         joblib.dump(
             model,
             "model_naive_bayes.pkl"
@@ -412,14 +945,192 @@ if uploaded_file is not None:
             "tfidf_vectorizer.pkl"
         )
 
-        st.success("Model berhasil disimpan!")
+        st.success(
+            "✅ Model berhasil dilatih dan disimpan"
+        )
+                st.markdown("<br>", unsafe_allow_html=True)
 
-    # ====================================
+        # =====================================
+        # CONFUSION MATRIX
+        # =====================================
+
+        st.markdown("""
+        <div class="card">
+        <h3>📊 Confusion Matrix</h3>
+        <p>
+        Visualisasi hasil prediksi model
+        terhadap data testing.
+        </p>
+        </div>
+        """, unsafe_allow_html=True)
+
+        st.markdown("<br>", unsafe_allow_html=True)
+
+        cm = confusion_matrix(
+            y_test,
+            y_pred
+        )
+
+        fig, ax = plt.subplots(
+            figsize=(7,5)
+        )
+
+        sns.heatmap(
+            cm,
+            annot=True,
+            fmt="d",
+            cmap="Blues",
+            xticklabels=model.classes_,
+            yticklabels=model.classes_,
+            linewidths=1,
+            linecolor="white"
+        )
+
+        plt.title(
+            "Confusion Matrix"
+        )
+
+        plt.xlabel(
+            "Prediksi"
+        )
+
+        plt.ylabel(
+            "Aktual"
+        )
+
+        st.pyplot(fig)
+
+        st.markdown("<br>", unsafe_allow_html=True)
+
+        # =====================================
+        # CLASSIFICATION REPORT
+        # =====================================
+
+        st.markdown("""
+        <div class="card">
+        <h3>📄 Classification Report</h3>
+        <p>
+        Evaluasi lengkap precision,
+        recall, f1-score dan support.
+        </p>
+        </div>
+        """, unsafe_allow_html=True)
+
+        report = classification_report(
+            y_test,
+            y_pred,
+            output_dict=True
+        )
+
+        report_df = pd.DataFrame(
+            report
+        ).transpose()
+
+        st.dataframe(
+            report_df,
+            use_container_width=True
+        )
+
+        st.markdown("<br>", unsafe_allow_html=True)
+
+        # =====================================
+        # VISUALISASI METRIK
+        # =====================================
+
+        st.markdown("""
+        <div class="card">
+        <h3>📈 Visualisasi Performa Model</h3>
+        </div>
+        """, unsafe_allow_html=True)
+
+        metric_df = pd.DataFrame({
+
+            "Metric":[
+                "Accuracy",
+                "Precision",
+                "Recall",
+                "F1 Score"
+            ],
+
+            "Value":[
+                accuracy,
+                precision,
+                recall,
+                f1
+            ]
+
+        })
+
+        fig2, ax2 = plt.subplots(
+            figsize=(8,4)
+        )
+
+        sns.barplot(
+            data=metric_df,
+            x="Metric",
+            y="Value",
+            ax=ax2
+        )
+
+        plt.ylim(0,1)
+
+        plt.ylabel(
+            "Score"
+        )
+
+        plt.xlabel(
+            ""
+        )
+
+        plt.title(
+            "Performa Model"
+        )
+
+        st.pyplot(fig2)
+
+        st.markdown("<br>", unsafe_allow_html=True)
+
+        # =====================================
+        # STATUS MODEL
+        # =====================================
+
+        if accuracy >= 0.90:
+
+            st.success(
+                "🔥 Model memiliki performa sangat baik."
+            )
+
+        elif accuracy >= 0.80:
+
+            st.info(
+                "✅ Model memiliki performa baik."
+            )
+
+        else:
+
+            st.warning(
+                "⚠️ Model masih perlu ditingkatkan."
+            )
+              # =====================================================
     # MENU PREDIKSI
-    # ====================================
-    elif menu == "Prediksi":
+    # =====================================================
 
-        st.header("🔍 Prediksi Tingkat Kejahatan")
+    elif menu == "🔍 Prediksi":
+
+        st.markdown("""
+        <div class="card">
+        <h2>🔍 Prediksi Tingkat Kejahatan</h2>
+
+        <p>
+        Masukkan judul berita kriminal,
+        sistem akan melakukan preprocessing
+        dan klasifikasi secara otomatis.
+        </p>
+
+        </div>
+        """, unsafe_allow_html=True)
+
+        st.markdown("<br>", unsafe_allow_html=True)
 
         try:
 
@@ -432,74 +1143,313 @@ if uploaded_file is not None:
             )
 
             input_text = st.text_area(
-                "Masukkan Judul Berita"
+                "Masukkan Judul Berita",
+                height=150,
+                placeholder="Contoh: Polisi menangkap pelaku pencurian pada dini hari..."
             )
 
-            if st.button("Prediksi"):
+            col1, col2 = st.columns([1,3])
 
-                input_lower = input_text.lower()
+            with col1:
 
-                detected = False
-
-                # RULE-BASED MALAM
-                for keyword in malam_keywords:
-
-                    if keyword in input_lower:
-
-                        prediction = "Kasus Malam"
-
-                        detected = True
-
-                        break
-
-                # JIKA TIDAK ADA KEYWORD
-                if not detected:
-
-                    text = input_text.lower()
-
-                    text = re.sub(
-                        r'[^\w\s]',
-                        '',
-                        text
-                    )
-
-                    tokens = text.split()
-
-                    tokens = [
-                        word for word in tokens
-                        if word not in stop_words
-                    ]
-
-                    tokens = [
-                        stemmer.stem(word)
-                        for word in tokens
-                    ]
-
-                    final_text = " ".join(tokens)
-
-                    vector = tfidf.transform(
-                        [final_text]
-                    )
-
-                    prediction = model.predict(
-                        vector
-                    )[0]
-
-                st.success(
-                    f"Hasil Prediksi: {prediction}"
+                prediksi_btn = st.button(
+                    "🚀 Prediksi"
                 )
+
+            if prediksi_btn:
+
+                if not input_text.strip():
+
+                    st.warning(
+                        "Masukkan judul berita terlebih dahulu."
+                    )
+
+                else:
+
+                    with st.spinner(
+                        "Menganalisis teks..."
+                    ):
+
+                        input_lower = input_text.lower()
+
+                        detected = False
+
+                        confidence = 0.0
+
+                        # =================================
+                        # RULE BASED
+                        # =================================
+
+                        for keyword in malam_keywords:
+
+                            if keyword in input_lower:
+
+                                prediction = "Kasus Malam"
+
+                                confidence = 1.0
+
+                                detected = True
+
+                                break
+
+                        # =================================
+                        # MACHINE LEARNING
+                        # =================================
+
+                        if not detected:
+
+                            text = input_text.lower()
+
+                            text = re.sub(
+                                r"[^\w\s]",
+                                "",
+                                text
+                            )
+
+                            tokens = text.split()
+
+                            tokens = [
+
+                                word
+
+                                for word in tokens
+
+                                if word not in stop_words
+
+                            ]
+
+                            tokens = [
+
+                                stemmer.stem(word)
+
+                                for word in tokens
+
+                            ]
+
+                            final_text = " ".join(
+                                tokens
+                            )
+
+                            vector = tfidf.transform(
+                                [final_text]
+                            )
+
+                            prediction = model.predict(
+                                vector
+                            )[0]
+
+                            try:
+
+                                confidence = max(
+                                    model.predict_proba(
+                                        vector
+                                    )[0]
+                                )
+
+                            except:
+
+                                confidence = 0.0
+
+                    st.markdown("<br>", unsafe_allow_html=True)
+
+                    # ===============================
+                    # HASIL
+                    # ===============================
+
+                    if prediction == "Kasus Malam":
+
+                        st.markdown(f"""
+                        <div style="
+                        background:#ecfdf5;
+                        padding:25px;
+                        border-radius:20px;
+                        border-left:6px solid #10b981;
+                        ">
+
+                        <h2>
+                        🌙 {prediction}
+                        </h2>
+
+                        <p>
+                        Sistem mendeteksi berita
+                        termasuk kategori
+                        <b>Kasus Malam</b>.
+                        </p>
+
+                        <p>
+                        Confidence :
+                        <b>{confidence:.2%}</b>
+                        </p>
+
+                        </div>
+                        """, unsafe_allow_html=True)
+
+                    else:
+
+                        st.markdown(f"""
+                        <div style="
+                        background:#eff6ff;
+                        padding:25px;
+                        border-radius:20px;
+                        border-left:6px solid #2563eb;
+                        ">
+
+                        <h2>
+                        ☀️ {prediction}
+                        </h2>
+
+                        <p>
+                        Sistem mendeteksi berita
+                        termasuk kategori
+                        <b>Kasus Umum</b>.
+                        </p>
+
+                        <p>
+                        Confidence :
+                        <b>{confidence:.2%}</b>
+                        </p>
+
+                        </div>
+                        """, unsafe_allow_html=True)
+
+                    st.markdown("<br>", unsafe_allow_html=True)
+
+                    # ===============================
+                    # PREPROCESSING HASIL
+                    # ===============================
+
+                    st.subheader(
+                        "🧹 Hasil Preprocessing"
+                    )
+
+                    hasil_preprocess = pd.DataFrame({
+
+                        "Tahap":[
+                            "Input Awal",
+                            "Case Folding",
+                            "Token"
+                        ],
+
+                        "Hasil":[
+
+                            input_text,
+
+                            input_text.lower(),
+
+                            str(tokens)
+
+                            if not detected
+
+                            else "Rule-Based"
+
+                        ]
+
+                    })
+
+                    st.dataframe(
+                        hasil_preprocess,
+                        use_container_width=True
+                    )
 
         except:
 
             st.warning(
-                "Silakan lakukan klasifikasi terlebih dahulu!"
+                "Silakan lakukan klasifikasi terlebih dahulu agar model tersimpan."
+            )  
+        st.markdown("<br>", unsafe_allow_html=True)
+
+        # =====================================
+        # PIE CHART DISTRIBUSI
+        # =====================================
+
+        st.markdown("""
+        <div class="card">
+        <h3>🥧 Distribusi Label Dataset</h3>
+        </div>
+        """, unsafe_allow_html=True)
+
+        fig3, ax3 = plt.subplots(
+            figsize=(6,6)
+        )
+
+        distribusi = df["Label"].value_counts()
+
+        ax3.pie(
+            distribusi.values,
+            labels=distribusi.index,
+            autopct="%1.1f%%"
+        )
+
+        ax3.set_title(
+            "Distribusi Kasus"
+        )
+
+        st.pyplot(fig3)
+
+        st.markdown("<br>", unsafe_allow_html=True)
+
+        # =====================================
+        # DOWNLOAD REPORT
+        # =====================================
+
+        csv_report = report_df.to_csv(
+            index=True
+        )
+
+        st.download_button(
+            label="📥 Download Classification Report",
+            data=csv_report,
+            file_name="classification_report.csv",
+            mime="text/csv"
+        )
+
+        st.markdown("<br>", unsafe_allow_html=True)
+
+        # =====================================
+        # DOWNLOAD DATASET
+        # =====================================
+
+        csv_dataset = df.to_csv(
+            index=False
+        )
+
+        st.download_button(
+            label="📥 Download Dataset Hasil",
+            data=csv_dataset,
+            file_name="dataset_hasil.csv",
+            mime="text/csv"
+        )
+                st.markdown("<br>", unsafe_allow_html=True)
+
+        st.markdown("""
+        <div class="card">
+        <h3>📚 Top 20 Kata Terbanyak</h3>
+        <p>
+        Kata yang paling sering muncul setelah preprocessing.
+        </p>
+        </div>
+        """, unsafe_allow_html=True)
+
+        all_words = []
+
+        for text in df["Final Text"]:
+
+            all_words.extend(
+                text.split()
             )
 
-# ====================================
-# JIKA BELUM UPLOAD
-# ====================================
-else:
+        word_freq = pd.Series(
+            all_words
+        ).value_counts().head(20)
 
-    st.info(
-        "Silakan upload dataset CSV terlebih dahulu."
-    )
+        freq_df = pd.DataFrame({
+
+            "Kata": word_freq.index,
+            "Frekuensi": word_freq.values
+
+        })
+
+        st.dataframe(
+            freq_df,
+            use_container_width=True
+        )
