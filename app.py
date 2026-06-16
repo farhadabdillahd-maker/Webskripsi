@@ -271,20 +271,43 @@ div[role="radiogroup"] label p{
 }
 
 
-/* MENU SIDEBAR SEJAJAR */
+/* ========================= */
+/* PREMIUM BUTTON ANIMATION */
+/* ========================= */
+
+.stButton button{
+    transition:all .25s ease !important;
+}
+
+.stButton button:hover{
+    transform:translateY(-3px) scale(1.05) !important;
+    box-shadow:
+        0 0 25px rgba(37,99,235,.60),
+        0 0 50px rgba(124,58,237,.40) !important;
+}
+
+.stButton button:active{
+    transform:scale(0.97) !important;
+}
+
+/* MENU CARD */
 div[role="radiogroup"] label{
     width:100% !important;
     min-width:100% !important;
-    height:52px !important;
-    display:flex !important;
-    align-items:center !important;
-    box-sizing:border-box !important;
+    height:55px !important;
+    transition:all .25s ease !important;
+}
+
+div[role="radiogroup"] label:hover{
+    transform:translateX(6px) scale(1.05) !important;
+    box-shadow:
+        0 0 25px rgba(37,99,235,.55),
+        0 0 45px rgba(124,58,237,.35) !important;
 }
 
 div[role="radiogroup"] label p{
     color:white !important;
     font-weight:700 !important;
-    margin:0 !important;
 }
 
 </style>
