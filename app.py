@@ -310,6 +310,14 @@ div[role="radiogroup"] label p{
     font-weight:700 !important;
 }
 
+
+[data-testid="stSidebar"] img{
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+    filter:drop-shadow(0 0 15px rgba(59,130,246,.4));
+}
+
 </style>
 """, unsafe_allow_html=True)
 
@@ -340,23 +348,22 @@ kejahatan berdasarkan berita kriminal.
 # =====================================================
 
 st.sidebar.markdown("""
+<div class="logo-box"></div>
+""", unsafe_allow_html=True)
 
-<div class="logo-box">
+st.sidebar.image(
+    "assets/logo.png",
+    width=140
+)
 
-<div class="logo-icon">
-🛡️
-</div>
-
-<div class="logo-title">
+st.sidebar.markdown("""
+<div class="logo-title" style="text-align:center;">
 CRIME ANALYTICS
 </div>
 
-<div class="logo-sub">
+<div class="logo-sub" style="text-align:center;">
 Naïve Bayes Dashboard
 </div>
-
-</div>
-
 """, unsafe_allow_html=True)
 
 if "show_menu" not in st.session_state:
