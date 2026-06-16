@@ -431,10 +431,16 @@ if menu is None:
     st.info("Klik tombol ☰ MENU untuk membuka navigasi.")
     st.stop()
 
-uploaded_file = st.sidebar.file_uploader(
-    "Upload Dataset CSV",
-    type=["csv"]
-)
+uploaded_file = None
+
+if menu == "📂 Upload Dataset":
+    st.sidebar.markdown("### 📂 Dataset")
+    st.sidebar.info("Silakan upload dataset CSV untuk memulai proses preprocessing, klasifikasi, dan analisis data.")
+    
+    uploaded_file = st.sidebar.file_uploader(
+        "Upload Dataset CSV",
+        type=["csv"]
+    )
 
 
 # =====================================================
