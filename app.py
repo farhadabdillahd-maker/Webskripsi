@@ -403,6 +403,11 @@ Naïve Bayes Dashboard
 </div>
 """, unsafe_allow_html=True)
 
+st.sidebar.markdown(
+    "<div style='height:60px'></div>",
+    unsafe_allow_html=True
+)
+
 if "show_menu" not in st.session_state:
     st.session_state.show_menu = False
 
