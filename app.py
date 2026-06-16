@@ -1353,7 +1353,7 @@ if uploaded_file is not None:
 
         except:
 
-            st.warning(
+        st.warning(
                 "Silakan lakukan klasifikasi terlebih dahulu agar model tersimpan."
             )  
         st.markdown("<br>", unsafe_allow_html=True)
@@ -1419,7 +1419,7 @@ if uploaded_file is not None:
             file_name="dataset_hasil.csv",
             mime="text/csv"
         )
-                st.markdown("<br>", unsafe_allow_html=True)
+        st.markdown("<br>", unsafe_allow_html=True)
 
         st.markdown("""
         <div class="card">
