@@ -1096,19 +1096,19 @@ if uploaded_file is not None:
 
         if accuracy >= 0.90:
 
-            st.success(
+        st.success(
                 "🔥 Model memiliki performa sangat baik."
             )
 
         elif accuracy >= 0.80:
 
-            st.info(
+        st.info(
                 "✅ Model memiliki performa baik."
             )
 
         else:
 
-            st.warning(
+        st.warning(
                 "⚠️ Model masih perlu ditingkatkan."
             )
               # =====================================================
@@ -1250,7 +1250,7 @@ if uploaded_file is not None:
 
                                 confidence = 0.0
 
-                    st.markdown("<br>", unsafe_allow_html=True)
+        st.markdown("<br>", unsafe_allow_html=True)
 
                     # ===============================
                     # HASIL
@@ -1258,7 +1258,7 @@ if uploaded_file is not None:
 
                     if prediction == "Kasus Malam":
 
-                        st.markdown(f"""
+        st.markdown(f"""
                         <div style="
                         background:#ecfdf5;
                         padding:25px;
@@ -1286,7 +1286,7 @@ if uploaded_file is not None:
 
                     else:
 
-                        st.markdown(f"""
+        st.markdown(f"""
                         <div style="
                         background:#eff6ff;
                         padding:25px;
@@ -1312,13 +1312,13 @@ if uploaded_file is not None:
                         </div>
                         """, unsafe_allow_html=True)
 
-                    st.markdown("<br>", unsafe_allow_html=True)
+        st.markdown("<br>", unsafe_allow_html=True)
 
                     # ===============================
                     # PREPROCESSING HASIL
                     # ===============================
 
-                    st.subheader(
+        st.subheader(
                         "🧹 Hasil Preprocessing"
                     )
 
@@ -1346,7 +1346,7 @@ if uploaded_file is not None:
 
                     })
 
-                    st.dataframe(
+        st.dataframe(
                         hasil_preprocess,
                         use_container_width=True
                     )
