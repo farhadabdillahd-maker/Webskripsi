@@ -1250,7 +1250,7 @@ if uploaded_file is not None:
 
                                 confidence = 0.0
 
-        st.markdown("<br>", unsafe_allow_html=True)
+                    st.markdown("<br>", unsafe_allow_html=True)
 
                     # ===============================
                     # HASIL
@@ -1258,7 +1258,7 @@ if uploaded_file is not None:
 
                     if prediction == "Kasus Malam":
 
-        st.markdown(f"""
+                        st.markdown(f"""
                         <div style="
                         background:#ecfdf5;
                         padding:25px;
@@ -1286,7 +1286,7 @@ if uploaded_file is not None:
 
                     else:
 
-        st.markdown(f"""
+                        st.markdown(f"""
                         <div style="
                         background:#eff6ff;
                         padding:25px;
@@ -1312,7 +1312,7 @@ if uploaded_file is not None:
                         </div>
                         """, unsafe_allow_html=True)
 
-        st.markdown("<br>", unsafe_allow_html=True)
+                        st.markdown("<br>", unsafe_allow_html=True)
 
                     # ===============================
                     # PREPROCESSING HASIL
