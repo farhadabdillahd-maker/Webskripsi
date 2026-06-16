@@ -1314,11 +1314,11 @@ if uploaded_file is not None:
 
                         st.markdown("<br>", unsafe_allow_html=True)
 
-                    # ===============================
+                                        # ===============================
                     # PREPROCESSING HASIL
                     # ===============================
 
-        st.subheader(
+                    st.subheader(
                         "🧹 Hasil Preprocessing"
                     )
 
@@ -1337,25 +1337,24 @@ if uploaded_file is not None:
                             input_text.lower(),
 
                             str(tokens)
-
                             if not detected
-
                             else "Rule-Based"
 
                         ]
 
                     })
 
-        st.dataframe(
+                    st.dataframe(
                         hasil_preprocess,
                         use_container_width=True
                     )
 
         except:
 
-        st.warning(
+            st.warning(
                 "Silakan lakukan klasifikasi terlebih dahulu agar model tersimpan."
-            )  
+            )
+
         st.markdown("<br>", unsafe_allow_html=True)
 
         # =====================================
