@@ -186,8 +186,36 @@ section[data-testid="stSidebar"]{
 
 .logo-box{
     text-align:center;
-    margin-top:10px;
-    margin-bottom:25px;
+    margin-top:-40px !important;
+    margin-bottom:10px !important;
+}
+
+/* Hilangkan jarak atas bawaan sidebar */
+section[data-testid="stSidebar"] > div{
+    padding-top:0rem !important;
+}
+
+/* Logo Sidebar */
+[data-testid="stSidebar"] img{
+    display:block !important;
+    margin-left:auto !important;
+    margin-right:auto !important;
+    margin-top:-60px !important;
+    filter:drop-shadow(0 0 15px rgba(59,130,246,.4));
+}
+
+/* Naikkan judul */
+.logo-title{
+    margin-top:15px !important;
+    color:white !important;
+    font-size:24px !important;
+    font-weight:800 !important;
+}
+
+/* Naikkan subtitle */
+.logo-sub{
+    margin-top:4px !important;
+    color:#cbd5e1 !important;
 }
 
 .logo-icon{
@@ -362,7 +390,7 @@ col1, col2, col3 = st.sidebar.columns([1,3,1])
 with col2:
     st.image(
         "assets/logo.png",
-        width=170
+        width=165
     )
 
 st.sidebar.markdown("""
