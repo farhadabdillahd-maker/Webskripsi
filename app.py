@@ -186,7 +186,7 @@ section[data-testid="stSidebar"]{
 
 .logo-box{
     text-align:center;
-    margin-top:-40px !important;
+    margin-top:-80px !important;
     margin-bottom:10px !important;
 }
 
@@ -200,13 +200,13 @@ section[data-testid="stSidebar"] > div{
     display:block !important;
     margin-left:auto !important;
     margin-right:auto !important;
-    margin-top:-60px !important;
+    margin-top:-95px !important;
     filter:drop-shadow(0 0 15px rgba(59,130,246,.4));
 }
 
 /* Naikkan judul */
 .logo-title{
-    margin-top:0px !important;
+    margin-top:-10px !important;
     color:white !important;
     font-size:24px !important;
     font-weight:800 !important;
@@ -214,7 +214,7 @@ section[data-testid="stSidebar"] > div{
 
 /* Naikkan subtitle */
 .logo-sub{
-    margin-top:0px !important;
+    margin-top:-5px !important;
     color:#cbd5e1 !important;
 }
 
