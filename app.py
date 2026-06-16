@@ -65,41 +65,48 @@ header[data-testid="stHeader"]{
 /* BACKGROUND */
 
 .stApp{
-    background:linear-gradient(
+    background:
+    linear-gradient(
     135deg,
-    #eff6ff 0%,
-    #dbeafe 30%,
-    #eef2ff 60%,
-    #ffffff 100%
+    #f8fafc,
+    #eef2ff,
+    #ffffff
     );
 }
 
 /* SIDEBAR */
 
 section[data-testid="stSidebar"]{
-    background:white;
-    border-right:1px solid #e5e7eb;
+    background:linear-gradient(
+        180deg,
+        #0f172a 0%,
+        #1e293b 40%,
+        #2563eb 100%
+    );
+    color:white;
+    border:none;
 }
 
 /* HERO */
 
 .hero{
-    background:linear-gradient(135deg,#2563eb,#4f46e5,#7c3aed);
-    padding:45px;
-    border-radius:30px;
-    box-shadow:0 20px 60px rgba(79,70,229,.25);
+    background:white;
+    padding:35px;
+    border-radius:28px;
+    box-shadow:
+    0 10px 35px rgba(0,0,0,.05);
     margin-bottom:25px;
 }
 
 .hero-title{
-    font-size:48px;
-    font-weight:900;
-    color:white;
+    font-size:42px;
+    font-weight:800;
+    color:#0f172a;
 }
 
 .hero-sub{
-    color:#e2e8f0;
-    font-size:17px;
+    color:#64748b;
+    font-size:16px;
     line-height:1.8;
 }
 
@@ -107,27 +114,29 @@ section[data-testid="stSidebar"]{
 
 [data-testid="metric-container"]{
     background:white;
-    border:1px solid #dbeafe;
-    border-radius:24px;
+    border:none;
+    border-radius:20px;
     padding:20px;
-    box-shadow:0 10px 30px rgba(37,99,235,.08);
+    box-shadow:
+    0 8px 25px rgba(0,0,0,.05);
 }
 
 /* BUTTON */
 
 .stButton button{
     width:100%;
-    height:50px;
+    height:55px;
     border:none;
-    border-radius:14px;
+    border-radius:18px;
     font-weight:700;
     color:white;
-    background:
-    linear-gradient(
-    90deg,
-    #2563eb,
-    #4f46e5
+    background:linear-gradient(
+        135deg,
+        #06b6d4,
+        #2563eb,
+        #7c3aed
     );
+    box-shadow:0 10px 25px rgba(37,99,235,.35);
 }
 
 /* DATAFRAME */
@@ -194,6 +203,36 @@ section[data-testid="stSidebar"]{
 .logo-sub{
     font-size:12px;
     color:#6b7280;
+}
+
+
+/* Sidebar Modern */
+[data-testid="stFileUploader"]{
+    background:rgba(255,255,255,.12);
+    backdrop-filter:blur(15px);
+    border:1px solid rgba(255,255,255,.15);
+    border-radius:22px;
+    padding:20px;
+}
+
+div[role="radiogroup"] label{
+    background:rgba(255,255,255,.12);
+    padding:12px;
+    border-radius:12px;
+    margin-bottom:8px;
+}
+
+div[role="radiogroup"] label:hover{
+    background:rgba(255,255,255,.20);
+}
+
+.logo-title{
+    color:white !important;
+    font-size:22px;
+}
+
+.logo-sub{
+    color:#cbd5e1 !important;
 }
 
 </style>
