@@ -369,9 +369,7 @@ st.markdown("""
 <br>
 
 <div class="hero-sub">
-Sistem Machine Learning menggunakan algoritma
-Naïve Bayes dan TF-IDF untuk klasifikasi tingkat
-kejahatan berdasarkan berita kriminal.
+PENERAPAN MACHINE LEARNING MENGGUNAKAN ALGORITMA NAÏVE BAYES UNTUK KLASIFIKASI TINGKAT KEJAHATAN DI POLRES PASAMAN.
 </div>
 
 </div>
