@@ -270,6 +270,23 @@ div[role="radiogroup"] label p{
     font-weight:700 !important;
 }
 
+
+/* MENU SIDEBAR SEJAJAR */
+div[role="radiogroup"] label{
+    width:100% !important;
+    min-width:100% !important;
+    height:52px !important;
+    display:flex !important;
+    align-items:center !important;
+    box-sizing:border-box !important;
+}
+
+div[role="radiogroup"] label p{
+    color:white !important;
+    font-weight:700 !important;
+    margin:0 !important;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
