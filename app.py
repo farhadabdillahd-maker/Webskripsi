@@ -948,7 +948,7 @@ if uploaded_file is not None:
         st.success(
             "✅ Model berhasil dilatih dan disimpan"
         )
-                st.markdown("<br>", unsafe_allow_html=True)
+        st.markdown("<br>", unsafe_allow_html=True)
 
         # =====================================
         # CONFUSION MATRIX
