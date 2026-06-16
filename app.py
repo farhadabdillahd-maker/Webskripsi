@@ -318,6 +318,12 @@ div[role="radiogroup"] label p{
     filter:drop-shadow(0 0 15px rgba(59,130,246,.4));
 }
 
+
+[data-testid="stSidebar"] img{
+    display:block !important;
+    margin:auto !important;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
@@ -351,10 +357,13 @@ st.sidebar.markdown("""
 <div class="logo-box"></div>
 """, unsafe_allow_html=True)
 
-st.sidebar.image(
-    "assets/logo.png",
-    width=140
-)
+col1, col2, col3 = st.sidebar.columns([1,3,1])
+
+with col2:
+    st.image(
+        "assets/logo.png",
+        width=170
+    )
 
 st.sidebar.markdown("""
 <div class="logo-title" style="text-align:center;">
