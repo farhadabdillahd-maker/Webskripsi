@@ -186,36 +186,8 @@ section[data-testid="stSidebar"]{
 
 .logo-box{
     text-align:center;
-    margin-top:-80px !important;
-    margin-bottom:10px !important;
-}
-
-/* Hilangkan jarak atas bawaan sidebar */
-section[data-testid="stSidebar"] > div{
-    padding-top:0rem !important;
-}
-
-/* Logo Sidebar */
-[data-testid="stSidebar"] img{
-    display:block !important;
-    margin-left:auto !important;
-    margin-right:auto !important;
-    margin-top:-95px !important;
-    filter:drop-shadow(0 0 15px rgba(59,130,246,.4));
-}
-
-/* Naikkan judul */
-.logo-title{
-    margin-top:-10px !important;
-    color:white !important;
-    font-size:24px !important;
-    font-weight:800 !important;
-}
-
-/* Naikkan subtitle */
-.logo-sub{
-    margin-top:-5px !important;
-    color:#cbd5e1 !important;
+    margin-top:10px;
+    margin-bottom:25px;
 }
 
 .logo-icon{
@@ -390,7 +362,7 @@ col1, col2, col3 = st.sidebar.columns([1,3,1])
 with col2:
     st.image(
         "assets/logo.png",
-        width=165
+        width=170
     )
 
 st.sidebar.markdown("""
@@ -402,11 +374,6 @@ CRIME ANALYTICS
 Naïve Bayes Dashboard
 </div>
 """, unsafe_allow_html=True)
-
-st.sidebar.markdown(
-    "<div style='height:60px'></div>",
-    unsafe_allow_html=True
-)
 
 if "show_menu" not in st.session_state:
     st.session_state.show_menu = False
@@ -431,29 +398,11 @@ if menu is None:
     st.info("Klik tombol ☰ MENU untuk membuka navigasi.")
     st.stop()
 
+uploaded_file = st.sidebar.file_uploader(
+    "Upload Dataset CSV",
+    type=["csv"]
+)
 
-uploaded_file = None
-
-if menu == "📂 Upload Dataset":
-
-    st.markdown("""
-    <div class="card">
-    <h2>📂 Upload Dataset</h2>
-    <p>
-    Silakan unggah dataset berita kriminal dalam format CSV
-    untuk memulai proses preprocessing, klasifikasi,
-    dan prediksi tingkat kejahatan.
-    </p>
-    </div>
-    """, unsafe_allow_html=True)
-
-    uploaded_file = st.file_uploader(
-        "Upload Dataset CSV",
-        type=["csv"]
-    )
-
-    if uploaded_file is not None:
-        st.success("Dataset berhasil dipilih. Silakan lanjut ke menu Preprocessing atau Klasifikasi.")
 
 # =====================================================
 # MENU PREDIKSI TANPA UPLOAD DATASET
@@ -782,11 +731,37 @@ if uploaded_file is not None:
 
     st.markdown("<br>", unsafe_allow_html=True)
     # =====================================================
+# MENU UPLOAD DATASET
 # =====================================================
+
+    if menu == "📂 Upload Dataset":
+
+        st.markdown("""
+        <div class="card">
+        <h2>📂 Dataset Awal</h2>
+        <p>Dataset berita kriminal yang berhasil diupload.</p>
+        </div>
+        """, unsafe_allow_html=True)
+
+        st.markdown("<br>", unsafe_allow_html=True)
+
+        st.dataframe(
+            df[
+                ["Judul Media Nasional"]
+            ],
+            use_container_width=True,
+            height=500
+        )
+
+        st.success(
+            f"Dataset berhasil dimuat ({len(df)} data)"
+        )
+
+    # =====================================================
     # MENU PREPROCESSING
     # =====================================================
 
-if menu == "🧹 Preprocessing":
+    elif menu == "🧹 Preprocessing":
 
         st.markdown("""
         <div class="card">
@@ -956,7 +931,7 @@ if menu == "🧹 Preprocessing":
     # MENU KLASIFIKASI
     # =====================================================
 
-if menu == "🤖 Klasifikasi":
+    elif menu == "🤖 Klasifikasi":
 
         st.markdown("""
         <div class="card">
@@ -1341,7 +1316,7 @@ if menu == "🤖 Klasifikasi":
     # MENU PREDIKSI
     # =====================================================
 
-if menu == "🔍 Prediksi":
+    elif menu == "🔍 Prediksi":
 
         st.markdown("""
         <div class="card">
