@@ -433,15 +433,6 @@ if menu is None:
 
 uploaded_file = None
 
-if menu == "📂 Upload Dataset":
-    st.sidebar.markdown("### 📂 Dataset")
-    st.sidebar.info("Silakan upload dataset CSV untuk memulai proses preprocessing, klasifikasi, dan analisis data.")
-    
-    uploaded_file = st.sidebar.file_uploader(
-        "Upload Dataset CSV",
-        type=["csv"]
-    )
-
 
 # =====================================================
 # MENU PREDIKSI TANPA UPLOAD DATASET
@@ -777,14 +768,30 @@ if uploaded_file is not None:
 
         st.markdown("""
         <div class="card">
-        <h2>📂 Dataset Awal</h2>
-        <p>Dataset berita kriminal yang berhasil diupload.</p>
+        <h2>📂 Upload Dataset</h2>
+        <p>
+        Silakan unggah dataset berita kriminal dalam format CSV
+        untuk memulai proses preprocessing, klasifikasi,
+        dan prediksi tingkat kejahatan.
+        </p>
         </div>
         """, unsafe_allow_html=True)
 
-        st.markdown("<br>", unsafe_allow_html=True)
+        uploaded_file = st.file_uploader(
+            "Upload Dataset CSV",
+            type=["csv"]
+        )
 
-        st.dataframe(
+        if uploaded_file is not None:
+            df = pd.read_csv(uploaded_file)
+
+            if "Judul Media Nasional" not in df.columns:
+                st.error("Kolom 'Judul Media Nasional' tidak ditemukan!")
+                st.stop()
+
+            st.markdown("<br>", unsafe_allow_html=True)
+
+            st.dataframe(
             df[
                 ["Judul Media Nasional"]
             ],
