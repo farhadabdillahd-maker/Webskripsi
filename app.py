@@ -206,7 +206,7 @@ section[data-testid="stSidebar"] > div{
 
 /* Naikkan judul */
 .logo-title{
-    margin-top:15px !important;
+    margin-top:0px !important;
     color:white !important;
     font-size:24px !important;
     font-weight:800 !important;
@@ -214,7 +214,7 @@ section[data-testid="stSidebar"] > div{
 
 /* Naikkan subtitle */
 .logo-sub{
-    margin-top:4px !important;
+    margin-top:0px !important;
     color:#cbd5e1 !important;
 }
 
