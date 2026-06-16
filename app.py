@@ -236,37 +236,37 @@ div[role="radiogroup"] label:hover{
 }
 
 
-/* UPLOAD BOX PREMIUM */
-[data-testid="stFileUploader"]{
-    background:linear-gradient(
-        135deg,
-        rgba(59,130,246,.25),
-        rgba(124,58,237,.25)
-    ) !important;
-    border:1px solid rgba(255,255,255,.15);
-    border-radius:24px;
-    padding:20px;
-    backdrop-filter:blur(20px);
-    box-shadow:
-        0 0 20px rgba(59,130,246,.35),
-        0 0 40px rgba(124,58,237,.25),
-        inset 0 0 20px rgba(255,255,255,.05);
+/* TEKS FILE UPLOAD AGAR TERLIHAT */
+[data-testid="stFileUploader"] small,
+[data-testid="stFileUploader"] span,
+[data-testid="stFileUploader"] p{
+    color:#0f172a !important;
+    font-weight:700 !important;
 }
 
-[data-testid="stFileUploader"] *{
-    color:white !important;
-}
-
-[data-testid="stFileUploader"] button{
+/* CARD FILE YANG SUDAH TERUPLOAD */
+[data-testid="stFileUploader"] section{
     background:linear-gradient(
         135deg,
-        #06b6d4,
-        #2563eb,
-        #7c3aed
+        #ffffff,
+        #eff6ff
     ) !important;
-    color:white !important;
-    border:none !important;
+
+    border:1px solid #bfdbfe !important;
     border-radius:14px !important;
+    box-shadow:0 5px 15px rgba(37,99,235,.15);
+    padding:10px;
+}
+
+/* TOMBOL HAPUS FILE */
+[data-testid="stFileUploader"] svg{
+    color:#2563eb !important;
+}
+
+/* TEKS MENU SIDEBAR */
+div[role="radiogroup"] label p{
+    color:#ffffff !important;
+    opacity:1 !important;
     font-weight:700 !important;
 }
 
