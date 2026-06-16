@@ -1091,7 +1091,7 @@ if uploaded_file is not None:
 
         st.markdown("<br>", unsafe_allow_html=True)
 
-               # =====================================
+            # =====================================
         # STATUS MODEL
         # =====================================
 
@@ -1112,48 +1112,49 @@ if uploaded_file is not None:
             st.warning(
                 "⚠️ Model masih perlu ditingkatkan."
             )
+
+    # =====================================================
+    # MENU PREDIKSI
+    # =====================================================
+
     elif menu == "🔍 Prediksi":
 
-    st.markdown("""
-    <div class="card">
-    <h2>🔍 Prediksi Tingkat Kejahatan</h2>
+        st.markdown("""
+        <div class="card">
+        <h2>🔍 Prediksi Tingkat Kejahatan</h2>
 
-    <p>
-    Masukkan judul berita kriminal,
-    sistem akan melakukan preprocessing
-    dan klasifikasi secara otomatis.
-    </p>
+        <p>
+        Masukkan judul berita kriminal,
+        sistem akan melakukan preprocessing
+        dan klasifikasi secara otomatis.
+        </p>
 
-    </div>
-    """, unsafe_allow_html=True)
+        </div>
+        """, unsafe_allow_html=True)
 
-    st.markdown("<br>", unsafe_allow_html=True)
+        st.markdown("<br>", unsafe_allow_html=True)
 
-    # =====================================
-    # STOPWORD & STEMMER
-    # =====================================
+        try:
+            stop_words = set(stopwords.words("indonesian"))
+        except:
+            nltk.download("stopwords")
+            stop_words = set(stopwords.words("indonesian"))
 
-    try:
-        stop_words = set(stopwords.words("indonesian"))
-    except:
-        nltk.download("stopwords")
-        stop_words = set(stopwords.words("indonesian"))
+        factory = StemmerFactory()
+        stemmer = factory.create_stemmer()
 
-    factory = StemmerFactory()
-    stemmer = factory.create_stemmer()
-
-    malam_keywords = [
-        "malam",
-        "subuh",
-        "dini hari",
-        "tengah malam",
-        "larut malam",
-        "jam 1",
-        "jam 2",
-        "jam 3",
-        "jam 4",
-        "jam 5"
-    ]
+        malam_keywords = [
+            "malam",
+            "subuh",
+            "dini hari",
+            "tengah malam",
+            "larut malam",
+            "jam 1",
+            "jam 2",
+            "jam 3",
+            "jam 4",
+            "jam 5"
+        ]
 
     # =====================================
     # LOAD MODEL
