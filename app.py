@@ -1090,25 +1090,25 @@ if uploaded_file is not None:
 
         st.markdown("<br>", unsafe_allow_html=True)
 
-        # =====================================
+               # =====================================
         # STATUS MODEL
         # =====================================
 
         if accuracy >= 0.90:
 
-        st.success(
+            st.success(
                 "🔥 Model memiliki performa sangat baik."
             )
 
         elif accuracy >= 0.80:
 
-        st.info(
+            st.info(
                 "✅ Model memiliki performa baik."
             )
 
         else:
 
-        st.warning(
+            st.warning(
                 "⚠️ Model masih perlu ditingkatkan."
             )
               # =====================================================
