@@ -431,8 +431,29 @@ if menu is None:
     st.info("Klik tombol ☰ MENU untuk membuka navigasi.")
     st.stop()
 
+
 uploaded_file = None
 
+if menu == "📂 Upload Dataset":
+
+    st.markdown("""
+    <div class="card">
+    <h2>📂 Upload Dataset</h2>
+    <p>
+    Silakan unggah dataset berita kriminal dalam format CSV
+    untuk memulai proses preprocessing, klasifikasi,
+    dan prediksi tingkat kejahatan.
+    </p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    uploaded_file = st.file_uploader(
+        "Upload Dataset CSV",
+        type=["csv"]
+    )
+
+    if uploaded_file is not None:
+        st.success("Dataset berhasil dipilih. Silakan lanjut ke menu Preprocessing atau Klasifikasi.")
 
 # =====================================================
 # MENU PREDIKSI TANPA UPLOAD DATASET
@@ -761,49 +782,7 @@ if uploaded_file is not None:
 
     st.markdown("<br>", unsafe_allow_html=True)
     # =====================================================
-# MENU UPLOAD DATASET
 # =====================================================
-
-    if menu == "📂 Upload Dataset":
-
-        st.markdown("""
-        <div class="card">
-        <h2>📂 Upload Dataset</h2>
-        <p>
-        Silakan unggah dataset berita kriminal dalam format CSV
-        untuk memulai proses preprocessing, klasifikasi,
-        dan prediksi tingkat kejahatan.
-        </p>
-        </div>
-        """, unsafe_allow_html=True)
-
-        uploaded_file = st.file_uploader(
-            "Upload Dataset CSV",
-            type=["csv"]
-        )
-
-        if uploaded_file is not None:
-            df = pd.read_csv(uploaded_file)
-
-            if "Judul Media Nasional" not in df.columns:
-                st.error("Kolom 'Judul Media Nasional' tidak ditemukan!")
-                st.stop()
-
-            st.markdown("<br>", unsafe_allow_html=True)
-
-            st.dataframe(
-            df[
-                ["Judul Media Nasional"]
-            ],
-            use_container_width=True,
-            height=500
-        )
-
-        st.success(
-            f"Dataset berhasil dimuat ({len(df)} data)"
-        )
-
-    # =====================================================
     # MENU PREPROCESSING
     # =====================================================
 
