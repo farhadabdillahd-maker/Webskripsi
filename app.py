@@ -456,6 +456,39 @@ div[role="radiogroup"] label p{
     letter-spacing:.2px;
 }
 
+
+/* Center MENU button */
+section[data-testid="stSidebar"] .stButton{
+display:flex!important;
+justify-content:center!important;
+}
+section[data-testid="stSidebar"] .stButton>button{
+width:150px!important;
+}
+
+/* Menu animation */
+div[role="radiogroup"]{
+animation:menuIn .45s cubic-bezier(.2,.8,.2,1);
+transform-origin:top center;
+}
+@keyframes menuIn{
+0%{opacity:0;transform:translateY(-20px) scale(.92);}
+60%{opacity:1;transform:translateY(6px) scale(1.02);}
+100%{opacity:1;transform:translateY(0) scale(1);}
+}
+div[role="radiogroup"] label{
+animation:itemIn .45s ease both;
+}
+div[role="radiogroup"] label:nth-child(1){animation-delay:.05s;}
+div[role="radiogroup"] label:nth-child(2){animation-delay:.10s;}
+div[role="radiogroup"] label:nth-child(3){animation-delay:.15s;}
+div[role="radiogroup"] label:nth-child(4){animation-delay:.20s;}
+div[role="radiogroup"] label:nth-child(5){animation-delay:.25s;}
+@keyframes itemIn{
+from{opacity:0;transform:translateX(-25px);}
+to{opacity:1;transform:translateX(0);}
+}
+
 </style>
 """, unsafe_allow_html=True)
 
@@ -513,7 +546,10 @@ st.sidebar.markdown(
 if "show_menu" not in st.session_state:
     st.session_state.show_menu = False
 
-if st.sidebar.button("☰ MENU"):
+st.sidebar.markdown("""<div style="display:flex;justify-content:center;margin:10px 0 18px 0;">""",unsafe_allow_html=True)
+btn_clicked = st.sidebar.button("☰ MENU")
+st.sidebar.markdown("</div>",unsafe_allow_html=True)
+if btn_clicked:
     st.session_state.show_menu = not st.session_state.show_menu
 
 menu = None
