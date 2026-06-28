@@ -547,6 +547,22 @@ div[role="radiogroup"] label:hover{
  to{background-position:160% 0,-160% 0;}
 }
 
+
+/* ===== Active Prediction Menu ===== */
+div[role="radiogroup"] label[data-baseweb="radio"]:has(input:checked){
+    background:rgba(70,180,255,.18)!important;
+    border:1px solid rgba(80,200,255,.75)!important;
+    box-shadow:
+        0 0 10px rgba(80,200,255,.65),
+        0 0 24px rgba(80,200,255,.45),
+        inset 0 0 12px rgba(80,200,255,.18)!important;
+}
+
+div[role="radiogroup"] label[data-baseweb="radio"]:has(input:checked) p{
+    color:#8fdcff!important;
+    text-shadow:0 0 8px rgba(80,200,255,.8);
+}
+
 </style>
 """, unsafe_allow_html=True)
 
