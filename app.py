@@ -410,6 +410,48 @@ section[data-testid="stSidebar"]::after{
 }
 
 
+
+/* ============================= */
+/* POLICE HOVER EFFECT MENU      */
+/* ============================= */
+
+div[role="radiogroup"] label{
+    position:relative;
+    overflow:hidden;
+    transition:all .35s ease!important;
+}
+
+div[role="radiogroup"] label::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+      linear-gradient(90deg,transparent 0 35%,rgba(0,220,255,.95) 48%,transparent 60%),
+      linear-gradient(90deg,transparent 0 65%,rgba(255,30,90,.95) 78%,transparent 90%);
+    background-size:250% 100%,250% 100%;
+    opacity:0;
+    transition:.25s;
+}
+
+div[role="radiogroup"] label:hover::before{
+    opacity:1;
+    animation:policeSweep .8s linear infinite;
+}
+
+div[role="radiogroup"] label:hover{
+    transform:translateX(8px) scale(1.04)!important;
+    border:1px solid rgba(255,255,255,.35);
+    box-shadow:
+      -12px 0 18px rgba(0,220,255,.55),
+       12px 0 18px rgba(255,30,90,.55),
+       0 0 24px rgba(255,255,255,.08)!important;
+}
+
+@keyframes policeSweep{
+    from{background-position:-150% 0,150% 0;}
+    to{background-position:150% 0,-150% 0;}
+}
+
 </style>
 """, unsafe_allow_html=True)
 
