@@ -23,6 +23,11 @@ from sklearn.metrics import (
 import matplotlib.pyplot as plt
 import seaborn as sns
 
+from io import BytesIO
+from reportlab.platypus import SimpleDocTemplate, Paragraph
+from reportlab.lib.styles import getSampleStyleSheet
+
+
 # =====================================================
 # PAGE CONFIG
 # =====================================================
@@ -732,6 +737,40 @@ if menu == "🔍 Prediksi" and uploaded_file is None:
                     prediction = model.predict(vector)[0]
 
                 st.success(f"Hasil Prediksi : {prediction}")
+
+                # ================= PDF SURAT =================
+                def generate_police_pdf(judul, hasil):
+                    buffer = BytesIO()
+                    doc = SimpleDocTemplate(buffer)
+                    styles = getSampleStyleSheet()
+                    story = []
+                    story.append(Paragraph("<b>POLRES PASAMAN</b>", styles["Title"]))
+                    story.append(Paragraph("<b>SATUAN RESERSE KRIMINAL</b>", styles["Heading2"]))
+                    story.append(Paragraph("<br/><b>SURAT HASIL KLASIFIKASI TINGKAT KEJAHATAN</b>", styles["Heading1"]))
+                    story.append(Paragraph("Nomor : B/001/RESKRIM/VI/2026", styles["Normal"]))
+                    story.append(Paragraph("<br/><b>Judul Berita</b>", styles["Heading2"]))
+                    story.append(Paragraph(judul, styles["Normal"]))
+                    story.append(Paragraph("<br/><b>Hasil Klasifikasi :</b> "+hasil, styles["Normal"]))
+                    story.append(Paragraph("<br/>Metode : Naive Bayes", styles["Normal"]))
+                    story.append(Paragraph("Feature Extraction : TF-IDF", styles["Normal"]))
+                    story.append(Paragraph("<br/>Demikian surat hasil klasifikasi ini dibuat untuk dipergunakan sebagaimana mestinya.", styles["Normal"]))
+                    story.append(Paragraph("<br/><br/>Pasaman", styles["Normal"]))
+                    story.append(Paragraph("<br/>Kepala Satuan Reserse Kriminal", styles["Normal"]))
+                    story.append(Paragraph("<br/><br/><br/>(........................................)", styles["Normal"]))
+                    doc.build(story)
+                    pdf = buffer.getvalue()
+                    buffer.close()
+                    return pdf
+
+                pdf = generate_police_pdf(input_text, prediction)
+
+                st.download_button(
+                    "📄 Download Surat Hasil Prediksi (PDF)",
+                    data=pdf,
+                    file_name="Surat_Hasil_Klasifikasi.pdf",
+                    mime="application/pdf"
+                )
+
             else:
                 st.warning("Masukkan judul berita terlebih dahulu.")
     except:
