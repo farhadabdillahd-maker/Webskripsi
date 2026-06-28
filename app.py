@@ -488,22 +488,24 @@ to{opacity:1;transform:translateX(0);}
 }
 
 
-/* Center sidebar menu cards */
+/* Center radio menu buttons */
 div[role="radiogroup"]{
 display:flex!important;
 flex-direction:column!important;
 align-items:center!important;
+gap:10px!important;
 }
 div[role="radiogroup"] label{
-width:88%!important;
-min-width:88%!important;
+width:82%!important;
+min-width:82%!important;
 margin-left:auto!important;
 margin-right:auto!important;
+display:flex!important;
+justify-content:center!important;
 }
-[data-testid="stFileUploader"]{
-width:88%!important;
-margin-left:auto!important;
-margin-right:auto!important;
+div[role="radiogroup"] label>div{
+width:100%!important;
+justify-content:center!important;
 }
 
 </style>
