@@ -358,7 +358,8 @@ div[role="radiogroup"] label p{
 }
 
 
-/* ===== Animated Neon Border Sidebar ===== */
+
+/* ===== Chase Border (Red vs Blue) ===== */
 section[data-testid="stSidebar"]{
     position:relative !important;
 }
@@ -371,31 +372,47 @@ section[data-testid="stSidebar"]::before{
     border-top-right-radius:30px;
     border-bottom-right-radius:30px;
 
-    background:linear-gradient(
-        90deg,
-        #ff0033,
-        #ff4d4d,
-        #0066ff,
-        #00bfff,
-        #ff0033
-    );
-    background-size:300% 300%;
-    animation:sidebarBorder 4s linear infinite;
+    background:
+      linear-gradient(90deg,
+        transparent 0%,
+        transparent 40%,
+        #ff0033 46%,
+        #ff0033 50%,
+        transparent 56%,
+        transparent 100%),
+      linear-gradient(90deg,
+        transparent 0%,
+        transparent 65%,
+        #00a2ff 71%,
+        #00a2ff 75%,
+        transparent 81%,
+        transparent 100%);
+
+    background-size:200% 100%,200% 100%;
+    animation:chaseRed 2.2s linear infinite,
+              chaseBlue 2.2s linear infinite;
 
     -webkit-mask:
-        linear-gradient(#fff 0 0) content-box,
-        linear-gradient(#fff 0 0);
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
     -webkit-mask-composite:xor;
     mask-composite:exclude;
 
     pointer-events:none;
-    filter:
-      drop-shadow(0 0 6px #ff0033)
-      drop-shadow(0 0 8px #0066ff);
+    filter:drop-shadow(0 0 6px #ff0033)
+           drop-shadow(0 0 6px #00a2ff);
 }
 
-@keyframes sidebarBorder{
-    from{background-position:0% 50%;}
+@keyframes chaseRed{
+    from{background-position:0% 0,0% 0;}
+    to{background-position:200% 0,0% 0;}
+}
+
+@keyframes chaseBlue{
+    from{background-position:200% 0,0% 0;}
+    to{background-position:200% 0,200% 0;}
+}
+
     to{background-position:300% 50%;}
 }
 
