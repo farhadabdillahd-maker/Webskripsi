@@ -741,51 +741,50 @@ if menu == "🔍 Prediksi" and uploaded_file is None:
 if menu == "ℹ️ About":
     st.markdown("""
     <div class="card">
-        <h2>ℹ️ About Aplikasi</h2>
-        <p>Informasi pengembang, penelitian, dan teknologi yang digunakan.</p>
+        <h1 style="text-align:center;">ℹ️ ABOUT APLIKASI</h1>
+        <p style="text-align:center;">Informasi pengembang, penelitian, dan teknologi yang digunakan.</p>
     </div>
     """, unsafe_allow_html=True)
 
-    c1,c2=st.columns(2)
-
-    with c1:
-        st.markdown("""
-### 👨‍💻 Perkenalan
-
-**Nama** : **Farhad Abdillah Darnaz**
-
-**NOBP** : **22101152630058**
-
-**Program Studi** : **Teknik Informatika**
-
-**Universitas** : **Universitas Putra Indonesia YPTK Padang**
-""")
-
-    with c2:
-        st.markdown("""
-### 📘 Judul Penelitian
-
-**Penerapan Machine Learning Menggunakan Algoritma Naïve Bayes Untuk Klasifikasi Tingkat Kejahatan di Polres Pasaman**
-""")
-
-    st.markdown("---")
-
+    st.markdown("### 📘 Judul Penelitian")
     st.markdown("""
-### 🛠️ Aplikasi & Teknologi yang Digunakan
+    <div class="card">
+    <b>Penerapan Machine Learning Menggunakan Algoritma Naïve Bayes Untuk Klasifikasi Tingkat Kejahatan di Polres Pasaman</b>
+    </div>
+    """, unsafe_allow_html=True)
 
-- Python
-- Streamlit
-- Pandas
-- Scikit-learn
-- Naïve Bayes
-- TF-IDF Vectorizer
-- Sastrawi
-- NLTK
-- Matplotlib
-- Seaborn
-- Joblib
-""")
+    col1,col2 = st.columns(2)
 
+    with col1:
+        st.markdown("### 👤 Perkenalan")
+        st.markdown("""
+        <div class="card">
+        <b>Nama</b> : Farhad Abdillah Darnaz<br><br>
+        <b>NOBP</b> : 22101152630058<br><br>
+        <b>Program Studi</b> : Teknik Informatika<br><br>
+        <b>Universitas</b> : Universitas Putra Indonesia YPTK Padang
+        </div>
+        """, unsafe_allow_html=True)
+
+    with col2:
+        st.markdown("### 🛠️ Aplikasi yang Digunakan")
+        st.markdown("""
+        <div class="card">
+        • Python<br>
+        • Streamlit<br>
+        • Pandas<br>
+        • Scikit-learn<br>
+        • Naïve Bayes<br>
+        • TF-IDF Vectorizer<br>
+        • Sastrawi<br>
+        • NLTK<br>
+        • Matplotlib<br>
+        • Seaborn<br>
+        • Joblib
+        </div>
+        """, unsafe_allow_html=True)
+
+    st.markdown("### ℹ️ Informasi Aplikasi")
     st.info("Aplikasi ini dibuat sebagai media klasifikasi tingkat kejahatan berdasarkan judul berita menggunakan algoritma Naïve Bayes.")
     st.stop()
 
