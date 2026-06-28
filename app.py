@@ -41,7 +41,7 @@ st.set_page_config(
 st.markdown("""
 <style>
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@700;800&display=swap');
 
 html, body, [class*="css"]{
     font-family:'Inter',sans-serif;
@@ -453,13 +453,13 @@ div[role="radiogroup"] label:hover{
 }
 
 
-/* ===== MONTSERRAT EXTRABOLD ===== */
+/* ===== POPPINS MENU & BUTTON FONT ===== */
 .stButton button,
 div[role="radiogroup"] label,
 div[role="radiogroup"] label p{
-    font-family:'Montserrat',sans-serif !important;
-    font-weight:800 !important;
-    letter-spacing:.3px;
+    font-family:'Poppins',sans-serif !important;
+    font-weight:700 !important;
+    letter-spacing:.2px;
 }
 
 </style>
