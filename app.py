@@ -548,19 +548,19 @@ div[role="radiogroup"] label:hover{
 }
 
 
-/* ===== Active Selected Menu ===== */
-div[role="radiogroup"] label:has(input[type="radio"]:checked){
-    background:linear-gradient(135deg,#38bdf8,#60a5fa)!important;
-    border:1px solid #7dd3fc!important;
+/* ===== Active Prediction Menu ===== */
+div[role="radiogroup"] label[data-baseweb="radio"]:has(input:checked){
+    background:rgba(70,180,255,.18)!important;
+    border:1px solid rgba(80,200,255,.75)!important;
     box-shadow:
-      0 0 12px rgba(56,189,248,.95),
-      0 0 28px rgba(96,165,250,.75),
-      inset 0 0 18px rgba(255,255,255,.18)!important;
+        0 0 10px rgba(80,200,255,.65),
+        0 0 24px rgba(80,200,255,.45),
+        inset 0 0 12px rgba(80,200,255,.18)!important;
 }
-div[role="radiogroup"] label:has(input[type="radio"]:checked) p{
-    color:#ffffff!important;
-    text-shadow:0 0 10px rgba(125,211,252,1)!important;
-    font-weight:700!important;
+
+div[role="radiogroup"] label[data-baseweb="radio"]:has(input:checked) p{
+    color:#8fdcff!important;
+    text-shadow:0 0 8px rgba(80,200,255,.8);
 }
 
 </style>
