@@ -758,11 +758,11 @@ if menu == "ℹ️ About":
     with col1:
         st.markdown("### 👤 Perkenalan")
         from pathlib import Path
-        foto_path = Path(__file__).parent / "FOTO.png"
+        foto_path = Path(__file__).parent / "assets" / "FOTO.png"
         if foto_path.exists():
             st.image(str(foto_path), width=180)
         else:
-            st.warning("FOTO.png tidak ditemukan")
+            st.warning("assets/FOTO.png tidak ditemukan")
         st.markdown("""
         <div class="card">
         <b>Nama</b> : Farhad Abdillah Darnaz<br><br>
