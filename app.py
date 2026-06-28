@@ -487,6 +487,27 @@ from{opacity:0;transform:translateX(-25px);}
 to{opacity:1;transform:translateX(0);}
 }
 
+
+/* ===== Transparent Button Background ===== */
+.stButton > button{
+    background: transparent !important;
+    background-color: transparent !important;
+    border: 1px solid rgba(255,255,255,.18) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    box-shadow: none !important;
+}
+
+.stButton > button:hover{
+    background: rgba(255,255,255,.08) !important;
+    border-color: rgba(255,255,255,.35) !important;
+    box-shadow: 0 0 18px rgba(43,217,255,.35) !important;
+}
+
+.stButton > button:active{
+    background: rgba(255,255,255,.12) !important;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
