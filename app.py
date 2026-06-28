@@ -465,37 +465,6 @@ div[role="radiogroup"] label p{
 </style>
 """, unsafe_allow_html=True)
 
-
-st.markdown(r'''
-<style>
-section[data-testid="stSidebar"]{
-background:#0b1020!important;
-border-radius:32px!important;
-}
-div[role="radiogroup"] label{
-background:linear-gradient(180deg,#16233f,#1b2746)!important;
-border:1px solid rgba(80,140,255,.25)!important;
-border-radius:14px!important;
-box-shadow:-4px 0 10px #28b7ff55,4px 0 10px #ff295555;
-}
-div[role="radiogroup"] label:hover{
-transform:translateX(6px);
-box-shadow:-8px 0 18px #28b7ff,8px 0 18px #ff2955;
-}
-.stButton button{
-border-radius:14px!important;
-background:linear-gradient(90deg,#16b5ff,#7b4dff)!important;
-font-weight:700!important;
-}
-[data-testid="stFileUploader"]{
-background:#14213d!important;
-border-radius:16px!important;
-border:1px solid rgba(255,255,255,.12)!important;
-}
-</style>
-''', unsafe_allow_html=True)
-
-
 # =====================================================
 # HERO DASHBOARD
 # =====================================================
