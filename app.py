@@ -757,6 +757,7 @@ if menu == "ℹ️ About":
 
     with col1:
         st.markdown("### 👤 Perkenalan")
+        st.image("FOTO.png", width=180)
         st.markdown("""
         <div class="card">
         <b>Nama</b> : Farhad Abdillah Darnaz<br><br>
