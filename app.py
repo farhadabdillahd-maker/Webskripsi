@@ -487,6 +487,25 @@ from{opacity:0;transform:translateX(-25px);}
 to{opacity:1;transform:translateX(0);}
 }
 
+
+/* Center sidebar menu cards */
+div[role="radiogroup"]{
+display:flex!important;
+flex-direction:column!important;
+align-items:center!important;
+}
+div[role="radiogroup"] label{
+width:88%!important;
+min-width:88%!important;
+margin-left:auto!important;
+margin-right:auto!important;
+}
+[data-testid="stFileUploader"]{
+width:88%!important;
+margin-left:auto!important;
+margin-right:auto!important;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
