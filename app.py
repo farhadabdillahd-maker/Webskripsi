@@ -352,6 +352,54 @@ div[role="radiogroup"] label p{
     margin:auto !important;
 }
 
+
+/* ========================================= */
+/* ANIMATED RGB BORDER */
+/* ========================================= */
+
+.stApp::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    padding:3px;
+    border-radius:0;
+    pointer-events:none;
+    z-index:99999;
+
+    background:linear-gradient(
+        90deg,
+        #ff0000,
+        #ff3333,
+        #0066ff,
+        #00c8ff,
+        #ff0000
+    );
+
+    background-size:400% 400%;
+    animation:borderFlow 4s linear infinite;
+
+    filter:
+        drop-shadow(0 0 6px #ff0000)
+        drop-shadow(0 0 10px #0066ff);
+
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+
+    -webkit-mask-composite:xor;
+    mask-composite:exclude;
+}
+
+@keyframes borderFlow{
+    0%{
+        background-position:0% 50%;
+    }
+    100%{
+        background-position:400% 50%;
+    }
+}
+
+
 </style>
 """, unsafe_allow_html=True)
 
