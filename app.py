@@ -359,62 +359,56 @@ div[role="radiogroup"] label p{
 
 
 
-/* ===== Chase Border (Red vs Blue) ===== */
+/* ===== Corner Accent Border ===== */
 section[data-testid="stSidebar"]{
-    position:relative !important;
+    position:relative!important;
+    border-top-right-radius:30px;
+    border-bottom-right-radius:30px;
+    overflow:hidden;
+}
+
+section[data-testid="stSidebar"]::before,
+section[data-testid="stSidebar"]::after{
+    content:"";
+    position:absolute;
+    pointer-events:none;
+    z-index:20;
 }
 
 section[data-testid="stSidebar"]::before{
-    content:"";
-    position:absolute;
     inset:0;
-    padding:2px;
+    background:
+      linear-gradient(#47e7ff,#47e7ff) left 0 top 0/70px 3px no-repeat,
+      linear-gradient(#47e7ff,#47e7ff) left 0 top 0/3px 70px no-repeat,
+      linear-gradient(#ff1878,#ff1878) right 0 top 0/70px 3px no-repeat,
+      linear-gradient(#ff1878,#ff1878) right 0 top 0/3px 70px no-repeat,
+      linear-gradient(#ff1878,#ff1878) left 0 bottom 0/70px 3px no-repeat,
+      linear-gradient(#ff1878,#ff1878) left 0 bottom 0/3px 70px no-repeat,
+      linear-gradient(#47e7ff,#47e7ff) right 0 bottom 0/70px 3px no-repeat,
+      linear-gradient(#47e7ff,#47e7ff) right 0 bottom 0/3px 70px no-repeat;
+    filter:drop-shadow(0 0 8px #47e7ff) drop-shadow(0 0 8px #ff1878);
+}
+
+section[data-testid="stSidebar"]::after{
+    inset:0;
     border-top-right-radius:30px;
     border-bottom-right-radius:30px;
-
     background:
-      linear-gradient(90deg,
-        transparent 0%,
-        transparent 40%,
-        #ff0033 46%,
-        #ff0033 50%,
-        transparent 56%,
-        transparent 100%),
-      linear-gradient(90deg,
-        transparent 0%,
-        transparent 65%,
-        #00a2ff 71%,
-        #00a2ff 75%,
-        transparent 81%,
-        transparent 100%);
-
-    background-size:200% 100%,200% 100%;
-    animation:chaseRed 2.2s linear infinite,
-              chaseBlue 2.2s linear infinite;
-
-    -webkit-mask:
-      linear-gradient(#fff 0 0) content-box,
-      linear-gradient(#fff 0 0);
-    -webkit-mask-composite:xor;
-    mask-composite:exclude;
-
-    pointer-events:none;
-    filter:drop-shadow(0 0 6px #ff0033)
-           drop-shadow(0 0 6px #00a2ff);
+      linear-gradient(90deg,transparent 0 20%,#47e7ff 25% 35%,transparent 40%) top/220% 3px no-repeat,
+      linear-gradient(180deg,transparent 0 20%,#ff1878 25% 35%,transparent 40%) right/3px 220% no-repeat,
+      linear-gradient(90deg,transparent 0 20%,#47e7ff 25% 35%,transparent 40%) bottom/220% 3px no-repeat,
+      linear-gradient(180deg,transparent 0 20%,#ff1878 25% 35%,transparent 40%) left/3px 220% no-repeat;
+    animation:edgeRun 6s linear infinite;
 }
 
-@keyframes chaseRed{
-    from{background-position:0% 0,0% 0;}
-    to{background-position:200% 0,0% 0;}
+@keyframes edgeRun{
+0%{background-position:-120% 0,100% -120%,120% 100%,0 120%;}
+25%{background-position:120% 0,100% 120%,120% 100%,0 120%;}
+50%{background-position:120% 0,100% 120%,-120% 100%,0 120%;}
+75%{background-position:120% 0,100% 120%,-120% 100%,0 -120%;}
+100%{background-position:-120% 0,100% -120%,120% 100%,0 120%;}
 }
 
-@keyframes chaseBlue{
-    from{background-position:200% 0,0% 0;}
-    to{background-position:200% 0,200% 0;}
-}
-
-    to{background-position:300% 50%;}
-}
 
 </style>
 """, unsafe_allow_html=True)
