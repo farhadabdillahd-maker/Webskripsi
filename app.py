@@ -547,6 +547,18 @@ div[role="radiogroup"] label:hover{
  to{background-position:160% 0,-160% 0;}
 }
 
+
+/* Hide Streamlit radio indicator circles */
+div[role="radiogroup"] input[type="radio"]{
+    display:none !important;
+}
+div[role="radiogroup"] label [data-testid="stMarkdownContainer"]::before{
+    content:none !important;
+}
+div[role="radiogroup"] label svg{
+    display:none !important;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
