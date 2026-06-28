@@ -369,29 +369,31 @@ background:#0b1224!important;
 section[data-testid="stSidebar"]::before{
 content:"";
 position:absolute;
-inset:0;
+inset:12px;
+border-radius:30px;
 pointer-events:none;
 background:
-linear-gradient(#2bd9ff,#2bd9ff) left top/70px 3px no-repeat,
-linear-gradient(#2bd9ff,#2bd9ff) left top/3px 70px no-repeat,
-linear-gradient(#ff2b5f,#ff2b5f) right top/70px 3px no-repeat,
-linear-gradient(#ff2b5f,#ff2b5f) right top/3px 70px no-repeat,
-linear-gradient(#ff2b5f,#ff2b5f) left bottom/70px 3px no-repeat,
-linear-gradient(#ff2b5f,#ff2b5f) left bottom/3px 70px no-repeat,
-linear-gradient(#2bd9ff,#2bd9ff) right bottom/70px 3px no-repeat,
-linear-gradient(#2bd9ff,#2bd9ff) right bottom/3px 70px no-repeat;
+linear-gradient(#2bd9ff,#2bd9ff) left top/60px 3px no-repeat,
+linear-gradient(#2bd9ff,#2bd9ff) left top/3px 60px no-repeat,
+linear-gradient(#ff2b5f,#ff2b5f) right top/60px 3px no-repeat,
+linear-gradient(#ff2b5f,#ff2b5f) right top/3px 60px no-repeat,
+linear-gradient(#ff2b5f,#ff2b5f) left bottom/60px 3px no-repeat,
+linear-gradient(#ff2b5f,#ff2b5f) left bottom/3px 60px no-repeat,
+linear-gradient(#2bd9ff,#2bd9ff) right bottom/60px 3px no-repeat,
+linear-gradient(#2bd9ff,#2bd9ff) right bottom/3px 60px no-repeat;
 filter:drop-shadow(0 0 8px #2bd9ff) drop-shadow(0 0 8px #ff2b5f);
 }
 section[data-testid="stSidebar"]::after{
 content:"";
 position:absolute;
-inset:0;
+inset:12px;
+border-radius:30px;
 pointer-events:none;
 background:
-linear-gradient(90deg,transparent,#2bd9ff,transparent) top/240% 3px no-repeat,
-linear-gradient(180deg,transparent,#ff2b5f,transparent) right/3px 240% no-repeat,
-linear-gradient(90deg,transparent,#2bd9ff,transparent) bottom/240% 3px no-repeat,
-linear-gradient(180deg,transparent,#ff2b5f,transparent) left/3px 240% no-repeat;
+linear-gradient(90deg,transparent,#2bd9ff,transparent) top/180% 3px no-repeat,
+linear-gradient(180deg,transparent,#ff2b5f,transparent) right/3px 180% no-repeat,
+linear-gradient(90deg,transparent,#2bd9ff,transparent) bottom/180% 3px no-repeat,
+linear-gradient(180deg,transparent,#ff2b5f,transparent) left/3px 180% no-repeat;
 animation:borderRun 3.5s linear infinite;
 filter:drop-shadow(0 0 10px #2bd9ff) drop-shadow(0 0 10px #ff2b5f);
 }
