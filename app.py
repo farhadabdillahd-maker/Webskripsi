@@ -458,12 +458,10 @@ div[role="radiogroup"] label p{
 
 
 /* Center MENU button */
-section[data-testid="stSidebar"] .stButton{
-display:flex!important;
-justify-content:center!important;
-}
 section[data-testid="stSidebar"] .stButton>button{
-width:150px!important;
+margin:auto!important;
+max-width:150px!important;
+display:block!important;
 }
 
 /* Menu animation */
@@ -546,9 +544,9 @@ st.sidebar.markdown(
 if "show_menu" not in st.session_state:
     st.session_state.show_menu = False
 
-st.sidebar.markdown("""<div style="display:flex;justify-content:center;margin:10px 0 18px 0;">""",unsafe_allow_html=True)
-btn_clicked = st.sidebar.button("☰ MENU")
-st.sidebar.markdown("</div>",unsafe_allow_html=True)
+_c1,_c2,_c3 = st.sidebar.columns([1,2,1])
+with _c2:
+    btn_clicked = st.button("☰ MENU", use_container_width=True)
 if btn_clicked:
     st.session_state.show_menu = not st.session_state.show_menu
 
