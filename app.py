@@ -462,6 +462,41 @@ div[role="radiogroup"] label p{
     letter-spacing:.2px;
 }
 
+
+/* ===== SIDEBAR PREMIUM STYLE ===== */
+section[data-testid="stSidebar"]{
+    background:linear-gradient(180deg,#070d1f 0%,#121b33 55%,#1d4ed8 100%) !important;
+    border-top-right-radius:34px;
+    border-bottom-right-radius:34px;
+    overflow:hidden;
+    box-shadow:0 0 30px rgba(0,0,0,.35);
+}
+
+div[role="radiogroup"] label{
+    background:rgba(255,255,255,.08)!important;
+    border:1px solid rgba(255,255,255,.08)!important;
+    border-radius:14px!important;
+    margin:10px 0!important;
+    padding:12px 14px!important;
+    box-shadow:0 10px 25px rgba(0,0,0,.18);
+}
+
+div[role="radiogroup"] label:hover{
+    background:rgba(255,255,255,.12)!important;
+    border-color:rgba(85,170,255,.45)!important;
+    box-shadow:
+      inset 3px 0 #2dd4ff,
+      inset -3px 0 #ff2d6f,
+      0 0 20px rgba(45,212,255,.18)!important;
+}
+
+[data-testid="stFileUploader"]{
+    background:rgba(12,18,40,.35)!important;
+    border:1px solid rgba(255,255,255,.12)!important;
+    border-radius:22px!important;
+    backdrop-filter:blur(10px);
+}
+
 </style>
 """, unsafe_allow_html=True)
 
