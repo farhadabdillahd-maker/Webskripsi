@@ -24,8 +24,12 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 from io import BytesIO
-from reportlab.platypus import SimpleDocTemplate, Paragraph
-from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import A4
+from reportlab.lib.units import cm
+from reportlab.lib.utils import ImageReader
+from datetime import datetime
+from io import BytesIO
 
 
 # =====================================================
@@ -739,39 +743,53 @@ if menu == "🔍 Prediksi" and uploaded_file is None:
                 st.success(f"Hasil Prediksi : {prediction}")
 
                 # ================= PDF SURAT =================
-                # Template surat polisi menggunakan assets/surat.png
-                # (Pastikan file assets/surat.png tersedia)
-                from reportlab.pdfgen import canvas
-                from reportlab.lib.utils import ImageReader
-                from reportlab.lib.pagesizes import A4
-                import datetime
-
                 def generate_police_pdf(judul, hasil):
-                    from reportlab.pdfgen import canvas
-                    from reportlab.lib.pagesizes import A4
-                    from reportlab.lib.utils import ImageReader
-                    import datetime
-                    from io import BytesIO
-
                     buffer = BytesIO()
                     c = canvas.Canvas(buffer, pagesize=A4)
                     w, h = A4
 
                     try:
-                        bg = ImageReader("assets/surat.png")
-                        c.drawImage(bg, 0, 0, width=w, height=h)
+                        logo = ImageReader("assets/logo.png")
+                        c.drawImage(logo, 1.8*cm, h-3.2*cm, width=2*cm, height=2*cm, preserveAspectRatio=True)
                     except:
                         pass
 
-                    nomor = "B/{}/RESKRIM".format(datetime.datetime.now().strftime("%d%m%Y"))
-                    tanggal = datetime.datetime.now().strftime("%d %B %Y")
+                    c.setFont("Helvetica-Bold",14)
+                    c.drawCentredString(w/2,h-1.8*cm,"KEPOLISIAN NEGARA REPUBLIK INDONESIA")
+                    c.drawCentredString(w/2,h-2.4*cm,"POLRES PASAMAN")
+                    c.drawCentredString(w/2,h-3.0*cm,"SATUAN RESERSE KRIMINAL")
+                    c.line(1.5*cm,h-3.5*cm,w-1.5*cm,h-3.5*cm)
+
+                    nomor = "B/001/RESKRIM/%s" % datetime.now().strftime("%m/%Y")
+                    tanggal = datetime.now().strftime("%d %B %Y")
+
+                    y = h-4.5*cm
+                    c.setFont("Helvetica-Bold",13)
+                    c.drawCentredString(w/2,y,"SURAT HASIL KLASIFIKASI")
+                    y -= 1*cm
 
                     c.setFont("Helvetica",11)
-                    c.drawString(255,438, nomor)
-                    c.drawString(255,405, judul[:120])
-                    c.drawString(255,372, hasil)
-                    c.drawString(355,128, tanggal)
-
+                    c.drawString(2*cm,y,f"Nomor Surat : {nomor}")
+                    y -= 0.7*cm
+                    c.drawString(2*cm,y,f"Tanggal      : {tanggal}")
+                    y -= 1*cm
+                    c.drawString(2*cm,y,"Judul Berita :")
+                    y -= 0.6*cm
+                    c.drawString(2.5*cm,y,judul[:120])
+                    y -= 1*cm
+                    c.drawString(2*cm,y,f"Hasil Prediksi : {hasil}")
+                    y -= 1.2*cm
+                    c.drawString(2*cm,y,"Metode : Naive Bayes")
+                    y -= 0.6*cm
+                    c.drawString(2*cm,y,"Ekstraksi Fitur : TF-IDF")
+                    y -= 1.2*cm
+                    c.drawString(2*cm,y,"Demikian surat ini dibuat untuk dipergunakan sebagaimana mestinya.")
+                    y -= 2*cm
+                    c.drawRightString(w-2*cm,y,"Pasaman, "+tanggal)
+                    y -= 0.8*cm
+                    c.drawRightString(w-2*cm,y,"Kepala Sat Reskrim")
+                    y -= 2.5*cm
+                    c.drawRightString(w-2*cm,y,"(................................)")
                     c.save()
                     pdf = buffer.getvalue()
                     buffer.close()
