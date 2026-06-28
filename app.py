@@ -741,22 +741,52 @@ if menu == "🔍 Prediksi" and uploaded_file is None:
 if menu == "ℹ️ About":
     st.markdown("""
     <div class="card">
-        <h2>👨‍💻 About Developer</h2>
-        <p>Informasi pengembang aplikasi.</p>
+        <h2>ℹ️ About Aplikasi</h2>
+        <p>Informasi pengembang, penelitian, dan teknologi yang digunakan.</p>
     </div>
     """, unsafe_allow_html=True)
 
-    st.markdown("""
-### 👤 Profil Pengembang
+    c1,c2=st.columns(2)
+
+    with c1:
+        st.markdown("""
+### 👨‍💻 Perkenalan
+
+**Nama** : **Farhad Abdillah Darnaz**
 
 **NOBP** : **22101152630058**
 
-**Nama** : **FARHAD ABDILLAH DARNAZ**
+**Program Studi** : **Teknik Informatika**
 
-**Jurusan** : **TEKNIK INFORMATIKA**
-
-Aplikasi ini merupakan implementasi algoritma **Naïve Bayes** untuk klasifikasi tingkat kejahatan di **Polres Pasaman** menggunakan **Python, Streamlit, TF‑IDF, dan Sastrawi**.
+**Universitas** : **Universitas Putra Indonesia YPTK Padang**
 """)
+
+    with c2:
+        st.markdown("""
+### 📘 Judul Penelitian
+
+**Penerapan Machine Learning Menggunakan Algoritma Naïve Bayes Untuk Klasifikasi Tingkat Kejahatan di Polres Pasaman**
+""")
+
+    st.markdown("---")
+
+    st.markdown("""
+### 🛠️ Aplikasi & Teknologi yang Digunakan
+
+- Python
+- Streamlit
+- Pandas
+- Scikit-learn
+- Naïve Bayes
+- TF-IDF Vectorizer
+- Sastrawi
+- NLTK
+- Matplotlib
+- Seaborn
+- Joblib
+""")
+
+    st.info("Aplikasi ini dibuat sebagai media klasifikasi tingkat kejahatan berdasarkan judul berita menggunakan algoritma Naïve Bayes.")
     st.stop()
 
 # =====================================================
