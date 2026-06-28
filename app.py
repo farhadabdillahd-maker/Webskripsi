@@ -487,23 +487,6 @@ from{opacity:0;transform:translateX(-25px);}
 to{opacity:1;transform:translateX(0);}
 }
 
-
-/* ===== Center Sidebar Menu Cards ===== */
-div[role="radiogroup"]{
-    display:flex !important;
-    flex-direction:column !important;
-    align-items:center !important;
-    gap:12px !important;
-}
-div[role="radiogroup"] label{
-    width:82% !important;
-    min-width:82% !important;
-    max-width:82% !important;
-    margin:0 auto 10px auto !important;
-    display:flex !important;
-    align-items:center !important;
-}
-
 </style>
 """, unsafe_allow_html=True)
 
