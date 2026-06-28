@@ -764,26 +764,36 @@ if menu == "🔍 Prediksi" and uploaded_file is None:
                     tanggal = datetime.now().strftime("%d %B %Y")
 
                     y = h-4.5*cm
-                    c.setFont("Helvetica-Bold",13)
-                    c.drawCentredString(w/2,y,"SURAT HASIL KLASIFIKASI")
+                    c.setFont("Helvetica-Bold",14)
+                    c.drawCentredString(w/2,y,"LAPORAN HASIL KLASIFIKASI")
                     y -= 1*cm
 
+                    x0=2*cm
+                    table_w=w-4*cm
+                    row_h=0.8*cm
+                    col1=6*cm
+
+                    c.setFont("Helvetica-Bold",11)
+                    c.rect(x0,y-row_h,table_w,row_h)
+                    c.line(x0+col1,y,x0+col1,y-row_h)
+                    c.drawCentredString(x0+col1/2,y-0.55*cm,"Parameter")
+                    c.drawCentredString(x0+col1+(table_w-col1)/2,y-0.55*cm,"Keterangan")
+
+                    rows=[
+                        ("Nomor Surat",nomor),
+                        ("Input Teks",judul[:90]),
+                        ("Hasil Prediksi",hasil),
+                    ]
                     c.setFont("Helvetica",11)
-                    c.drawString(2*cm,y,f"Nomor Surat : {nomor}")
-                    y -= 0.7*cm
-                    c.drawString(2*cm,y,f"Tanggal      : {tanggal}")
-                    y -= 1*cm
-                    c.drawString(2*cm,y,"Judul Berita :")
-                    y -= 0.6*cm
-                    c.drawString(2.5*cm,y,judul[:120])
-                    y -= 1*cm
-                    c.drawString(2*cm,y,f"Hasil Prediksi : {hasil}")
-                    y -= 1.2*cm
-                    c.drawString(2*cm,y,"Metode : Naive Bayes")
-                    y -= 0.6*cm
-                    c.drawString(2*cm,y,"Ekstraksi Fitur : TF-IDF")
-                    y -= 1.2*cm
-                    c.drawString(2*cm,y,"Demikian surat ini dibuat untuk dipergunakan sebagaimana mestinya.")
+                    yy=y-row_h
+                    for p,v in rows:
+                        c.rect(x0,yy-row_h,table_w,row_h)
+                        c.line(x0+col1,yy,x0+col1,yy-row_h)
+                        c.drawString(x0+0.2*cm,yy-0.55*cm,p)
+                        c.drawString(x0+col1+0.2*cm,yy-0.55*cm,str(v))
+                        yy-=row_h
+                    y=yy-1*cm
+                    c.drawString(2*cm,y,"Demikian laporan hasil klasifikasi ini dibuat untuk dipergunakan sebagaimana mestinya.")
                     y -= 2*cm
                     c.drawRightString(w-2*cm,y,"Pasaman, "+tanggal)
                     y -= 0.8*cm
