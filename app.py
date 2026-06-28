@@ -508,6 +508,45 @@ to{opacity:1;transform:translateX(0);}
     background: rgba(255,255,255,.12) !important;
 }
 
+
+/* ==== Police Glass Menu ==== */
+div[role="radiogroup"] label{
+    background:rgba(255,255,255,.06)!important;
+    backdrop-filter:blur(14px)!important;
+    -webkit-backdrop-filter:blur(14px)!important;
+    border:1px solid rgba(255,255,255,.10)!important;
+    box-shadow:none!important;
+    overflow:hidden!important;
+    position:relative!important;
+}
+div[role="radiogroup"] label::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    opacity:0;
+    background:
+      linear-gradient(90deg,transparent 15%,rgba(0,225,255,.9) 35%,transparent 50%),
+      linear-gradient(90deg,transparent 55%,rgba(255,40,90,.9) 75%,transparent 90%);
+    background-size:250% 100%,250% 100%;
+}
+div[role="radiogroup"] label:hover::before{
+    opacity:1;
+    animation:policeFlash .9s linear infinite;
+}
+div[role="radiogroup"] label:hover{
+    background:rgba(255,255,255,.10)!important;
+    border-color:rgba(255,255,255,.25)!important;
+    transform:translateY(-2px) scale(1.03)!important;
+    box-shadow:
+      -12px 0 18px rgba(0,225,255,.45),
+      12px 0 18px rgba(255,40,90,.45),
+      inset 0 0 20px rgba(255,255,255,.04)!important;
+}
+@keyframes policeFlash{
+ from{background-position:-160% 0,160% 0;}
+ to{background-position:160% 0,-160% 0;}
+}
+
 </style>
 """, unsafe_allow_html=True)
 
