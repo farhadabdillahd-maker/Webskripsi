@@ -361,55 +361,47 @@ div[role="radiogroup"] label p{
 
 /* ===== Corner Accent Border ===== */
 section[data-testid="stSidebar"]{
-    position:relative!important;
-    border-top-right-radius:30px;
-    border-bottom-right-radius:30px;
-    overflow:hidden;
+position:relative!important;
+overflow:hidden;
+border-radius:32px!important;
+background:#0b1224!important;
 }
-
-section[data-testid="stSidebar"]::before,
-section[data-testid="stSidebar"]::after{
-    content:"";
-    position:absolute;
-    pointer-events:none;
-    z-index:20;
-}
-
 section[data-testid="stSidebar"]::before{
-    inset:0;
-    background:
-      linear-gradient(#47e7ff,#47e7ff) left 0 top 0/70px 3px no-repeat,
-      linear-gradient(#47e7ff,#47e7ff) left 0 top 0/3px 70px no-repeat,
-      linear-gradient(#ff1878,#ff1878) right 0 top 0/70px 3px no-repeat,
-      linear-gradient(#ff1878,#ff1878) right 0 top 0/3px 70px no-repeat,
-      linear-gradient(#ff1878,#ff1878) left 0 bottom 0/70px 3px no-repeat,
-      linear-gradient(#ff1878,#ff1878) left 0 bottom 0/3px 70px no-repeat,
-      linear-gradient(#47e7ff,#47e7ff) right 0 bottom 0/70px 3px no-repeat,
-      linear-gradient(#47e7ff,#47e7ff) right 0 bottom 0/3px 70px no-repeat;
-    filter:drop-shadow(0 0 8px #47e7ff) drop-shadow(0 0 8px #ff1878);
+content:"";
+position:absolute;
+inset:0;
+pointer-events:none;
+background:
+linear-gradient(#2bd9ff,#2bd9ff) left top/70px 3px no-repeat,
+linear-gradient(#2bd9ff,#2bd9ff) left top/3px 70px no-repeat,
+linear-gradient(#ff2b5f,#ff2b5f) right top/70px 3px no-repeat,
+linear-gradient(#ff2b5f,#ff2b5f) right top/3px 70px no-repeat,
+linear-gradient(#ff2b5f,#ff2b5f) left bottom/70px 3px no-repeat,
+linear-gradient(#ff2b5f,#ff2b5f) left bottom/3px 70px no-repeat,
+linear-gradient(#2bd9ff,#2bd9ff) right bottom/70px 3px no-repeat,
+linear-gradient(#2bd9ff,#2bd9ff) right bottom/3px 70px no-repeat;
+filter:drop-shadow(0 0 8px #2bd9ff) drop-shadow(0 0 8px #ff2b5f);
 }
-
 section[data-testid="stSidebar"]::after{
-    inset:0;
-    border-top-right-radius:30px;
-    border-bottom-right-radius:30px;
-    background:
-      linear-gradient(90deg,transparent 0 20%,#47e7ff 25% 35%,transparent 40%) top/220% 3px no-repeat,
-      linear-gradient(180deg,transparent 0 20%,#ff1878 25% 35%,transparent 40%) right/3px 220% no-repeat,
-      linear-gradient(90deg,transparent 0 20%,#47e7ff 25% 35%,transparent 40%) bottom/220% 3px no-repeat,
-      linear-gradient(180deg,transparent 0 20%,#ff1878 25% 35%,transparent 40%) left/3px 220% no-repeat;
-    animation:edgeRun 6s linear infinite;
+content:"";
+position:absolute;
+inset:0;
+pointer-events:none;
+background:
+linear-gradient(90deg,transparent,#2bd9ff,transparent) top/240% 3px no-repeat,
+linear-gradient(180deg,transparent,#ff2b5f,transparent) right/3px 240% no-repeat,
+linear-gradient(90deg,transparent,#2bd9ff,transparent) bottom/240% 3px no-repeat,
+linear-gradient(180deg,transparent,#ff2b5f,transparent) left/3px 240% no-repeat;
+animation:borderRun 3.5s linear infinite;
+filter:drop-shadow(0 0 10px #2bd9ff) drop-shadow(0 0 10px #ff2b5f);
 }
-
-@keyframes edgeRun{
-0%{background-position:-120% 0,100% -120%,120% 100%,0 120%;}
-25%{background-position:120% 0,100% 120%,120% 100%,0 120%;}
-50%{background-position:120% 0,100% 120%,-120% 100%,0 120%;}
-75%{background-position:120% 0,100% 120%,-120% 100%,0 -120%;}
-100%{background-position:-120% 0,100% -120%,120% 100%,0 120%;}
+@keyframes borderRun{
+0%{background-position:-140% 0,100% -140%,140% 100%,0 140%;}
+25%{background-position:140% 0,100% 140%,140% 100%,0 140%;}
+50%{background-position:140% 0,100% 140%,-140% 100%,0 140%;}
+75%{background-position:140% 0,100% 140%,-140% 100%,0 -140%;}
+100%{background-position:-140% 0,100% -140%,140% 100%,0 140%;}
 }
-
-
 
 /* ============================= */
 /* POLICE HOVER EFFECT MENU      */
