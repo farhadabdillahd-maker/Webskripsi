@@ -357,6 +357,48 @@ div[role="radiogroup"] label p{
     margin:auto !important;
 }
 
+
+/* ===== Animated Neon Border Sidebar ===== */
+section[data-testid="stSidebar"]{
+    position:relative !important;
+}
+
+section[data-testid="stSidebar"]::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    padding:2px;
+    border-top-right-radius:30px;
+    border-bottom-right-radius:30px;
+
+    background:linear-gradient(
+        90deg,
+        #ff0033,
+        #ff4d4d,
+        #0066ff,
+        #00bfff,
+        #ff0033
+    );
+    background-size:300% 300%;
+    animation:sidebarBorder 4s linear infinite;
+
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite:xor;
+    mask-composite:exclude;
+
+    pointer-events:none;
+    filter:
+      drop-shadow(0 0 6px #ff0033)
+      drop-shadow(0 0 8px #0066ff);
+}
+
+@keyframes sidebarBorder{
+    from{background-position:0% 50%;}
+    to{background-position:300% 50%;}
+}
+
 </style>
 """, unsafe_allow_html=True)
 
