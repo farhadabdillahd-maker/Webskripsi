@@ -488,27 +488,6 @@ to{opacity:1;transform:translateX(0);}
 }
 
 
-/* ===== Transparent Button Background ===== */
-.stButton > button{
-    background: transparent !important;
-    background-color: transparent !important;
-    border: 1px solid rgba(255,255,255,.18) !important;
-    backdrop-filter: blur(12px) !important;
-    -webkit-backdrop-filter: blur(12px) !important;
-    box-shadow: none !important;
-}
-
-.stButton > button:hover{
-    background: rgba(255,255,255,.08) !important;
-    border-color: rgba(255,255,255,.35) !important;
-    box-shadow: 0 0 18px rgba(43,217,255,.35) !important;
-}
-
-.stButton > button:active{
-    background: rgba(255,255,255,.12) !important;
-}
-
-
 /* ==== Police Glass Menu ==== */
 div[role="radiogroup"] label{
     background:rgba(255,255,255,.06)!important;
@@ -561,6 +540,41 @@ div[role="radiogroup"] label[data-baseweb="radio"]:has(input:checked){
 div[role="radiogroup"] label[data-baseweb="radio"]:has(input:checked) p{
     color:#8fdcff!important;
     text-shadow:0 0 8px rgba(80,200,255,.8);
+}
+
+
+/* ===== SIDEBAR MENU BUTTON (☰ MENU) ===== */
+section[data-testid="stSidebar"] .stButton > button{
+    background:transparent !important;
+    background-color:transparent !important;
+    border:1px solid rgba(255,255,255,.20)!important;
+    color:#fff!important;
+    backdrop-filter:blur(12px)!important;
+    -webkit-backdrop-filter:blur(12px)!important;
+    box-shadow:none!important;
+}
+section[data-testid="stSidebar"] .stButton > button:hover{
+    background:rgba(255,255,255,.08)!important;
+    box-shadow:0 0 18px rgba(56,189,248,.45)!important;
+}
+
+/* ===== DASHBOARD BUTTON (Prediksi, Download, dll) ===== */
+div[data-testid="stMain"] .stButton > button{
+    background:linear-gradient(135deg,#38bdf8,#60a5fa)!important;
+    color:#fff!important;
+    border:1px solid #7dd3fc!important;
+    border-radius:14px!important;
+    box-shadow:
+        0 0 14px rgba(56,189,248,.85),
+        0 0 32px rgba(96,165,250,.65),
+        inset 0 0 10px rgba(255,255,255,.15)!important;
+}
+div[data-testid="stMain"] .stButton > button:hover{
+    background:linear-gradient(135deg,#67e8f9,#3b82f6)!important;
+    transform:translateY(-2px) scale(1.03)!important;
+    box-shadow:
+        0 0 20px rgba(56,189,248,1),
+        0 0 42px rgba(96,165,250,.85)!important;
 }
 
 </style>
