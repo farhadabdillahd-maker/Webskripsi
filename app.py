@@ -569,11 +569,23 @@ if menu is None:
     st.stop()
 
 uploaded_file = None
-if menu in ["📂 Upload Dataset","🧹 Preprocessing","🤖 Klasifikasi"]:
-    uploaded_file = st.sidebar.file_uploader(
+
+if "uploaded_dataset" not in st.session_state:
+    st.session_state.uploaded_dataset = None
+
+if menu == "📂 Upload Dataset":
+    st.markdown("### 📂 Upload Dataset")
+    uploaded_file = st.file_uploader(
         "Upload Dataset CSV",
-        type=["csv"]
+        type=["csv"],
+        key="dashboard_upload"
     )
+    if uploaded_file is not None:
+        st.session_state.uploaded_dataset = uploaded_file
+
+if menu in ["🧹 Preprocessing","🤖 Klasifikasi"]:
+    uploaded_file = st.session_state.uploaded_dataset
+
 
 
 # =====================================================
