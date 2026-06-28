@@ -531,7 +531,8 @@ if st.session_state.show_menu:
             "📂 Upload Dataset",
             "🧹 Preprocessing",
             "🤖 Klasifikasi",
-            "🔍 Prediksi"
+            "🔍 Prediksi",
+            "ℹ️ About"
         ]
     )
 
@@ -1456,6 +1457,34 @@ if uploaded_file is not None:
     # =====================================================
     # MENU PREDIKSI
     # =====================================================
+
+
+    # =====================================================
+    # MENU ABOUT
+    # =====================================================
+
+    elif menu == "ℹ️ About":
+
+        st.markdown("""
+        <div class="card">
+        <h2>ℹ️ About Developer</h2>
+        <p>Informasi pengembang aplikasi.</p>
+        </div>
+        """, unsafe_allow_html=True)
+
+        c1,c2=st.columns([1,2])
+        with c2:
+            st.markdown("""
+### 👨‍💻 Developer Profile
+
+**NOBP** : 22101152630058
+
+**Nama** : FARHAD ABDILLAH DARNAZ
+
+**Jurusan** : TEKNIK INFORMATIKA
+
+Aplikasi ini dibuat sebagai implementasi algoritma **Naïve Bayes** untuk klasifikasi tingkat kejahatan pada Polres Pasaman menggunakan Python, Streamlit, dan TF‑IDF.
+""")
 
     elif menu == "🔍 Prediksi":
 
