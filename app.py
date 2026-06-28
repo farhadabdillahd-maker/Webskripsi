@@ -26,6 +26,11 @@ import seaborn as sns
 from io import BytesIO
 from reportlab.platypus import SimpleDocTemplate, Paragraph
 from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.pdfgen import canvas
+from reportlab.lib.utils import ImageReader
+from reportlab.lib.pagesizes import A4
+from datetime import datetime
+from pathlib import Path
 
 
 # =====================================================
@@ -738,26 +743,54 @@ if menu == "🔍 Prediksi" and uploaded_file is None:
 
                 st.success(f"Hasil Prediksi : {prediction}")
 
-                # ================= PDF SURAT =================
+                # ================= PDF SURAT TEMPLATE =================
                 def generate_police_pdf(judul, hasil):
                     buffer = BytesIO()
-                    doc = SimpleDocTemplate(buffer)
-                    styles = getSampleStyleSheet()
-                    story = []
-                    story.append(Paragraph("<b>POLRES PASAMAN</b>", styles["Title"]))
-                    story.append(Paragraph("<b>SATUAN RESERSE KRIMINAL</b>", styles["Heading2"]))
-                    story.append(Paragraph("<br/><b>SURAT HASIL KLASIFIKASI TINGKAT KEJAHATAN</b>", styles["Heading1"]))
-                    story.append(Paragraph("Nomor : B/001/RESKRIM/VI/2026", styles["Normal"]))
-                    story.append(Paragraph("<br/><b>Judul Berita</b>", styles["Heading2"]))
-                    story.append(Paragraph(judul, styles["Normal"]))
-                    story.append(Paragraph("<br/><b>Hasil Klasifikasi :</b> "+hasil, styles["Normal"]))
-                    story.append(Paragraph("<br/>Metode : Naive Bayes", styles["Normal"]))
-                    story.append(Paragraph("Feature Extraction : TF-IDF", styles["Normal"]))
-                    story.append(Paragraph("<br/>Demikian surat hasil klasifikasi ini dibuat untuk dipergunakan sebagaimana mestinya.", styles["Normal"]))
-                    story.append(Paragraph("<br/><br/>Pasaman", styles["Normal"]))
-                    story.append(Paragraph("<br/>Kepala Satuan Reserse Kriminal", styles["Normal"]))
-                    story.append(Paragraph("<br/><br/><br/>(........................................)", styles["Normal"]))
-                    doc.build(story)
+                    c = canvas.Canvas(buffer, pagesize=A4)
+                    w, h = A4
+
+                    bg = Path(__file__).parent / "assets" / "surat.png"
+                    if bg.exists():
+                        c.drawImage(ImageReader(str(bg)), 0, 0, width=w, height=h)
+
+                    nomor_file = Path(__file__).parent / "nomor_surat.txt"
+                    nomor = 1
+                    if nomor_file.exists():
+                        try:
+                            nomor = int(nomor_file.read_text().strip())
+                        except:
+                            nomor = 1
+                    nomor_file.write_text(str(nomor+1))
+
+                    bulan_romawi = ["I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII"]
+                    now = datetime.now()
+
+                    c.setFont("Helvetica-Bold",11)
+                    c.drawString(90,700,f"Nomor : B/{nomor:03d}/RESKRIM/{bulan_romawi[now.month-1]}/{now.year}")
+                    c.drawString(90,680,"Tanggal : "+now.strftime("%d-%m-%Y"))
+
+                    c.setFont("Helvetica-Bold",12)
+                    c.drawString(90,635,"Judul Berita")
+                    c.setFont("Helvetica",11)
+                    t = c.beginText(90,615)
+                    for baris in judul.split("\n"):
+                        t.textLine(baris)
+                    c.drawText(t)
+
+                    c.setFont("Helvetica-Bold",12)
+                    c.drawString(90,520,"Hasil Prediksi")
+                    c.setFont("Helvetica-Bold",14)
+                    c.drawString(90,500,hasil)
+
+                    c.setFont("Helvetica",10)
+                    c.drawString(90,470,"Metode : Naive Bayes")
+                    c.drawString(90,455,"Feature Extraction : TF-IDF")
+
+                    c.drawString(360,180,"Pasaman, "+now.strftime("%d-%m-%Y"))
+                    c.drawString(360,160,"Kepala Satuan Reserse Kriminal")
+                    c.drawString(360,90,"(...................................)")
+
+                    c.save()
                     pdf = buffer.getvalue()
                     buffer.close()
                     return pdf
