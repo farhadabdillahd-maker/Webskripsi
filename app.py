@@ -604,6 +604,31 @@ if menu == "🔍 Prediksi" and uploaded_file is None:
         st.error("Model belum tersedia. Jalankan menu Klasifikasi terlebih dahulu untuk membuat model.")
 
 
+
+# =====================================================
+# MENU ABOUT
+# =====================================================
+if menu == "ℹ️ About":
+    st.markdown("""
+    <div class="card">
+        <h2>👨‍💻 About Developer</h2>
+        <p>Informasi pengembang aplikasi.</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("""
+### 👤 Profil Pengembang
+
+**NOBP** : **22101152630058**
+
+**Nama** : **FARHAD ABDILLAH DARNAZ**
+
+**Jurusan** : **TEKNIK INFORMATIKA**
+
+Aplikasi ini merupakan implementasi algoritma **Naïve Bayes** untuk klasifikasi tingkat kejahatan di **Polres Pasaman** menggunakan **Python, Streamlit, TF‑IDF, dan Sastrawi**.
+""")
+    st.stop()
+
 # =====================================================
 # FILE UPLOAD
 # =====================================================
