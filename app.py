@@ -749,16 +749,24 @@ if menu == "🔍 Prediksi" and uploaded_file is None:
                     w, h = A4
 
                     try:
-                        logo = ImageReader("assets/logo.png")
-                        c.drawImage(logo, 1.8*cm, h-3.2*cm, width=2*cm, height=2*cm, preserveAspectRatio=True)
+                        c.drawImage(ImageReader("assets/logo_polri.png"),1.5*cm,h-3.7*cm,width=2.4*cm,height=2.4*cm,mask='auto')
+                    except:
+                        pass
+                    try:
+                        c.drawImage(ImageReader("assets/logo_polda_sumbar.png"),w-3.9*cm,h-3.7*cm,width=2.4*cm,height=2.4*cm,mask='auto')
                     except:
                         pass
 
-                    c.setFont("Helvetica-Bold",14)
-                    c.drawCentredString(w/2,h-1.8*cm,"KEPOLISIAN NEGARA REPUBLIK INDONESIA")
-                    c.drawCentredString(w/2,h-2.4*cm,"POLRES PASAMAN")
-                    c.drawCentredString(w/2,h-3.0*cm,"SATUAN RESERSE KRIMINAL")
-                    c.line(1.5*cm,h-3.5*cm,w-1.5*cm,h-3.5*cm)
+                    c.setFont("Helvetica-Bold",12)
+                    c.drawCentredString(w/2,h-1.5*cm,"KEPOLISIAN NEGARA REPUBLIK INDONESIA")
+                    c.drawCentredString(w/2,h-2.1*cm,"DAERAH SUMATERA BARAT")
+                    c.drawCentredString(w/2,h-2.7*cm,"RESOR PASAMAN")
+                    c.setFont("Helvetica",10)
+                    c.drawCentredString(w/2,h-3.3*cm,"Jln. Jend. Sudirman No. 1 Lubuk Sikaping 26311")
+                    c.setLineWidth(1.2)
+                    c.line(1.5*cm,h-3.75*cm,w-1.5*cm,h-3.75*cm)
+                    c.setLineWidth(0.5)
+                    c.line(1.5*cm,h-3.9*cm,w-1.5*cm,h-3.9*cm)
 
                     nomor = "B/001/RESKRIM/%s" % datetime.now().strftime("%m/%Y")
                     tanggal = datetime.now().strftime("%d %B %Y")
