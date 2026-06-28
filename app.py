@@ -92,7 +92,7 @@ section[data-testid="stSidebar"]{
 .hero{
     background:white;
     padding:35px;
-    border-radius:28px;
+    border-radius:30px;
     box-shadow:
     0 10px 35px rgba(0,0,0,.05);
     margin-bottom:25px;
