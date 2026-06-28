@@ -540,10 +540,12 @@ if menu is None:
     st.info("Klik tombol ☰ MENU untuk membuka navigasi.")
     st.stop()
 
-uploaded_file = st.sidebar.file_uploader(
-    "Upload Dataset CSV",
-    type=["csv"]
-)
+uploaded_file = None
+if menu in ["📂 Upload Dataset","🧹 Preprocessing","🤖 Klasifikasi"]:
+    uploaded_file = st.sidebar.file_uploader(
+        "Upload Dataset CSV",
+        type=["csv"]
+    )
 
 
 # =====================================================
@@ -606,7 +608,12 @@ if menu == "🔍 Prediksi" and uploaded_file is None:
 # FILE UPLOAD
 # =====================================================
 
-if uploaded_file is not None:
+if menu in ["📂 Upload Dataset","🧹 Preprocessing","🤖 Klasifikasi"]:
+
+    if uploaded_file is None:
+        st.info("Silakan upload dataset CSV untuk menggunakan menu ini.")
+        st.stop()
+
 
     df = pd.read_csv(uploaded_file)
 
