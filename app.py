@@ -359,7 +359,6 @@ div[role="radiogroup"] label p{
 
 
 
-
 /* ===== Corner Accent Border ===== */
 section[data-testid="stSidebar"]{
 position:relative!important;
@@ -367,27 +366,43 @@ overflow:hidden;
 border-radius:32px!important;
 background:#0b1224!important;
 }
-section[data-testid="stSidebar"]::before,
+section[data-testid="stSidebar"]::before{
+content:"";
+position:absolute;
+inset:12px;
+border-radius:30px;
+pointer-events:none;
+background:
+linear-gradient(#2bd9ff,#2bd9ff) left top/60px 3px no-repeat,
+linear-gradient(#2bd9ff,#2bd9ff) left top/3px 60px no-repeat,
+linear-gradient(#ff2b5f,#ff2b5f) right top/60px 3px no-repeat,
+linear-gradient(#ff2b5f,#ff2b5f) right top/3px 60px no-repeat,
+linear-gradient(#ff2b5f,#ff2b5f) left bottom/60px 3px no-repeat,
+linear-gradient(#ff2b5f,#ff2b5f) left bottom/3px 60px no-repeat,
+linear-gradient(#2bd9ff,#2bd9ff) right bottom/60px 3px no-repeat,
+linear-gradient(#2bd9ff,#2bd9ff) right bottom/3px 60px no-repeat;
+filter:drop-shadow(0 0 8px #2bd9ff) drop-shadow(0 0 8px #ff2b5f);
+}
 section[data-testid="stSidebar"]::after{
 content:"";
 position:absolute;
 inset:12px;
 border-radius:30px;
 pointer-events:none;
-}
-section[data-testid="stSidebar"]::before{
 background:
-radial-gradient(circle at left top, transparent 28px,#2bd9ff 29px,#2bd9ff 31px,transparent 32px) left top/62px 62px no-repeat,
-radial-gradient(circle at right top, transparent 28px,#ff2b5f 29px,#ff2b5f 31px,transparent 32px) right top/62px 62px no-repeat,
-radial-gradient(circle at left bottom, transparent 28px,#ff2b5f 29px,#ff2b5f 31px,transparent 32px) left bottom/62px 62px no-repeat,
-radial-gradient(circle at right bottom, transparent 28px,#2bd9ff 29px,#2bd9ff 31px,transparent 32px) right bottom/62px 62px no-repeat;
-filter:drop-shadow(0 0 8px #2bd9ff) drop-shadow(0 0 8px #ff2b5f);
+linear-gradient(90deg,transparent,#2bd9ff,transparent) top/180% 3px no-repeat,
+linear-gradient(180deg,transparent,#ff2b5f,transparent) right/3px 180% no-repeat,
+linear-gradient(90deg,transparent,#2bd9ff,transparent) bottom/180% 3px no-repeat,
+linear-gradient(180deg,transparent,#ff2b5f,transparent) left/3px 180% no-repeat;
+animation:borderRun 3.5s linear infinite;
+filter:drop-shadow(0 0 10px #2bd9ff) drop-shadow(0 0 10px #ff2b5f);
 }
-section[data-testid="stSidebar"]::after{
-border:3px solid transparent;
-border-radius:30px;
-border-image:linear-gradient(90deg,#2bd9ff,#ff2b5f) 1;
-opacity:.0;
+@keyframes borderRun{
+0%{background-position:-140% 0,100% -140%,140% 100%,0 140%;}
+25%{background-position:140% 0,100% 140%,140% 100%,0 140%;}
+50%{background-position:140% 0,100% 140%,-140% 100%,0 140%;}
+75%{background-position:140% 0,100% 140%,-140% 100%,0 -140%;}
+100%{background-position:-140% 0,100% -140%,140% 100%,0 140%;}
 }
 
 /* ============================= */
