@@ -747,51 +747,32 @@ if menu == "🔍 Prediksi" and uploaded_file is None:
                 import datetime
 
                 def generate_police_pdf(judul, hasil):
+                    from reportlab.pdfgen import canvas
+                    from reportlab.lib.pagesizes import A4
+                    from reportlab.lib.utils import ImageReader
+                    import datetime
+                    from io import BytesIO
+
                     buffer = BytesIO()
                     c = canvas.Canvas(buffer, pagesize=A4)
+                    w, h = A4
 
                     try:
                         bg = ImageReader("assets/surat.png")
-                        c.drawImage(bg, 0, 0, width=A4[0], height=A4[1])
-                    except Exception:
+                        c.drawImage(bg, 0, 0, width=w, height=h)
+                    except:
                         pass
 
-                    nomor = f"B/{datetime.datetime.now().strftime('%d%m%Y')}/RESKRIM"
-                    tanggal = datetime.datetime.now().strftime("%d-%m-%Y")
+                    nomor = "B/{}/RESKRIM".format(datetime.datetime.now().strftime("%d%m%Y"))
+                    tanggal = datetime.datetime.now().strftime("%d %B %Y")
 
-                    c.setFont("Helvetica-Bold", 11)
-                    c.drawString(110, 615, nomor)
-                    c.drawString(110, 592, tanggal)
-
-                    c.setFont("Helvetica", 11)
-                    c.drawString(110, 550, judul[:120])
-                    c.drawString(110, 525, hasil)
-                    c.drawString(110, 500, "Naive Bayes")
+                    c.setFont("Helvetica",11)
+                    c.drawString(255,438, nomor)
+                    c.drawString(255,405, judul[:120])
+                    c.drawString(255,372, hasil)
+                    c.drawString(355,128, tanggal)
 
                     c.save()
-                    pdf = buffer.getvalue()
-                    buffer.close()
-                    return pdf
-
-                def generate_police_pdf(judul, hasil):
-                    buffer = BytesIO()
-                    doc = SimpleDocTemplate(buffer)
-                    styles = getSampleStyleSheet()
-                    story = []
-                    story.append(Paragraph("<b>POLRES PASAMAN</b>", styles["Title"]))
-                    story.append(Paragraph("<b>SATUAN RESERSE KRIMINAL</b>", styles["Heading2"]))
-                    story.append(Paragraph("<br/><b>SURAT HASIL KLASIFIKASI TINGKAT KEJAHATAN</b>", styles["Heading1"]))
-                    story.append(Paragraph("Nomor : B/001/RESKRIM/VI/2026", styles["Normal"]))
-                    story.append(Paragraph("<br/><b>Judul Berita</b>", styles["Heading2"]))
-                    story.append(Paragraph(judul, styles["Normal"]))
-                    story.append(Paragraph("<br/><b>Hasil Klasifikasi :</b> "+hasil, styles["Normal"]))
-                    story.append(Paragraph("<br/>Metode : Naive Bayes", styles["Normal"]))
-                    story.append(Paragraph("Feature Extraction : TF-IDF", styles["Normal"]))
-                    story.append(Paragraph("<br/>Demikian surat hasil klasifikasi ini dibuat untuk dipergunakan sebagaimana mestinya.", styles["Normal"]))
-                    story.append(Paragraph("<br/><br/>Pasaman", styles["Normal"]))
-                    story.append(Paragraph("<br/>Kepala Satuan Reserse Kriminal", styles["Normal"]))
-                    story.append(Paragraph("<br/><br/><br/>(........................................)", styles["Normal"]))
-                    doc.build(story)
                     pdf = buffer.getvalue()
                     buffer.close()
                     return pdf
