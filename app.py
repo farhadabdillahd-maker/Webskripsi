@@ -671,6 +671,10 @@ if menu == "📂 Upload Dataset":
         key="dashboard_upload"
     )
     if uploaded_file is not None:
+        try:
+            uploaded_file.seek(0)
+        except Exception:
+            pass
         st.session_state.uploaded_dataset = uploaded_file
 
 if menu in ["🧹 Preprocessing","🤖 Klasifikasi"]:
@@ -804,6 +808,12 @@ if menu in ["📂 Upload Dataset","🧹 Preprocessing","🤖 Klasifikasi"]:
         st.info("Silakan upload dataset CSV untuk menggunakan menu ini.")
         st.stop()
 
+
+    # Pastikan file dapat dibaca ulang setiap perpindahan menu
+    try:
+        uploaded_file.seek(0)
+    except Exception:
+        pass
 
     df = pd.read_csv(uploaded_file)
 
