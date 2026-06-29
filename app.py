@@ -822,6 +822,15 @@ from{background-position:-180% 0,180% 0;}
 to{background-position:180% 0,-180% 0;}
 }
 
+
+/* ===== POPPINS BOLD FOR SIDEBAR BUTTONS ===== */
+section[data-testid="stSidebar"] .stButton > button{
+    font-family:'Poppins',sans-serif !important;
+    font-weight:700 !important;
+    font-size:17px !important;
+    letter-spacing:.3px !important;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
