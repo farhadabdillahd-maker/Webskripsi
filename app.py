@@ -50,7 +50,7 @@ st.set_page_config(
 st.markdown("""
 <style>
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Archivo+Black&display=swap');
 
 html, body, [class*="css"]{
     font-family:'Inter',sans-serif;
@@ -823,16 +823,19 @@ to{background-position:180% 0,-180% 0;}
 }
 
 
-/* ===== MONTSERRAT EXTRABOLD FOR SIDEBAR BUTTONS ===== */
+/* ===== ARCHIVO BLACK SIDEBAR BUTTONS ===== */
 section[data-testid="stSidebar"] .stButton > button{
-    font-family:'Montserrat',sans-serif !important;
-    font-weight:800 !important;
-    font-size:17px !important;
-    letter-spacing:.8px !important;
+    font-family:'Archivo Black',sans-serif !important;
+    font-weight:400 !important;
+    font-size:18px !important;
+    letter-spacing:.6px !important;
     text-transform:uppercase !important;
     color:#ffffff !important;
-    -webkit-font-smoothing:antialiased;
-    text-rendering:optimizeLegibility;
+    -webkit-font-smoothing:auto !important;
+    text-rendering:geometricPrecision !important;
+    text-shadow:
+        0 0 .25px #ffffff,
+        0 0 .25px #ffffff;
 }
 </style>
 """, unsafe_allow_html=True)
