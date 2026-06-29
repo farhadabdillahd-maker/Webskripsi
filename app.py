@@ -777,6 +777,25 @@ box-shadow:0 0 6px #35d6ff,0 0 6px #ff3d68;
 div[role="radiogroup"] label[data-baseweb="radio"]:has(input:checked)::after{
 animation:sidebarTrace 2.4s linear infinite;
 }
+
+/* ===== CENTER SIDEBAR MENU ===== */
+div[role="radiogroup"]{
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:center!important;
+    justify-content:center!important;
+    width:100%!important;
+}
+
+div[role="radiogroup"] label{
+    width:88%!important;
+    max-width:230px!important;
+    margin-left:auto!important;
+    margin-right:auto!important;
+    display:flex!important;
+    align-items:center!important;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
