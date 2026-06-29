@@ -144,12 +144,25 @@ section[data-testid="stSidebar"]{
 
 /* BUTTON */
 
+/* BUTTON DRUKWIDE */
+.stButton button,
+.stButton button p,
+.stButton button span,
+.stButton button div{
+    font-family:'DrukWide', sans-serif !important;
+    font-weight:400 !important;
+    letter-spacing:1px !important;
+}
+
 .stButton button{
     width:100%;
     height:55px;
     border:none;
     border-radius:18px;
-    font-weight:700;
+    color:white;
+    background:linear-gradient(135deg,#06b6d4,#2563eb,#7c3aed);
+    box-shadow:0 10px 25px rgba(37,99,235,.35);
+
     color:white;
     background:linear-gradient(
         135deg,
