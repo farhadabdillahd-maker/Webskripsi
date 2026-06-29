@@ -586,62 +586,6 @@ div[data-testid="stMain"] .stButton > button:hover{
         0 0 42px rgba(96,165,250,.85)!important;
 }
 
-
-/* ===== BLUE LASER MENU BUTTON ===== */
-@keyframes traceIgnite{
-from{background-position:-250% 0;}
-to{background-position:250% 0;}
-}
-div[role="radiogroup"] label{
-background:rgba(20,40,80,.35)!important;
-border:1px solid rgba(70,180,255,.35)!important;
-backdrop-filter:blur(14px)!important;
--webkit-backdrop-filter:blur(14px)!important;
-overflow:hidden!important;
-position:relative!important;
-transition:.35s ease!important;
-}
-div[role="radiogroup"] label::before{
-content:"";
-position:absolute;
-inset:0;
-opacity:0;
-background:linear-gradient(
-110deg,
-transparent 15%,
-rgba(0,255,255,.95) 35%,
-rgba(0,170,255,.95) 50%,
-rgba(80,220,255,.95) 65%,
-transparent 85%);
-background-size:260% 100%;
-}
-div[role="radiogroup"] label:hover::before{
-opacity:1;
-animation:traceIgnite .8s linear infinite;
-}
-div[role="radiogroup"] label:hover{
-background:rgba(20,80,180,.45)!important;
-border-color:#46d8ff!important;
-transform:translateY(-3px) scale(1.03)!important;
-box-shadow:
-0 0 8px #46d8ff,
-0 0 18px #46d8ff,
-0 0 35px #46d8ff,
-0 0 60px rgba(70,216,255,.7)!important;
-}
-div[role="radiogroup"] label[data-baseweb="radio"]:has(input:checked){
-background:linear-gradient(135deg,#00b7ff,#3ad8ff)!important;
-border:1px solid #7ee7ff!important;
-box-shadow:
-0 0 10px #3ad8ff,
-0 0 25px #3ad8ff,
-0 0 50px rgba(58,216,255,.8)!important;
-}
-div[role="radiogroup"] label[data-baseweb="radio"]:has(input:checked) p{
-color:#fff!important;
-text-shadow:0 0 10px #7ee7ff;
-}
-
 </style>
 """, unsafe_allow_html=True)
 
