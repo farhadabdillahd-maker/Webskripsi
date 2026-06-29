@@ -150,7 +150,6 @@ section[data-testid="stSidebar"]{
 .stButton button span,
 .stButton button div{
     font-family:'DrukWide', sans-serif !important;
-    font-size:12px !important;
     font-weight:400 !important;
     letter-spacing:1px !important;
 }
@@ -917,7 +916,9 @@ with _c2:
 if btn_clicked:
     st.session_state.show_menu = not st.session_state.show_menu
 
-menu = None
+
+    if not st.session_state.show_menu:
+        st.session_state.menu = Nonemenu = None
 
 
 if "menu" not in st.session_state:
@@ -937,10 +938,22 @@ if st.session_state.show_menu:
 
 menu = st.session_state.menu
 
+if not st.session_state.show_menu:
+    st.markdown("""
+    <div style="text-align:center;padding:80px 20px">
+        <h1>🛡️ Crime Analytics Dashboard</h1>
+        <h3>Naïve Bayes - Polres Pasaman</h3>
+        <br>
+        <p style="font-size:20px">
+            Tekan tombol <b>☰ MENU</b> di sebelah kiri untuk membuka navigasi dashboard.
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+    st.stop()
 
 if menu is None:
-    st.info("Klik tombol ☰ MENU untuk membuka navigasi.")
     st.stop()
+
 
 uploaded_file = None
 
