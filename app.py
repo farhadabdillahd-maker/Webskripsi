@@ -694,6 +694,54 @@ height:auto!important;
     pointer-events:none;
 }
 
+
+/* ===== PREMIUM DOWNLOAD BUTTON ===== */
+@keyframes policeTrace{
+0%{background-position:-220% 0,220% 0;}
+100%{background-position:220% 0,-220% 0;}
+}
+div[data-testid="stDownloadButton"] button{
+position:relative!important;
+overflow:hidden!important;
+border-radius:16px!important;
+padding:14px 22px!important;
+background:#0f172a!important;
+color:#fff!important;
+border:1px solid rgba(80,180,255,.45)!important;
+box-shadow:0 0 20px rgba(0,120,255,.20)!important;
+transition:.3s!important;
+}
+div[data-testid="stDownloadButton"] button::before{
+content:"";
+position:absolute;
+inset:0;
+background:
+linear-gradient(90deg,transparent 15%,#35c8ff 35%,transparent 55%),
+linear-gradient(90deg,transparent 55%,#ff3f6c 75%,transparent 92%);
+background-size:240% 100%,240% 100%;
+opacity:0;
+}
+div[data-testid="stDownloadButton"] button:hover::before{
+opacity:1;
+animation:policeTrace .9s linear infinite;
+}
+div[data-testid="stDownloadButton"] button::after{
+content:"";
+position:absolute;
+left:0;
+bottom:0;
+width:100%;
+height:3px;
+background:linear-gradient(90deg,#35c8ff,#ff3f6c,#35c8ff);
+background-size:220% 100%;
+animation:policeTrace 2.2s linear infinite;
+box-shadow:0 0 10px #35c8ff,0 0 10px #ff3f6c;
+}
+div[data-testid="stDownloadButton"] button:hover{
+transform:translateY(-2px) scale(1.03)!important;
+box-shadow:0 0 22px rgba(53,200,255,.6),0 0 30px rgba(255,63,108,.35)!important;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
