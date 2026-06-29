@@ -117,18 +117,19 @@ kejahatan secara cepat, akurat, dan otomatis.""")
 """)
     with y:
         st.markdown("### 📌 Fitur Utama")
+        st.info("""
+✅ Upload Dataset CSV
 
-col1, col2 = st.columns(2)
+✅ Preprocessing Otomatis
 
-with col1:
-    st.success("✅ Upload Dataset CSV")
-    st.success("✅ Preprocessing Otomatis")
-    st.success("✅ Klasifikasi Naïve Bayes")
+✅ Klasifikasi Naïve Bayes
 
-with col2:
-    st.success("✅ Confusion Matrix")
-    st.success("✅ Prediksi Judul Kasus")
-    st.success("✅ Download Surat PDF")
+✅ Confusion Matrix
+
+✅ Prediksi Judul Kasus
+
+✅ Download Surat PDF
+""")
 # =====================================================
 
 st.markdown("""
