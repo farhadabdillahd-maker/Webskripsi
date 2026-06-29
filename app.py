@@ -51,17 +51,15 @@ st.set_page_config(
 # =====================================================
 def show_home():
     st.markdown("""
-    <div style='padding:45px;border-radius:24px;
-    background:linear-gradient(135deg,#071a3d,#123c7a,#2563eb);
-    color:white;box-shadow:0 18px 45px rgba(0,0,0,.25);margin-bottom:30px'>
+    <div style='padding:60px;border-radius:28px;background:linear-gradient(135deg,#081b46 0%,#123c7a 55%,#2563eb 100%);color:#fff;box-shadow:0 20px 45px rgba(0,0,0,.28);margin:20px 0 35px 0;border:1px solid rgba(255,255,255,.12)'>
         <div style='font-size:15px;letter-spacing:2px;color:#bfdbfe'>
         POLRES PASAMAN • MACHINE LEARNING • NAÏVE BAYES
         </div>
-        <h1 style='font-size:38px;font-weight:800;line-height:1.35;margin-top:18px'>
+        <h1 style='font-size:42px;font-weight:900;line-height:1.35;margin-top:22px;color:#fff;text-shadow:0 3px 10px rgba(0,0,0,.35)'>
         PENERAPAN MACHINE LEARNING MENGGUNAKAN ALGORITMA NAÏVE BAYES
         <br>UNTUK KLASIFIKASI TINGKAT KEJAHATAN
         </h1>
-        <div style='font-size:18px;color:#dbeafe;margin-top:12px'>
+        <div style='font-size:19px;color:#f8fbff;margin-top:18px;font-weight:500'>
         Studi Kasus Data Kriminal Polres Pasaman
         </div>
     </div>
@@ -115,6 +113,21 @@ padding:20px;
 box-shadow:0 8px 25px rgba(0,0,0,.08);
 border:1px solid #dbeafe;
 height:180px;
+}
+</style>
+""", unsafe_allow_html=True)
+
+
+st.markdown("""
+<style>
+.block-container{
+max-width:1450px;
+padding-top:1.5rem;
+padding-bottom:2rem;
+background:#ffffff;
+border-radius:30px;
+box-shadow:0 15px 40px rgba(0,0,0,.12);
+margin-bottom:30px;
 }
 </style>
 """, unsafe_allow_html=True)
