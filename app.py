@@ -789,6 +789,39 @@ max-width:210px!important;
 margin:0 auto 12px auto!important;
 }
 
+
+/* ===== SIDEBAR POLICE HOVER BUTTON ===== */
+section[data-testid="stSidebar"] .stButton>button{
+position:relative!important;
+overflow:hidden!important;
+}
+section[data-testid="stSidebar"] .stButton>button::before{
+content:"";
+position:absolute;
+inset:0;
+opacity:0;
+background:
+linear-gradient(90deg,transparent 20%,rgba(46,213,255,.95) 42%,transparent 60%),
+linear-gradient(90deg,transparent 40%,rgba(255,55,98,.95) 72%,transparent 88%);
+background-size:260% 100%,260% 100%;
+transition:opacity .2s;
+}
+section[data-testid="stSidebar"] .stButton>button:hover::before{
+opacity:1;
+animation:policeSweepBtn 1.1s linear infinite;
+}
+section[data-testid="stSidebar"] .stButton>button:hover{
+box-shadow:
+-18px 0 22px rgba(46,213,255,.55),
+18px 0 22px rgba(255,55,98,.45),
+0 0 18px rgba(46,213,255,.25)!important;
+border-color:rgba(180,230,255,.5)!important;
+}
+@keyframes policeSweepBtn{
+from{background-position:-180% 0,180% 0;}
+to{background-position:180% 0,-180% 0;}
+}
+
 </style>
 """, unsafe_allow_html=True)
 
@@ -856,15 +889,15 @@ menu = None
 
 
 if "menu" not in st.session_state:
-    st.session_state.menu = "📂 Upload Dataset"
+    st.session_state.menu = "Upload Dataset"
 
 if st.session_state.show_menu:
     menus=[
-        "📂 Upload Dataset",
-        "🧹 Preprocessing",
-        "🤖 Klasifikasi",
-        "🔍 Prediksi",
-        "ℹ️ About"
+        "Upload Dataset",
+        "Preprocessing",
+        "Klasifikasi",
+        "Prediksi",
+        "About"
     ]
     for item in menus:
         if st.sidebar.button(item,use_container_width=True,key=f"menu_{item}"):
@@ -882,7 +915,7 @@ uploaded_file = None
 if "uploaded_dataset" not in st.session_state:
     st.session_state.uploaded_dataset = None
 
-if menu == "📂 Upload Dataset":
+if menu == "Upload Dataset":
     st.markdown("### 📂 Upload Dataset")
     uploaded_file = st.file_uploader(
         "Upload Dataset CSV",
@@ -896,7 +929,7 @@ if menu == "📂 Upload Dataset":
             pass
         st.session_state.uploaded_dataset = uploaded_file
 
-if menu in ["🧹 Preprocessing","🤖 Klasifikasi"]:
+if menu in ["Preprocessing","Klasifikasi"]:
     uploaded_file = st.session_state.uploaded_dataset
 
 
@@ -904,7 +937,7 @@ if menu in ["🧹 Preprocessing","🤖 Klasifikasi"]:
 # =====================================================
 # MENU PREDIKSI TANPA UPLOAD DATASET
 # =====================================================
-if menu == "🔍 Prediksi" and uploaded_file is None:
+if menu == "Prediksi" and uploaded_file is None:
 
     st.markdown("""
     <div class="card">
@@ -1042,7 +1075,7 @@ if menu == "🔍 Prediksi" and uploaded_file is None:
 # =====================================================
 # MENU ABOUT
 # =====================================================
-if menu == "ℹ️ About":
+if menu == "About":
     st.markdown("""
     <div class="card">
         <h1 style="text-align:center;">ℹ️ ABOUT APLIKASI</h1>
@@ -1102,7 +1135,7 @@ if menu == "ℹ️ About":
 # FILE UPLOAD
 # =====================================================
 
-if menu in ["📂 Upload Dataset","🧹 Preprocessing","🤖 Klasifikasi"]:
+if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
 
     if uploaded_file is None:
         st.info("Silakan upload dataset CSV untuk menggunakan menu ini.")
@@ -1383,7 +1416,7 @@ if menu in ["📂 Upload Dataset","🧹 Preprocessing","🤖 Klasifikasi"]:
 # MENU UPLOAD DATASET
 # =====================================================
 
-    if menu == "📂 Upload Dataset":
+    if menu == "Upload Dataset":
 
         st.markdown("""
         <div class="card">
@@ -1410,7 +1443,7 @@ if menu in ["📂 Upload Dataset","🧹 Preprocessing","🤖 Klasifikasi"]:
     # MENU PREPROCESSING
     # =====================================================
 
-    elif menu == "🧹 Preprocessing":
+    elif menu == "Preprocessing":
 
         st.markdown("""
         <div class="card">
@@ -1580,7 +1613,7 @@ if menu in ["📂 Upload Dataset","🧹 Preprocessing","🤖 Klasifikasi"]:
     # MENU KLASIFIKASI
     # =====================================================
 
-    elif menu == "🤖 Klasifikasi":
+    elif menu == "Klasifikasi":
 
         st.markdown("""
         <div class="card">
@@ -1970,7 +2003,7 @@ if menu in ["📂 Upload Dataset","🧹 Preprocessing","🤖 Klasifikasi"]:
     # MENU ABOUT
     # =====================================================
 
-    elif menu == "ℹ️ About":
+    elif menu == "About":
 
         st.markdown("""
         <div class="card">
@@ -1993,7 +2026,7 @@ if menu in ["📂 Upload Dataset","🧹 Preprocessing","🤖 Klasifikasi"]:
 Aplikasi ini dibuat sebagai implementasi algoritma **Naïve Bayes** untuk klasifikasi tingkat kejahatan pada Polres Pasaman menggunakan Python, Streamlit, dan TF‑IDF.
 """)
 
-    elif menu == "🔍 Prediksi":
+    elif menu == "Prediksi":
 
         st.markdown("""
         <div class="card">
