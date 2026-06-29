@@ -79,7 +79,7 @@ div[data-testid="stMarkdownContainer"] h1{
 # =====================================================
 def show_home():
     st.markdown("""
-    <div style='padding:60px;border-radius:28px;background:linear-gradient(135deg,#081b46 0%,#123c7a 55%,#2563eb 100%);color:#fff;box-shadow:0 20px 45px rgba(0,0,0,.28);margin:20px 0 35px 0;border:1px solid rgba(255,255,255,.12)'>
+    <div style='padding:60px;border-radius:28px;background:linear-gradient(135deg,#081b46 0%,#123c7a 55%,#2563eb 100%);color:#fff;box-shadow:0 20px 45px rgba(0,0,0,.28);margin:0px 0 20px 0;border:1px solid rgba(255,255,255,.12)'>
         <div style='font-size:15px;letter-spacing:2px;color:#bfdbfe'>
         POLRES PASAMAN • MACHINE LEARNING • NAÏVE BAYES
         </div>
@@ -151,11 +151,12 @@ st.markdown("""
 .block-container{
 max-width:1450px;
 margin:auto;
-padding:2rem 2.5rem 3rem 2.5rem !important;
+padding:0.2rem 2.5rem 2rem 2.5rem !important;
 background:transparent !important;
 border-radius:0 !important;
 box-shadow:none !important;
 min-height:auto !important;
+margin-top:-35px !important;
 }
 </style>
 """, unsafe_allow_html=True)
