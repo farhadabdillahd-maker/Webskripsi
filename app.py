@@ -641,11 +641,17 @@ color:#0d4c83!important;
 }
 
 /* ======= DARK BLUE GLOW FRAME ======= */
-div[data-testid="stMainBlockContainer"]{position:relative;padding:2rem!important;border-radius:34px;background:linear-gradient(180deg,rgba(7,20,45,.05),rgba(255,255,255,.02));border:2px solid rgba(35,120,255,.18);box-shadow:0 0 0 1px rgba(120,200,255,.10),0 0 35px rgba(0,120,255,.18),0 0 90px rgba(0,80,255,.10),inset 0 0 80px rgba(15,35,80,.03);overflow:hidden;}
+div[data-testid="stMainBlockContainer"]{position:relative;padding:2rem!important;border-radius:34px;background:linear-gradient(180deg,rgba(7,20,45,.05),rgba(255,255,255,.02));border:2px solid rgba(35,120,255,.18);box-shadow:0 0 0 1px rgba(120,200,255,.10),0 0 35px rgba(0,120,255,.18),0 0 90px rgba(0,80,255,.10),inset 0 0 80px rgba(15,35,80,.03);overflow:visible!important;min-height:100%;}
 div[data-testid="stMainBlockContainer"]::before{content:"";position:absolute;left:-15%;right:-15%;bottom:-180px;height:260px;background:radial-gradient(circle,rgba(0,110,255,.40) 0%,rgba(0,80,220,.22) 35%,rgba(0,60,180,.10) 55%,transparent 80%);filter:blur(45px);pointer-events:none;}
 div[data-testid="stMainBlockContainer"]::after{content:"";position:absolute;inset:12px;border-radius:28px;border:1px solid rgba(90,180,255,.20);box-shadow:0 0 20px rgba(70,170,255,.18),inset 0 0 25px rgba(70,170,255,.05);pointer-events:none;}
 .hero,.card,[data-testid="metric-container"]{box-shadow:0 0 20px rgba(45,145,255,.12),0 16px 35px rgba(8,30,70,.16)!important;}
 [data-testid="metric-container"]:hover,.card:hover{transform:translateY(-4px);transition:.3s;box-shadow:0 0 30px rgba(45,145,255,.28),0 20px 45px rgba(8,30,70,.22)!important;}
+
+
+html,body,[data-testid="stAppViewContainer"],.stApp{
+overflow-y:auto!important;
+height:auto!important;
+}
 
 </style>
 """, unsafe_allow_html=True)
@@ -2079,4 +2085,3 @@ agar file berikut dibuat:
             freq_df,
             use_container_width=True
         )
-
