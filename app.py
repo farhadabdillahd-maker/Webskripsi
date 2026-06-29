@@ -586,6 +586,60 @@ div[data-testid="stMain"] .stButton > button:hover{
         0 0 42px rgba(96,165,250,.85)!important;
 }
 
+
+/* ========= PREMIUM MAIN DASHBOARD ========= */
+.stApp{
+background:
+radial-gradient(circle at top,#173b78 0%,#eef4ff 18%,#f7faff 45%,#edf3ff 100%)!important;
+}
+
+.hero{
+background:linear-gradient(145deg,#0b1d3a,#143b72)!important;
+border:1px solid rgba(77,189,255,.35)!important;
+box-shadow:
+0 0 25px rgba(0,183,255,.18),
+0 15px 40px rgba(0,0,0,.18)!important;
+}
+
+.hero-title{
+color:#fff!important;
+}
+
+.hero-sub{
+color:#cde7ff!important;
+}
+
+.card,
+[data-testid="metric-container"],
+[data-testid="stDataFrame"],
+.stTabs,
+.stAlert,
+div[data-testid="stVerticalBlock"]>div:has(.stDataFrame){
+background:rgba(255,255,255,.92)!important;
+backdrop-filter:blur(16px)!important;
+border:1px solid rgba(90,180,255,.20)!important;
+border-radius:22px!important;
+box-shadow:
+0 10px 25px rgba(15,40,90,.08),
+0 0 18px rgba(0,170,255,.08)!important;
+}
+
+h1,h2,h3{
+color:#12386b!important;
+}
+
+[data-testid="stFileUploader"]{
+background:linear-gradient(135deg,#fafdff,#eef7ff)!important;
+border:2px solid #72cbff!important;
+box-shadow:0 0 18px rgba(60,180,255,.18)!important;
+}
+
+.stInfo{
+background:#eaf5ff!important;
+border-left:5px solid #39b8ff!important;
+color:#0d4c83!important;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
