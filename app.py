@@ -1015,16 +1015,7 @@ if st.session_state.show_menu:
 menu = st.session_state.menu
 
 if not st.session_state.show_menu:
-    st.markdown("""
-    <div style="text-align:center;padding:80px 20px">
-        <h1>🛡️ Crime Analytics Dashboard</h1>
-        <h3>Naïve Bayes - Polres Pasaman</h3>
-        <br>
-        <p style="font-size:20px">
-            Tekan tombol <b>☰ MENU</b> di sebelah kiri untuk membuka navigasi dashboard.
-        </p>
-    </div>
-    """, unsafe_allow_html=True)
+    show_home()
     st.stop()
 
 if menu is None:
