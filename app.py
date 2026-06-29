@@ -150,6 +150,7 @@ section[data-testid="stSidebar"]{
 .stButton button span,
 .stButton button div{
     font-family:'DrukWide', sans-serif !important;
+    font-size:11px !important;
     font-weight:400 !important;
     letter-spacing:1px !important;
 }
