@@ -51,38 +51,59 @@ st.set_page_config(
 # =====================================================
 def show_home():
     st.markdown("""
-    <div style='padding:35px;border-radius:20px;
-    background:linear-gradient(135deg,#0f172a,#1e3a8a);
-    color:white;text-align:center;margin-bottom:25px'>
-        <div style='font-size:18px;font-weight:600;'>🛡️ POLRES PASAMAN</div>
-        <h1 style='font-size:42px;margin-bottom:10px;'>
-        PENERAPAN MACHINE LEARNING<br>
-        MENGGUNAKAN ALGORITMA NAÏVE BAYES<br>
-        UNTUK KLASIFIKASI TINGKAT KEJAHATAN
+    <div style='padding:45px;border-radius:24px;
+    background:linear-gradient(135deg,#071a3d,#123c7a,#2563eb);
+    color:white;box-shadow:0 18px 45px rgba(0,0,0,.25);margin-bottom:30px'>
+        <div style='font-size:15px;letter-spacing:2px;color:#bfdbfe'>
+        POLRES PASAMAN • MACHINE LEARNING • NAÏVE BAYES
+        </div>
+        <h1 style='font-size:38px;font-weight:800;line-height:1.35;margin-top:18px'>
+        PENERAPAN MACHINE LEARNING MENGGUNAKAN ALGORITMA NAÏVE BAYES
+        <br>UNTUK KLASIFIKASI TINGKAT KEJAHATAN
         </h1>
-        <p style='font-size:18px;color:#dbeafe'>
+        <div style='font-size:18px;color:#dbeafe;margin-top:12px'>
         Studi Kasus Data Kriminal Polres Pasaman
-        </p>
+        </div>
     </div>
     """, unsafe_allow_html=True)
 
-    c1,c2,c3,c4 = st.columns(4)
-    c1.metric("📂 Dataset","Siap Upload")
-    c2.metric("🤖 Algoritma","Naïve Bayes")
-    c3.metric("📊 Metode","TF-IDF")
-    c4.metric("📈 Output","Prediksi")
+    a,b,c,d=st.columns(4)
+    a.metric("📂 Dataset","CSV")
+    b.metric("🤖 Model","Naïve Bayes")
+    c.metric("🧹 NLP","TF‑IDF + Stemming")
+    d.metric("📄 Output","Prediksi & Surat")
 
-    st.markdown("### 🔄 Alur Sistem")
-    st.info("Upload Dataset → Preprocessing → TF-IDF → Training Naïve Bayes → Evaluasi → Prediksi → Download Surat PDF")
+    x,y=st.columns([1.8,1.2])
+    with x:
+        st.markdown("### 🎯 Tujuan Penelitian")
+        st.success("""Mengembangkan sistem klasifikasi tingkat kejahatan berbasis Machine Learning
+menggunakan algoritma Naïve Bayes untuk membantu proses analisis laporan
+kejahatan secara cepat, akurat, dan otomatis.""")
+        st.markdown("### 🔄 Alur Sistem")
+        st.markdown("""
+1. Upload Dataset
+2. Preprocessing Teks
+3. TF‑IDF Vectorization
+4. Training Naïve Bayes
+5. Evaluasi (Accuracy, Precision, Recall, F1)
+6. Prediksi Tingkat Kejahatan
+7. Download Surat PDF
+""")
+    with y:
+        st.markdown("### 📌 Fitur Utama")
+        st.info("""
+✅ Upload Dataset CSV
 
-    st.markdown("### 📖 Tentang Sistem")
-    st.write(
-        "Sistem ini menerapkan algoritma Naïve Bayes untuk mengklasifikasikan "
-        "tingkat kejahatan berdasarkan data kriminal Polres Pasaman. "
-        "Fitur meliputi upload dataset, preprocessing, klasifikasi, evaluasi, "
-        "prediksi, dan pembuatan surat PDF otomatis."
-    )
+✅ Preprocessing Otomatis
 
+✅ Klasifikasi Naïve Bayes
+
+✅ Confusion Matrix
+
+✅ Prediksi Judul Kasus
+
+✅ Download Surat PDF
+""")
 # =====================================================
 # CSS PREMIUM DASHBOARD
 # =====================================================
