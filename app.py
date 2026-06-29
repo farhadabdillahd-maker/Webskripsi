@@ -50,7 +50,14 @@ st.set_page_config(
 st.markdown("""
 <style>
 
-/* Druk Wide is a commercial font. Place DrukWide-Bold.woff2 in assets/fonts and use @font-face below. */400;500;600;700;800;900&family=League+Spartan:wght@700;800;900&display=swap');
+@font-face{
+    font-family:'DrukWide';
+    src:url('assets/fonts/DrukWideBold.ttf') format('truetype');
+    font-weight:700;
+    font-style:normal;
+    font-display:swap;
+}
+
 
 html, body, [class*="css"]{
     font-family:'Inter',sans-serif;
