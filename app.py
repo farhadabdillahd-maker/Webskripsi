@@ -105,6 +105,20 @@ kejahatan secara cepat, akurat, dan otomatis.""")
 ✅ Download Surat PDF
 """)
 # =====================================================
+
+st.markdown("""
+<style>
+.home-card{
+background:white;
+border-radius:18px;
+padding:20px;
+box-shadow:0 8px 25px rgba(0,0,0,.08);
+border:1px solid #dbeafe;
+height:180px;
+}
+</style>
+""", unsafe_allow_html=True)
+
 # CSS PREMIUM DASHBOARD
 # =====================================================
 
