@@ -50,7 +50,7 @@ st.set_page_config(
 st.markdown("""
 <style>
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Archivo+Black&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=League+Spartan:wght@700;800;900&display=swap');
 
 html, body, [class*="css"]{
     font-family:'Inter',sans-serif;
@@ -823,20 +823,22 @@ to{background-position:180% 0,-180% 0;}
 }
 
 
-/* ===== ARCHIVO BLACK SIDEBAR BUTTONS ===== */
+
+/* ===== LEAGUE SPARTAN BLACK SIDEBAR BUTTONS ===== */
 section[data-testid="stSidebar"] .stButton > button{
-    font-family:'Archivo Black',sans-serif !important;
-    font-weight:400 !important;
-    font-size:18px !important;
-    letter-spacing:.6px !important;
+    font-family:'League Spartan',sans-serif !important;
+    font-weight:900 !important;
+    font-size:20px !important;
+    letter-spacing:.4px !important;
     text-transform:uppercase !important;
     color:#ffffff !important;
-    -webkit-font-smoothing:auto !important;
-    text-rendering:geometricPrecision !important;
     text-shadow:
-        0 0 .25px #ffffff,
-        0 0 .25px #ffffff;
+        0 0 1px rgba(255,255,255,.95),
+        0 0 2px rgba(255,255,255,.65);
+    -webkit-font-smoothing:subpixel-antialiased !important;
+    text-rendering:optimizeLegibility !important;
 }
+
 </style>
 """, unsafe_allow_html=True)
 
