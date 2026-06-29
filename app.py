@@ -653,6 +653,47 @@ overflow-y:auto!important;
 height:auto!important;
 }
 
+
+/* ===== AUTO HEIGHT DASHBOARD FRAME ===== */
+[data-testid="stMainBlockContainer"]{
+    position:relative!important;
+    border-radius:34px!important;
+    border:2px solid rgba(40,130,255,.22)!important;
+    box-shadow:
+        0 0 30px rgba(0,120,255,.18),
+        inset 0 0 40px rgba(0,90,255,.03)!important;
+    padding:28px!important;
+    margin-bottom:40px!important;
+    display:block!important;
+    overflow:visible!important;
+}
+[data-testid="stMainBlockContainer"] > div{
+    position:relative;
+    z-index:2;
+}
+[data-testid="stMainBlockContainer"]::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    border-radius:34px;
+    border:1px solid rgba(120,210,255,.18);
+    pointer-events:none;
+}
+[data-testid="stMainBlockContainer"]::after{
+    content:"";
+    position:absolute;
+    left:5%;
+    right:5%;
+    bottom:-35px;
+    height:180px;
+    background:radial-gradient(circle,
+        rgba(0,140,255,.30) 0%,
+        rgba(0,110,255,.14) 45%,
+        transparent 80%);
+    filter:blur(35px);
+    pointer-events:none;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
