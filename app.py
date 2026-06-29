@@ -777,55 +777,6 @@ box-shadow:0 0 6px #35d6ff,0 0 6px #ff3d68;
 div[role="radiogroup"] label[data-baseweb="radio"]:has(input:checked)::after{
 animation:sidebarTrace 2.4s linear infinite;
 }
-
-/* ===== CENTER SIDEBAR MENU ===== */
-div[role="radiogroup"]{
-    display:flex!important;
-    flex-direction:column!important;
-    align-items:center!important;
-    justify-content:center!important;
-    width:100%!important;
-}
-
-div[role="radiogroup"] label{
-    width:88%!important;
-    max-width:230px!important;
-    margin-left:auto!important;
-    margin-right:auto!important;
-    display:flex!important;
-    align-items:center!important;
-}
-
-
-/* ===== FORCE CENTER SIDEBAR MENU ===== */
-section[data-testid="stSidebar"] div[role="radiogroup"]{
-    width:100%!important;
-    display:flex!important;
-    flex-direction:column!important;
-    align-items:center!important;
-    justify-content:center!important;
-}
-
-section[data-testid="stSidebar"] div[role="radiogroup"] > label{
-    width:82%!important;
-    max-width:190px!important;
-    margin:0 auto 12px auto!important;
-    align-self:center!important;
-    display:flex!important;
-    justify-content:flex-start!important;
-    box-sizing:border-box!important;
-}
-
-/* Center the radio group container itself */
-section[data-testid="stSidebar"] div[data-testid="stRadio"]{
-    display:flex!important;
-    justify-content:center!important;
-}
-
-section[data-testid="stSidebar"] div[data-testid="stRadio"] > div{
-    width:100%!important;
-}
-
 </style>
 """, unsafe_allow_html=True)
 
