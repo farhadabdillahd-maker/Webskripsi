@@ -742,6 +742,61 @@ transform:translateY(-2px) scale(1.03)!important;
 box-shadow:0 0 22px rgba(53,200,255,.6),0 0 30px rgba(255,63,108,.35)!important;
 }
 
+
+/* ===== SIDEBAR RIGHT POLICE LINE ===== */
+@keyframes sidebarTrace{
+0%{background-position:0 -160%;}
+100%{background-position:0 160%;}
+}
+div[role="radiogroup"] label{
+position:relative!important;
+overflow:hidden!important;
+}
+
+div[role="radiogroup"] label::after{
+content:"";
+position:absolute;
+top:6px;
+bottom:6px;
+right:3px;
+width:4px;
+border-radius:10px;
+background:
+linear-gradient(180deg,
+transparent 0%,
+#35d6ff 22%,
+transparent 42%,
+#ff3d68 62%,
+transparent 82%);
+background-size:100% 240%;
+animation:sidebarTrace 1.3s linear infinite;
+box-shadow:
+0 0 8px #35d6ff,
+0 0 14px rgba(53,214,255,.7),
+0 0 8px #ff3d68;
+}
+
+div[role="radiogroup"] label:hover::after{
+width:5px;
+right:2px;
+box-shadow:
+0 0 12px #35d6ff,
+0 0 18px #35d6ff,
+0 0 12px #ff3d68,
+0 0 18px #ff3d68;
+}
+
+div[role="radiogroup"] label[data-baseweb="radio"]:has(input:checked)::after{
+background:
+linear-gradient(180deg,
+#35d6ff 0%,
+transparent 35%,
+#ff3d68 70%,
+transparent 100%);
+background-size:100% 180%;
+animation:sidebarTrace .8s linear infinite;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
