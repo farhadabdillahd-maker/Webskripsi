@@ -46,6 +46,37 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+st.markdown("""
+<style>
+@keyframes toastIn{
+0%{opacity:0;transform:translateY(35px) scale(.95);}
+100%{opacity:1;transform:translateY(0) scale(1);}
+}
+.prediksi-toast{
+animation:toastIn .6s ease;
+background:linear-gradient(135deg,#22c55e,#16a34a);
+color:white;
+padding:18px 22px;
+border-radius:18px;
+font-size:22px;
+font-weight:700;
+box-shadow:0 0 25px rgba(34,197,94,.45);
+border-left:8px solid #bbf7d0;
+margin:12px 0 18px 0;
+}
+.prediksi-toast small{
+display:block;
+font-size:14px;
+font-weight:400;
+opacity:.95;
+margin-top:4px;
+}
+</style>
+""", unsafe_allow_html=True)
+
+
+
+
 
 st.markdown("""
 <style>
