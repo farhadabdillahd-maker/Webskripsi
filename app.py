@@ -777,6 +777,18 @@ box-shadow:0 0 6px #35d6ff,0 0 6px #ff3d68;
 div[role="radiogroup"] label[data-baseweb="radio"]:has(input:checked)::after{
 animation:sidebarTrace 2.4s linear infinite;
 }
+
+/* CENTER CUSTOM SIDEBAR BUTTONS */
+section[data-testid="stSidebar"] .stButton{
+display:flex!important;
+justify-content:center!important;
+}
+section[data-testid="stSidebar"] .stButton>button{
+width:82%!important;
+max-width:210px!important;
+margin:0 auto 12px auto!important;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
@@ -842,17 +854,24 @@ if btn_clicked:
 
 menu = None
 
+
+if "menu" not in st.session_state:
+    st.session_state.menu = "📂 Upload Dataset"
+
 if st.session_state.show_menu:
-    menu = st.sidebar.radio(
-        "",
-        [
-            "📂 Upload Dataset",
-            "🧹 Preprocessing",
-            "🤖 Klasifikasi",
-            "🔍 Prediksi",
-            "ℹ️ About"
-        ]
-    )
+    menus=[
+        "📂 Upload Dataset",
+        "🧹 Preprocessing",
+        "🤖 Klasifikasi",
+        "🔍 Prediksi",
+        "ℹ️ About"
+    ]
+    for item in menus:
+        if st.sidebar.button(item,use_container_width=True,key=f"menu_{item}"):
+            st.session_state.menu=item
+
+menu = st.session_state.menu
+
 
 if menu is None:
     st.info("Klik tombol ☰ MENU untuk membuka navigasi.")
