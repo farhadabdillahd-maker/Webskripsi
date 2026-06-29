@@ -43,6 +43,46 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+
+
+
+# =====================================================
+# HERO LANDING PAGE
+# =====================================================
+def show_home():
+    st.markdown("""
+    <div style='padding:35px;border-radius:20px;
+    background:linear-gradient(135deg,#0f172a,#1e3a8a);
+    color:white;text-align:center;margin-bottom:25px'>
+        <div style='font-size:18px;font-weight:600;'>🛡️ POLRES PASAMAN</div>
+        <h1 style='font-size:42px;margin-bottom:10px;'>
+        PENERAPAN MACHINE LEARNING<br>
+        MENGGUNAKAN ALGORITMA NAÏVE BAYES<br>
+        UNTUK KLASIFIKASI TINGKAT KEJAHATAN
+        </h1>
+        <p style='font-size:18px;color:#dbeafe'>
+        Studi Kasus Data Kriminal Polres Pasaman
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    c1,c2,c3,c4 = st.columns(4)
+    c1.metric("📂 Dataset","Siap Upload")
+    c2.metric("🤖 Algoritma","Naïve Bayes")
+    c3.metric("📊 Metode","TF-IDF")
+    c4.metric("📈 Output","Prediksi")
+
+    st.markdown("### 🔄 Alur Sistem")
+    st.info("Upload Dataset → Preprocessing → TF-IDF → Training Naïve Bayes → Evaluasi → Prediksi → Download Surat PDF")
+
+    st.markdown("### 📖 Tentang Sistem")
+    st.write(
+        "Sistem ini menerapkan algoritma Naïve Bayes untuk mengklasifikasikan "
+        "tingkat kejahatan berdasarkan data kriminal Polres Pasaman. "
+        "Fitur meliputi upload dataset, preprocessing, klasifikasi, evaluasi, "
+        "prediksi, dan pembuatan surat PDF otomatis."
+    )
+
 # =====================================================
 # CSS PREMIUM DASHBOARD
 # =====================================================
