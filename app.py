@@ -55,7 +55,7 @@ def show_home():
         <div style='font-size:15px;letter-spacing:2px;color:#bfdbfe'>
         POLRES PASAMAN • MACHINE LEARNING • NAÏVE BAYES
         </div>
-        <h1 style='font-size:42px;font-weight:900;line-height:1.35;margin-top:22px;color:#fff;text-shadow:0 3px 10px rgba(0,0,0,.35)'>
+        <h1 style='font-size:42px;font-weight:900;line-height:1.35;margin-top:22px;color:#FFFFFF !important;text-shadow:0 4px 14px rgba(0,0,0,.45)'>
         PENERAPAN MACHINE LEARNING MENGGUNAKAN ALGORITMA NAÏVE BAYES
         <br>UNTUK KLASIFIKASI TINGKAT KEJAHATAN
         </h1>
@@ -122,12 +122,13 @@ st.markdown("""
 <style>
 .block-container{
 max-width:1450px;
-padding-top:1.5rem;
-padding-bottom:2rem;
-background:#ffffff;
-border-radius:30px;
-box-shadow:0 15px 40px rgba(0,0,0,.12);
-margin-bottom:30px;
+margin:auto;
+padding:2rem 2.5rem 4rem 2.5rem !important;
+background:#fff;
+border-radius:32px;
+box-shadow:0 20px 60px rgba(15,23,42,.12);
+min-height:calc(100vh - 60px);
+overflow:visible;
 }
 </style>
 """, unsafe_allow_html=True)
