@@ -796,6 +796,36 @@ div[role="radiogroup"] label{
     align-items:center!important;
 }
 
+
+/* ===== FORCE CENTER SIDEBAR MENU ===== */
+section[data-testid="stSidebar"] div[role="radiogroup"]{
+    width:100%!important;
+    display:flex!important;
+    flex-direction:column!important;
+    align-items:center!important;
+    justify-content:center!important;
+}
+
+section[data-testid="stSidebar"] div[role="radiogroup"] > label{
+    width:82%!important;
+    max-width:190px!important;
+    margin:0 auto 12px auto!important;
+    align-self:center!important;
+    display:flex!important;
+    justify-content:flex-start!important;
+    box-sizing:border-box!important;
+}
+
+/* Center the radio group container itself */
+section[data-testid="stSidebar"] div[data-testid="stRadio"]{
+    display:flex!important;
+    justify-content:center!important;
+}
+
+section[data-testid="stSidebar"] div[data-testid="stRadio"] > div{
+    width:100%!important;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
