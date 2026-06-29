@@ -50,7 +50,7 @@ st.set_page_config(
 st.markdown("""
 <style>
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@800;900&display=swap');
 
 html, body, [class*="css"]{
     font-family:'Inter',sans-serif;
@@ -823,14 +823,17 @@ to{background-position:180% 0,-180% 0;}
 }
 
 
-/* ===== POPPINS BOLD FOR SIDEBAR BUTTONS ===== */
+/* ===== MONTSERRAT EXTRABOLD FOR SIDEBAR BUTTONS ===== */
 section[data-testid="stSidebar"] .stButton > button{
-    font-family:'Poppins',sans-serif !important;
-    font-weight:700 !important;
+    font-family:'Montserrat',sans-serif !important;
+    font-weight:800 !important;
     font-size:17px !important;
-    letter-spacing:.3px !important;
+    letter-spacing:.8px !important;
+    text-transform:uppercase !important;
+    color:#ffffff !important;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
 }
-
 </style>
 """, unsafe_allow_html=True)
 
