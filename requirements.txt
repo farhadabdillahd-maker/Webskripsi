@@ -7,4 +7,5 @@ seaborn
 nltk
 Sastrawi
 joblib
-
+reportlab
+Pillow
