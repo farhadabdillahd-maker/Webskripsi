@@ -49,63 +49,43 @@ st.set_page_config(
 
 
 # =====================================================
-# POLICE COMMAND CENTER BACKGROUND
+# POLICE CINEMATIC BACKGROUND
 # =====================================================
 st.markdown("""
 <style>
 .stApp{
-background:
-radial-gradient(circle at 20% 15%,rgba(59,130,246,.28),transparent 30%),
-radial-gradient(circle at 80% 20%,rgba(239,68,68,.18),transparent 28%),
-linear-gradient(135deg,#07152f,#0d2b57,#1d4ed8,#60a5fa);
-background-size:cover;
-background-attachment:fixed;
+background:linear-gradient(135deg,#020617,#071b3b,#0b3b8a,#1d4ed8,#2563eb);
+background-size:400% 400%;
+animation:bgMove 18s ease infinite;
 }
-.police-bg{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:-5;}
-.grid{position:absolute;inset:0;opacity:.08;
-background-image:
-linear-gradient(rgba(255,255,255,.25) 1px,transparent 1px),
-linear-gradient(90deg,rgba(255,255,255,.25) 1px,transparent 1px);
-background-size:60px 60px;
-animation:gridMove 18s linear infinite;}
-.radar{
-position:absolute;width:650px;height:650px;border-radius:50%;
-left:-150px;bottom:-220px;
-border:2px solid rgba(96,165,250,.15);
-box-shadow:0 0 120px rgba(59,130,246,.18);
-}
-.radar:before{
-content:'';position:absolute;inset:0;border-radius:50%;
-background:conic-gradient(from 0deg,transparent 0 310deg,rgba(59,130,246,.28) 340deg,transparent);
-animation:spin 8s linear infinite;
-}
-.beam1,.beam2{
-position:absolute;top:-20%;width:180%;height:320px;
-transform:rotate(-12deg);
-}
-.beam1{background:linear-gradient(90deg,transparent,rgba(59,130,246,.06),transparent);animation:sweep 8s infinite linear;}
-.beam2{background:linear-gradient(90deg,transparent,rgba(239,68,68,.05),transparent);animation:sweep2 10s infinite linear;}
-.particle{
-position:absolute;width:4px;height:4px;border-radius:50%;
-background:#93c5fd;box-shadow:0 0 12px #60a5fa;
-animation:float 7s ease-in-out infinite;
-}
-.particle:nth-child(6){left:15%;top:25%}
-.particle:nth-child(7){left:40%;top:65%;animation-delay:2s}
-.particle:nth-child(8){left:75%;top:35%;animation-delay:4s}
-.particle:nth-child(9){left:90%;top:70%;animation-delay:1s}
+.police-bg{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:-5;}
+.light{position:absolute;width:180vw;height:260px;filter:blur(35px);opacity:.35;}
+.red{background:linear-gradient(90deg,transparent,#ff2d55,transparent);top:10%;left:-120%;animation:redSweep 8s linear infinite;}
+.blue{background:linear-gradient(90deg,transparent,#38bdf8,transparent);top:45%;left:120%;animation:blueSweep 7s linear infinite;}
+.grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);background-size:50px 50px;animation:grid 12s linear infinite;}
+.radar{position:absolute;width:700px;height:700px;border-radius:50%;right:-150px;bottom:-220px;border:2px solid rgba(0,255,255,.15);}
+.radar:before{content:'';position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 0deg,transparent 0 315deg,rgba(0,255,255,.35),transparent);animation:spin 6s linear infinite;}
+.car{position:absolute;bottom:35px;left:-260px;font-size:85px;opacity:.18;filter:drop-shadow(0 0 18px #60a5fa);animation:drive 18s linear infinite;}
+.car2{bottom:120px;left:110%;font-size:65px;opacity:.12;animation:drive2 24s linear infinite;}
+.spark{position:absolute;width:5px;height:5px;background:#fff;border-radius:50%;box-shadow:0 0 10px #60a5fa;animation:float 5s infinite ease-in-out;}
+.spark:nth-child(8){left:15%;top:20%}.spark:nth-child(9){left:40%;top:60%;animation-delay:1s}.spark:nth-child(10){left:70%;top:35%;animation-delay:2s}.spark:nth-child(11){left:90%;top:75%;animation-delay:3s}
+@keyframes bgMove{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+@keyframes redSweep{0%{transform:translateX(0) rotate(-10deg)}100%{transform:translateX(240%) rotate(-10deg)}}
+@keyframes blueSweep{0%{transform:translateX(0) rotate(8deg)}100%{transform:translateX(-240%) rotate(8deg)}}
+@keyframes drive{0%{left:-20%}100%{left:120%}}
+@keyframes drive2{0%{left:120%}100%{left:-20%}}
 @keyframes spin{to{transform:rotate(360deg)}}
-@keyframes gridMove{from{transform:translateY(0)}to{transform:translateY(60px)}}
-@keyframes sweep{from{transform:translateX(-45%) rotate(-12deg)}to{transform:translateX(35%) rotate(-12deg)}}
-@keyframes sweep2{from{transform:translateX(35%) rotate(-12deg)}to{transform:translateX(-45%) rotate(-12deg)}}
-@keyframes float{50%{transform:translateY(-18px);opacity:1}}
+@keyframes grid{from{transform:translateY(0)}to{transform:translateY(50px)}}
+@keyframes float{50%{transform:translateY(-25px) scale(1.8)}}
 </style>
 <div class='police-bg'>
 <div class='grid'></div>
-<div class='beam1'></div>
-<div class='beam2'></div>
+<div class='light red'></div>
+<div class='light blue'></div>
 <div class='radar'></div>
-<div class='particle'></div><div class='particle'></div><div class='particle'></div><div class='particle'></div>
+<div class='car'>🚓</div>
+<div class='car car2'>🚔</div>
+<div class='spark'></div><div class='spark'></div><div class='spark'></div><div class='spark'></div>
 </div>
 """,unsafe_allow_html=True)
 
