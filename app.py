@@ -51,82 +51,40 @@ st.set_page_config(
 
 
 
+import os
 import base64
 
-def get_base64(path):
-    with open(path,"rb") as f:
-        return base64.b64encode(f.read()).decode()
+gif_path = os.path.join("assets", "latar.GIF")
 
-gif_bg=get_base64("assets/latar.GIF")
+if os.path.exists(gif_path):
+    with open(gif_path, "rb") as f:
+        gif = base64.b64encode(f.read()).decode()
 
-st.markdown(f"""
+    st.markdown(f'''
 <style>
 .stApp{
-    background:url("data:image/gif;base64,{gif_bg}") center center / cover no-repeat fixed !important;
+    background-image:url("data:image/gif;base64,{gif}");
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+    background-attachment:fixed;
 }
 .stApp::before{
     content:"";
     position:fixed;
     inset:0;
-    background:linear-gradient(rgba(5,15,35,.35),rgba(5,15,35,.35));
-    backdrop-filter:blur(.5px);
+    background:rgba(0,0,0,.30);
     z-index:-1;
 }
-[data-testid="stHeader"]{
-    background:rgba(0,0,0,0);
-}
-[data-testid="stAppViewContainer"]{
-    background:transparent;
-}
+[data-testid="stHeader"]{background:transparent;}
+[data-testid="stAppViewContainer"]{background:transparent;}
 .block-container{
-    background:rgba(7,20,45,.22);
-    border:1px solid rgba(255,255,255,.08);
-    backdrop-filter:blur(10px);
+    background:rgba(10,20,40,.20);
+    backdrop-filter:blur(12px);
     border-radius:24px;
 }
 </style>
-""",unsafe_allow_html=True)
-
-# =====================================================
-# POLICE CINEMATIC BACKGROUND
-# =====================================================
-st.markdown("""
-<style>
-.stApp{
-background:linear-gradient(135deg,#020617,#071b3b,#0b3b8a,#1d4ed8,#2563eb);
-background-size:400% 400%;
-animation:bgMove 18s ease infinite;
-}
-.police-bg{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:-5;}
-.light{position:absolute;width:180vw;height:260px;filter:blur(35px);opacity:.35;}
-.red{background:linear-gradient(90deg,transparent,#ff2d55,transparent);top:10%;left:-120%;animation:redSweep 8s linear infinite;}
-.blue{background:linear-gradient(90deg,transparent,#38bdf8,transparent);top:45%;left:120%;animation:blueSweep 7s linear infinite;}
-.grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);background-size:50px 50px;animation:grid 12s linear infinite;}
-.radar{position:absolute;width:700px;height:700px;border-radius:50%;right:-150px;bottom:-220px;border:2px solid rgba(0,255,255,.15);}
-.radar:before{content:'';position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 0deg,transparent 0 315deg,rgba(0,255,255,.35),transparent);animation:spin 6s linear infinite;}
-.car{position:absolute;bottom:35px;left:-260px;font-size:85px;opacity:.18;filter:drop-shadow(0 0 18px #60a5fa);animation:drive 18s linear infinite;}
-.car2{bottom:120px;left:110%;font-size:65px;opacity:.12;animation:drive2 24s linear infinite;}
-.spark{position:absolute;width:5px;height:5px;background:#fff;border-radius:50%;box-shadow:0 0 10px #60a5fa;animation:float 5s infinite ease-in-out;}
-.spark:nth-child(8){left:15%;top:20%}.spark:nth-child(9){left:40%;top:60%;animation-delay:1s}.spark:nth-child(10){left:70%;top:35%;animation-delay:2s}.spark:nth-child(11){left:90%;top:75%;animation-delay:3s}
-@keyframes bgMove{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
-@keyframes redSweep{0%{transform:translateX(0) rotate(-10deg)}100%{transform:translateX(240%) rotate(-10deg)}}
-@keyframes blueSweep{0%{transform:translateX(0) rotate(8deg)}100%{transform:translateX(-240%) rotate(8deg)}}
-@keyframes drive{0%{left:-20%}100%{left:120%}}
-@keyframes drive2{0%{left:120%}100%{left:-20%}}
-@keyframes spin{to{transform:rotate(360deg)}}
-@keyframes grid{from{transform:translateY(0)}to{transform:translateY(50px)}}
-@keyframes float{50%{transform:translateY(-25px) scale(1.8)}}
-</style>
-<div class='police-bg'>
-<div class='grid'></div>
-<div class='light red'></div>
-<div class='light blue'></div>
-<div class='radar'></div>
-<div class='car'>🚓</div>
-<div class='car car2'>🚔</div>
-<div class='spark'></div><div class='spark'></div><div class='spark'></div><div class='spark'></div>
-</div>
-""",unsafe_allow_html=True)
+''', unsafe_allow_html=True)
 
 st.markdown("""
 <style>
