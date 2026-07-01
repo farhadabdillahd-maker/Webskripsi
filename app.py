@@ -48,6 +48,45 @@ st.set_page_config(
 
 
 
+
+
+
+import base64
+
+def get_base64(path):
+    with open(path,"rb") as f:
+        return base64.b64encode(f.read()).decode()
+
+gif_bg=get_base64("assets/latar.GIF")
+
+st.markdown(f"""
+<style>
+.stApp{
+    background:url("data:image/gif;base64,{gif_bg}") center center / cover no-repeat fixed !important;
+}
+.stApp::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:linear-gradient(rgba(5,15,35,.35),rgba(5,15,35,.35));
+    backdrop-filter:blur(.5px);
+    z-index:-1;
+}
+[data-testid="stHeader"]{
+    background:rgba(0,0,0,0);
+}
+[data-testid="stAppViewContainer"]{
+    background:transparent;
+}
+.block-container{
+    background:rgba(7,20,45,.22);
+    border:1px solid rgba(255,255,255,.08);
+    backdrop-filter:blur(10px);
+    border-radius:24px;
+}
+</style>
+""",unsafe_allow_html=True)
+
 # =====================================================
 # POLICE CINEMATIC BACKGROUND
 # =====================================================
