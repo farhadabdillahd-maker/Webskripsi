@@ -51,19 +51,15 @@ st.set_page_config(
 
 
 
-import os
-import base64
 
-gif_path = os.path.join("assets", "latar.GIF")
 
-if os.path.exists(gif_path):
-    with open(gif_path, "rb") as f:
-        gif = base64.b64encode(f.read()).decode()
-
-    st.markdown(f'''
+# =====================================================
+# GIF BACKGROUND
+# =====================================================
+st.markdown("""
 <style>
 .stApp{
-    background-image:url("data:image/gif;base64,{gif}");
+    background-image:url("assets/latar.GIF");
     background-size:cover;
     background-position:center;
     background-repeat:no-repeat;
@@ -73,18 +69,17 @@ if os.path.exists(gif_path):
     content:"";
     position:fixed;
     inset:0;
-    background:rgba(0,0,0,.30);
+    background:rgba(0,0,0,.28);
     z-index:-1;
 }
-[data-testid="stHeader"]{background:transparent;}
-[data-testid="stAppViewContainer"]{background:transparent;}
-.block-container{
-    background:rgba(10,20,40,.20);
-    backdrop-filter:blur(12px);
-    border-radius:24px;
+[data-testid="stHeader"]{
+    background:transparent;
+}
+[data-testid="stAppViewContainer"]{
+    background:transparent;
 }
 </style>
-''', unsafe_allow_html=True)
+""", unsafe_allow_html=True)
 
 st.markdown("""
 <style>
