@@ -51,36 +51,45 @@ st.set_page_config(
 
 def set_gif_background():
     gif_file = "assets/latar.GIF"
-    if not os.path.isfile(gif_file):
-        st.warning(f"Background GIF tidak ditemukan: {gif_file}")
+
+    if not os.path.exists(gif_file):
         return
 
     with open(gif_file, "rb") as f:
-        gif = base64.b64encode(f.read()).decode()
-        st.markdown(f"""
-<style>
-.stApp{
-    background:transparent !important;
-}
-.stApp::before{
-    content:"";
-    position:fixed;
-    inset:0;
-    background:url("data:image/gif;base64,{gif}") center center no-repeat;
-    background-size:cover;
-    opacity:0.25;
-    z-index:-999;
-}
-[data-testid="stHeader"],
-[data-testid="stToolbar"],
-[data-testid="stSidebar"],
-[data-testid="stSidebarContent"],
-[data-testid="stAppViewContainer"],
-.block-container{
-    background:transparent !important;
-}
-</style>
-""", unsafe_allow_html=True)
+        gif = base64.b64encode(f.read()).decode("utf-8")
+
+    css = f"""
+    <style>
+    .stApp {{
+        background: transparent !important;
+    }}
+
+    .stApp::before {{
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('data:image/gif;base64,{gif}');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        opacity: 0.25;
+        z-index: -1;
+    }}
+
+    [data-testid="stHeader"],
+    [data-testid="stToolbar"],
+    [data-testid="stSidebar"],
+    [data-testid="stSidebarContent"],
+    [data-testid="stAppViewContainer"],
+    .block-container {{
+        background: transparent !important;
+    }}
+    </style>
+    """
+    st.markdown(css, unsafe_allow_html=True)
 
 set_gif_background()
 
