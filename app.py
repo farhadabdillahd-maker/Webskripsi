@@ -158,7 +158,7 @@ div[data-testid="stMarkdownContainer"] h1{
 # =====================================================
 def show_home():
     st.markdown("""
-    <div style='padding:60px;border-radius:28px;background:linear-gradient(135deg,#081b46 0%,#123c7a 55%,#2563eb 100%);color:#fff;box-shadow:0 20px 45px rgba(0,0,0,.28);margin:0px 0 20px 0;border:1px solid rgba(255,255,255,.12)'>
+    <div style='padding:60px;border-radius:28px;background:rgba(8,27,70,.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:#fff;box-shadow:0 20px 45px rgba(0,0,0,.28);margin:0px 0 20px 0;border:1px solid rgba(255,255,255,.12)'>
         <div style='font-size:15px;letter-spacing:2px;color:#bfdbfe'>
         POLRES PASAMAN • MACHINE LEARNING • NAÏVE BAYES
         </div>
@@ -214,7 +214,7 @@ kejahatan secara cepat, akurat, dan otomatis.""")
 st.markdown("""
 <style>
 .home-card{
-background:white;
+background:rgba(255,255,255,.10);
 border-radius:18px;
 padding:20px;
 box-shadow:0 8px 25px rgba(0,0,0,.08);
@@ -307,7 +307,7 @@ section[data-testid="stSidebar"]{
 /* HERO */
 
 .hero{
-    background:white;
+    background:rgba(255,255,255,.10);
     padding:35px;
     border-radius:28px;
     box-shadow:
@@ -330,7 +330,7 @@ section[data-testid="stSidebar"]{
 /* KPI */
 
 [data-testid="metric-container"]{
-    background:white;
+    background:rgba(255,255,255,.10);
     border:none;
     border-radius:20px;
     padding:20px;
@@ -406,7 +406,7 @@ section[data-testid="stSidebar"]{
 /* CUSTOM CARD */
 
 .card{
-    background:white;
+    background:rgba(255,255,255,.10);
     padding:25px;
     border-radius:20px;
     box-shadow:
@@ -2494,3 +2494,15 @@ agar file berikut dibuat:
             freq_df,
             use_container_width=True
         )
+
+
+st.markdown("""
+<style>
+html,body,[data-testid="stAppViewContainer"],.stApp,.main{
+    background:transparent !important;
+}
+.block-container{
+    background:transparent !important;
+}
+</style>
+""", unsafe_allow_html=True)
