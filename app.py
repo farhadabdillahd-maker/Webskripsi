@@ -49,49 +49,48 @@ st.set_page_config(
 )
 
 
-def set_gif_background():
-    gif_file = "assets/latar.GIF"
 
+def set_gif_background():
+    gif_file="assets/latar.GIF"
     if not os.path.exists(gif_file):
         return
 
-    with open(gif_file, "rb") as f:
-        gif = base64.b64encode(f.read()).decode("utf-8")
+    with open(gif_file,"rb") as f:
+        gif=base64.b64encode(f.read()).decode()
 
-    css = f"""
+    st.markdown(f"""
+    <div class="gif-bg">
+        <img src="data:image/gif;base64,{gif}">
+    </div>
+
     <style>
-    .stApp {{
-        background: transparent !important;
-    }}
+    .gif-bg{
+        position:fixed;
+        inset:0;
+        z-index:-999999;
+        overflow:hidden;
+        pointer-events:none;
+    }
+    .gif-bg img{
+        width:100vw;
+        height:100vh;
+        object-fit:cover;
+        opacity:.35;
+    }
 
-    .stApp::before {{
-        content: "";
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-image: url('data:image/gif;base64,{gif}');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        opacity: 0.25;
-        z-index: -1;
-    }}
-
+    html,body,.stApp,[data-testid="stAppViewContainer"],
     [data-testid="stHeader"],
     [data-testid="stToolbar"],
     [data-testid="stSidebar"],
     [data-testid="stSidebarContent"],
-    [data-testid="stAppViewContainer"],
-    .block-container {{
-        background: transparent !important;
-    }}
+    .main,.block-container{
+        background:transparent !important;
+    }
     </style>
-    """
-    st.markdown(css, unsafe_allow_html=True)
+    """, unsafe_allow_html=True)
 
 set_gif_background()
+
 
 
 st.markdown("""
