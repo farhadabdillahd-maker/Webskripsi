@@ -51,6 +51,22 @@ st.set_page_config(
 
 
 
+
+
+
+st.markdown("""
+<style>
+/* ===== Dark Glow Override ===== */
+div[data-testid="stVerticalBlock"] > div{
+    box-shadow:
+        0 12px 40px rgba(0,0,0,.55) !important,
+        0 0 25px rgba(0,0,0,.40) !important,
+        inset 0 1px 0 rgba(255,255,255,.08) !important;
+    border:1px solid rgba(0,0,0,.20) !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
 def set_gif_background():
     gif_file = "assets/latar.GIF"
     if not os.path.exists(gif_file):
