@@ -47,87 +47,93 @@ st.set_page_config(
 )
 
 
+
 # =====================================================
-# POLICE ANIMATION BACKGROUND
+# CINEMATIC POLICE BACKGROUND
 # =====================================================
 st.markdown("""
 <style>
-body,.stApp{
-background:
-radial-gradient(circle at top,#3b82f6 0%,#dbeafe 28%,#f8fafc 65%,#eef4ff 100%);
-overflow-x:hidden;
+.stApp{
+background:radial-gradient(circle at top,#2b4d8c 0%,#dbeafe 30%,#f8fbff 70%,#eef4ff 100%);
 }
 .police-bg{
 position:fixed;
-left:0;top:0;
-width:100%;
-height:100%;
-pointer-events:none;
-z-index:0;
+inset:0;
 overflow:hidden;
+pointer-events:none;
+z-index:-5;
 }
-.police-car{
+.city{
 position:absolute;
-bottom:28px;
-left:-220px;
-font-size:64px;
-animation:drive 18s linear infinite;
-filter:drop-shadow(0 0 12px #60a5fa);
+bottom:0;
+width:100%;
+height:120px;
+background:
+linear-gradient(to top,#0d1b3d,#173d74 60%,transparent),
+repeating-linear-gradient(90deg,#183b6b 0 35px,#214a83 35px 70px);
+opacity:.18;
 }
-.siren{
+.road{
 position:absolute;
-top:8%;
-left:-30%;
-width:160%;
-height:280px;
-background:linear-gradient(90deg,
-transparent,
-rgba(59,130,246,.12),
-transparent,
-rgba(239,68,68,.12),
-transparent);
-animation:sweep 7s linear infinite;
-transform:rotate(-10deg);
-}
-.spark{
-position:absolute;
-width:6px;
+bottom:45px;
+width:100%;
 height:6px;
+background:repeating-linear-gradient(90deg,transparent 0 30px,#fff 30px 60px);
+opacity:.25;
+animation:roadMove 1.8s linear infinite;
+}
+.car1,.car2{
+position:absolute;
+bottom:25px;
+font-size:62px;
+filter:drop-shadow(0 0 10px rgba(59,130,246,.45));
+}
+.car1{left:-180px;animation:drive1 22s linear infinite;}
+.car2{right:-180px;transform:scaleX(-1);animation:drive2 28s linear infinite;}
+.beamBlue,.beamRed{
+position:absolute;
+top:-20%;
+width:180%;
+height:340px;
+transform:rotate(-12deg);
+mix-blend-mode:screen;
+}
+.beamBlue{
+background:linear-gradient(90deg,transparent,rgba(59,130,246,.05),transparent);
+animation:sweepBlue 8s linear infinite;
+}
+.beamRed{
+background:linear-gradient(90deg,transparent,rgba(239,68,68,.04),transparent);
+animation:sweepRed 9s linear infinite;
+}
+.dot{
+position:absolute;
+width:5px;height:5px;border-radius:50%;
 background:#60a5fa;
-border-radius:50%;
-box-shadow:0 0 18px #60a5fa;
-animation:float 8s linear infinite;
+box-shadow:0 0 12px #60a5fa;
+animation:float 8s ease-in-out infinite;
 }
-.spark:nth-child(3){left:20%;top:35%;animation-delay:1s;}
-.spark:nth-child(4){left:70%;top:25%;animation-delay:2.4s;}
-.spark:nth-child(5){left:55%;top:70%;animation-delay:4s;}
-@keyframes drive{
-0%{transform:translateX(0)}
-100%{transform:translateX(calc(100vw + 450px))}
-}
-@keyframes sweep{
-0%{transform:translateX(-35%) rotate(-10deg);}
-100%{transform:translateX(35%) rotate(-10deg);}
-}
-@keyframes float{
-0%,100%{transform:translateY(0);opacity:.2}
-50%{transform:translateY(-18px);opacity:1}
-}
-.main .block-container{
-position:relative;
-z-index:2;
-}
+.dot:nth-child(6){left:12%;top:20%;}
+.dot:nth-child(7){left:32%;top:55%;animation-delay:2s;}
+.dot:nth-child(8){left:65%;top:30%;animation-delay:3.5s;}
+.dot:nth-child(9){left:86%;top:60%;animation-delay:1.3s;}
+@keyframes drive1{from{transform:translateX(0)}to{transform:translateX(calc(100vw + 400px))}}
+@keyframes drive2{from{transform:translateX(0) scaleX(-1)}to{transform:translateX(calc(-100vw - 400px)) scaleX(-1)}}
+@keyframes roadMove{from{background-position:0}to{background-position:90px}}
+@keyframes sweepBlue{from{transform:translateX(-40%) rotate(-12deg)}to{transform:translateX(35%) rotate(-12deg)}}
+@keyframes sweepRed{from{transform:translateX(35%) rotate(-12deg)}to{transform:translateX(-35%) rotate(-12deg)}}
+@keyframes float{50%{transform:translateY(-18px);opacity:1}}
 </style>
-
 <div class="police-bg">
-<div class="siren"></div>
-<div class="police-car">🚓</div>
-<div class="spark"></div>
-<div class="spark"></div>
-<div class="spark"></div>
+<div class="beamBlue"></div>
+<div class="beamRed"></div>
+<div class="city"></div>
+<div class="road"></div>
+<div class="car1">🚓</div>
+<div class="car2">🚔</div>
+<div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
 </div>
 """, unsafe_allow_html=True)
-
 
 st.markdown("""
 <style>
