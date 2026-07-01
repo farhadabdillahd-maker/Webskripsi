@@ -48,38 +48,24 @@ st.set_page_config(
 
 
 
+import base64
+from pathlib import Path as _Path
 
-
-
-
-
-# =====================================================
-# GIF BACKGROUND
-# =====================================================
-st.markdown("""
+def _apply_gif_background():
+    gif_path=_Path("assets/latar.GIF")
+    if not gif_path.exists():
+        return
+    gif=base64.b64encode(gif_path.read_bytes()).decode()
+    st.markdown(f"""
 <style>
-.stApp{
-    background-image:url("assets/latar.GIF");
-    background-size:cover;
-    background-position:center;
-    background-repeat:no-repeat;
-    background-attachment:fixed;
-}
-.stApp::before{
-    content:"";
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.28);
-    z-index:-1;
-}
-[data-testid="stHeader"]{
-    background:transparent;
-}
-[data-testid="stAppViewContainer"]{
-    background:transparent;
-}
+.stApp,[data-testid="stAppViewContainer"],[data-testid="stHeader"]{background:transparent !important;}
+.gifbg{position:fixed;inset:0;z-index:-9999}
+.gifbg img{width:100%;height:100%;object-fit:cover}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.22);z-index:-9998}
 </style>
-""", unsafe_allow_html=True)
+<div class="gifbg"><img src="data:image/gif;base64,{gif}"></div><div class="overlay"></div>
+""",unsafe_allow_html=True)
+_apply_gif_background()
 
 st.markdown("""
 <style>
