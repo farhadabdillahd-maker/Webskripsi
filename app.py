@@ -4,6 +4,7 @@ import re
 import joblib
 import nltk
 import base64
+import os
 
 from nltk.corpus import stopwords
 from Sastrawi.Stemmer.StemmerFactory import StemmerFactory
@@ -49,9 +50,13 @@ st.set_page_config(
 
 
 def set_gif_background():
-    gif_path = Path("assets/latar.GIF")
-    if gif_path.exists():
-        gif = base64.b64encode(gif_path.read_bytes()).decode()
+    gif_file = "assets/latar.GIF"
+    if not os.path.isfile(gif_file):
+        st.warning(f"Background GIF tidak ditemukan: {gif_file}")
+        return
+
+    with open(gif_file, "rb") as f:
+        gif = base64.b64encode(f.read()).decode()
         st.markdown(f"""
 <style>
 .stApp{
