@@ -3,6 +3,7 @@ import pandas as pd
 import re
 import joblib
 import nltk
+import base64
 
 from nltk.corpus import stopwords
 from Sastrawi.Stemmer.StemmerFactory import StemmerFactory
@@ -47,25 +48,37 @@ st.set_page_config(
 )
 
 
-
-import base64
-from pathlib import Path as _Path
-
-def _apply_gif_background():
-    gif_path=_Path("assets/latar.GIF")
-    if not gif_path.exists():
-        return
-    gif=base64.b64encode(gif_path.read_bytes()).decode()
-    st.markdown(f"""
+def set_gif_background():
+    gif_path = Path("assets/latar.GIF")
+    if gif_path.exists():
+        gif = base64.b64encode(gif_path.read_bytes()).decode()
+        st.markdown(f"""
 <style>
-.stApp,[data-testid="stAppViewContainer"],[data-testid="stHeader"]{background:transparent !important;}
-.gifbg{position:fixed;inset:0;z-index:-9999}
-.gifbg img{width:100%;height:100%;object-fit:cover}
-.overlay{position:fixed;inset:0;background:rgba(0,0,0,.22);z-index:-9998}
+.stApp{
+    background:transparent !important;
+}
+.stApp::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:url("data:image/gif;base64,{gif}") center center no-repeat;
+    background-size:cover;
+    opacity:0.25;
+    z-index:-999;
+}
+[data-testid="stHeader"],
+[data-testid="stToolbar"],
+[data-testid="stSidebar"],
+[data-testid="stSidebarContent"],
+[data-testid="stAppViewContainer"],
+.block-container{
+    background:transparent !important;
+}
 </style>
-<div class="gifbg"><img src="data:image/gif;base64,{gif}"></div><div class="overlay"></div>
-""",unsafe_allow_html=True)
-_apply_gif_background()
+""", unsafe_allow_html=True)
+
+set_gif_background()
+
 
 st.markdown("""
 <style>
