@@ -76,8 +76,8 @@ def set_gif_background():
     height:100vh;
     object-fit:cover;
     opacity:1;
-}
-.gif-bg::after{
+}}
+.gif-bg::after {{
     content:"";
     position:absolute;
     inset:0;
