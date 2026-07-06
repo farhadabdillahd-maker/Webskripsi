@@ -75,14 +75,8 @@ def set_gif_background():
     width:100vw;
     height:100vh;
     object-fit:cover;
-    opacity:1;
+    opacity:.35;
 }}
-.gif-bg::after{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:rgba(0,0,0,0.7);
-}
 html, body, .stApp,
 [data-testid="stAppViewContainer"],
 [data-testid="stHeader"],
