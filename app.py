@@ -161,6 +161,29 @@ div[data-testid="stMarkdownContainer"] h1{
 </style>
 """, unsafe_allow_html=True)
 
+
+st.markdown("""
+<style>
+body, .stApp, p, li, span, label, div, h1,h2,h3,h4,h5,h6{
+color:white !important;
+}
+[data-testid="stMetricValue"],[data-testid="stMetricLabel"]{
+color:white !important;
+}
+thead tr th{
+background:#0b3b8c !important;
+color:white !important;
+}
+tbody tr td{
+background:rgba(255,255,255,0.08) !important;
+color:white !important;
+}
+table{
+border:1px solid rgba(255,255,255,.3) !important;
+}
+</style>
+""",unsafe_allow_html=True)
+
 # =====================================================
 # HERO LANDING PAGE
 # =====================================================
@@ -193,15 +216,19 @@ def show_home():
 menggunakan algoritma Naïve Bayes untuk membantu proses analisis laporan
 kejahatan secara cepat, akurat, dan otomatis.""")
         st.markdown("### 🔄 Alur Sistem")
-        st.markdown("""
-1. Upload Dataset
-2. Preprocessing Teks
-3. TF‑IDF Vectorization
-4. Training Naïve Bayes
-5. Evaluasi (Accuracy, Precision, Recall, F1)
-6. Prediksi Tingkat Kejahatan
-7. Download Surat PDF
-""")
+        st.markdown("### 📋 Tabel Alur Sistem")
+        st.table(pd.DataFrame({
+            "No":[1,2,3,4,5,6,7],
+            "Proses":[
+                "Upload Dataset",
+                "Preprocessing Teks",
+                "TF-IDF Vectorization",
+                "Training Naïve Bayes",
+                "Evaluasi (Accuracy, Precision, Recall, F1)",
+                "Prediksi Tingkat Kejahatan",
+                "Download Surat PDF"
+            ]
+        }))
     with y:
         st.markdown("### 📌 Fitur Utama")
         st.info("""
