@@ -266,33 +266,18 @@ div[data-testid="stSuccess"]{
 """, unsafe_allow_html=True)
 
 
+
 st.markdown("""
 <style>
-/* Warna nama file pada uploader */
-div[data-testid="stFileUploader"] section small,
-div[data-testid="stFileUploader"] section span,
-div[data-testid="stFileUploader"] div[data-testid="stFileUploaderFileName"],
-div[data-testid="stFileUploader"] p{
-    color:#FFFFFF !important;
-    -webkit-text-fill-color:#FFFFFF !important;
+/* Hanya judul uploader hitam */
+div[data-testid="stFileUploader"] > label,
+div[data-testid="stFileUploader"] label p{
+    color:#000 !important;
+    -webkit-text-fill-color:#000 !important;
 }
-</style>
-""", unsafe_allow_html=True)
-
-
-st.markdown("""
-<style>
-/* Paksa nama file & ukuran file uploader menjadi putih */
-div[data-testid="stFileUploader"] [data-testid="stFileUploaderFile"] *,
-div[data-testid="stFileUploader"] [data-testid="stFileUploaderFileName"],
-div[data-testid="stFileUploader"] [data-testid="stFileUploaderFileData"],
-div[data-testid="stFileUploader"] section *,
-div[data-testid="stFileUploader"] small,
-div[data-testid="stFileUploader"] span,
-div[data-testid="stFileUploader"] p{
-    color:#FFFFFF !important;
-    fill:#FFFFFF !important;
-    -webkit-text-fill-color:#FFFFFF !important;
+/* Nama file & ukuran tetap hitam di kartu putih */
+div[data-testid="stFileUploader"] small{
+    color:#222 !important;
 }
 </style>
 """, unsafe_allow_html=True)
