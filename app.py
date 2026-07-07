@@ -279,6 +279,24 @@ div[data-testid="stFileUploader"] p{
 </style>
 """, unsafe_allow_html=True)
 
+
+st.markdown("""
+<style>
+/* Paksa nama file & ukuran file uploader menjadi putih */
+div[data-testid="stFileUploader"] [data-testid="stFileUploaderFile"] *,
+div[data-testid="stFileUploader"] [data-testid="stFileUploaderFileName"],
+div[data-testid="stFileUploader"] [data-testid="stFileUploaderFileData"],
+div[data-testid="stFileUploader"] section *,
+div[data-testid="stFileUploader"] small,
+div[data-testid="stFileUploader"] span,
+div[data-testid="stFileUploader"] p{
+    color:#FFFFFF !important;
+    fill:#FFFFFF !important;
+    -webkit-text-fill-color:#FFFFFF !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
 # =====================================================
 # HERO LANDING PAGE
 # =====================================================
