@@ -281,10 +281,6 @@ def show_home():
 
     x,y=st.columns([1.8,1.2])
     with x:
-        st.markdown("### 🎯 Tujuan Penelitian")
-        st.success("""Mengembangkan sistem klasifikasi tingkat kejahatan berbasis Machine Learning
-menggunakan algoritma Naïve Bayes untuk membantu proses analisis laporan
-kejahatan secara cepat, akurat, dan otomatis.""")
         st.markdown("### 🔄 Alur Sistem")
         st.markdown("### 📋 Tabel Alur Sistem")
         st.table(pd.DataFrame({
@@ -299,7 +295,8 @@ kejahatan secara cepat, akurat, dan otomatis.""")
                 "Download Surat PDF"
             ]
         }))
-    with y:
+        st.markdown("<br>", unsafe_allow_html=True)
+
         st.markdown("### 📌 Fitur Utama")
         st.info("""
 ✅ Upload Dataset CSV
@@ -1280,6 +1277,7 @@ if menu == "Prediksi" and uploaded_file is None:
     st.markdown("""
     <div class="card">
     <h2>🔍 Prediksi Tingkat Kejahatan</h2>
+    <p>Prediksi dapat digunakan tanpa upload dataset.</p>
     </div>
     """, unsafe_allow_html=True)
 
