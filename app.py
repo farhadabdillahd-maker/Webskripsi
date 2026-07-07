@@ -216,6 +216,44 @@ div[data-testid="stDataFrame"] *{
 </style>
 """, unsafe_allow_html=True)
 
+
+st.markdown("""
+<style>
+/* ===== TEMA BIRU UNTUK SEMUA BOX/MENU ===== */
+div[data-testid="stAlert"],
+div[data-testid="stForm"],
+div[data-testid="stFileUploader"],
+div[data-testid="stDataFrame"],
+div[data-testid="stTable"],
+div[data-testid="stMetric"],
+div[data-testid="stVerticalBlock"] > div:has(> div[data-testid="stMarkdownContainer"]),
+div[data-testid="stTextInput"],
+div[data-testid="stTextArea"],
+div[data-testid="stSelectbox"],
+div[data-testid="stMultiSelect"],
+div[data-testid="stNumberInput"]{
+    background:rgba(16,42,92,.92)!important;
+    border:1px solid rgba(86,164,255,.45)!important;
+    border-radius:20px!important;
+    box-shadow:0 0 18px rgba(0,120,255,.18)!important;
+    padding:14px!important;
+}
+
+div[data-testid="stAlert"] *,
+div[data-testid="stForm"] *,
+div[data-testid="stFileUploader"] *,
+div[data-testid="stDataFrame"] *,
+div[data-testid="stTable"] *,
+div[data-testid="stMetric"] *{
+    color:#ffffff!important;
+}
+
+div[data-testid="stSuccess"]{
+    background:rgba(16,42,92,.92)!important;
+}
+</style>
+""", unsafe_allow_html=True)
+
 # =====================================================
 # HERO LANDING PAGE
 # =====================================================
