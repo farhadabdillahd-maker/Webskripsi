@@ -252,11 +252,23 @@ div[data-testid="stNumberInput"]{
 
 div[data-testid="stAlert"] *,
 div[data-testid="stForm"] *,
-div[data-testid="stFileUploader"] *,
 div[data-testid="stDataFrame"] *,
 div[data-testid="stTable"] *,
 div[data-testid="stMetric"] *{
     color:#ffffff!important;
+}
+
+/* Jangan paksa semua isi file uploader menjadi putih */
+div[data-testid="stFileUploader"] *{
+}
+
+/* Nama file & ukuran file */
+div[data-testid="stFileUploader"] section span,
+div[data-testid="stFileUploader"] section small,
+div[data-testid="stFileUploader"] [data-testid="stFileUploaderFile"] *,
+div[data-testid="stFileUploader"] [role="button"] span{
+    color:#000000 !important;
+    -webkit-text-fill-color:#000000 !important;
 }
 
 div[data-testid="stSuccess"]{
