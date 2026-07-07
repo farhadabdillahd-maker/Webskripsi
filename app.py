@@ -111,7 +111,7 @@ st.markdown("""
 .prediksi-toast{
 animation:toastIn .6s ease;
 background:linear-gradient(135deg,#22c55e,#16a34a);
-color:white;
+color:#FFFFFF !important;
 padding:18px 22px;
 border-radius:18px;
 font-size:22px;
@@ -299,7 +299,7 @@ border-radius:18px;
 padding:16px 10px;
 text-align:center;
 font-weight:bold;
-color:white;
+color:#FFFFFF !important;
 box-shadow:0 0 15px rgba(0,120,255,.25);
 flex:none;
 }
@@ -328,17 +328,6 @@ flex:none;
 </div>
 """, unsafe_allow_html=True)
 
-        st.markdown("### 📌 Fitur Utama")
-        st.markdown("""
-<div class="flow-container">
-<div class="flow-box">📂<br>Upload CSV</div><div class="flow-arrow">➜</div>
-<div class="flow-box">🧹<br>Preprocessing</div><div class="flow-arrow">➜</div>
-<div class="flow-box">🤖<br>Klasifikasi</div><div class="flow-arrow">➜</div>
-<div class="flow-box">📊<br>Confusion Matrix</div><div class="flow-arrow">➜</div>
-<div class="flow-box">🔍<br>Prediksi</div><div class="flow-arrow">➜</div>
-<div class="flow-box">📄<br>Download PDF</div>
-</div>
-""", unsafe_allow_html=True)
 # =====================================================
 
 st.markdown("""
@@ -425,7 +414,7 @@ section[data-testid="stSidebar"]{
         #1e293b 40%,
         #2563eb 100%
     );
-    color:white;
+    color:#FFFFFF !important;
     border:none;
 
     /* Rounded Sidebar */
@@ -486,11 +475,11 @@ section[data-testid="stSidebar"]{
     height:55px;
     border:none;
     border-radius:18px;
-    color:white;
+    color:#FFFFFF !important;
     background:linear-gradient(135deg,#06b6d4,#2563eb,#7c3aed);
     box-shadow:0 10px 25px rgba(37,99,235,.35);
 
-    color:white;
+    color:#FFFFFF !important;
     background:linear-gradient(
         135deg,
         #06b6d4,
