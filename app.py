@@ -279,8 +279,7 @@ def show_home():
     c.metric("🧹 NLP","TF‑IDF + Stemming")
     d.metric("📄 Output","Prediksi & Surat")
 
-    x,y=st.columns([1.8,1.2])
-    with x:
+    with st.container():
         st.markdown("### 🔄 Alur Sistem")
 
         st.markdown("""
@@ -288,12 +287,12 @@ def show_home():
 .flow-container{
 display:flex;
 align-items:center;
-gap:12px;
+gap:10px;
 overflow-x:auto;
 padding:15px 5px 25px 5px;
 }
 .flow-box{
-min-width:165px;
+flex:1;min-width:150px;
 background:linear-gradient(135deg,#163d7c,#2459b8);
 border:1px solid #5db7ff;
 border-radius:18px;
@@ -330,19 +329,16 @@ flex:none;
 """, unsafe_allow_html=True)
 
         st.markdown("### 📌 Fitur Utama")
-        st.info("""
-✅ Upload Dataset CSV
-
-✅ Preprocessing Otomatis
-
-✅ Klasifikasi Naïve Bayes
-
-✅ Confusion Matrix
-
-✅ Prediksi Judul Kasus
-
-✅ Download Surat PDF
-""")
+        st.markdown("""
+<div class="flow-container">
+<div class="flow-box">📂<br>Upload CSV</div><div class="flow-arrow">➜</div>
+<div class="flow-box">🧹<br>Preprocessing</div><div class="flow-arrow">➜</div>
+<div class="flow-box">🤖<br>Klasifikasi</div><div class="flow-arrow">➜</div>
+<div class="flow-box">📊<br>Confusion Matrix</div><div class="flow-arrow">➜</div>
+<div class="flow-box">🔍<br>Prediksi</div><div class="flow-arrow">➜</div>
+<div class="flow-box">📄<br>Download PDF</div>
+</div>
+""", unsafe_allow_html=True)
 # =====================================================
 
 st.markdown("""
