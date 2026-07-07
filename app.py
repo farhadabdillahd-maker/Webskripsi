@@ -268,13 +268,13 @@ div[data-testid="stSuccess"]{
 
 st.markdown("""
 <style>
-/* Judul File Uploader menjadi hitam */
-div[data-testid="stFileUploader"] label,
-div[data-testid="stFileUploader"] small,
-div[data-testid="stFileUploader"] [data-testid="stMarkdownContainer"],
+/* Warna nama file pada uploader */
+div[data-testid="stFileUploader"] section small,
+div[data-testid="stFileUploader"] section span,
+div[data-testid="stFileUploader"] div[data-testid="stFileUploaderFileName"],
 div[data-testid="stFileUploader"] p{
-    color:#000000 !important;
-    -webkit-text-fill-color:#000000 !important;
+    color:#FFFFFF !important;
+    -webkit-text-fill-color:#FFFFFF !important;
 }
 </style>
 """, unsafe_allow_html=True)
