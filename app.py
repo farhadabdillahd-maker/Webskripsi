@@ -1321,7 +1321,12 @@ if menu == "Prediksi" and uploaded_file is None:
                     vector = tfidf.transform([" ".join(tokens)])
                     prediction = model.predict(vector)[0]
 
-                st.success(f"Hasil Prediksi : {prediction}")
+                st.markdown(f"""
+<div style="background:rgba(24,61,115,.55);padding:16px;border-radius:12px;border:1px solid #3b82f6;">
+<span style="font-size:20px;font-weight:900;color:#FFFFFF;">Hasil Prediksi : </span>
+<span style="font-size:20px;font-weight:700;color:#FFFFFF;">{prediction}</span>
+</div>
+""", unsafe_allow_html=True)
 
                 # ================= PDF SURAT =================
                 def generate_police_pdf(judul, hasil):
