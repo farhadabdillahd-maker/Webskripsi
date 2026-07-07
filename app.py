@@ -164,7 +164,7 @@ div[data-testid="stMarkdownContainer"] h1{
 
 st.markdown("""
 <style>
-body, .stApp, p, li, span, label, div, h1,h2,h3,h4,h5,h6{
+body, .stApp{
 color:white !important;
 }
 [data-testid="stMetricValue"],[data-testid="stMetricLabel"]{
@@ -2541,3 +2541,26 @@ html,body,[data-testid="stAppViewContainer"],.stApp,.main{
 }
 </style>
 """, unsafe_allow_html=True)
+
+
+
+st.markdown("""
+<style>
+
+/* Semua card putih */
+div[style*="background:#fff"],
+div[style*="background: white"],
+div[style*="background:#ffffff"],
+div[style*="background:rgba(255,255,255"]{
+    color:#000 !important;
+}
+div[style*="background:#fff"] *,
+div[style*="background: white"] *,
+div[style*="background:#ffffff"] *,
+div[style*="background:rgba(255,255,255"] *{
+    color:#000 !important;
+    -webkit-text-fill-color:#000 !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
