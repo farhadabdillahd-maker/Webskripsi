@@ -2564,3 +2564,54 @@ div[style*="background:rgba(255,255,255"] *{
 </style>
 """, unsafe_allow_html=True)
 
+
+
+st.markdown(r"""
+<style>
+/* ABOUT dan card putih */
+div[style*="background:#fff"] *,
+div[style*="background:#ffffff"] *,
+div[style*="background: white"] *,
+div[style*="background:rgba(255,255,255"] *,
+.about-card, .about-card *,
+.about-section, .about-section *{
+    color:#000000 !important;
+    -webkit-text-fill-color:#000000 !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
+
+
+st.markdown(r"""
+<style>
+/* Semua teks di container putih pada menu Prediksi menjadi hitam */
+div[data-testid="stTextInput"] label,
+div[data-testid="stTextArea"] label,
+div[data-testid="stFileUploader"] label,
+div[data-testid="stSelectbox"] label,
+div[data-testid="stRadio"] label,
+div[data-testid="stCheckbox"] label,
+div[data-testid="stForm"] *,
+div[data-testid="stForm"] label,
+div[data-testid="stForm"] p,
+div[data-testid="stForm"] span,
+div[data-testid="stForm"] h1,
+div[data-testid="stForm"] h2,
+div[data-testid="stForm"] h3,
+div[data-testid="stForm"] h4,
+div[data-testid="stAlert"] *,
+div[style*="background:#fff"] *,
+div[style*="background:#ffffff"] *{
+    color:#000 !important;
+    -webkit-text-fill-color:#000 !important;
+}
+
+/* input tetap hitam di atas background putih */
+input, textarea{
+    color:#000 !important;
+    -webkit-text-fill-color:#000 !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
