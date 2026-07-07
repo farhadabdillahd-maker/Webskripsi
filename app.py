@@ -164,6 +164,17 @@ div[data-testid="stMarkdownContainer"] h1{
 
 st.markdown("""
 <style>
+div[data-testid="stMarkdownContainer"] h3,
+div[data-testid="stMarkdownContainer"] h3 *{
+    color:#FFFFFF !important;
+    -webkit-text-fill-color:#FFFFFF !important;
+    opacity:1 !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
+st.markdown("""
+<style>
 body, .stApp{
 color:white !important;
 }
