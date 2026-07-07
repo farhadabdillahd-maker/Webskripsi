@@ -184,6 +184,38 @@ border:1px solid rgba(255,255,255,.3) !important;
 </style>
 """,unsafe_allow_html=True)
 
+
+st.markdown("""
+<style>
+/* ===== Semua tabel bergaya biru dashboard ===== */
+div[data-testid="stTable"],
+div[data-testid="stDataFrame"]{
+    background:rgba(16,42,92,.92)!important;
+    border:1px solid rgba(86,164,255,.45)!important;
+    border-radius:18px!important;
+    padding:12px!important;
+    box-shadow:0 0 20px rgba(0,120,255,.18)!important;
+}
+table{
+    background:transparent!important;
+}
+thead th{
+    background:#183d73!important;
+    color:#fff!important;
+}
+tbody td{
+    background:rgba(24,61,115,.55)!important;
+    color:#fff!important;
+}
+tbody tr:nth-child(even) td{
+    background:rgba(28,74,140,.50)!important;
+}
+div[data-testid="stDataFrame"] *{
+    color:#fff!important;
+}
+</style>
+""", unsafe_allow_html=True)
+
 # =====================================================
 # HERO LANDING PAGE
 # =====================================================
