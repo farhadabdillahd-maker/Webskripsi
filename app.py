@@ -282,20 +282,52 @@ def show_home():
     x,y=st.columns([1.8,1.2])
     with x:
         st.markdown("### 🔄 Alur Sistem")
-        st.markdown("### 📋 Tabel Alur Sistem")
-        st.table(pd.DataFrame({
-            "No":[1,2,3,4,5,6,7],
-            "Proses":[
-                "Upload Dataset",
-                "Preprocessing Teks",
-                "TF-IDF Vectorization",
-                "Training Naïve Bayes",
-                "Evaluasi (Accuracy, Precision, Recall, F1)",
-                "Prediksi Tingkat Kejahatan",
-                "Download Surat PDF"
-            ]
-        }))
-        st.markdown("<br>", unsafe_allow_html=True)
+
+        st.markdown("""
+<style>
+.flow-container{
+display:flex;
+align-items:center;
+gap:12px;
+overflow-x:auto;
+padding:15px 5px 25px 5px;
+}
+.flow-box{
+min-width:165px;
+background:linear-gradient(135deg,#163d7c,#2459b8);
+border:1px solid #5db7ff;
+border-radius:18px;
+padding:16px 10px;
+text-align:center;
+font-weight:bold;
+color:white;
+box-shadow:0 0 15px rgba(0,120,255,.25);
+flex:none;
+}
+.flow-arrow{
+font-size:34px;
+font-weight:bold;
+color:#59b7ff;
+flex:none;
+}
+</style>
+
+<div class="flow-container">
+<div class="flow-box">📂<br>Upload Dataset</div>
+<div class="flow-arrow">➜</div>
+<div class="flow-box">🧹<br>Preprocessing</div>
+<div class="flow-arrow">➜</div>
+<div class="flow-box">🔤<br>TF-IDF</div>
+<div class="flow-arrow">➜</div>
+<div class="flow-box">🤖<br>Naïve Bayes</div>
+<div class="flow-arrow">➜</div>
+<div class="flow-box">📊<br>Evaluasi</div>
+<div class="flow-arrow">➜</div>
+<div class="flow-box">🔍<br>Prediksi</div>
+<div class="flow-arrow">➜</div>
+<div class="flow-box">📄<br>Download PDF</div>
+</div>
+""", unsafe_allow_html=True)
 
         st.markdown("### 📌 Fitur Utama")
         st.info("""
