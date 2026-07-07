@@ -265,6 +265,20 @@ div[data-testid="stSuccess"]{
 </style>
 """, unsafe_allow_html=True)
 
+
+st.markdown("""
+<style>
+/* Judul File Uploader menjadi hitam */
+div[data-testid="stFileUploader"] label,
+div[data-testid="stFileUploader"] small,
+div[data-testid="stFileUploader"] [data-testid="stMarkdownContainer"],
+div[data-testid="stFileUploader"] p{
+    color:#000000 !important;
+    -webkit-text-fill-color:#000000 !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
 # =====================================================
 # HERO LANDING PAGE
 # =====================================================
