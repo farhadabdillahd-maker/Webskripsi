@@ -280,7 +280,7 @@ def show_home():
     d.metric("📄 Output","Prediksi & Surat")
 
     with st.container():
-        st.markdown("### 🔄 Alur Sistem")
+        st.markdown("<h3 style='color:white;'>🔄 Alur Sistem</h3>", unsafe_allow_html=True)
 
         st.markdown("""
 <style>
