@@ -196,12 +196,12 @@ div[data-testid="stMarkdownContainer"] h3 *{
 
 st.markdown("""
 <style>
-/* Case Folding menjadi hitam */
+/* Semua heading h3 putih */
 div[data-testid="stHeadingWithActionElements"] h3,
 div[data-testid="stHeadingWithActionElements"] h3 *,
 div[data-testid="stHeadingWithActionElements"] h3 a{
-    color:#000000 !important;
-    -webkit-text-fill-color:#000000 !important;
+    color:#FFFFFF !important;
+    -webkit-text-fill-color:#FFFFFF !important;
 }
 </style>
 """, unsafe_allow_html=True)
