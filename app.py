@@ -294,11 +294,13 @@ div[data-testid="stSuccess"]{
 
 st.markdown("""
 <style>
-/* Hanya judul uploader hitam */
+/* Judul uploader putih */
 div[data-testid="stFileUploader"] > label,
-div[data-testid="stFileUploader"] label p{
-    color:#000 !important;
-    -webkit-text-fill-color:#000 !important;
+div[data-testid="stFileUploader"] label,
+div[data-testid="stFileUploader"] label p,
+div[data-testid="stFileUploader"] label span{
+    color:#FFFFFF !important;
+    -webkit-text-fill-color:#FFFFFF !important;
 }
 /* Nama file & ukuran tetap hitam di kartu putih */
 div[data-testid="stFileUploader"] small{
