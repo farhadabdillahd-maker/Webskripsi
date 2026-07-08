@@ -109,8 +109,8 @@ details summary p,
 details summary span,
 .streamlit-expanderHeader,
 .streamlit-expanderHeader *{
-    color:#FFFFFF !important;
-    -webkit-text-fill-color:#FFFFFF !important;
+    color:#000000 !important;
+    -webkit-text-fill-color:#000000 !important;
     font-weight:700 !important;
 }
 details summary svg{
@@ -187,8 +187,8 @@ st.markdown("""
 <style>
 div[data-testid="stMarkdownContainer"] h3,
 div[data-testid="stMarkdownContainer"] h3 *{
-    color:#FFFFFF !important;
-    -webkit-text-fill-color:#FFFFFF !important;
+    color:#000000 !important;
+    -webkit-text-fill-color:#000000 !important;
     opacity:1 !important;
 }
 </style>
@@ -200,8 +200,8 @@ st.markdown("""
 div[data-testid="stHeadingWithActionElements"] h3,
 div[data-testid="stHeadingWithActionElements"] h3 *,
 div[data-testid="stHeadingWithActionElements"] h3 a{
-    color:#FFFFFF !important;
-    -webkit-text-fill-color:#FFFFFF !important;
+    color:#000000 !important;
+    -webkit-text-fill-color:#000000 !important;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -326,21 +326,6 @@ div[data-testid="stFileUploader"] label span{
 /* Nama file & ukuran tetap hitam di kartu putih */
 div[data-testid="stFileUploader"] small{
     color:#222 !important;
-}
-</style>
-""", unsafe_allow_html=True)
-
-
-st.markdown("""
-<style>
-/* Case Folding dan heading preprocessing menjadi hitam */
-h1,h2,h3,h4,
-div[data-testid="stHeadingWithActionElements"] h1,
-div[data-testid="stHeadingWithActionElements"] h2,
-div[data-testid="stHeadingWithActionElements"] h3,
-div[data-testid="stHeadingWithActionElements"] h4{
-    color:#000000 !important;
-    -webkit-text-fill-color:#000000 !important;
 }
 </style>
 """, unsafe_allow_html=True)
