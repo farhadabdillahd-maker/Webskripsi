@@ -100,6 +100,27 @@ html, body, .stApp,
 set_gif_background()
 
 
+st.markdown("""
+<style>
+/* Paksa judul expander Upload Dataset menjadi putih */
+details summary,
+details summary *,
+details summary p,
+details summary span,
+.streamlit-expanderHeader,
+.streamlit-expanderHeader *{
+    color:#FFFFFF !important;
+    -webkit-text-fill-color:#FFFFFF !important;
+    font-weight:700 !important;
+}
+details summary svg{
+    fill:#FFC857 !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
+
+
 
 
 st.markdown("""
