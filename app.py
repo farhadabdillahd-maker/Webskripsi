@@ -330,6 +330,21 @@ div[data-testid="stFileUploader"] small{
 </style>
 """, unsafe_allow_html=True)
 
+
+st.markdown("""
+<style>
+/* Case Folding dan heading preprocessing menjadi hitam */
+h1,h2,h3,h4,
+div[data-testid="stHeadingWithActionElements"] h1,
+div[data-testid="stHeadingWithActionElements"] h2,
+div[data-testid="stHeadingWithActionElements"] h3,
+div[data-testid="stHeadingWithActionElements"] h4{
+    color:#000000 !important;
+    -webkit-text-fill-color:#000000 !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
 # =====================================================
 # HERO LANDING PAGE
 # =====================================================
