@@ -606,6 +606,12 @@ section[data-testid="stSidebar"]{
     border-radius:20px;
     box-shadow:
     0 10px 25px rgba(0,0,0,.05);
+    color:#000000 !important;
+}
+
+.card h1,.card h2,.card h3,.card h4,.card h5,.card h6,.card p,.card b,.card span,.card div{
+    color:#000000 !important;
+    -webkit-text-fill-color:#000000 !important;
 }
 
 /* SIDEBAR LOGO */
@@ -1370,6 +1376,7 @@ if menu == "Prediksi" and uploaded_file is None:
     st.markdown("""
     <div class="card">
     <h2>🔍 Prediksi Tingkat Kejahatan</h2>
+    <p>Prediksi dapat digunakan tanpa upload dataset.</p>
     </div>
     """, unsafe_allow_html=True)
 
