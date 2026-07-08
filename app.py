@@ -1370,7 +1370,6 @@ if menu == "Prediksi" and uploaded_file is None:
     st.markdown("""
     <div class="card">
     <h2>🔍 Prediksi Tingkat Kejahatan</h2>
-    <p>Prediksi dapat digunakan tanpa upload dataset.</p>
     </div>
     """, unsafe_allow_html=True)
 
