@@ -101,37 +101,15 @@ set_gif_background()
 
 st.markdown("""
 <style>
-/* ===== Tombol Repeat Premium ===== */
-div[data-testid="stButton"] > button{
-    width:100%;
-    height:58px;
-    background:linear-gradient(90deg,#1DA1F2,#6C3EF4) !important;
-    border:none !important;
-    border-radius:18px !important;
-    color:#FFFFFF !important;
+/* Font khusus tombol Repeat */
+div[data-testid="stButton"] button[kind]{
+    font-family:inherit;
+}
+div[data-testid="stButton"]:has(button[key="repeat_btn"]) > button,
+div[data-testid="stButton"] > button[data-testid="baseButton-repeat_btn"]{
     font-family:"Segoe UI Semibold","Segoe UI",sans-serif !important;
-    font-size:20px !important;
     font-weight:700 !important;
-    letter-spacing:.5px !important;
-    text-shadow:none !important;
-    -webkit-text-fill-color:#FFFFFF !important;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    gap:10px;
-    box-shadow:0 8px 22px rgba(61,125,255,.35);
-    transition:.25s;
-}
-div[data-testid="stButton"] > button:hover{
-    transform:translateY(-2px);
-    box-shadow:0 12px 30px rgba(61,125,255,.55);
-}
-div[data-testid="stButton"] > button span,
-div[data-testid="stButton"] > button p{
-    color:#FFFFFF !important;
-    -webkit-text-fill-color:#FFFFFF !important;
     font-size:20px !important;
-    font-weight:700 !important;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -1411,7 +1389,7 @@ if menu == "Upload Dataset":
         with col1:
             st.success(f"Dataset aktif: {st.session_state.uploaded_dataset.name}")
         with col2:
-            if st.button("🔄 Repeat", use_container_width=True):
+            if st.button("🔄 Repeat", key="repeat_btn", use_container_width=True):
                 st.session_state.uploaded_dataset = None
                 st.session_state.upload_reset_counter += 1
                 st.rerun()
