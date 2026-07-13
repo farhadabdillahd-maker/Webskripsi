@@ -1392,38 +1392,38 @@ if menu == "Prediksi" and uploaded_file is None:
         stemmer = StemmerFactory().create_stemmer()
 
         
-# ============================================
-# Label Kejahatan
-# ============================================
-berat_keywords = [
-    "curas",
-    "pencabulan anak",
-    "persetubuhan anak",
-    "kdrt",
-    "pemerasan"
-]
+        # ============================================
+        # Label Kejahatan
+        # ============================================
+                berat_keywords = [
+            "curas",
+            "pencabulan anak",
+            "persetubuhan anak",
+            "kdrt",
+            "pemerasan"
+        ]
 
-ringan_keywords = [
-    "curat",
-    "curanmor",
-    "penipuan",
-    "penggelapan",
-    "perjudian",
-    "penganiayaan",
-    "pengancaman",
-    "perusakan"
-]
+        ringan_keywords = [
+            "curat",
+            "curanmor",
+            "penipuan",
+            "penggelapan",
+            "perjudian",
+            "penganiayaan",
+            "pengancaman",
+            "perusakan"
+        ]
 
-def auto_label(text):
-    text = str(text).lower()
+        def auto_label(text):
+            text = str(text).lower()
 
-    for keyword in berat_keywords:
-        if keyword in text:
-            return "K1"
+            for keyword in berat_keywords:
+                if keyword in text:
+                    return "K1"
 
-    for keyword in ringan_keywords:
-        if keyword in text:
-            return "K2"
+            for keyword in ringan_keywords:
+                if keyword in text:
+                    return "K2"
 
     return "K2"
 
