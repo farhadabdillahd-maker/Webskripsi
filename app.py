@@ -1428,6 +1428,9 @@ if menu == "Prediksi" and uploaded_file is None:
             return "K2"
 
 
+    except Exception as e:
+        st.error(f"Model gagal dimuat: {e}")
+
     # =====================================================
     # PREPROCESSING
     # =====================================================
@@ -2513,4 +2516,3 @@ input, textarea{
 }
 </style>
 """, unsafe_allow_html=True)
-
