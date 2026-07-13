@@ -1349,28 +1349,13 @@ uploaded_file = None
 if "uploaded_dataset" not in st.session_state:
     st.session_state.uploaded_dataset = None
 
-if "upload_reset_counter" not in st.session_state:
-    st.session_state.upload_reset_counter = 0
-
 if menu == "Upload Dataset":
     st.markdown("### 📂 Upload Dataset")
-
-    if st.session_state.uploaded_dataset is not None:
-        col1, col2 = st.columns([3,1])
-        with col1:
-            st.success(f"Dataset aktif: {st.session_state.uploaded_dataset.name}")
-        with col2:
-            if st.button("🔄 Repeat", use_container_width=True):
-                st.session_state.uploaded_dataset = None
-                st.session_state.upload_reset_counter += 1
-                st.rerun()
-
     uploaded_file = st.file_uploader(
         "Upload Dataset CSV",
         type=["csv"],
-        key=f"dashboard_upload_{st.session_state.upload_reset_counter}"
+        key="dashboard_upload"
     )
-
     if uploaded_file is not None:
         try:
             uploaded_file.seek(0)
