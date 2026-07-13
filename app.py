@@ -1506,7 +1506,7 @@ if menu == "Prediksi" and uploaded_file is None:
                 pdf = generate_police_pdf(input_text, prediction)
 
                 st.download_button(
-                    "📄 Download Surat Hasil Prediksi (PDF)",
+                    "📄 Download Laporan Hasil Prediksi (PDF)",
                     data=pdf,
                     file_name="Surat_Hasil_Klasifikasi.pdf",
                     mime="application/pdf"
