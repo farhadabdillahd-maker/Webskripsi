@@ -1391,45 +1391,302 @@ if menu == "Prediksi" and uploaded_file is None:
 
         stemmer = StemmerFactory().create_stemmer()
 
-        
-        # ============================================
-        # Label Kejahatan
-        # ============================================
-        berat_keywords = [
-            "curas",
-            "pencabulan anak",
-            "persetubuhan anak",
-            "kdrt",
-            "pemerasan"
+        kejahatan_berat = [
+    "curas","pencabulan anak","persetubuhan anak","kdrt","pemerasan"
+]
+
+        input_text = st.text_area("Masukkan Judul Berita", height=150)
+
+        if st.button("🚀 Prediksi"):
+            if input_text.strip():
+                detected = False
+                txt = input_text.lower()
+
+                for k in kejahatan_berat:
+                    if k in txt:
+                        prediction = "Kejahatan Berat"
+                        detected = True
+                        break
+
+                if not detected:
+                    txt = re.sub(r"[^\w\s]", "", txt)
+                    tokens = [w for w in txt.split() if w not in stop_words]
+                    tokens = [stemmer.stem(w) for w in tokens]
+                    vector = tfidf.transform([" ".join(tokens)])
+                    prediction = model.predict(vector)[0]
+
+                st.markdown(f"""
+<div style="background:rgba(24,61,115,.55);padding:16px;border-radius:12px;border:1px solid #3b82f6;">
+<span style="font-size:20px;font-weight:900;color:#FFFFFF;">Hasil Prediksi : </span>
+<span style="font-size:20px;font-weight:700;color:#FFFFFF;">{prediction}</span>
+</div>
+""", unsafe_allow_html=True)
+
+                # ================= PDF SURAT =================
+                def generate_police_pdf(judul, hasil):
+                    buffer = BytesIO()
+                    c = canvas.Canvas(buffer, pagesize=A4)
+                    w, h = A4
+
+                    try:
+                        c.drawImage(ImageReader("assets/logo_polri.png"),1.5*cm,h-3.7*cm,width=2.4*cm,height=2.4*cm,mask='auto')
+                    except:
+                        pass
+                    try:
+                        c.drawImage(ImageReader("assets/logo_polda_sumbar.png"),w-3.9*cm,h-3.7*cm,width=2.4*cm,height=2.4*cm,mask='auto')
+                    except:
+                        pass
+
+                    c.setFont("Helvetica-Bold",12)
+                    c.drawCentredString(w/2,h-1.5*cm,"KEPOLISIAN NEGARA REPUBLIK INDONESIA")
+                    c.drawCentredString(w/2,h-2.1*cm,"DAERAH SUMATERA BARAT")
+                    c.drawCentredString(w/2,h-2.7*cm,"RESOR PASAMAN")
+                    c.setFont("Helvetica",10)
+                    c.drawCentredString(w/2,h-3.3*cm,"Jln. Jend. Sudirman No. 1 Lubuk Sikaping 26311")
+                    c.setLineWidth(1.2)
+                    c.line(1.5*cm,h-3.75*cm,w-1.5*cm,h-3.75*cm)
+                    c.setLineWidth(0.5)
+                    c.line(1.5*cm,h-3.9*cm,w-1.5*cm,h-3.9*cm)
+
+                    nomor = "B/001/RESKRIM/%s" % datetime.now().strftime("%m/%Y")
+                    tanggal = datetime.now().strftime("%d %B %Y")
+
+                    y = h-4.5*cm
+                    c.setFont("Helvetica-Bold",14)
+                    c.drawCentredString(w/2,y,"LAPORAN HASIL KLASIFIKASI")
+                    y -= 1*cm
+
+                    x0=2*cm
+                    table_w=w-4*cm
+                    row_h=0.8*cm
+                    col1=6*cm
+
+                    c.setFont("Helvetica-Bold",11)
+                    c.rect(x0,y-row_h,table_w,row_h)
+                    c.line(x0+col1,y,x0+col1,y-row_h)
+                    c.drawCentredString(x0+col1/2,y-0.55*cm,"Parameter")
+                    c.drawCentredString(x0+col1+(table_w-col1)/2,y-0.55*cm,"Keterangan")
+
+                    rows=[
+                        ("Nomor Surat",nomor),
+                        ("Input Teks",judul[:90]),
+                        ("Hasil Prediksi",hasil),
+                    ]
+                    c.setFont("Helvetica",11)
+                    yy=y-row_h
+                    for p,v in rows:
+                        c.rect(x0,yy-row_h,table_w,row_h)
+                        c.line(x0+col1,yy,x0+col1,yy-row_h)
+                        c.drawString(x0+0.2*cm,yy-0.55*cm,p)
+                        c.drawString(x0+col1+0.2*cm,yy-0.55*cm,str(v))
+                        yy-=row_h
+                    y=yy-1*cm
+                    c.drawString(2*cm,y,"Demikian laporan hasil klasifikasi ini dibuat untuk dipergunakan sebagaimana mestinya.")
+                    y -= 2*cm
+                    c.drawRightString(w-2*cm,y,"Pasaman, "+tanggal)
+                    y -= 0.8*cm
+                    c.drawRightString(w-2*cm,y,"Kepala Sat Reskrim")
+                    y -= 2.5*cm
+                    c.drawRightString(w-2*cm,y,"(................................)")
+                    c.save()
+                    pdf = buffer.getvalue()
+                    buffer.close()
+                    return pdf
+
+                pdf = generate_police_pdf(input_text, prediction)
+
+                st.download_button(
+                    "📄 Download Surat Hasil Prediksi (PDF)",
+                    data=pdf,
+                    file_name="Surat_Hasil_Klasifikasi.pdf",
+                    mime="application/pdf"
+                )
+
+            else:
+                st.warning("Masukkan judul berita terlebih dahulu.")
+    except:
+        st.error("Model belum tersedia. Jalankan menu Klasifikasi terlebih dahulu untuk membuat model.")
+
+
+
+# =====================================================
+# MENU ABOUT
+# =====================================================
+if menu == "About":
+    st.markdown("""
+    <div class="card">
+        <h1 style="text-align:center;">ℹ️ ABOUT APLIKASI</h1>
+        <p style="text-align:center;">Informasi pengembang, penelitian, dan teknologi yang digunakan.</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("### 📘 Judul Penelitian")
+    st.markdown("""
+    <div class="card">
+    <b>Penerapan Machine Learning Menggunakan Algoritma Naïve Bayes Untuk Klasifikasi Tingkat Kejahatan di Polres Pasaman</b>
+    </div>
+    """, unsafe_allow_html=True)
+
+    col1,col2 = st.columns(2)
+
+    with col1:
+        st.markdown("### 👤 Perkenalan")
+        from pathlib import Path
+        foto_path = Path(__file__).parent / "assets" / "FOTO.png"
+        if foto_path.exists():
+            st.image(str(foto_path), width=180)
+        else:
+            st.warning("assets/FOTO.png tidak ditemukan")
+        st.markdown("""
+        <div class="card">
+        <b>Nama</b> : Farhad Abdillah Darnaz<br><br>
+        <b>NOBP</b> : 22101152630058<br><br>
+        <b>Program Studi</b> : Teknik Informatika<br><br>
+        <b>Universitas</b> : Universitas Putra Indonesia YPTK Padang
+        </div>
+        """, unsafe_allow_html=True)
+
+    with col2:
+        st.markdown("### 🛠️ Aplikasi yang Digunakan")
+        st.markdown("""
+        <div class="card">
+        • Python<br>
+        • Streamlit<br>
+        • Pandas<br>
+        • Scikit-learn<br>
+        • Naïve Bayes<br>
+        • TF-IDF Vectorizer<br>
+        • Sastrawi<br>
+        • NLTK<br>
+        • Matplotlib<br>
+        • Seaborn<br>
+        • Joblib
+        </div>
+        """, unsafe_allow_html=True)
+
+    st.markdown("### ℹ️ Informasi Aplikasi")
+    st.info("Aplikasi ini dibuat sebagai media klasifikasi tingkat kejahatan berdasarkan judul berita menggunakan algoritma Naïve Bayes.")
+    st.stop()
+
+# =====================================================
+# FILE UPLOAD
+# =====================================================
+
+if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
+
+    if uploaded_file is None:
+        st.info("Silakan upload dataset CSV untuk menggunakan menu ini.")
+        st.stop()
+
+
+    # Pastikan file dapat dibaca ulang setiap perpindahan menu
+    try:
+        uploaded_file.seek(0)
+    except Exception:
+        pass
+
+    df = pd.read_csv(uploaded_file)
+
+    # =====================================================
+    # VALIDASI KOLOM
+    # =====================================================
+
+    if "Judul Media Nasional" not in df.columns:
+
+        st.error(
+            "Kolom 'Judul Media Nasional' tidak ditemukan!"
+        )
+
+        st.stop()
+
+    # =====================================================
+    # AMBIL KOLOM
+    # =====================================================
+
+    df = df[
+        [
+            "Judul Media Nasional"
+        ]
+    ]
+
+    # =====================================================
+    # STOPWORD
+    # =====================================================
+
+    try:
+
+        stop_words = set(
+            stopwords.words("indonesian")
+        )
+
+    except:
+
+        nltk.download("stopwords")
+
+        stop_words = set(
+            stopwords.words("indonesian")
+        )
+
+    # =====================================================
+    # STEMMER
+    # =====================================================
+
+    factory = StemmerFactory()
+
+    stemmer = factory.create_stemmer()
+
+    # =====================================================
+    # PREPROCESSING FUNCTION
+    # =====================================================
+
+    def case_folding(text):
+
+        return str(text).lower()
+
+    def tokenizing(text):
+
+        text = re.sub(
+            r"[^\w\s]",
+            "",
+            text
+        )
+
+        return text.split()
+
+    def stopword_removal(tokens):
+
+        return [
+            word
+            for word in tokens
+            if word not in stop_words
         ]
 
-        ringan_keywords = [
-            "curat",
-            "curanmor",
-            "penipuan",
-            "penggelapan",
-            "perjudian",
-            "penganiayaan",
-            "pengancaman",
-            "perusakan"
+    def stemming(tokens):
+
+        return [
+            stemmer.stem(word)
+            for word in tokens
         ]
 
-        def auto_label(text):
-            text = str(text).lower()
+    # =====================================================
+    # AUTO LABEL
+    # =====================================================
 
-            for keyword in berat_keywords:
-                if keyword in text:
-                    return "K1"
+    kejahatan_berat = [
+    "curas","pencabulan anak","persetubuhan anak","kdrt","pemerasan"
+]
 
-            for keyword in ringan_keywords:
-                if keyword in text:
-                    return "K2"
+    def auto_label(text):
 
-            return "K2"
+        text = str(text).lower()
 
+        for keyword in kejahatan_berat:
 
-    except Exception as e:
-        st.error(f"Model gagal dimuat: {e}")
+            if keyword in text:
+
+                return "Kejahatan Berat"
+
+        return "Kejahatan Ringan"
 
     # =====================================================
     # PREPROCESSING
@@ -1473,13 +1730,13 @@ if menu == "Prediksi" and uploaded_file is None:
 
     total_malam = len(
         df[
-            df["Label"] == "Kasus Malam"
+            df["Label"] == "Kejahatan Berat"
         ]
     )
 
     total_umum = len(
         df[
-            df["Label"] == "Kasus Umum"
+            df["Label"] == "Kejahatan Ringan"
         ]
     )
 
@@ -1495,14 +1752,14 @@ if menu == "Prediksi" and uploaded_file is None:
     with col2:
 
         st.metric(
-            "🌙 Kasus Malam",
+            "🌙 Kejahatan Berat",
             f"{total_malam:,}"
         )
 
     with col3:
 
         st.metric(
-            "☀️ Kasus Umum",
+            "☀️ Kejahatan Ringan",
             f"{total_umum:,}"
         )
 
@@ -1747,7 +2004,7 @@ if menu == "Prediksi" and uploaded_file is None:
             )
 
             st.info(
-                "Pelabelan otomatis Kasus Malam dan Kasus Umum."
+                "Pelabelan otomatis Kejahatan Berat dan Kejahatan Ringan."
             )
 
             st.dataframe(
@@ -1768,14 +2025,14 @@ if menu == "Prediksi" and uploaded_file is None:
             with col_a:
 
                 st.metric(
-                    "Kasus Malam",
+                    "Kejahatan Berat",
                     total_malam
                 )
 
             with col_b:
 
                 st.metric(
-                    "Kasus Umum",
+                    "Kejahatan Ringan",
                     total_umum
                 )
     # =====================================================
@@ -2222,18 +2479,9 @@ Aplikasi ini dibuat sebagai implementasi algoritma **Naïve Bayes** untuk klasif
         factory = StemmerFactory()
         stemmer = factory.create_stemmer()
 
-        malam_keywords = [
-            "malam",
-            "subuh",
-            "dini hari",
-            "tengah malam",
-            "larut malam",
-            "jam 1",
-            "jam 2",
-            "jam 3",
-            "jam 4",
-            "jam 5"
-        ]
+        kejahatan_berat = [
+    "curas","pencabulan anak","persetubuhan anak","kdrt","pemerasan"
+]
 
     # =====================================
     # LOAD MODEL
@@ -2273,11 +2521,11 @@ Aplikasi ini dibuat sebagai implementasi algoritma **Naïve Bayes** untuk klasif
                 # RULE BASED
                 # ==========================
 
-                for keyword in malam_keywords:
+                for keyword in kejahatan_berat:
 
                     if keyword in input_lower:
 
-                        prediction = "Kasus Malam"
+                        prediction = "Kejahatan Berat"
                         detected = True
                         break
 
@@ -2516,3 +2764,4 @@ input, textarea{
 }
 </style>
 """, unsafe_allow_html=True)
+
