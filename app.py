@@ -1395,7 +1395,7 @@ if menu == "Prediksi" and uploaded_file is None:
         # ============================================
         # Label Kejahatan
         # ============================================
-                berat_keywords = [
+        berat_keywords = [
             "curas",
             "pencabulan anak",
             "persetubuhan anak",
@@ -1425,7 +1425,7 @@ if menu == "Prediksi" and uploaded_file is None:
                 if keyword in text:
                     return "K2"
 
-    return "K2"
+            return "K2"
 
 
     # =====================================================
