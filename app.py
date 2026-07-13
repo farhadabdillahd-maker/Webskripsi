@@ -101,10 +101,37 @@ set_gif_background()
 
 st.markdown("""
 <style>
-/* Tombol Repeat */
+/* ===== Tombol Repeat Premium ===== */
 div[data-testid="stButton"] > button{
-    font-family:"Segoe UI","Segoe UI Semibold",sans-serif !important;
-    font-weight:600 !important;
+    width:100%;
+    height:58px;
+    background:linear-gradient(90deg,#1DA1F2,#6C3EF4) !important;
+    border:none !important;
+    border-radius:18px !important;
+    color:#FFFFFF !important;
+    font-family:"Segoe UI Semibold","Segoe UI",sans-serif !important;
+    font-size:20px !important;
+    font-weight:700 !important;
+    letter-spacing:.5px !important;
+    text-shadow:none !important;
+    -webkit-text-fill-color:#FFFFFF !important;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:10px;
+    box-shadow:0 8px 22px rgba(61,125,255,.35);
+    transition:.25s;
+}
+div[data-testid="stButton"] > button:hover{
+    transform:translateY(-2px);
+    box-shadow:0 12px 30px rgba(61,125,255,.55);
+}
+div[data-testid="stButton"] > button span,
+div[data-testid="stButton"] > button p{
+    color:#FFFFFF !important;
+    -webkit-text-fill-color:#FFFFFF !important;
+    font-size:20px !important;
+    font-weight:700 !important;
 }
 </style>
 """, unsafe_allow_html=True)
