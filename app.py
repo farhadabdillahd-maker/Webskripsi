@@ -101,15 +101,10 @@ set_gif_background()
 
 st.markdown("""
 <style>
-/* Font khusus tombol Repeat */
-div[data-testid="stButton"] button[kind]{
-    font-family:inherit;
-}
-div[data-testid="stButton"]:has(button[key="repeat_btn"]) > button,
-div[data-testid="stButton"] > button[data-testid="baseButton-repeat_btn"]{
-    font-family:"Segoe UI Semibold","Segoe UI",sans-serif !important;
-    font-weight:700 !important;
-    font-size:20px !important;
+/* Tombol Repeat */
+div[data-testid="stButton"] > button{
+    font-family:"Segoe UI","Segoe UI Semibold",sans-serif !important;
+    font-weight:600 !important;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -1389,7 +1384,7 @@ if menu == "Upload Dataset":
         with col1:
             st.success(f"Dataset aktif: {st.session_state.uploaded_dataset.name}")
         with col2:
-            if st.button("🔄 Repeat", key="repeat_btn", use_container_width=True):
+            if st.button("🔄 Repeat", use_container_width=True):
                 st.session_state.uploaded_dataset = None
                 st.session_state.upload_reset_counter += 1
                 st.rerun()
