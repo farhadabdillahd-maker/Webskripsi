@@ -1351,17 +1351,27 @@ if "uploaded_dataset" not in st.session_state:
 
 if menu == "Upload Dataset":
     st.markdown("### 📂 Upload Dataset")
+
     uploaded_file = st.file_uploader(
         "Upload Dataset CSV",
         type=["csv"],
         key="dashboard_upload"
     )
+
     if uploaded_file is not None:
         try:
             uploaded_file.seek(0)
         except Exception:
             pass
         st.session_state.uploaded_dataset = uploaded_file
+
+    # Tampilkan tombol Repeat hanya setelah CSV berhasil di-upload
+    if st.session_state.uploaded_dataset is not None:
+        if st.button("🔄 Repeat", use_container_width=True):
+            st.session_state.uploaded_dataset = None
+            if "dashboard_upload" in st.session_state:
+                del st.session_state["dashboard_upload"]
+            st.rerun()
 
 if menu in ["Preprocessing","Klasifikasi"]:
     uploaded_file = st.session_state.uploaded_dataset
