@@ -99,6 +99,17 @@ html, body, .stApp,
 
 set_gif_background()
 
+st.markdown("""
+<style>
+/* Tombol Repeat */
+div[data-testid="stButton"] > button{
+    font-family:"Segoe UI","Segoe UI Semibold",sans-serif !important;
+    font-weight:600 !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
+
 
 st.markdown("""
 <style>
