@@ -99,17 +99,6 @@ html, body, .stApp,
 
 set_gif_background()
 
-st.markdown("""
-<style>
-/* Tombol Repeat */
-div[data-testid="stButton"] > button{
-    font-family:"Segoe UI","Segoe UI Semibold",sans-serif !important;
-    font-weight:600 !important;
-}
-</style>
-""", unsafe_allow_html=True)
-
-
 
 st.markdown("""
 <style>
@@ -1366,6 +1355,16 @@ if "upload_reset_counter" not in st.session_state:
 if menu == "Upload Dataset":
     st.markdown("### 📂 Upload Dataset")
 
+    if st.session_state.uploaded_dataset is not None:
+        col1, col2 = st.columns([3,1])
+        with col1:
+            st.success(f"Dataset aktif: {st.session_state.uploaded_dataset.name}")
+        with col2:
+            if st.button("🔄 Repeat", use_container_width=True):
+                st.session_state.uploaded_dataset = None
+                st.session_state.upload_reset_counter += 1
+                st.rerun()
+
     uploaded_file = st.file_uploader(
         "Upload Dataset CSV",
         type=["csv"],
@@ -1378,16 +1377,6 @@ if menu == "Upload Dataset":
         except Exception:
             pass
         st.session_state.uploaded_dataset = uploaded_file
-
-    if st.session_state.uploaded_dataset is not None:
-        col1, col2 = st.columns([3,1])
-        with col1:
-            st.success(f"Dataset aktif: {st.session_state.uploaded_dataset.name}")
-        with col2:
-            if st.button("🔄 Repeat", use_container_width=True):
-                st.session_state.uploaded_dataset = None
-                st.session_state.upload_reset_counter += 1
-                st.rerun()
 
 if menu in ["Preprocessing","Klasifikasi"]:
     uploaded_file = st.session_state.uploaded_dataset
