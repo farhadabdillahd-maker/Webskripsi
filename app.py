@@ -1375,6 +1375,8 @@ if menu == "Upload Dataset":
 
 if menu in ["Preprocessing","Klasifikasi"]:
     uploaded_file = st.session_state.uploaded_dataset
+elif menu == "Prediksi":
+    uploaded_file = None
 
 
 
