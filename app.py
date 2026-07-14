@@ -1381,7 +1381,7 @@ if menu in ["Preprocessing","Klasifikasi"]:
 # =====================================================
 # MENU PREDIKSI TANPA UPLOAD DATASET
 # =====================================================
-if menu == "Prediksi" and uploaded_file is None:
+if menu == "Prediksi":
 
     st.markdown("""
     <div class="card">
