@@ -1792,7 +1792,7 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
 
         st.markdown("""
         <div class="card">
-        <h3>Distribusi Dataset</h3>
+        <h3 style='color:#000000 !important;'>Distribusi Dataset</h3>
         </div>
         """, unsafe_allow_html=True)
 
