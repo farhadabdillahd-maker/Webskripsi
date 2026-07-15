@@ -110,7 +110,7 @@ details summary span,
 .streamlit-expanderHeader,
 .streamlit-expanderHeader *{
     color:#FFFFFF !important;
-    -webkit-text-fill-color:#000000 !important;
+    -webkit-text-fill-color:#FFFFFF !important;
     font-weight:700 !important;
 }
 details summary svg{
