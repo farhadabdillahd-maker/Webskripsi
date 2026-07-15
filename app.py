@@ -187,7 +187,7 @@ st.markdown("""
 <style>
 div[data-testid="stMarkdownContainer"] h3,
 div[data-testid="stMarkdownContainer"] h3 *{
-    color:#000000 !important;
+    color:#FFFFFF !important;
     -webkit-text-fill-color:#FFFFFF !important;
     opacity:1 !important;
 }
@@ -200,8 +200,8 @@ st.markdown("""
 div[data-testid="stHeadingWithActionElements"] h3,
 div[data-testid="stHeadingWithActionElements"] h3 *,
 div[data-testid="stHeadingWithActionElements"] h3 a{
-    color:#000000 !important;
-    -webkit-text-fill-color:#000000 !important;
+    color:#FFFFFF !important;
+    -webkit-text-fill-color:#FFFFFF !important;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -301,8 +301,8 @@ div[data-testid="stFileUploader"] section span,
 div[data-testid="stFileUploader"] section small,
 div[data-testid="stFileUploader"] [data-testid="stFileUploaderFile"] *,
 div[data-testid="stFileUploader"] [role="button"] span{
-    color:#000000 !important;
-    -webkit-text-fill-color:#000000 !important;
+    color:#FFFFFF !important;
+    -webkit-text-fill-color:#FFFFFF !important;
 }
 
 div[data-testid="stSuccess"]{
@@ -610,8 +610,8 @@ section[data-testid="stSidebar"]{
 }
 
 .card h1,.card h2,.card h3,.card h4,.card h5,.card h6,.card p,.card b,.card span,.card div{
-    color:#000000 !important;
-    -webkit-text-fill-color:#000000 !important;
+    color:#FFFFFF !important;
+    -webkit-text-fill-color:#FFFFFF !important;
 }
 
 /* SIDEBAR LOGO */
@@ -2735,8 +2735,8 @@ div[style*="background: white"] *,
 div[style*="background:rgba(255,255,255"] *,
 .about-card, .about-card *,
 .about-section, .about-section *{
-    color:#000000 !important;
-    -webkit-text-fill-color:#000000 !important;
+    color:#FFFFFF !important;
+    -webkit-text-fill-color:#FFFFFF !important;
 }
 </style>
 """, unsafe_allow_html=True)
