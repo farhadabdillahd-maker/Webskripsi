@@ -110,7 +110,7 @@ details summary span,
 .streamlit-expanderHeader,
 .streamlit-expanderHeader *{
     color:#FFFFFF !important;
-    -webkit-text-fill-color:#FFFFFF !important;
+    -webkit-text-fill-color:#000000 !important;
     font-weight:700 !important;
 }
 details summary svg{
@@ -1348,6 +1348,18 @@ uploaded_file = None
 
 if "uploaded_dataset" not in st.session_state:
     st.session_state.uploaded_dataset = None
+
+
+st.markdown("""
+<style>
+/* Judul dashboard Upload Dataset */
+h3, h3 *{}
+div[data-testid="stMarkdownContainer"] h3{
+    color:#FFFFFF !important;
+    -webkit-text-fill-color:#FFFFFF !important;
+}
+</style>
+""", unsafe_allow_html=True)
 
 if menu == "Upload Dataset":
     st.markdown("### 📂 Upload Dataset")
