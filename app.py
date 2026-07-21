@@ -443,26 +443,14 @@ div[data-testid="stMarkdownContainer"] #distribusi-dataset *,
 
 st.markdown("""
 <style>
-
-/* Paksa judul utama tetap putih */
+div[data-testid="stMarkdownContainer"] h1,
+div[data-testid="stHeadingWithActionElements"] h1,
 #judul-home,
 #judul-home *,
-h1#judul-home,
-h1#judul-home span{
-    color:#FFFFFF !important;
-    -webkit-text-fill-color:#FFFFFF !important;
-    opacity:1 !important;
-    text-shadow:0 3px 12px rgba(0,0,0,.55);
-}
-
-div[data-testid="stMarkdownContainer"] #judul-home,
-div[data-testid="stMarkdownContainer"] #judul-home *,
-div[data-testid="stHeadingWithActionElements"] #judul-home,
-div[data-testid="stHeadingWithActionElements"] #judul-home *{
+h1#judul-home{
     color:#FFFFFF !important;
     -webkit-text-fill-color:#FFFFFF !important;
 }
-
 </style>
 """, unsafe_allow_html=True)
 
@@ -472,6 +460,27 @@ st.markdown("""\n<style>\n/* Paksa judul utama tetap putih */\n#judul-home,#judu
 # =====================================================
 # HERO LANDING PAGE
 # =====================================================
+st.markdown(r'''
+<style>
+/* FORCE HOME TITLE WHITE ALWAYS */
+div[data-testid="stMarkdownContainer"] #judul-home,
+div[data-testid="stMarkdownContainer"] #judul-home *,
+div[data-testid="stVerticalBlock"] #judul-home,
+div[data-testid="stVerticalBlock"] #judul-home *,
+div[data-testid="stHeadingWithActionElements"] #judul-home,
+div[data-testid="stHeadingWithActionElements"] #judul-home *,
+#judul-home,
+#judul-home *,
+h1#judul-home,
+h1#judul-home span{
+ color:#FFFFFF !important;
+ -webkit-text-fill-color:#FFFFFF !important;
+ fill:#FFFFFF !important;
+ opacity:1 !important;
+}
+</style>
+''', unsafe_allow_html=True)
+
 def show_home():
     st.markdown("""
     <div style='padding:60px;border-radius:28px;background:rgba(8,27,70,.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:#fff;box-shadow:0 20px 45px rgba(0,0,0,.28);margin:0px 0 20px 0;border:1px solid rgba(255,255,255,.12)'>
