@@ -2806,22 +2806,3 @@ input, textarea{
 </style>
 """, unsafe_allow_html=True)
 
-
-
-
-st.markdown("""
-<style>
-/* ABOUT page colors */
-div[data-testid="stMarkdownContainer"] h2{
-    color:#000000 !important;
-    -webkit-text-fill-color:#000000 !important;
-}
-div[data-testid="stMarkdownContainer"] h4,
-div[data-testid="stMarkdownContainer"] h4 *,
-div[data-testid="stMarkdownContainer"] h5,
-div[data-testid="stMarkdownContainer"] h5 *{
-    color:#FFFFFF !important;
-    -webkit-text-fill-color:#FFFFFF !important;
-}
-</style>
-""", unsafe_allow_html=True)
