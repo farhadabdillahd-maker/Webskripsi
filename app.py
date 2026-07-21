@@ -51,7 +51,49 @@ st.set_page_config(
 
 
 
-def set_gif_background():
+def set_gif_background()
+
+
+st.markdown("""
+<style>
+/* ===== GLOBAL TEXT VISIBILITY FIX ===== */
+html, body, .stApp,
+p, span, label, small, strong, em, li,
+div[data-testid="stMarkdownContainer"],
+div[data-testid="stMarkdownContainer"] *,
+div[data-testid="stText"],
+div[data-testid="stText"] *,
+div[data-testid="stHeading"],
+div[data-testid="stHeading"] *,
+[data-testid="stMetricLabel"],
+[data-testid="stMetricValue"],
+[data-testid="stFileUploader"] label,
+[data-testid="stFileUploader"] label *,
+[data-testid="stSelectbox"] label,
+[data-testid="stTextInput"] label,
+[data-testid="stTextArea"] label,
+[data-testid="stNumberInput"] label,
+[data-testid="stMultiSelect"] label,
+.stCaption,
+.stMarkdown,
+.stMarkdown *{
+    color:#FFFFFF !important;
+    -webkit-text-fill-color:#FFFFFF !important;
+}
+
+/* Input tetap terbaca */
+input, textarea, select{
+    color:#111827 !important;
+}
+
+/* Link */
+a{
+    color:#7DD3FC !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
+:
     gif_file = "assets/latar.GIF"
     if not os.path.exists(gif_file):
         return
