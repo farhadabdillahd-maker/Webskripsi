@@ -110,7 +110,7 @@ details summary span,
 .streamlit-expanderHeader,
 .streamlit-expanderHeader *{
     color:#FFFFFF !important;
-    -webkit-text-fill-color:#000000 !important;
+    -webkit-text-fill-color:#FFFFFF !important;
     font-weight:700 !important;
 }
 details summary svg{
@@ -201,7 +201,7 @@ div[data-testid="stHeadingWithActionElements"] h3,
 div[data-testid="stHeadingWithActionElements"] h3 *,
 div[data-testid="stHeadingWithActionElements"] h3 a{
     color:#000000 !important;
-    -webkit-text-fill-color:#000000 !important;
+    -webkit-text-fill-color:#FFFFFF !important;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -1381,7 +1381,7 @@ if menu in ["Preprocessing","Klasifikasi"]:
 # =====================================================
 # MENU PREDIKSI TANPA UPLOAD DATASET
 # =====================================================
-if menu == "Prediksi":
+if menu == "Prediksi" and uploaded_file is None:
 
     st.markdown("""
     <div class="card">
