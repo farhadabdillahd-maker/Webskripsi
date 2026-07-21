@@ -2808,13 +2808,14 @@ input, textarea{
 
 
 
-# ===== Download hasil preprocessing =====
+# ===== Download Hasil Preprocessing =====
 if "hasil_preprocessing" in st.session_state:
-    df_preprocessing = st.session_state["hasil_preprocessing"]
-    csv = df_preprocessing.to_csv(index=False).encode("utf-8")
+    st.markdown("### 📥 Download Hasil Preprocessing")
+    _df = st.session_state["hasil_preprocessing"]
+    _csv = _df.to_csv(index=False).encode("utf-8")
     st.download_button(
         label="📥 Download Hasil Preprocessing (CSV)",
-        data=csv,
+        data=_csv,
         file_name="hasil_preprocessing.csv",
         mime="text/csv",
         use_container_width=True,
