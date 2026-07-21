@@ -1659,6 +1659,19 @@ if menu == "Prediksi" and uploaded_file is None:
 
 
 
+
+st.markdown(r"""
+<style>
+.card h1#about,
+.card h1#about *,
+div.card h1#about,
+div.card h1#about *{
+    color:#000000 !important;
+    -webkit-text-fill-color:#000000 !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
 # =====================================================
 # MENU ABOUT
 # =====================================================
