@@ -2448,8 +2448,9 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
         <ul>
         <li>Algoritma : Multinomial Naïve Bayes</li>
         <li>Ekstraksi Fitur : TF-IDF</li>
-        <li>Data Split : 80% Training - 20% Testing</li>
-        <li>Random State : 42</li>
+        <li>Data Split : 50% Training - 50% Testing</li>
+        <li>Test Size : 0.5</li>
+        <li>Random State : 7</li>
         </ul>
 
         </div>
