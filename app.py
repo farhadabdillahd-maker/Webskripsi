@@ -330,33 +330,6 @@ div[data-testid="stFileUploader"] small{
 </style>
 """, unsafe_allow_html=True)
 
-
-st.markdown("""
-<style>
-div[data-testid="stTextArea"] label,
-div[data-testid="stTextArea"] label p,
-div[data-testid="stTextArea"] label span{
-    color:#FFFFFF !important;
-    -webkit-text-fill-color:#FFFFFF !important;
-}
-</style>
-""", unsafe_allow_html=True)
-
-st.markdown("""
-<style>
-/* Judul evaluasi model menjadi hitam */
-div[data-testid="stMarkdownContainer"] h2,
-div[data-testid="stMarkdownContainer"] h2 *,
-div[data-testid="stMarkdownContainer"] h3,
-div[data-testid="stMarkdownContainer"] h3 *{
-    color:#000000 !important;
-    -webkit-text-fill-color:#000000 !important;
-}
-</style>
-""", unsafe_allow_html=True)
-
-
-
 # =====================================================
 # HERO LANDING PAGE
 # =====================================================
@@ -2446,9 +2419,8 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
 
         if accuracy >= 0.90:
 
-            st.markdown(
-                """<div style="background:#0f5132;padding:1rem;border-radius:0.5rem;color:#FFFFFF;font-weight:600;border-left:6px solid #198754;">🔥 Model memiliki performa sangat baik.</div>""",
-                unsafe_allow_html=True
+            st.success(
+                "🔥 Model memiliki performa sangat baik."
             )
 
         elif accuracy >= 0.80:
@@ -2660,15 +2632,16 @@ agar file berikut dibuat:
         # DOWNLOAD REPORT
         # =====================================
 
-        if 'report_df' in locals():
-            csv_report = report_df.to_csv(index=True)
+        csv_report = report_df.to_csv(
+            index=True
+        )
 
-            st.download_button(
-                label="📥 Download Classification Report",
-                data=csv_report,
-                file_name="classification_report.csv",
-                mime="text/csv"
-            )
+        st.download_button(
+            label="📥 Download Classification Report",
+            data=csv_report,
+            file_name="classification_report.csv",
+            mime="text/csv"
+        )
 
         st.markdown("<br>", unsafe_allow_html=True)
 
