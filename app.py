@@ -169,8 +169,8 @@ st.markdown("""
 <style>
 div[data-testid="stMarkdownContainer"] h1,
 div[data-testid="stMarkdownContainer"] h1 *{
-    color:#FFFFFF !important;
-    -webkit-text-fill-color:#FFFFFF !important;
+    color:#000000 !important;
+    -webkit-text-fill-color:#000000 !important;
     opacity:1 !important;
 }
 </style>
@@ -185,8 +185,8 @@ div[data-testid="stMarkdownContainer"] h1 *{
 st.markdown("""
 <style>
 div[data-testid="stMarkdownContainer"] h1{
-    color:#FFFFFF !important;
-    -webkit-text-fill-color:#FFFFFF !important;
+    color:#000000 !important;
+    -webkit-text-fill-color:#000000 !important;
     opacity:1 !important;
 }
 </style>
@@ -386,6 +386,14 @@ div[data-testid="stMarkdownContainer"] #about *,
     -webkit-text-fill-color:#000000 !important;
 }
 
+div[data-testid="stMarkdownContainer"] #about-aplikasi,
+div[data-testid="stMarkdownContainer"] #about-aplikasi *,
+.card #about-aplikasi,
+.card #about-aplikasi *{
+    color:#000000 !important;
+    -webkit-text-fill-color:#000000 !important;
+}
+
 div[data-testid="stMarkdownContainer"] #tokenizing,
 div[data-testid="stMarkdownContainer"] #tokenizing *,
 .card #tokenizing,
@@ -454,18 +462,6 @@ div[data-testid="stMarkdownContainer"] #distribusi-dataset *,
 
 
 
-
-st.markdown("""
-<style>
-div[data-testid="stMarkdownContainer"] h1,
-div[data-testid="stMarkdownContainer"] h1 *,
-h1{
- color:#FFFFFF !important;
- -webkit-text-fill-color:#FFFFFF !important;
-}
-</style>
-""", unsafe_allow_html=True)
-
 # =====================================================
 # HERO LANDING PAGE
 # =====================================================
@@ -475,7 +471,7 @@ def show_home():
         <div style='font-size:15px;letter-spacing:2px;color:#bfdbfe'>
         POLRES PASAMAN • MACHINE LEARNING • NAÏVE BAYES
         </div>
-        <h1 style='font-size:42px;font-weight:900;line-height:1.35;margin-top:22px;text-shadow:0 3px 12px rgba(0,0,0,.55);color:#FFFFFF !important;-webkit-text-fill-color:#FFFFFF !important;opacity:1 !important;color:#FFFFFF !important;-webkit-text-fill-color:#FFFFFF !important;'>
+        <h1 style='font-size:42px;font-weight:900;line-height:1.35;margin-top:22px;text-shadow:0 3px 12px rgba(0,0,0,.55);color:#000000 !important;-webkit-text-fill-color:#000000 !important;opacity:1 !important;color:#000000 !important;-webkit-text-fill-color:#000000 !important;'>
         PENERAPAN MACHINE LEARNING MENGGUNAKAN ALGORITMA NAÏVE BAYES
         <br>UNTUK KLASIFIKASI TINGKAT KEJAHATAN
         </h1>
@@ -1659,26 +1655,13 @@ if menu == "Prediksi" and uploaded_file is None:
 
 
 
-
-st.markdown(r"""
-<style>
-.card h1#about,
-.card h1#about *,
-div.card h1#about,
-div.card h1#about *{
-    color:#000000 !important;
-    -webkit-text-fill-color:#000000 !important;
-}
-</style>
-""", unsafe_allow_html=True)
-
 # =====================================================
 # MENU ABOUT
 # =====================================================
 if menu == "About":
     st.markdown("""
     <div class="card">
-        <h1 id="about" style="text-align:center;color:#000000 !important;-webkit-text-fill-color:#000000 !important;" style="color:#000000 !important;-webkit-text-fill-color:#000000 !important;">ℹ️ ABOUT APLIKASI</h1>
+        <h1 id="about-aplikasi" style="text-align:center;color:#000000 !important;-webkit-text-fill-color:#000000 !important;">ℹ️ ABOUT APLIKASI</h1>
         <p style="text-align:center;">Informasi pengembang, penelitian, dan teknologi yang digunakan.</p>
     </div>
     """, unsafe_allow_html=True)
@@ -2975,28 +2958,6 @@ div[style*="background:#ffffff"] *{
 input, textarea{
     color:#000 !important;
     -webkit-text-fill-color:#000 !important;
-}
-</style>
-""", unsafe_allow_html=True)
-
-st.markdown("""
-<style>
-#about,#about *,h1#about,h2#about,h3#about,h4#about,h5#about,h6#about{
-color:#000000!important;
--webkit-text-fill-color:#000000!important;
-}
-</style>
-""", unsafe_allow_html=True)
-
-
-st.markdown("""
-<style>
-div.card h1#about,
-div.card h1#about *,
-div.card:has(h1#about) h1,
-div.card:has(h1#about) h1 *{
-color:#000000 !important;
--webkit-text-fill-color:#000000 !important;
 }
 </style>
 """, unsafe_allow_html=True)
