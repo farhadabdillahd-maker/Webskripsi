@@ -103,7 +103,7 @@ set_gif_background()
 st.markdown("""
 <style>
 .hasil-prediksi-testing{
-    color:#000000 !important;
+    color:#FFFFFF !important;
     -webkit-text-fill-color:#FFFFFF !important;
 }
 </style>
@@ -191,7 +191,7 @@ st.markdown("""
 div[data-testid="stHeadingWithActionElements"] h3,
 div[data-testid="stHeadingWithActionElements"] h3 *,
 div[data-testid="stHeadingWithActionElements"] h3 a{
-    color:#000000 !important;
+    color:#FFFFFF !important;
     -webkit-text-fill-color:#FFFFFF !important;
 }
 </style>
@@ -443,8 +443,6 @@ div[data-testid="stMarkdownContainer"] #distribusi-dataset *,
 
 st.markdown("""
 <style>
-div[data-testid="stMarkdownContainer"] h1,
-div[data-testid="stHeadingWithActionElements"] h1,
 #judul-home,
 #judul-home *,
 h1#judul-home{
@@ -453,23 +451,6 @@ h1#judul-home{
 }
 </style>
 """, unsafe_allow_html=True)
-
-
-st.markdown("""
-<style>
-body #judul-home,
-body #judul-home *,
-body h1#judul-home,
-div[data-testid="stMarkdownContainer"] #judul-home,
-div[data-testid="stMarkdownContainer"] #judul-home *,
-div[data-testid="stHeadingWithActionElements"] #judul-home{
-    color:#FFFFFF !important;
-    -webkit-text-fill-color:#FFFFFF !important;
-    opacity:1 !important;
-}
-</style>
-""", unsafe_allow_html=True)
-
 
 # =====================================================
 # HERO LANDING PAGE
@@ -2967,6 +2948,18 @@ div[style*="background:#ffffff"] *{
 input, textarea{
     color:#000 !important;
     -webkit-text-fill-color:#000 !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
+
+st.markdown("""
+<style>
+html body h1#judul-home,
+html body #judul-home,
+html body #judul-home *{
+color:#fff !important;
+-webkit-text-fill-color:#fff !important;
 }
 </style>
 """, unsafe_allow_html=True)
