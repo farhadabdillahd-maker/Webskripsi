@@ -110,7 +110,7 @@ details summary span,
 .streamlit-expanderHeader,
 .streamlit-expanderHeader *{
     color:#FFFFFF !important;
-    -webkit-text-fill-color:#FFFFFF !important;
+    -webkit-text-fill-color:#000000 !important;
     font-weight:700 !important;
 }
 details summary svg{
@@ -201,7 +201,7 @@ div[data-testid="stHeadingWithActionElements"] h3,
 div[data-testid="stHeadingWithActionElements"] h3 *,
 div[data-testid="stHeadingWithActionElements"] h3 a{
     color:#000000 !important;
-    -webkit-text-fill-color:#FFFFFF !important;
+    -webkit-text-fill-color:#000000 !important;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -329,33 +329,6 @@ div[data-testid="stFileUploader"] small{
 }
 </style>
 """, unsafe_allow_html=True)
-
-
-st.markdown("""
-<style>
-div[data-testid="stTextArea"] label,
-div[data-testid="stTextArea"] label p,
-div[data-testid="stTextArea"] label span{
-    color:#FFFFFF !important;
-    -webkit-text-fill-color:#FFFFFF !important;
-}
-</style>
-""", unsafe_allow_html=True)
-
-st.markdown("""
-<style>
-/* Judul evaluasi model menjadi hitam */
-div[data-testid="stMarkdownContainer"] h2,
-div[data-testid="stMarkdownContainer"] h2 *,
-div[data-testid="stMarkdownContainer"] h3,
-div[data-testid="stMarkdownContainer"] h3 *{
-    color:#000000 !important;
-    -webkit-text-fill-color:#000000 !important;
-}
-</style>
-""", unsafe_allow_html=True)
-
-
 
 # =====================================================
 # HERO LANDING PAGE
@@ -1408,7 +1381,7 @@ if menu in ["Preprocessing","Klasifikasi"]:
 # =====================================================
 # MENU PREDIKSI TANPA UPLOAD DATASET
 # =====================================================
-if menu == "Prediksi" and uploaded_file is None:
+if menu == "Prediksi":
 
     st.markdown("""
     <div class="card">
@@ -1416,13 +1389,9 @@ if menu == "Prediksi" and uploaded_file is None:
     </div>
     """, unsafe_allow_html=True)
 
-    model = None
-    tfidf = None
-    if os.path.exists("model_naive_bayes.pkl") and os.path.exists("tfidf_vectorizer.pkl"):
+    try:
         model = joblib.load("model_naive_bayes.pkl")
         tfidf = joblib.load("tfidf_vectorizer.pkl")
-
-    try:
 
         try:
             stop_words = set(stopwords.words("indonesian"))
@@ -1545,8 +1514,8 @@ if menu == "Prediksi" and uploaded_file is None:
 
             else:
                 st.warning("Masukkan judul berita terlebih dahulu.")
-    except Exception as e:
-        st.error(f"Terjadi kesalahan: {e}")
+    except:
+        st.error("Model belum tersedia. Jalankan menu Klasifikasi terlebih dahulu untuk membuat model.")
 
 
 
@@ -1813,8 +1782,6 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
 
     st.markdown("<br>", unsafe_allow_html=True)
 
-
-
     # =====================================================
     # DISTRIBUSI LABEL
     # =====================================================
@@ -2050,35 +2017,15 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
                 "Pelabelan otomatis Kejahatan Berat dan Kejahatan Ringan."
             )
 
-            preprocessing_download = df[
-                [
-                    "Judul Media Nasional",
-                    "Case Folding",
-                    "Tokenizing",
-                    "Stopword Removal",
-                    "Stemming",
-                    "Final Text",
-                    "Label"
-                ]
-            ]
-
             st.dataframe(
-                preprocessing_download,
+                df[
+                    [
+                        "Judul Media Nasional",
+                        "Label"
+                    ]
+                ],
                 use_container_width=True,
                 height=500
-            )
-
-            csv = preprocessing_download.to_csv(
-                index=False,
-                encoding="utf-8-sig"
-            ).encode("utf-8-sig")
-
-            st.download_button(
-                "📥 Download Hasil Preprocessing",
-                data=csv,
-                file_name="hasil_preprocessing.csv",
-                mime="text/csv",
-                use_container_width=True
             )
 
             st.markdown("<br>", unsafe_allow_html=True)
@@ -2468,9 +2415,8 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
 
         if accuracy >= 0.90:
 
-            st.markdown(
-                """<div style="background:#0f5132;padding:1rem;border-radius:0.5rem;color:#FFFFFF;font-weight:600;border-left:6px solid #198754;">🔥 Model memiliki performa sangat baik.</div>""",
-                unsafe_allow_html=True
+            st.success(
+                "🔥 Model memiliki performa sangat baik."
             )
 
         elif accuracy >= 0.80:
@@ -2682,15 +2628,16 @@ agar file berikut dibuat:
         # DOWNLOAD REPORT
         # =====================================
 
-        if 'report_df' in locals():
-            csv_report = report_df.to_csv(index=True)
+        csv_report = report_df.to_csv(
+            index=True
+        )
 
-            st.download_button(
-                label="📥 Download Classification Report",
-                data=csv_report,
-                file_name="classification_report.csv",
-                mime="text/csv"
-            )
+        st.download_button(
+            label="📥 Download Classification Report",
+            data=csv_report,
+            file_name="classification_report.csv",
+            mime="text/csv"
+        )
 
         st.markdown("<br>", unsafe_allow_html=True)
 
@@ -2827,3 +2774,4 @@ input, textarea{
 }
 </style>
 """, unsafe_allow_html=True)
+
