@@ -1396,7 +1396,7 @@ if menu == "Prediksi":
         else:
             default_csv="dataset.csv"
             if not os.path.exists(default_csv):
-                st.error("dataset.csv tidak ditemukan.")
+                st.info("Prediksi memerlukan model atau dataset bawaan yang tersedia.")
                 st.stop()
             df_train=pd.read_csv(default_csv)
             factory=StemmerFactory()
