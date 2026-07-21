@@ -187,7 +187,7 @@ st.markdown("""
 <style>
 div[data-testid="stMarkdownContainer"] h3,
 div[data-testid="stMarkdownContainer"] h3 *{
-    color:#000000 !important;
+    color:#FFFFFF !important;
     -webkit-text-fill-color:#FFFFFF !important;
     opacity:1 !important;
 }
