@@ -381,11 +381,7 @@ div[data-testid="stMarkdownContainer"] #ringkasan-model *,
 div[data-testid="stMarkdownContainer"] #about,
 div[data-testid="stMarkdownContainer"] #about *,
 .card #about,
-.card #about *,
-h1#about,
-h2#about,
-h3#about,
-#about{
+.card #about *{
     color:#000000 !important;
     -webkit-text-fill-color:#000000 !important;
 }
@@ -1669,7 +1665,7 @@ if menu == "Prediksi" and uploaded_file is None:
 if menu == "About":
     st.markdown("""
     <div class="card">
-        <h1 id="about" style="text-align:center;color:#000000 !important;-webkit-text-fill-color:#000000 !important;">ℹ️ ABOUT APLIKASI</h1>
+        <h1 id="about" style="text-align:center;color:#000000 !important;-webkit-text-fill-color:#000000 !important;" style="color:#000000 !important;-webkit-text-fill-color:#000000 !important;">ℹ️ ABOUT APLIKASI</h1>
         <p style="text-align:center;">Informasi pengembang, penelitian, dan teknologi yang digunakan.</p>
     </div>
     """, unsafe_allow_html=True)
@@ -2966,6 +2962,15 @@ div[style*="background:#ffffff"] *{
 input, textarea{
     color:#000 !important;
     -webkit-text-fill-color:#000 !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
+st.markdown("""
+<style>
+#about,#about *,h1#about,h2#about,h3#about,h4#about,h5#about,h6#about{
+color:#000000!important;
+-webkit-text-fill-color:#000000!important;
 }
 </style>
 """, unsafe_allow_html=True)
