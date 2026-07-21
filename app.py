@@ -379,6 +379,39 @@ div[data-testid="stMarkdownContainer"] #ringkasan-model *,
 }
 #prediksi{color:#FFFFFF !important;}
 #about{color:#FFFFFF !important;}
+
+div[data-testid="stMarkdownContainer"] #tokenizing,
+div[data-testid="stMarkdownContainer"] #tokenizing *,
+.card #tokenizing,
+.card #tokenizing *{
+    color:#000000 !important;
+    -webkit-text-fill-color:#000000 !important;
+}
+
+div[data-testid="stMarkdownContainer"] #stopword-removal,
+div[data-testid="stMarkdownContainer"] #stopword-removal *,
+.card #stopword-removal,
+.card #stopword-removal *{
+    color:#000000 !important;
+    -webkit-text-fill-color:#000000 !important;
+}
+
+div[data-testid="stMarkdownContainer"] #stemming,
+div[data-testid="stMarkdownContainer"] #stemming *,
+.card #stemming,
+.card #stemming *{
+    color:#000000 !important;
+    -webkit-text-fill-color:#000000 !important;
+}
+
+div[data-testid="stMarkdownContainer"] #pelabelan-dataset,
+div[data-testid="stMarkdownContainer"] #pelabelan-dataset *,
+.card #pelabelan-dataset,
+.card #pelabelan-dataset *{
+    color:#000000 !important;
+    -webkit-text-fill-color:#000000 !important;
+}
+
 div[data-testid="stMarkdownContainer"] #case-folding,
 div[data-testid="stMarkdownContainer"] #case-folding *,
 .card #case-folding,
