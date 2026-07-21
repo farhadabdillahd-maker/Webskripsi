@@ -103,7 +103,7 @@ set_gif_background()
 st.markdown("""
 <style>
 .hasil-prediksi-testing{
-    color:#000000 !important;
+    color:#FFFFFF !important;
     -webkit-text-fill-color:#FFFFFF !important;
 }
 </style>
@@ -443,14 +443,26 @@ div[data-testid="stMarkdownContainer"] #distribusi-dataset *,
 
 st.markdown("""
 <style>
-div[data-testid="stMarkdownContainer"] h1,
-div[data-testid="stHeadingWithActionElements"] h1,
+
+/* Paksa judul utama tetap putih */
 #judul-home,
 #judul-home *,
-h1#judul-home{
+h1#judul-home,
+h1#judul-home span{
+    color:#FFFFFF !important;
+    -webkit-text-fill-color:#FFFFFF !important;
+    opacity:1 !important;
+    text-shadow:0 3px 12px rgba(0,0,0,.55);
+}
+
+div[data-testid="stMarkdownContainer"] #judul-home,
+div[data-testid="stMarkdownContainer"] #judul-home *,
+div[data-testid="stHeadingWithActionElements"] #judul-home,
+div[data-testid="stHeadingWithActionElements"] #judul-home *{
     color:#FFFFFF !important;
     -webkit-text-fill-color:#FFFFFF !important;
 }
+
 </style>
 """, unsafe_allow_html=True)
 
