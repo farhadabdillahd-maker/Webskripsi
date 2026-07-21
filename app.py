@@ -2974,3 +2974,16 @@ color:#000000!important;
 }
 </style>
 """, unsafe_allow_html=True)
+
+
+st.markdown("""
+<style>
+div.card h1#about,
+div.card h1#about *,
+div.card:has(h1#about) h1,
+div.card:has(h1#about) h1 *{
+color:#000000 !important;
+-webkit-text-fill-color:#000000 !important;
+}
+</style>
+""", unsafe_allow_html=True)
