@@ -330,6 +330,33 @@ div[data-testid="stFileUploader"] small{
 </style>
 """, unsafe_allow_html=True)
 
+
+st.markdown("""
+<style>
+div[data-testid="stTextArea"] label,
+div[data-testid="stTextArea"] label p,
+div[data-testid="stTextArea"] label span{
+    color:#FFFFFF !important;
+    -webkit-text-fill-color:#FFFFFF !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
+st.markdown("""
+<style>
+/* Judul evaluasi model menjadi hitam */
+div[data-testid="stMarkdownContainer"] h2,
+div[data-testid="stMarkdownContainer"] h2 *,
+div[data-testid="stMarkdownContainer"] h3,
+div[data-testid="stMarkdownContainer"] h3 *{
+    color:#000000 !important;
+    -webkit-text-fill-color:#000000 !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
+
+
 # =====================================================
 # HERO LANDING PAGE
 # =====================================================
@@ -1351,17 +1378,27 @@ if "uploaded_dataset" not in st.session_state:
 
 if menu == "Upload Dataset":
     st.markdown("### 📂 Upload Dataset")
+
     uploaded_file = st.file_uploader(
         "Upload Dataset CSV",
         type=["csv"],
         key="dashboard_upload"
     )
+
     if uploaded_file is not None:
         try:
             uploaded_file.seek(0)
         except Exception:
             pass
         st.session_state.uploaded_dataset = uploaded_file
+
+    # Tampilkan tombol Repeat hanya setelah CSV berhasil di-upload
+    if st.session_state.uploaded_dataset is not None:
+        if st.button("🔄 Repeat", use_container_width=True):
+            st.session_state.uploaded_dataset = None
+            if "dashboard_upload" in st.session_state:
+                del st.session_state["dashboard_upload"]
+            st.rerun()
 
 if menu in ["Preprocessing","Klasifikasi"]:
     uploaded_file = st.session_state.uploaded_dataset
@@ -1379,9 +1416,13 @@ if menu == "Prediksi" and uploaded_file is None:
     </div>
     """, unsafe_allow_html=True)
 
-    try:
+    model = None
+    tfidf = None
+    if os.path.exists("model_naive_bayes.pkl") and os.path.exists("tfidf_vectorizer.pkl"):
         model = joblib.load("model_naive_bayes.pkl")
         tfidf = joblib.load("tfidf_vectorizer.pkl")
+
+    try:
 
         try:
             stop_words = set(stopwords.words("indonesian"))
@@ -1391,10 +1432,9 @@ if menu == "Prediksi" and uploaded_file is None:
 
         stemmer = StemmerFactory().create_stemmer()
 
-        malam_keywords = [
-            "malam","subuh","dini hari","tengah malam",
-            "larut malam","jam 1","jam 2","jam 3","jam 4","jam 5"
-        ]
+        kejahatan_berat = [
+    "curas","pencabulan anak","persetubuhan anak","kdrt","pemerasan"
+]
 
         input_text = st.text_area("Masukkan Judul Berita", height=150)
 
@@ -1403,9 +1443,9 @@ if menu == "Prediksi" and uploaded_file is None:
                 detected = False
                 txt = input_text.lower()
 
-                for k in malam_keywords:
+                for k in kejahatan_berat:
                     if k in txt:
-                        prediction = "Kasus Malam"
+                        prediction = "Kejahatan Berat"
                         detected = True
                         break
 
@@ -1497,7 +1537,7 @@ if menu == "Prediksi" and uploaded_file is None:
                 pdf = generate_police_pdf(input_text, prediction)
 
                 st.download_button(
-                    "📄 Download Surat Hasil Prediksi (PDF)",
+                    "📄 Download Laporan Hasil Prediksi (PDF)",
                     data=pdf,
                     file_name="Surat_Hasil_Klasifikasi.pdf",
                     mime="application/pdf"
@@ -1505,8 +1545,8 @@ if menu == "Prediksi" and uploaded_file is None:
 
             else:
                 st.warning("Masukkan judul berita terlebih dahulu.")
-    except:
-        st.error("Model belum tersedia. Jalankan menu Klasifikasi terlebih dahulu untuk membuat model.")
+    except Exception as e:
+        st.error(f"Terjadi kesalahan: {e}")
 
 
 
@@ -1673,32 +1713,21 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
     # AUTO LABEL
     # =====================================================
 
-    malam_keywords = [
-
-        "malam",
-        "subuh",
-        "dini hari",
-        "tengah malam",
-        "larut malam",
-        "jam 1",
-        "jam 2",
-        "jam 3",
-        "jam 4",
-        "jam 5"
-
-    ]
+    kejahatan_berat = [
+    "curas","pencabulan anak","persetubuhan anak","kdrt","pemerasan"
+]
 
     def auto_label(text):
 
         text = str(text).lower()
 
-        for keyword in malam_keywords:
+        for keyword in kejahatan_berat:
 
             if keyword in text:
 
-                return "Kasus Malam"
+                return "Kejahatan Berat"
 
-        return "Kasus Umum"
+        return "Kejahatan Ringan"
 
     # =====================================================
     # PREPROCESSING
@@ -1742,13 +1771,13 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
 
     total_malam = len(
         df[
-            df["Label"] == "Kasus Malam"
+            df["Label"] == "Kejahatan Berat"
         ]
     )
 
     total_umum = len(
         df[
-            df["Label"] == "Kasus Umum"
+            df["Label"] == "Kejahatan Ringan"
         ]
     )
 
@@ -1764,14 +1793,14 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
     with col2:
 
         st.metric(
-            "🌙 Kasus Malam",
+            "🌙 Kejahatan Berat",
             f"{total_malam:,}"
         )
 
     with col3:
 
         st.metric(
-            "☀️ Kasus Umum",
+            "☀️ Kejahatan Ringan",
             f"{total_umum:,}"
         )
 
@@ -1783,6 +1812,38 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
         )
 
     st.markdown("<br>", unsafe_allow_html=True)
+
+
+    # =====================================
+    # DOWNLOAD HASIL PREPROCESSING
+    # =====================================
+    st.markdown("---")
+
+    preprocessing_download = df[
+        [
+            "Judul Media Nasional",
+            "Case Folding",
+            "Tokenizing",
+            "Stopword Removal",
+            "Stemming",
+            "Final Text",
+            "Label"
+        ]
+    ]
+
+    csv = preprocessing_download.to_csv(
+        index=False,
+        encoding="utf-8-sig"
+    ).encode("utf-8-sig")
+
+    st.download_button(
+        label="📥 Download Hasil Preprocessing (CSV)",
+        data=csv,
+        file_name="Hasil_Preprocessing.csv",
+        mime="text/csv",
+        use_container_width=True
+    )
+
 
     # =====================================================
     # DISTRIBUSI LABEL
@@ -2016,18 +2077,38 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
             )
 
             st.info(
-                "Pelabelan otomatis Kasus Malam dan Kasus Umum."
+                "Pelabelan otomatis Kejahatan Berat dan Kejahatan Ringan."
             )
 
+            preprocessing_download = df[
+                [
+                    "Judul Media Nasional",
+                    "Case Folding",
+                    "Tokenizing",
+                    "Stopword Removal",
+                    "Stemming",
+                    "Final Text",
+                    "Label"
+                ]
+            ]
+
             st.dataframe(
-                df[
-                    [
-                        "Judul Media Nasional",
-                        "Label"
-                    ]
-                ],
+                preprocessing_download,
                 use_container_width=True,
                 height=500
+            )
+
+            csv = preprocessing_download.to_csv(
+                index=False,
+                encoding="utf-8-sig"
+            ).encode("utf-8-sig")
+
+            st.download_button(
+                "📥 Download Hasil Preprocessing",
+                data=csv,
+                file_name="hasil_preprocessing.csv",
+                mime="text/csv",
+                use_container_width=True
             )
 
             st.markdown("<br>", unsafe_allow_html=True)
@@ -2037,14 +2118,14 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
             with col_a:
 
                 st.metric(
-                    "Kasus Malam",
+                    "Kejahatan Berat",
                     total_malam
                 )
 
             with col_b:
 
                 st.metric(
-                    "Kasus Umum",
+                    "Kejahatan Ringan",
                     total_umum
                 )
     # =====================================================
@@ -2417,8 +2498,9 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
 
         if accuracy >= 0.90:
 
-            st.success(
-                "🔥 Model memiliki performa sangat baik."
+            st.markdown(
+                """<div style="background:#0f5132;padding:1rem;border-radius:0.5rem;color:#FFFFFF;font-weight:600;border-left:6px solid #198754;">🔥 Model memiliki performa sangat baik.</div>""",
+                unsafe_allow_html=True
             )
 
         elif accuracy >= 0.80:
@@ -2491,18 +2573,9 @@ Aplikasi ini dibuat sebagai implementasi algoritma **Naïve Bayes** untuk klasif
         factory = StemmerFactory()
         stemmer = factory.create_stemmer()
 
-        malam_keywords = [
-            "malam",
-            "subuh",
-            "dini hari",
-            "tengah malam",
-            "larut malam",
-            "jam 1",
-            "jam 2",
-            "jam 3",
-            "jam 4",
-            "jam 5"
-        ]
+        kejahatan_berat = [
+    "curas","pencabulan anak","persetubuhan anak","kdrt","pemerasan"
+]
 
     # =====================================
     # LOAD MODEL
@@ -2542,11 +2615,11 @@ Aplikasi ini dibuat sebagai implementasi algoritma **Naïve Bayes** untuk klasif
                 # RULE BASED
                 # ==========================
 
-                for keyword in malam_keywords:
+                for keyword in kejahatan_berat:
 
                     if keyword in input_lower:
 
-                        prediction = "Kasus Malam"
+                        prediction = "Kejahatan Berat"
                         detected = True
                         break
 
@@ -2639,16 +2712,15 @@ agar file berikut dibuat:
         # DOWNLOAD REPORT
         # =====================================
 
-        csv_report = report_df.to_csv(
-            index=True
-        )
+        if 'report_df' in locals():
+            csv_report = report_df.to_csv(index=True)
 
-        st.download_button(
-            label="📥 Download Classification Report",
-            data=csv_report,
-            file_name="classification_report.csv",
-            mime="text/csv"
-        )
+            st.download_button(
+                label="📥 Download Classification Report",
+                data=csv_report,
+                file_name="classification_report.csv",
+                mime="text/csv"
+            )
 
         st.markdown("<br>", unsafe_allow_html=True)
 
@@ -2785,4 +2857,3 @@ input, textarea{
 }
 </style>
 """, unsafe_allow_html=True)
-
