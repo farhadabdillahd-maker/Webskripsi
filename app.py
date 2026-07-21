@@ -2974,3 +2974,17 @@ color:#000000!important;
 }
 </style>
 """, unsafe_allow_html=True)
+
+st.markdown("""
+<style>
+div[data-testid="stHeadingWithActionElements"] h1#about,
+div[data-testid="stHeadingWithActionElements"] h1#about *,
+div[data-testid="stMarkdownContainer"] h1#about,
+div[data-testid="stMarkdownContainer"] h1#about *,
+h1#about{
+color:#000000 !important;
+-webkit-text-fill-color:#000000 !important;
+text-shadow:none !important;
+}
+</style>
+""", unsafe_allow_html=True)
