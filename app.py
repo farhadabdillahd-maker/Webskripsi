@@ -187,7 +187,7 @@ st.markdown("""
 <style>
 div[data-testid="stMarkdownContainer"] h3,
 div[data-testid="stMarkdownContainer"] h3 *{
-    color:#000000 !important;
+    color:#FFFFFF !important;
     -webkit-text-fill-color:#FFFFFF !important;
     opacity:1 !important;
 }
@@ -200,7 +200,7 @@ st.markdown("""
 div[data-testid="stHeadingWithActionElements"] h3,
 div[data-testid="stHeadingWithActionElements"] h3 *,
 div[data-testid="stHeadingWithActionElements"] h3 a{
-    color:#000000 !important;
+    color:#FFFFFF !important;
     -webkit-text-fill-color:#FFFFFF !important;
 }
 </style>
@@ -301,8 +301,8 @@ div[data-testid="stFileUploader"] section span,
 div[data-testid="stFileUploader"] section small,
 div[data-testid="stFileUploader"] [data-testid="stFileUploaderFile"] *,
 div[data-testid="stFileUploader"] [role="button"] span{
-    color:#000000 !important;
-    -webkit-text-fill-color:#000000 !important;
+    color:#FFFFFF !important;
+    -webkit-text-fill-color:#FFFFFF !important;
 }
 
 div[data-testid="stSuccess"]{
@@ -349,8 +349,8 @@ div[data-testid="stMarkdownContainer"] h2,
 div[data-testid="stMarkdownContainer"] h2 *,
 div[data-testid="stMarkdownContainer"] h3,
 div[data-testid="stMarkdownContainer"] h3 *{
-    color:#000000 !important;
-    -webkit-text-fill-color:#000000 !important;
+    color:#FFFFFF !important;
+    -webkit-text-fill-color:#FFFFFF !important;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -637,8 +637,8 @@ section[data-testid="stSidebar"]{
 }
 
 .card h1,.card h2,.card h3,.card h4,.card h5,.card h6,.card p,.card b,.card span,.card div{
-    color:#000000 !important;
-    -webkit-text-fill-color:#000000 !important;
+    color:#FFFFFF !important;
+    -webkit-text-fill-color:#FFFFFF !important;
 }
 
 /* SIDEBAR LOGO */
@@ -1561,7 +1561,7 @@ if menu == "About":
     </div>
     """, unsafe_allow_html=True)
 
-    st.markdown('<h3 style="color:white;">📘 Judul Penelitian</h3>', unsafe_allow_html=True)
+    st.markdown("### 📘 Judul Penelitian")
     st.markdown("""
     <div class="card">
     <b>Penerapan Machine Learning Menggunakan Algoritma Naïve Bayes Untuk Klasifikasi Tingkat Kejahatan di Polres Pasaman</b>
@@ -1571,7 +1571,7 @@ if menu == "About":
     col1,col2 = st.columns(2)
 
     with col1:
-        st.markdown('<h3 style="color:white;">👤 Perkenalan</h3>', unsafe_allow_html=True)
+        st.markdown("### 👤 Perkenalan")
         from pathlib import Path
         foto_path = Path(__file__).parent / "assets" / "FOTO.png"
         if foto_path.exists():
@@ -1588,7 +1588,7 @@ if menu == "About":
         """, unsafe_allow_html=True)
 
     with col2:
-        st.markdown('<h3 style="color:white;">🛠️ Aplikasi yang Digunakan</h3>', unsafe_allow_html=True)
+        st.markdown("### 🛠️ Aplikasi yang Digunakan")
         st.markdown("""
         <div class="card">
         • Python<br>
@@ -1605,7 +1605,7 @@ if menu == "About":
         </div>
         """, unsafe_allow_html=True)
 
-    st.markdown('<h3 style="color:white;">ℹ️ Informasi Aplikasi</h3>', unsafe_allow_html=True)
+    st.markdown("### ℹ️ Informasi Aplikasi")
     st.info("Aplikasi ini dibuat sebagai media klasifikasi tingkat kejahatan berdasarkan judul berita menggunakan algoritma Naïve Bayes.")
     st.stop()
 
@@ -2766,8 +2766,8 @@ div[style*="background: white"] *,
 div[style*="background:rgba(255,255,255"] *,
 .about-card, .about-card *,
 .about-section, .about-section *{
-    color:#000000 !important;
-    -webkit-text-fill-color:#000000 !important;
+    color:#FFFFFF !important;
+    -webkit-text-fill-color:#FFFFFF !important;
 }
 </style>
 """, unsafe_allow_html=True)
