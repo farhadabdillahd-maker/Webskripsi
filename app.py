@@ -502,6 +502,15 @@ setInterval(forceWhite,200);
 
 def show_home():
     st.markdown("""
+    <style>
+    #judul-home, #judul-home *, h1#judul-home{
+        color:#FFFFFF !important;
+        -webkit-text-fill-color:#FFFFFF !important;
+        opacity:1 !important;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+    st.markdown("""
     <div style='padding:60px;border-radius:28px;background:rgba(8,27,70,.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:#fff;box-shadow:0 20px 45px rgba(0,0,0,.28);margin:0px 0 20px 0;border:1px solid rgba(255,255,255,.12)'>
         <div style='font-size:15px;letter-spacing:2px;color:#bfdbfe'>
         POLRES PASAMAN • MACHINE LEARNING • NAÏVE BAYES
