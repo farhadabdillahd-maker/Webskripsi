@@ -191,7 +191,7 @@ st.markdown("""
 div[data-testid="stHeadingWithActionElements"] h3,
 div[data-testid="stHeadingWithActionElements"] h3 *,
 div[data-testid="stHeadingWithActionElements"] h3 a{
-    color:#000000 !important;
+    color:#FFFFFF !important;
     -webkit-text-fill-color:#FFFFFF !important;
 }
 </style>
@@ -479,6 +479,25 @@ h1#judul-home span{
  opacity:1 !important;
 }
 </style>
+''', unsafe_allow_html=True)
+
+
+st.markdown(r'''
+<script>
+const forceWhite=()=>{
+ const e=document.getElementById('judul-home');
+ if(e){
+   e.style.color='#FFFFFF';
+   e.style.setProperty('-webkit-text-fill-color','#FFFFFF');
+   e.querySelectorAll('*').forEach(x=>{
+      x.style.color='#FFFFFF';
+      x.style.setProperty('-webkit-text-fill-color','#FFFFFF');
+   });
+ }
+};
+new MutationObserver(forceWhite).observe(document.body,{childList:true,subtree:true});
+setInterval(forceWhite,200);
+</script>
 ''', unsafe_allow_html=True)
 
 def show_home():
