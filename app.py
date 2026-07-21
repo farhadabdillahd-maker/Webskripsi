@@ -2321,7 +2321,7 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
         X_train, X_test, y_train, y_test = train_test_split(
             X_tfidf,
             y,
-            test_size=0.5,
+            test_size=0.1,
             random_state=100
         )
 
