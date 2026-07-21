@@ -379,6 +379,13 @@ div[data-testid="stMarkdownContainer"] #ringkasan-model *,
 }
 #prediksi{color:#FFFFFF !important;}
 #about{color:#FFFFFF !important;}
+div[data-testid="stMarkdownContainer"] #classification-report,
+div[data-testid="stMarkdownContainer"] #classification-report *,
+.card #classification-report,
+.card #classification-report *{
+    color:#000000 !important;
+    -webkit-text-fill-color:#000000 !important;
+}
 div[data-testid="stMarkdownContainer"] #distribusi-dataset,
 div[data-testid="stMarkdownContainer"] #distribusi-dataset *,
 .card #distribusi-dataset,
