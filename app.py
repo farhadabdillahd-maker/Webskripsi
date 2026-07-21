@@ -330,6 +330,19 @@ div[data-testid="stFileUploader"] small{
 </style>
 """, unsafe_allow_html=True)
 
+
+st.markdown("""
+<style>
+div[data-testid="stTextArea"] label,
+div[data-testid="stTextArea"] label p,
+div[data-testid="stTextArea"] label span{
+    color:#FFFFFF !important;
+    -webkit-text-fill-color:#FFFFFF !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
+
 # =====================================================
 # HERO LANDING PAGE
 # =====================================================
