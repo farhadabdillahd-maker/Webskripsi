@@ -2174,14 +2174,10 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
                 "Pelabelan otomatis Kejahatan Berat dan Kejahatan Ringan."
             )
 
+            # Tabel khusus hasil pelabelan
             preprocessing_download = df[
                 [
                     "Judul Media Nasional",
-                    "Case Folding",
-                    "Tokenizing",
-                    "Stopword Removal",
-                    "Stemming",
-                    "Final Text",
                     "Label"
                 ]
             ]
