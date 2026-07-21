@@ -1829,23 +1829,7 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
             "Final Text",
             "Label"
         ]
-    ]
-
-    csv = preprocessing_download.to_csv(
-        index=False,
-        encoding="utf-8-sig"
-    ).encode("utf-8-sig")
-
-    st.download_button(
-        label="📥 Download Hasil Preprocessing (CSV)",
-        data=csv,
-        file_name="Hasil_Preprocessing.csv",
-        mime="text/csv",
-        use_container_width=True
-    )
-
-
-    # =====================================================
+    ]# =====================================================
     # DISTRIBUSI LABEL
     # =====================================================
 
@@ -1990,6 +1974,25 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
                 use_container_width=True,
                 height=500
             )
+
+
+
+            csv = preprocessing_download.to_csv(
+                index=False,
+                encoding="utf-8-sig"
+            ).encode("utf-8-sig")
+        
+            st.download_button(
+                label="📥 Download Hasil Preprocessing (CSV)",
+                data=csv,
+                file_name="Hasil_Preprocessing.csv",
+                mime="text/csv",
+                use_container_width=True
+            )
+
+
+    
+
 
         # =====================================
         # TOKENIZING
