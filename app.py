@@ -167,7 +167,7 @@ margin-top:4px;
 
 st.markdown("""
 <style>
-div[data-testid="stMarkdownContainer"] h1:not(#about),
+div[data-testid="stMarkdownContainer"] h1,
 div[data-testid="stMarkdownContainer"] h1 *{
     color:#FFFFFF !important;
     -webkit-text-fill-color:#FFFFFF !important;
@@ -184,7 +184,7 @@ div[data-testid="stMarkdownContainer"] h1 *{
 
 st.markdown("""
 <style>
-div[data-testid="stMarkdownContainer"] h1:not(#about){
+div[data-testid="stMarkdownContainer"] h1{
     color:#FFFFFF !important;
     -webkit-text-fill-color:#FFFFFF !important;
     opacity:1 !important;
@@ -457,7 +457,7 @@ div[data-testid="stMarkdownContainer"] #distribusi-dataset *,
 
 st.markdown("""
 <style>
-div[data-testid="stMarkdownContainer"] h1:not(#about),
+div[data-testid="stMarkdownContainer"] h1,
 div[data-testid="stMarkdownContainer"] h1 *,
 h1{
  color:#FFFFFF !important;
