@@ -103,7 +103,7 @@ set_gif_background()
 st.markdown("""
 <style>
 .hasil-prediksi-testing{
-    color:#FFFFFF !important;
+    color:#000000 !important;
     -webkit-text-fill-color:#FFFFFF !important;
 }
 </style>
@@ -191,7 +191,7 @@ st.markdown("""
 div[data-testid="stHeadingWithActionElements"] h3,
 div[data-testid="stHeadingWithActionElements"] h3 *,
 div[data-testid="stHeadingWithActionElements"] h3 a{
-    color:#FFFFFF !important;
+    color:#000000 !important;
     -webkit-text-fill-color:#FFFFFF !important;
 }
 </style>
@@ -443,6 +443,8 @@ div[data-testid="stMarkdownContainer"] #distribusi-dataset *,
 
 st.markdown("""
 <style>
+div[data-testid="stMarkdownContainer"] h1,
+div[data-testid="stHeadingWithActionElements"] h1,
 #judul-home,
 #judul-home *,
 h1#judul-home{
@@ -451,6 +453,9 @@ h1#judul-home{
 }
 </style>
 """, unsafe_allow_html=True)
+
+
+st.markdown("""\n<style>\n/* Paksa judul utama tetap putih */\n#judul-home,#judul-home *,h1#judul-home{color:#FFFFFF !important;-webkit-text-fill-color:#FFFFFF !important;opacity:1 !important;}\n</style>\n""", unsafe_allow_html=True)
 
 # =====================================================
 # HERO LANDING PAGE
@@ -2948,18 +2953,6 @@ div[style*="background:#ffffff"] *{
 input, textarea{
     color:#000 !important;
     -webkit-text-fill-color:#000 !important;
-}
-</style>
-""", unsafe_allow_html=True)
-
-
-st.markdown("""
-<style>
-html body h1#judul-home,
-html body #judul-home,
-html body #judul-home *{
-color:#fff !important;
--webkit-text-fill-color:#fff !important;
 }
 </style>
 """, unsafe_allow_html=True)
