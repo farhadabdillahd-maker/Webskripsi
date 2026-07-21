@@ -2419,8 +2419,9 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
 
         if accuracy >= 0.90:
 
-            st.success(
-                "🔥 Model memiliki performa sangat baik."
+            st.markdown(
+                """<div style="background:#0f5132;padding:1rem;border-radius:0.5rem;color:#FFFFFF;font-weight:600;border-left:6px solid #198754;">🔥 Model memiliki performa sangat baik.</div>""",
+                unsafe_allow_html=True
             )
 
         elif accuracy >= 0.80:
