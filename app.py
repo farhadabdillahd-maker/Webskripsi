@@ -99,16 +99,6 @@ html, body, .stApp,
 
 set_gif_background()
 
-st.markdown("""<style>
-div[data-testid="stExpander"] summary,
-div[data-testid="stExpander"] summary *,
-details summary,
-details summary *{
- color:#FFFFFF !important;
- -webkit-text-fill-color:#FFFFFF !important;
-}
-</style>""", unsafe_allow_html=True)
-
 
 st.markdown("""
 <style>
@@ -1387,7 +1377,7 @@ if "uploaded_dataset" not in st.session_state:
     st.session_state.uploaded_dataset = None
 
 if menu == "Upload Dataset":
-    st.markdown("### 📂 Upload Dataset")
+    st.markdown('<h3 style="color:#FFFFFF !important;">📂 Upload Dataset</h3>', unsafe_allow_html=True)
 
     uploaded_file = st.file_uploader(
         "Upload Dataset CSV",
