@@ -165,16 +165,6 @@ margin-top:4px;
 
 
 
-st.markdown("""
-<style>
-div[data-testid="stMarkdownContainer"] h1,
-div[data-testid="stMarkdownContainer"] h1 *{
-    color:#000000 !important;
-    -webkit-text-fill-color:#000000 !important;
-    opacity:1 !important;
-}
-</style>
-""", unsafe_allow_html=True)
 
 
 
@@ -182,15 +172,6 @@ div[data-testid="stMarkdownContainer"] h1 *{
 
 
 
-st.markdown("""
-<style>
-div[data-testid="stMarkdownContainer"] h1{
-    color:#000000 !important;
-    -webkit-text-fill-color:#000000 !important;
-    opacity:1 !important;
-}
-</style>
-""", unsafe_allow_html=True)
 
 
 st.markdown("""
@@ -471,7 +452,7 @@ def show_home():
         <div style='font-size:15px;letter-spacing:2px;color:#bfdbfe'>
         POLRES PASAMAN • MACHINE LEARNING • NAÏVE BAYES
         </div>
-        <h1 style='font-size:42px;font-weight:900;line-height:1.35;margin-top:22px;text-shadow:0 3px 12px rgba(0,0,0,.55);color:#000000 !important;-webkit-text-fill-color:#000000 !important;opacity:1 !important;color:#000000 !important;-webkit-text-fill-color:#000000 !important;'>
+        <h1 style='font-size:42px;font-weight:900;line-height:1.35;margin-top:22px;text-shadow:0 3px 12px rgba(0,0,0,.55);color:#FFFFFF !important;-webkit-text-fill-color:#FFFFFF !important;opacity:1 !important;'>
         PENERAPAN MACHINE LEARNING MENGGUNAKAN ALGORITMA NAÏVE BAYES
         <br>UNTUK KLASIFIKASI TINGKAT KEJAHATAN
         </h1>
