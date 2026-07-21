@@ -103,7 +103,7 @@ set_gif_background()
 st.markdown("""
 <style>
 .hasil-prediksi-testing{
-    color:#FFFFFF !important;
+    color:#000000 !important;
     -webkit-text-fill-color:#FFFFFF !important;
 }
 </style>
