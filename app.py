@@ -1381,7 +1381,7 @@ if menu in ["Preprocessing","Klasifikasi"]:
 # =====================================================
 # MENU PREDIKSI TANPA UPLOAD DATASET
 # =====================================================
-if menu == "Prediksi" and uploaded_file is None:
+if menu == "Prediksi":
 
     st.markdown("""
     <div class="card">
@@ -2775,12 +2775,3 @@ input, textarea{
 </style>
 """, unsafe_allow_html=True)
 
-
-
-# ============================
-# LOGIKA TAMBAHAN
-# ============================
-# Upload CSV hanya diwajibkan untuk menu:
-# Upload Dataset, Preprocessing, dan Klasifikasi.
-# Menu Prediksi dapat berjalan tanpa upload CSV selama
-# model_naive_bayes.pkl dan tfidf_vectorizer.pkl tersedia.
