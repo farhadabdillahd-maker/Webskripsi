@@ -344,13 +344,13 @@ div[data-testid="stTextArea"] label span{
 
 st.markdown("""
 <style>
-/* Judul evaluasi model menjadi hitam */
+/* Judul evaluasi model menjadi putih */
 div[data-testid="stMarkdownContainer"] h2,
 div[data-testid="stMarkdownContainer"] h2 *,
 div[data-testid="stMarkdownContainer"] h3,
 div[data-testid="stMarkdownContainer"] h3 *{
-    color:#000000 !important;
-    -webkit-text-fill-color:#000000 !important;
+    color:#FFFFFF !important;
+    -webkit-text-fill-color:#FFFFFF !important;
 }
 </style>
 """, unsafe_allow_html=True)
