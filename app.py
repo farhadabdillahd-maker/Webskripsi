@@ -363,6 +363,13 @@ st.markdown("""
 #preprocessing{color:#FFFFFF !important;}
 #klasifikasi{color:#FFFFFF !important;}
 #hasil-prediksi-testing{color:#FFFFFF !important;}
+div[data-testid="stMarkdownContainer"] #confusion-matrix,
+div[data-testid="stMarkdownContainer"] #confusion-matrix *,
+.card #confusion-matrix,
+.card #confusion-matrix *{
+    color:#000000 !important;
+    -webkit-text-fill-color:#000000 !important;
+}
 div[data-testid="stMarkdownContainer"] #ringkasan-model,
 div[data-testid="stMarkdownContainer"] #ringkasan-model *,
 .card #ringkasan-model,
@@ -2389,7 +2396,7 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
 
         st.markdown("""
         <div class="card">
-        <h3>📊 Confusion Matrix</h3>
+        <h3 id='confusion-matrix'>📊 Confusion Matrix</h3>
         <p>
         Visualisasi hasil prediksi model
         terhadap data testing.
