@@ -1351,17 +1351,27 @@ if "uploaded_dataset" not in st.session_state:
 
 if menu == "Upload Dataset":
     st.markdown("### 📂 Upload Dataset")
+
     uploaded_file = st.file_uploader(
         "Upload Dataset CSV",
         type=["csv"],
         key="dashboard_upload"
     )
+
     if uploaded_file is not None:
         try:
             uploaded_file.seek(0)
         except Exception:
             pass
         st.session_state.uploaded_dataset = uploaded_file
+
+    # Tampilkan tombol Repeat hanya setelah CSV berhasil di-upload
+    if st.session_state.uploaded_dataset is not None:
+        if st.button("🔄 Repeat", use_container_width=True):
+            st.session_state.uploaded_dataset = None
+            if "dashboard_upload" in st.session_state:
+                del st.session_state["dashboard_upload"]
+            st.rerun()
 
 if menu in ["Preprocessing","Klasifikasi"]:
     uploaded_file = st.session_state.uploaded_dataset
@@ -1379,9 +1389,13 @@ if menu == "Prediksi" and uploaded_file is None:
     </div>
     """, unsafe_allow_html=True)
 
-    try:
+    model = None
+    tfidf = None
+    if os.path.exists("model_naive_bayes.pkl") and os.path.exists("tfidf_vectorizer.pkl"):
         model = joblib.load("model_naive_bayes.pkl")
         tfidf = joblib.load("tfidf_vectorizer.pkl")
+
+    try:
 
         try:
             stop_words = set(stopwords.words("indonesian"))
@@ -1496,7 +1510,7 @@ if menu == "Prediksi" and uploaded_file is None:
                 pdf = generate_police_pdf(input_text, prediction)
 
                 st.download_button(
-                    "📄 Download Surat Hasil Prediksi (PDF)",
+                    "📄 Download Laporan Hasil Prediksi (PDF)",
                     data=pdf,
                     file_name="Surat_Hasil_Klasifikasi.pdf",
                     mime="application/pdf"
@@ -1504,8 +1518,8 @@ if menu == "Prediksi" and uploaded_file is None:
 
             else:
                 st.warning("Masukkan judul berita terlebih dahulu.")
-    except:
-        st.error("Model belum tersedia. Jalankan menu Klasifikasi terlebih dahulu untuk membuat model.")
+    except Exception as e:
+        st.error(f"Terjadi kesalahan: {e}")
 
 
 
