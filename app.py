@@ -363,7 +363,13 @@ st.markdown("""
 #preprocessing{color:#FFFFFF !important;}
 #klasifikasi{color:#FFFFFF !important;}
 #hasil-prediksi-testing{color:#FFFFFF !important;}
-#ringkasan-model{color:#FFFFFF !important;}
+div[data-testid="stMarkdownContainer"] #ringkasan-model,
+div[data-testid="stMarkdownContainer"] #ringkasan-model *,
+.card #ringkasan-model,
+.card #ringkasan-model *{
+    color:#000000 !important;
+    -webkit-text-fill-color:#000000 !important;
+}
 #prediksi{color:#FFFFFF !important;}
 #about{color:#FFFFFF !important;}
 div[data-testid="stMarkdownContainer"] #distribusi-dataset,
