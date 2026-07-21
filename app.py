@@ -381,7 +381,11 @@ div[data-testid="stMarkdownContainer"] #ringkasan-model *,
 div[data-testid="stMarkdownContainer"] #about,
 div[data-testid="stMarkdownContainer"] #about *,
 .card #about,
-.card #about *{
+.card #about *,
+h1#about,
+h2#about,
+h3#about,
+#about{
     color:#000000 !important;
     -webkit-text-fill-color:#000000 !important;
 }
@@ -465,19 +469,6 @@ h1{
 }
 </style>
 """, unsafe_allow_html=True)
-
-
-st.markdown("""
-<style>
-h2#about,
-h2#about *,
-#about{
-    color:#000000 !important;
-    -webkit-text-fill-color:#000000 !important;
-}
-</style>
-""", unsafe_allow_html=True)
-
 
 # =====================================================
 # HERO LANDING PAGE
