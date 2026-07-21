@@ -187,7 +187,7 @@ st.markdown("""
 <style>
 div[data-testid="stMarkdownContainer"] h3,
 div[data-testid="stMarkdownContainer"] h3 *{
-    color:#FFFFFF !important;
+    color:#000000 !important;
     -webkit-text-fill-color:#FFFFFF !important;
     opacity:1 !important;
 }
@@ -200,7 +200,7 @@ st.markdown("""
 div[data-testid="stHeadingWithActionElements"] h3,
 div[data-testid="stHeadingWithActionElements"] h3 *,
 div[data-testid="stHeadingWithActionElements"] h3 a{
-    color:#FFFFFF !important;
+    color:#000000 !important;
     -webkit-text-fill-color:#FFFFFF !important;
 }
 </style>
@@ -301,8 +301,8 @@ div[data-testid="stFileUploader"] section span,
 div[data-testid="stFileUploader"] section small,
 div[data-testid="stFileUploader"] [data-testid="stFileUploaderFile"] *,
 div[data-testid="stFileUploader"] [role="button"] span{
-    color:#FFFFFF !important;
-    -webkit-text-fill-color:#FFFFFF !important;
+    color:#000000 !important;
+    -webkit-text-fill-color:#000000 !important;
 }
 
 div[data-testid="stSuccess"]{
@@ -349,8 +349,8 @@ div[data-testid="stMarkdownContainer"] h2,
 div[data-testid="stMarkdownContainer"] h2 *,
 div[data-testid="stMarkdownContainer"] h3,
 div[data-testid="stMarkdownContainer"] h3 *{
-    color:#FFFFFF !important;
-    -webkit-text-fill-color:#FFFFFF !important;
+    color:#000000 !important;
+    -webkit-text-fill-color:#000000 !important;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -637,8 +637,8 @@ section[data-testid="stSidebar"]{
 }
 
 .card h1,.card h2,.card h3,.card h4,.card h5,.card h6,.card p,.card b,.card span,.card div{
-    color:#FFFFFF !important;
-    -webkit-text-fill-color:#FFFFFF !important;
+    color:#000000 !important;
+    -webkit-text-fill-color:#000000 !important;
 }
 
 /* SIDEBAR LOGO */
@@ -1557,7 +1557,7 @@ if menu == "About":
     st.markdown("""
     <div class="card">
         <h1 style="text-align:center;">ℹ️ ABOUT APLIKASI</h1>
-        <p style="text-align:center;"><span style='color:black;'>Informasi pengembang, penelitian, dan teknologi yang digunakan.</span></p>
+        <p style="text-align:center;">Informasi pengembang, penelitian, dan teknologi yang digunakan.</p>
     </div>
     """, unsafe_allow_html=True)
 
@@ -2766,8 +2766,8 @@ div[style*="background: white"] *,
 div[style*="background:rgba(255,255,255"] *,
 .about-card, .about-card *,
 .about-section, .about-section *{
-    color:#FFFFFF !important;
-    -webkit-text-fill-color:#FFFFFF !important;
+    color:#000000 !important;
+    -webkit-text-fill-color:#000000 !important;
 }
 </style>
 """, unsafe_allow_html=True)
