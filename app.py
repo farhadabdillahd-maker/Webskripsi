@@ -2806,3 +2806,15 @@ input, textarea{
 </style>
 """, unsafe_allow_html=True)
 
+
+
+st.markdown("""
+<style>
+/* Hasil Prediksi Testing putih */
+div[data-testid="stHeadingWithActionElements"] h2,
+div[data-testid="stHeadingWithActionElements"] h2 *{
+    color:#FFFFFF !important;
+    -webkit-text-fill-color:#FFFFFF !important;
+}
+</style>
+""", unsafe_allow_html=True)
