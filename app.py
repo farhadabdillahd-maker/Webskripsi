@@ -1653,7 +1653,7 @@ if menu == "Prediksi" and uploaded_file is None:
 if menu == "About":
     st.markdown("""
     <div class="card">
-        <h1 style="text-align:center;">ℹ️ ABOUT APLIKASI</h1>
+        <h1 id="about" style="text-align:center;color:#000000 !important;-webkit-text-fill-color:#000000 !important;">ℹ️ ABOUT APLIKASI</h1>
         <p style="text-align:center;">Informasi pengembang, penelitian, dan teknologi yang digunakan.</p>
     </div>
     """, unsafe_allow_html=True)
