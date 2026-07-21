@@ -200,7 +200,7 @@ st.markdown("""
 div[data-testid="stHeadingWithActionElements"] h3,
 div[data-testid="stHeadingWithActionElements"] h3 *,
 div[data-testid="stHeadingWithActionElements"] h3 a{
-    color:#FFFFFF !important;
+    color:#000000 !important;
     -webkit-text-fill-color:#FFFFFF !important;
 }
 </style>
@@ -301,8 +301,8 @@ div[data-testid="stFileUploader"] section span,
 div[data-testid="stFileUploader"] section small,
 div[data-testid="stFileUploader"] [data-testid="stFileUploaderFile"] *,
 div[data-testid="stFileUploader"] [role="button"] span{
-    color:#FFFFFF !important;
-    -webkit-text-fill-color:#FFFFFF !important;
+    color:#000000 !important;
+    -webkit-text-fill-color:#000000 !important;
 }
 
 div[data-testid="stSuccess"]{
@@ -349,8 +349,8 @@ div[data-testid="stMarkdownContainer"] h2,
 div[data-testid="stMarkdownContainer"] h2 *,
 div[data-testid="stMarkdownContainer"] h3,
 div[data-testid="stMarkdownContainer"] h3 *{
-    color:#FFFFFF !important;
-    -webkit-text-fill-color:#FFFFFF !important;
+    color:#000000 !important;
+    -webkit-text-fill-color:#000000 !important;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -633,12 +633,12 @@ section[data-testid="stSidebar"]{
     border-radius:20px;
     box-shadow:
     0 10px 25px rgba(0,0,0,.05);
-    color:#FFFFFF !important;
+    color:#000000 !important;
 }
 
 .card h1,.card h2,.card h3,.card h4,.card h5,.card h6,.card p,.card b,.card span,.card div{
-    color:#FFFFFF !important;
-    -webkit-text-fill-color:#FFFFFF !important;
+    color:#000000 !important;
+    -webkit-text-fill-color:#000000 !important;
 }
 
 /* SIDEBAR LOGO */
@@ -1377,7 +1377,7 @@ if "uploaded_dataset" not in st.session_state:
     st.session_state.uploaded_dataset = None
 
 if menu == "Upload Dataset":
-    st.markdown('<h3 style="color:#FFFFFF !important;">📂 Upload Dataset</h3>', unsafe_allow_html=True)
+    st.markdown("### 📂 Upload Dataset")
 
     uploaded_file = st.file_uploader(
         "Upload Dataset CSV",
@@ -2821,8 +2821,8 @@ div[style*="background: white"] *,
 div[style*="background:rgba(255,255,255"] *,
 .about-card, .about-card *,
 .about-section, .about-section *{
-    color:#FFFFFF !important;
-    -webkit-text-fill-color:#FFFFFF !important;
+    color:#000000 !important;
+    -webkit-text-fill-color:#000000 !important;
 }
 </style>
 """, unsafe_allow_html=True)
