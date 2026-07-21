@@ -1561,7 +1561,7 @@ if menu == "About":
     </div>
     """, unsafe_allow_html=True)
 
-    st.markdown("### 📘 Judul Penelitian")
+    st.markdown('<h3 style="color:white;">📘 Judul Penelitian</h3>', unsafe_allow_html=True)
     st.markdown("""
     <div class="card">
     <b>Penerapan Machine Learning Menggunakan Algoritma Naïve Bayes Untuk Klasifikasi Tingkat Kejahatan di Polres Pasaman</b>
@@ -1571,7 +1571,7 @@ if menu == "About":
     col1,col2 = st.columns(2)
 
     with col1:
-        st.markdown("### 👤 Perkenalan")
+        st.markdown('<h3 style="color:white;">👤 Perkenalan</h3>', unsafe_allow_html=True)
         from pathlib import Path
         foto_path = Path(__file__).parent / "assets" / "FOTO.png"
         if foto_path.exists():
@@ -1588,7 +1588,7 @@ if menu == "About":
         """, unsafe_allow_html=True)
 
     with col2:
-        st.markdown("### 🛠️ Aplikasi yang Digunakan")
+        st.markdown('<h3 style="color:white;">🛠️ Aplikasi yang Digunakan</h3>', unsafe_allow_html=True)
         st.markdown("""
         <div class="card">
         • Python<br>
@@ -1605,7 +1605,7 @@ if menu == "About":
         </div>
         """, unsafe_allow_html=True)
 
-    st.markdown("### ℹ️ Informasi Aplikasi")
+    st.markdown('<h3 style="color:white;">ℹ️ Informasi Aplikasi</h3>', unsafe_allow_html=True)
     st.info("Aplikasi ini dibuat sebagai media klasifikasi tingkat kejahatan berdasarkan judul berita menggunakan algoritma Naïve Bayes.")
     st.stop()
 
