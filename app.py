@@ -169,8 +169,8 @@ st.markdown("""
 <style>
 div[data-testid="stMarkdownContainer"] h1,
 div[data-testid="stMarkdownContainer"] h1 *{
-    color:#000000 !important;
-    -webkit-text-fill-color:#000000 !important;
+    color:#FFFFFF !important;
+    -webkit-text-fill-color:#FFFFFF !important;
     opacity:1 !important;
 }
 </style>
@@ -185,8 +185,8 @@ div[data-testid="stMarkdownContainer"] h1 *{
 st.markdown("""
 <style>
 div[data-testid="stMarkdownContainer"] h1{
-    color:#000000 !important;
-    -webkit-text-fill-color:#000000 !important;
+    color:#FFFFFF !important;
+    -webkit-text-fill-color:#FFFFFF !important;
     opacity:1 !important;
 }
 </style>
@@ -453,6 +453,18 @@ div[data-testid="stMarkdownContainer"] #distribusi-dataset *,
 """, unsafe_allow_html=True)
 
 
+
+
+st.markdown("""
+<style>
+div[data-testid="stMarkdownContainer"] h1,
+div[data-testid="stMarkdownContainer"] h1 *,
+h1{
+ color:#FFFFFF !important;
+ -webkit-text-fill-color:#FFFFFF !important;
+}
+</style>
+""", unsafe_allow_html=True)
 
 # =====================================================
 # HERO LANDING PAGE
