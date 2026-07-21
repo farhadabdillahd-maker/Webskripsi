@@ -1557,7 +1557,7 @@ if menu == "About":
     st.markdown("""
     <div class="card">
         <h1 style="text-align:center;">ℹ️ ABOUT APLIKASI</h1>
-        <p style="text-align:center;">Informasi pengembang, penelitian, dan teknologi yang digunakan.</p>
+        <p style="text-align:center;"><span style='color:black;'>Informasi pengembang, penelitian, dan teknologi yang digunakan.</span></p>
     </div>
     """, unsafe_allow_html=True)
 
