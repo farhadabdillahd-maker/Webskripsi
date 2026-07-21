@@ -342,6 +342,20 @@ div[data-testid="stTextArea"] label span{
 </style>
 """, unsafe_allow_html=True)
 
+st.markdown("""
+<style>
+/* Judul evaluasi model menjadi hitam */
+div[data-testid="stMarkdownContainer"] h2,
+div[data-testid="stMarkdownContainer"] h2 *,
+div[data-testid="stMarkdownContainer"] h3,
+div[data-testid="stMarkdownContainer"] h3 *{
+    color:#000000 !important;
+    -webkit-text-fill-color:#000000 !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
+
 
 # =====================================================
 # HERO LANDING PAGE
