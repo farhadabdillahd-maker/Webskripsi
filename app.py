@@ -99,6 +99,16 @@ html, body, .stApp,
 
 set_gif_background()
 
+st.markdown("""<style>
+div[data-testid="stExpander"] summary,
+div[data-testid="stExpander"] summary *,
+details summary,
+details summary *{
+ color:#FFFFFF !important;
+ -webkit-text-fill-color:#FFFFFF !important;
+}
+</style>""", unsafe_allow_html=True)
+
 
 st.markdown("""
 <style>
@@ -187,7 +197,7 @@ st.markdown("""
 <style>
 div[data-testid="stMarkdownContainer"] h3,
 div[data-testid="stMarkdownContainer"] h3 *{
-    color:#FFFFFF !important;
+    color:#000000 !important;
     -webkit-text-fill-color:#FFFFFF !important;
     opacity:1 !important;
 }
