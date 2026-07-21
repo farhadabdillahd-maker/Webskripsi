@@ -2080,15 +2080,35 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
                 "Pelabelan otomatis Kejahatan Berat dan Kejahatan Ringan."
             )
 
+            preprocessing_download = df[
+                [
+                    "Judul Media Nasional",
+                    "Case Folding",
+                    "Tokenizing",
+                    "Stopword Removal",
+                    "Stemming",
+                    "Final Text",
+                    "Label"
+                ]
+            ]
+
             st.dataframe(
-                df[
-                    [
-                        "Judul Media Nasional",
-                        "Label"
-                    ]
-                ],
+                preprocessing_download,
                 use_container_width=True,
                 height=500
+            )
+
+            csv = preprocessing_download.to_csv(
+                index=False,
+                encoding="utf-8-sig"
+            ).encode("utf-8-sig")
+
+            st.download_button(
+                "📥 Download Hasil Preprocessing",
+                data=csv,
+                file_name="hasil_preprocessing.csv",
+                mime="text/csv",
+                use_container_width=True
             )
 
             st.markdown("<br>", unsafe_allow_html=True)
