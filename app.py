@@ -441,7 +441,18 @@ div[data-testid="stMarkdownContainer"] #distribusi-dataset *,
 </style>
 """, unsafe_allow_html=True)
 
-
+st.markdown("""
+<style>
+div[data-testid="stMarkdownContainer"] h1,
+div[data-testid="stHeadingWithActionElements"] h1,
+#judul-home,
+#judul-home *,
+h1#judul-home{
+    color:#FFFFFF !important;
+    -webkit-text-fill-color:#FFFFFF !important;
+}
+</style>
+""", unsafe_allow_html=True)
 
 # =====================================================
 # HERO LANDING PAGE
@@ -452,7 +463,7 @@ def show_home():
         <div style='font-size:15px;letter-spacing:2px;color:#bfdbfe'>
         POLRES PASAMAN • MACHINE LEARNING • NAÏVE BAYES
         </div>
-        <h1 style='font-size:42px;font-weight:900;line-height:1.35;margin-top:22px;text-shadow:0 3px 12px rgba(0,0,0,.55);color:#FFFFFF !important;-webkit-text-fill-color:#FFFFFF !important;opacity:1 !important;'>
+        <h1 id='judul-home' style='font-size:42px;font-weight:900;line-height:1.35;margin-top:22px;text-shadow:0 3px 12px rgba(0,0,0,.55);color:#FFFFFF !important;-webkit-text-fill-color:#FFFFFF !important;opacity:1 !important;'>
         PENERAPAN MACHINE LEARNING MENGGUNAKAN ALGORITMA NAÏVE BAYES
         <br>UNTUK KLASIFIKASI TINGKAT KEJAHATAN
         </h1>
