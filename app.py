@@ -379,6 +379,14 @@ div[data-testid="stMarkdownContainer"] #ringkasan-model *,
 }
 #prediksi{color:#FFFFFF !important;}
 #about{color:#FFFFFF !important;}
+div[data-testid="stMarkdownContainer"] #visualisasi-performa-model,
+div[data-testid="stMarkdownContainer"] #visualisasi-performa-model *,
+.card #visualisasi-performa-model,
+.card #visualisasi-performa-model *{
+    color:#000000 !important;
+    -webkit-text-fill-color:#000000 !important;
+}
+
 div[data-testid="stMarkdownContainer"] #classification-report,
 div[data-testid="stMarkdownContainer"] #classification-report *,
 .card #classification-report,
@@ -2486,7 +2494,7 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
 
         st.markdown("""
         <div class="card">
-        <h3>📈 Visualisasi Performa Model</h3>
+        <h3 id='visualisasi-performa-model'>📈 Visualisasi Performa Model</h3>
         </div>
         """, unsafe_allow_html=True)
 
