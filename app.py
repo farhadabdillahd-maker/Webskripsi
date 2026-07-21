@@ -366,6 +366,7 @@ st.markdown("""
 #ringkasan-model{color:#FFFFFF !important;}
 #prediksi{color:#FFFFFF !important;}
 #about{color:#FFFFFF !important;}
+#distribusi-dataset{color:#FFFFFF !important;}
 
 </style>
 """, unsafe_allow_html=True)
@@ -1854,7 +1855,7 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
 
         st.markdown("""
         <div class="card">
-        <h3>Distribusi Dataset</h3>
+        <h3 id='distribusi-dataset'>📊 Distribusi Dataset</h3>
         </div>
         """, unsafe_allow_html=True)
 
