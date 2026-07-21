@@ -1351,27 +1351,17 @@ if "uploaded_dataset" not in st.session_state:
 
 if menu == "Upload Dataset":
     st.markdown("### 📂 Upload Dataset")
-
     uploaded_file = st.file_uploader(
         "Upload Dataset CSV",
         type=["csv"],
         key="dashboard_upload"
     )
-
     if uploaded_file is not None:
         try:
             uploaded_file.seek(0)
         except Exception:
             pass
         st.session_state.uploaded_dataset = uploaded_file
-
-    # Tampilkan tombol Repeat hanya setelah CSV berhasil di-upload
-    if st.session_state.uploaded_dataset is not None:
-        if st.button("🔄 Repeat", use_container_width=True):
-            st.session_state.uploaded_dataset = None
-            if "dashboard_upload" in st.session_state:
-                del st.session_state["dashboard_upload"]
-            st.rerun()
 
 if menu in ["Preprocessing","Klasifikasi"]:
     uploaded_file = st.session_state.uploaded_dataset
@@ -1381,7 +1371,7 @@ if menu in ["Preprocessing","Klasifikasi"]:
 # =====================================================
 # MENU PREDIKSI TANPA UPLOAD DATASET
 # =====================================================
-if menu == "Prediksi":
+if menu == "Prediksi" and uploaded_file is None:
 
     st.markdown("""
     <div class="card">
@@ -1390,33 +1380,8 @@ if menu == "Prediksi":
     """, unsafe_allow_html=True)
 
     try:
-        if os.path.exists("model_naive_bayes.pkl") and os.path.exists("tfidf_vectorizer.pkl"):
-            model = joblib.load("model_naive_bayes.pkl")
-            tfidf = joblib.load("tfidf_vectorizer.pkl")
-        else:
-            default_csv="dataset.csv"
-            if not os.path.exists(default_csv):
-                st.info("Prediksi memerlukan model atau dataset bawaan yang tersedia.")
-                st.stop()
-            df_train=pd.read_csv(default_csv)
-            factory=StemmerFactory()
-            stemmer=factory.create_stemmer()
-            try:
-                stop_words=set(stopwords.words("indonesian"))
-            except:
-                nltk.download("stopwords")
-                stop_words=set(stopwords.words("indonesian"))
-            def prep(t):
-                t=str(t).lower()
-                t=re.sub(r"[^\w\s]"," ",t)
-                tok=[stemmer.stem(w) for w in t.split() if w not in stop_words]
-                return " ".join(tok)
-            df_train["Final_Text"]=df_train["Judul Media Nasional"].astype(str).apply(prep)
-            tfidf=TfidfVectorizer()
-            X=tfidf.fit_transform(df_train["Final_Text"])
-            model=MultinomialNB()
-            model.fit(X,df_train.iloc[:,-1])
-
+        model = joblib.load("model_naive_bayes.pkl")
+        tfidf = joblib.load("tfidf_vectorizer.pkl")
 
         try:
             stop_words = set(stopwords.words("indonesian"))
@@ -1531,7 +1496,7 @@ if menu == "Prediksi":
                 pdf = generate_police_pdf(input_text, prediction)
 
                 st.download_button(
-                    "📄 Download Laporan Hasil Prediksi (PDF)",
+                    "📄 Download Surat Hasil Prediksi (PDF)",
                     data=pdf,
                     file_name="Surat_Hasil_Klasifikasi.pdf",
                     mime="application/pdf"
