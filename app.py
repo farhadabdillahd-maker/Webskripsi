@@ -167,7 +167,7 @@ margin-top:4px;
 
 st.markdown("""
 <style>
-div[data-testid="stMarkdownContainer"] h1,
+div[data-testid="stMarkdownContainer"] h1:not(#about),
 div[data-testid="stMarkdownContainer"] h1 *{
     color:#FFFFFF !important;
     -webkit-text-fill-color:#FFFFFF !important;
@@ -184,7 +184,7 @@ div[data-testid="stMarkdownContainer"] h1 *{
 
 st.markdown("""
 <style>
-div[data-testid="stMarkdownContainer"] h1{
+div[data-testid="stMarkdownContainer"] h1:not(#about){
     color:#FFFFFF !important;
     -webkit-text-fill-color:#FFFFFF !important;
     opacity:1 !important;
@@ -457,7 +457,7 @@ div[data-testid="stMarkdownContainer"] #distribusi-dataset *,
 
 st.markdown("""
 <style>
-div[data-testid="stMarkdownContainer"] h1,
+div[data-testid="stMarkdownContainer"] h1:not(#about),
 div[data-testid="stMarkdownContainer"] h1 *,
 h1{
  color:#FFFFFF !important;
@@ -2971,20 +2971,6 @@ st.markdown("""
 #about,#about *,h1#about,h2#about,h3#about,h4#about,h5#about,h6#about{
 color:#000000!important;
 -webkit-text-fill-color:#000000!important;
-}
-</style>
-""", unsafe_allow_html=True)
-
-st.markdown("""
-<style>
-div[data-testid="stHeadingWithActionElements"] h1#about,
-div[data-testid="stHeadingWithActionElements"] h1#about *,
-div[data-testid="stMarkdownContainer"] h1#about,
-div[data-testid="stMarkdownContainer"] h1#about *,
-h1#about{
-color:#000000 !important;
--webkit-text-fill-color:#000000 !important;
-text-shadow:none !important;
 }
 </style>
 """, unsafe_allow_html=True)
