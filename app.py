@@ -330,6 +330,33 @@ div[data-testid="stFileUploader"] small{
 </style>
 """, unsafe_allow_html=True)
 
+
+st.markdown("""
+<style>
+div[data-testid="stTextArea"] label,
+div[data-testid="stTextArea"] label p,
+div[data-testid="stTextArea"] label span{
+    color:#FFFFFF !important;
+    -webkit-text-fill-color:#FFFFFF !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
+st.markdown("""
+<style>
+/* Judul evaluasi model menjadi hitam */
+div[data-testid="stMarkdownContainer"] h2,
+div[data-testid="stMarkdownContainer"] h2 *,
+div[data-testid="stMarkdownContainer"] h3,
+div[data-testid="stMarkdownContainer"] h3 *{
+    color:#000000 !important;
+    -webkit-text-fill-color:#000000 !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
+
+
 # =====================================================
 # HERO LANDING PAGE
 # =====================================================
@@ -2419,8 +2446,9 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
 
         if accuracy >= 0.90:
 
-            st.success(
-                "🔥 Model memiliki performa sangat baik."
+            st.markdown(
+                """<div style="background:#0f5132;padding:1rem;border-radius:0.5rem;color:#FFFFFF;font-weight:600;border-left:6px solid #198754;">🔥 Model memiliki performa sangat baik.</div>""",
+                unsafe_allow_html=True
             )
 
         elif accuracy >= 0.80:
@@ -2778,3 +2806,16 @@ input, textarea{
 </style>
 """, unsafe_allow_html=True)
 
+
+
+# ===== Download hasil preprocessing =====
+if "hasil_preprocessing" in st.session_state:
+    df_preprocessing = st.session_state["hasil_preprocessing"]
+    csv = df_preprocessing.to_csv(index=False).encode("utf-8")
+    st.download_button(
+        label="📥 Download Hasil Preprocessing (CSV)",
+        data=csv,
+        file_name="hasil_preprocessing.csv",
+        mime="text/csv",
+        use_container_width=True,
+    )
