@@ -354,14 +354,19 @@ div[data-testid="stTextArea"] label span{
 
 st.markdown("""
 <style>
-/* Judul evaluasi model menjadi hitam */
-div[data-testid="stMarkdownContainer"] h2,
-div[data-testid="stMarkdownContainer"] h2 *,
-div[data-testid="stMarkdownContainer"] h3,
-div[data-testid="stMarkdownContainer"] h3 *{
-    color:#000000 !important;
-    -webkit-text-fill-color:#000000 !important;
-}
+
+/* ====== Atur warna judul satu per satu ====== */
+
+#judul-home{color:#FFFFFF !important;}
+#alur-sistem{color:#FFFFFF !important;}
+#upload-dataset{color:#FFFFFF !important;}
+#preprocessing{color:#FFFFFF !important;}
+#klasifikasi{color:#FFFFFF !important;}
+#hasil-prediksi-testing{color:#FFFFFF !important;}
+#ringkasan-model{color:#FFFFFF !important;}
+#prediksi{color:#FFFFFF !important;}
+#about{color:#FFFFFF !important;}
+
 </style>
 """, unsafe_allow_html=True)
 
@@ -393,7 +398,7 @@ def show_home():
     d.metric("📄 Output","Prediksi & Surat")
 
     with st.container():
-        st.markdown("<h3 style='color:white;'>🔄 Alur Sistem</h3>", unsafe_allow_html=True)
+        st.markdown("<h3 id='alur-sistem'>🔄 Alur Sistem</h3>", unsafe_allow_html=True)
 
         st.markdown("""
 <style>
@@ -2334,7 +2339,7 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
         })
 
         st.markdown(
-            "<h3 style='color:#FFFFFF;'>📋 Hasil Prediksi Testing</h3>",
+            "<h3 id='hasil-prediksi-testing'>📋 Hasil Prediksi Testing</h3>",
             unsafe_allow_html=True
         )
 
