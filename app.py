@@ -51,20 +51,6 @@ st.set_page_config(
 
 
 
-
-
-# ===== AUTO LOAD MODEL FOR DIRECT PREDICTION =====
-@st.cache_resource
-def load_prediction_model():
-    model=joblib.load("model_naive_bayes.pkl")
-    tfidf=joblib.load("tfidf_vectorizer.pkl")
-    return model,tfidf
-try:
-    model,tfidf=load_prediction_model()
-    MODEL_READY=True
-except Exception:
-    MODEL_READY=False
-
 def set_gif_background():
     gif_file = "assets/latar.GIF"
     if not os.path.exists(gif_file):
@@ -1396,7 +1382,6 @@ if menu in ["Preprocessing","Klasifikasi"]:
 # MENU PREDIKSI TANPA UPLOAD DATASET
 # =====================================================
 if menu == "Prediksi":
-    pass
 
     st.markdown("""
     <div class="card">
@@ -1405,8 +1390,33 @@ if menu == "Prediksi":
     """, unsafe_allow_html=True)
 
     try:
-        model = joblib.load("model_naive_bayes.pkl")
-        tfidf = joblib.load("tfidf_vectorizer.pkl")
+        if os.path.exists("model_naive_bayes.pkl") and os.path.exists("tfidf_vectorizer.pkl"):
+            model = joblib.load("model_naive_bayes.pkl")
+            tfidf = joblib.load("tfidf_vectorizer.pkl")
+        else:
+            default_csv="dataset.csv"
+            if not os.path.exists(default_csv):
+                st.error("dataset.csv tidak ditemukan.")
+                st.stop()
+            df_train=pd.read_csv(default_csv)
+            factory=StemmerFactory()
+            stemmer=factory.create_stemmer()
+            try:
+                stop_words=set(stopwords.words("indonesian"))
+            except:
+                nltk.download("stopwords")
+                stop_words=set(stopwords.words("indonesian"))
+            def prep(t):
+                t=str(t).lower()
+                t=re.sub(r"[^\w\s]"," ",t)
+                tok=[stemmer.stem(w) for w in t.split() if w not in stop_words]
+                return " ".join(tok)
+            df_train["Final_Text"]=df_train["Judul Media Nasional"].astype(str).apply(prep)
+            tfidf=TfidfVectorizer()
+            X=tfidf.fit_transform(df_train["Final_Text"])
+            model=MultinomialNB()
+            model.fit(X,df_train.iloc[:,-1])
+
 
         try:
             stop_words = set(stopwords.words("indonesian"))
