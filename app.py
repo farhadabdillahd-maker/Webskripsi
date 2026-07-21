@@ -52,6 +52,7 @@ st.set_page_config(
 
 
 def set_gif_background():
+
     gif_file = "assets/latar.GIF"
     if not os.path.exists(gif_file):
         return
@@ -98,6 +99,15 @@ html, body, .stApp,
     st.markdown(html, unsafe_allow_html=True)
 
 set_gif_background()
+
+st.markdown("""
+<style>
+.hasil-prediksi-testing{
+    color:#FFFFFF !important;
+    -webkit-text-fill-color:#FFFFFF !important;
+}
+</style>
+""", unsafe_allow_html=True)
 
 
 st.markdown("""
@@ -344,13 +354,13 @@ div[data-testid="stTextArea"] label span{
 
 st.markdown("""
 <style>
-/* Judul evaluasi model menjadi putih */
+/* Judul evaluasi model menjadi hitam */
 div[data-testid="stMarkdownContainer"] h2,
 div[data-testid="stMarkdownContainer"] h2 *,
 div[data-testid="stMarkdownContainer"] h3,
 div[data-testid="stMarkdownContainer"] h3 *{
-    color:#FFFFFF !important;
-    -webkit-text-fill-color:#FFFFFF !important;
+    color:#000000 !important;
+    -webkit-text-fill-color:#000000 !important;
 }
 </style>
 """, unsafe_allow_html=True)
