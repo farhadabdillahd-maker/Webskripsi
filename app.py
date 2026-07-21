@@ -200,8 +200,8 @@ st.markdown("""
 div[data-testid="stHeadingWithActionElements"] h3,
 div[data-testid="stHeadingWithActionElements"] h3 *,
 div[data-testid="stHeadingWithActionElements"] h3 a{
-    color:#FFFFFF !important;
-    -webkit-text-fill-color:#FFFFFF !important;
+    color:#000000 !important;
+    -webkit-text-fill-color:#000000 !important;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -1348,18 +1348,6 @@ uploaded_file = None
 
 if "uploaded_dataset" not in st.session_state:
     st.session_state.uploaded_dataset = None
-
-
-st.markdown("""
-<style>
-/* Judul dashboard Upload Dataset */
-h3, h3 *{}
-div[data-testid="stMarkdownContainer"] h3{
-    color:#FFFFFF !important;
-    -webkit-text-fill-color:#FFFFFF !important;
-}
-</style>
-""", unsafe_allow_html=True)
 
 if menu == "Upload Dataset":
     st.markdown("### 📂 Upload Dataset")
