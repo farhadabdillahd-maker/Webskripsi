@@ -366,7 +366,13 @@ st.markdown("""
 #ringkasan-model{color:#FFFFFF !important;}
 #prediksi{color:#FFFFFF !important;}
 #about{color:#FFFFFF !important;}
-#distribusi-dataset{color:#FFFFFF !important;}
+div[data-testid="stMarkdownContainer"] #distribusi-dataset,
+div[data-testid="stMarkdownContainer"] #distribusi-dataset *,
+.card #distribusi-dataset,
+.card #distribusi-dataset *{
+    color:#000000 !important;
+    -webkit-text-fill-color:#000000 !important;
+}
 
 </style>
 """, unsafe_allow_html=True)
