@@ -1391,9 +1391,10 @@ if menu == "Prediksi" and uploaded_file is None:
 
         stemmer = StemmerFactory().create_stemmer()
 
-        kejahatan_berat = [
-    "curas","pencabulan anak","persetubuhan anak","kdrt","pemerasan"
-]
+        malam_keywords = [
+            "malam","subuh","dini hari","tengah malam",
+            "larut malam","jam 1","jam 2","jam 3","jam 4","jam 5"
+        ]
 
         input_text = st.text_area("Masukkan Judul Berita", height=150)
 
@@ -1402,9 +1403,9 @@ if menu == "Prediksi" and uploaded_file is None:
                 detected = False
                 txt = input_text.lower()
 
-                for k in kejahatan_berat:
+                for k in malam_keywords:
                     if k in txt:
-                        prediction = "Kejahatan Berat"
+                        prediction = "Kasus Malam"
                         detected = True
                         break
 
@@ -1672,21 +1673,32 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
     # AUTO LABEL
     # =====================================================
 
-    kejahatan_berat = [
-    "curas","pencabulan anak","persetubuhan anak","kdrt","pemerasan"
-]
+    malam_keywords = [
+
+        "malam",
+        "subuh",
+        "dini hari",
+        "tengah malam",
+        "larut malam",
+        "jam 1",
+        "jam 2",
+        "jam 3",
+        "jam 4",
+        "jam 5"
+
+    ]
 
     def auto_label(text):
 
         text = str(text).lower()
 
-        for keyword in kejahatan_berat:
+        for keyword in malam_keywords:
 
             if keyword in text:
 
-                return "Kejahatan Berat"
+                return "Kasus Malam"
 
-        return "Kejahatan Ringan"
+        return "Kasus Umum"
 
     # =====================================================
     # PREPROCESSING
@@ -1730,13 +1742,13 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
 
     total_malam = len(
         df[
-            df["Label"] == "Kejahatan Berat"
+            df["Label"] == "Kasus Malam"
         ]
     )
 
     total_umum = len(
         df[
-            df["Label"] == "Kejahatan Ringan"
+            df["Label"] == "Kasus Umum"
         ]
     )
 
@@ -1752,14 +1764,14 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
     with col2:
 
         st.metric(
-            "🌙 Kejahatan Berat",
+            "🌙 Kasus Malam",
             f"{total_malam:,}"
         )
 
     with col3:
 
         st.metric(
-            "☀️ Kejahatan Ringan",
+            "☀️ Kasus Umum",
             f"{total_umum:,}"
         )
 
@@ -2004,7 +2016,7 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
             )
 
             st.info(
-                "Pelabelan otomatis Kejahatan Berat dan Kejahatan Ringan."
+                "Pelabelan otomatis Kasus Malam dan Kasus Umum."
             )
 
             st.dataframe(
@@ -2025,14 +2037,14 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
             with col_a:
 
                 st.metric(
-                    "Kejahatan Berat",
+                    "Kasus Malam",
                     total_malam
                 )
 
             with col_b:
 
                 st.metric(
-                    "Kejahatan Ringan",
+                    "Kasus Umum",
                     total_umum
                 )
     # =====================================================
@@ -2479,9 +2491,18 @@ Aplikasi ini dibuat sebagai implementasi algoritma **Naïve Bayes** untuk klasif
         factory = StemmerFactory()
         stemmer = factory.create_stemmer()
 
-        kejahatan_berat = [
-    "curas","pencabulan anak","persetubuhan anak","kdrt","pemerasan"
-]
+        malam_keywords = [
+            "malam",
+            "subuh",
+            "dini hari",
+            "tengah malam",
+            "larut malam",
+            "jam 1",
+            "jam 2",
+            "jam 3",
+            "jam 4",
+            "jam 5"
+        ]
 
     # =====================================
     # LOAD MODEL
@@ -2521,11 +2542,11 @@ Aplikasi ini dibuat sebagai implementasi algoritma **Naïve Bayes** untuk klasif
                 # RULE BASED
                 # ==========================
 
-                for keyword in kejahatan_berat:
+                for keyword in malam_keywords:
 
                     if keyword in input_lower:
 
-                        prediction = "Kejahatan Berat"
+                        prediction = "Kasus Malam"
                         detected = True
                         break
 
