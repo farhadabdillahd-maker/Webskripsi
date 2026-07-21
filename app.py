@@ -53,20 +53,17 @@ st.set_page_config(
 
 
 
-# ==========================================
-# LOAD MODEL UNTUK MENU PREDIKSI
-# ==========================================
+# ===== AUTO LOAD MODEL FOR DIRECT PREDICTION =====
 @st.cache_resource
 def load_prediction_model():
-    model = joblib.load("model_naive_bayes.pkl")
-    tfidf = joblib.load("tfidf_vectorizer.pkl")
-    return model, tfidf
-
+    model=joblib.load("model_naive_bayes.pkl")
+    tfidf=joblib.load("tfidf_vectorizer.pkl")
+    return model,tfidf
 try:
-    model, tfidf = load_prediction_model()
-    MODEL_READY = True
+    model,tfidf=load_prediction_model()
+    MODEL_READY=True
 except Exception:
-    MODEL_READY = False
+    MODEL_READY=False
 
 def set_gif_background():
     gif_file = "assets/latar.GIF"
@@ -1399,9 +1396,7 @@ if menu in ["Preprocessing","Klasifikasi"]:
 # MENU PREDIKSI TANPA UPLOAD DATASET
 # =====================================================
 if menu == "Prediksi":
-    if not MODEL_READY:
-        st.error("Model belum tersedia. Jalankan klasifikasi sekali untuk membuat model.")
-        st.stop()
+    pass
 
     st.markdown("""
     <div class="card">
