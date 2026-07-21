@@ -1813,6 +1813,38 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
 
     st.markdown("<br>", unsafe_allow_html=True)
 
+
+    # =====================================
+    # DOWNLOAD HASIL PREPROCESSING
+    # =====================================
+    st.markdown("---")
+
+    preprocessing_download = df[
+        [
+            "Judul Media Nasional",
+            "Case Folding",
+            "Tokenizing",
+            "Stopword Removal",
+            "Stemming",
+            "Final Text",
+            "Label"
+        ]
+    ]
+
+    csv = preprocessing_download.to_csv(
+        index=False,
+        encoding="utf-8-sig"
+    ).encode("utf-8-sig")
+
+    st.download_button(
+        label="📥 Download Hasil Preprocessing (CSV)",
+        data=csv,
+        file_name="Hasil_Preprocessing.csv",
+        mime="text/csv",
+        use_container_width=True
+    )
+
+
     # =====================================================
     # DISTRIBUSI LABEL
     # =====================================================
@@ -2805,18 +2837,3 @@ input, textarea{
 }
 </style>
 """, unsafe_allow_html=True)
-
-
-
-# ===== Download Hasil Preprocessing =====
-if "hasil_preprocessing" in st.session_state:
-    st.markdown("### 📥 Download Hasil Preprocessing")
-    _df = st.session_state["hasil_preprocessing"]
-    _csv = _df.to_csv(index=False).encode("utf-8")
-    st.download_button(
-        label="📥 Download Hasil Preprocessing (CSV)",
-        data=_csv,
-        file_name="hasil_preprocessing.csv",
-        mime="text/csv",
-        use_container_width=True,
-    )
