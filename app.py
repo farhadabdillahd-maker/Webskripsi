@@ -378,7 +378,13 @@ div[data-testid="stMarkdownContainer"] #ringkasan-model *,
     -webkit-text-fill-color:#000000 !important;
 }
 #prediksi{color:#FFFFFF !important;}
-#about{color:#FFFFFF !important;}
+div[data-testid="stMarkdownContainer"] #about,
+div[data-testid="stMarkdownContainer"] #about *,
+.card #about,
+.card #about *{
+    color:#000000 !important;
+    -webkit-text-fill-color:#000000 !important;
+}
 
 div[data-testid="stMarkdownContainer"] #tokenizing,
 div[data-testid="stMarkdownContainer"] #tokenizing *,
