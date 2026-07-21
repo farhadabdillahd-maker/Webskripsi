@@ -2322,7 +2322,7 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
             X_tfidf,
             y,
             test_size=0.3,
-            random_state=1
+            random_state=7
         )
 
         # =====================================
