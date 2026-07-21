@@ -2632,16 +2632,15 @@ agar file berikut dibuat:
         # DOWNLOAD REPORT
         # =====================================
 
-        csv_report = report_df.to_csv(
-            index=True
-        )
+        if 'report_df' in locals():
+            csv_report = report_df.to_csv(index=True)
 
-        st.download_button(
-            label="📥 Download Classification Report",
-            data=csv_report,
-            file_name="classification_report.csv",
-            mime="text/csv"
-        )
+            st.download_button(
+                label="📥 Download Classification Report",
+                data=csv_report,
+                file_name="classification_report.csv",
+                mime="text/csv"
+            )
 
         st.markdown("<br>", unsafe_allow_html=True)
 
