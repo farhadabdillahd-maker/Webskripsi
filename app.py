@@ -454,6 +454,23 @@ h1#judul-home{
 </style>
 """, unsafe_allow_html=True)
 
+
+st.markdown("""
+<style>
+body #judul-home,
+body #judul-home *,
+body h1#judul-home,
+div[data-testid="stMarkdownContainer"] #judul-home,
+div[data-testid="stMarkdownContainer"] #judul-home *,
+div[data-testid="stHeadingWithActionElements"] #judul-home{
+    color:#FFFFFF !important;
+    -webkit-text-fill-color:#FFFFFF !important;
+    opacity:1 !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
+
 # =====================================================
 # HERO LANDING PAGE
 # =====================================================
