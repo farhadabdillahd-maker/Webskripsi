@@ -2278,7 +2278,7 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
 
     
 
-elif menu == "🔤 TF-IDF":
+    elif menu == "🔤 TF-IDF":
     st.markdown("<h2 id='tfidf'>🔤 TF-IDF</h2>", unsafe_allow_html=True)
     if 'df' not in globals() and 'df' not in locals():
         st.warning("Upload dataset dan lakukan preprocessing terlebih dahulu.")
@@ -2307,8 +2307,8 @@ elif menu == "🔤 TF-IDF":
                 "text/csv",
                 use_container_width=True
             )
-
-elif menu == "Klasifikasi":
+    
+    elif menu == "Klasifikasi":
 
         st.markdown("""
         <div class="card">
