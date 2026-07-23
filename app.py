@@ -28,7 +28,7 @@ import seaborn as sns
 from io import BytesIO
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import A4
-from reportlab.lib.units import cm as pdf_cm
+from reportlab.lib.units import cm
 from reportlab.lib.utils import ImageReader
 from datetime import datetime
 from io import BytesIO
@@ -1646,7 +1646,7 @@ if menu == "Prediksi" and uploaded_file is None:
                     c.drawCentredString(w/2,y,"LAPORAN HASIL KLASIFIKASI")
                     y -= 1*cm
 
-                    x0=2*pdf_cm
+                    x0=2*cm
                     table_w=w-4*cm
                     row_h=0.8*cm
                     col1=6*cm
@@ -1667,17 +1667,17 @@ if menu == "Prediksi" and uploaded_file is None:
                     for p,v in rows:
                         c.rect(x0,yy-row_h,table_w,row_h)
                         c.line(x0+col1,yy,x0+col1,yy-row_h)
-                        c.drawString(x0+0.2*pdf_cm,yy-0.55*cm,p)
-                        c.drawString(x0+col1+0.2*pdf_cm,yy-0.55*cm,str(v))
+                        c.drawString(x0+0.2*cm,yy-0.55*cm,p)
+                        c.drawString(x0+col1+0.2*cm,yy-0.55*cm,str(v))
                         yy-=row_h
                     y=yy-1*cm
-                    c.drawString(2*pdf_cm,y,"Demikian laporan hasil klasifikasi ini dibuat untuk dipergunakan sebagaimana mestinya.")
-                    y -= 2*pdf_cm
-                    c.drawRightString(w-2*pdf_cm,y,"Pasaman, "+tanggal)
+                    c.drawString(2*cm,y,"Demikian laporan hasil klasifikasi ini dibuat untuk dipergunakan sebagaimana mestinya.")
+                    y -= 2*cm
+                    c.drawRightString(w-2*cm,y,"Pasaman, "+tanggal)
                     y -= 0.8*cm
-                    c.drawRightString(w-2*pdf_cm,y,"Kepala Sat Reskrim")
+                    c.drawRightString(w-2*cm,y,"Kepala Sat Reskrim")
                     y -= 2.5*cm
-                    c.drawRightString(w-2*pdf_cm,y,"(................................)")
+                    c.drawRightString(w-2*cm,y,"(................................)")
                     c.save()
                     pdf = buffer.getvalue()
                     buffer.close()
@@ -2639,51 +2639,6 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
 
         st.pyplot(fig2)
 
-
-        # =====================================
-        # DOWNLOAD LAPORAN KLASIFIKASI PDF
-        # =====================================
-        def generate_classification_report_pdf():
-            buffer = BytesIO()
-            c = canvas.Canvas(buffer, pagesize=A4)
-            w,h=A4
-            y=h-2*pdf_cm
-            c.setFont("Helvetica-Bold",16)
-            c.drawString(2*pdf_cm,y,"LAPORAN HASIL KLASIFIKASI NAIVE BAYES")
-            y-=1*pdf_cm
-            c.setFont("Helvetica",11)
-            rows=[
-                f"Jumlah Data: {len(df)}",
-                f"Training Data: {len(y_train)}",
-                f"Testing Data: {len(y_test)}",
-                f"Vocabulary: {X_tfidf.shape[1]}",
-                "",
-                "Tahapan:",
-                "- Upload Dataset",
-                "- Preprocessing",
-                "- TF-IDF",
-                "- Training Naive Bayes",
-                "",
-                f"Accuracy : {accuracy:.4f}",
-                f"Precision: {precision:.4f}",
-                f"Recall   : {recall:.4f}",
-                f"F1 Score : {f1:.4f}",
-            ]
-            for r in rows:
-                c.drawString(2*pdf_cm,y,r); y-=0.6*pdf_cm
-            c.showPage(); c.save()
-            pdf=buffer.getvalue(); buffer.close()
-            return pdf
-
-        st.markdown("### 📄 Download Laporan")
-        st.download_button(
-            "📄 Download Laporan Hasil Klasifikasi",
-            data=generate_classification_report_pdf(),
-            file_name="Laporan_Hasil_Klasifikasi_Naive_Bayes.pdf",
-            mime="application/pdf",
-            use_container_width=True
-        )
-
         st.markdown("<br>", unsafe_allow_html=True)
 
             # =====================================
@@ -3051,79 +3006,3 @@ input, textarea{
 }
 </style>
 """, unsafe_allow_html=True)
-
-
-def generate_classification_report_pdf():
-    from reportlab.pdfgen import canvas
-    from reportlab.lib.pagesizes import A4
-    from reportlab.lib.units import cm as pdf_cm
-    from io import BytesIO
-
-    buffer = BytesIO()
-    pdf = canvas.Canvas(buffer, pagesize=A4)
-
-    x = float(2 * pdf_cm)
-    posisi_y = float(A4[1] - (2 * pdf_cm))
-
-    pdf.setTitle("Laporan Hasil Klasifikasi")
-    pdf.setFont("Helvetica-Bold", 16)
-    pdf.drawString(x, posisi_y, "LAPORAN HASIL KLASIFIKASI NAIVE BAYES")
-
-    posisi_y -= 30
-    pdf.setFont("Helvetica", 11)
-
-    try:
-        jumlah_data = len(df)
-    except Exception:
-        jumlah_data = "-"
-
-    try:
-        train_data = len(y_train)
-    except Exception:
-        train_data = "-"
-
-    try:
-        test_data = len(y_test)
-    except Exception:
-        test_data = "-"
-
-    try:
-        vocab = X_tfidf.shape[1]
-    except Exception:
-        vocab = "-"
-
-    rows = [
-        f"Jumlah Data : {jumlah_data}",
-        f"Training Data : {train_data}",
-        f"Testing Data : {test_data}",
-        f"Jumlah Vocabulary : {vocab}",
-        "",
-        "Tahapan:",
-        "1. Upload Dataset",
-        "2. Case Folding",
-        "3. Tokenizing",
-        "4. Stopword Removal",
-        "5. Stemming",
-        "6. TF-IDF",
-        "7. Naive Bayes",
-        ""
-    ]
-
-    for name,var in [("Accuracy","accuracy"),("Precision","precision"),("Recall","recall"),("F1-Score","f1")]:
-        try:
-            val = globals()[var]
-            rows.append(f"{name} : {float(val):.4f}")
-        except Exception:
-            rows.append(f"{name} : -")
-
-    for r in rows:
-        pdf.drawString(x, posisi_y, str(r))
-        posisi_y -= 20
-        if posisi_y < 50:
-            pdf.showPage()
-            pdf.setFont("Helvetica",11)
-            posisi_y = float(A4[1]-50)
-
-    pdf.save()
-    buffer.seek(0)
-    return buffer.getvalue()
