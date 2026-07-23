@@ -2285,31 +2285,31 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
 
     
     elif menu == "TF-IDF":
-    st.header("🔤 TF-IDF")
+        st.header("🔤 TF-IDF")
 
-    if "df" not in st.session_state:
-        st.warning("Lakukan upload dataset dan preprocessing terlebih dahulu.")
-    else:
-        df = st.session_state["df"].copy()
-
-        text_col = "Final Text" if "Final Text" in df.columns else ("Final_Text" if "Final_Text" in df.columns else None)
-
-        if text_col is None:
-            st.error("Kolom hasil preprocessing tidak ditemukan.")
+        if "df" not in st.session_state:
+            st.warning("Lakukan upload dataset dan preprocessing terlebih dahulu.")
         else:
-            vectorizer = TfidfVectorizer()
-            tfidf_matrix = vectorizer.fit_transform(df[text_col].astype(str))
+            df = st.session_state["df"].copy()
 
-            st.session_state["tfidf"] = vectorizer
-            st.session_state["tfidf_matrix"] = tfidf_matrix
+            text_col = "Final Text" if "Final Text" in df.columns else ("Final_Text" if "Final_Text" in df.columns else None)
 
-            tfidf_df = pd.DataFrame(
-                tfidf_matrix.toarray(),
-                columns=vectorizer.get_feature_names_out()
-            )
+            if text_col is None:
+                st.error("Kolom hasil preprocessing tidak ditemukan.")
+            else:
+                vectorizer = TfidfVectorizer()
+                tfidf_matrix = vectorizer.fit_transform(df[text_col].astype(str))
 
-            st.success(f"Jumlah Dokumen: {tfidf_matrix.shape[0]} | Jumlah Term: {tfidf_matrix.shape[1]}")
-            st.dataframe(tfidf_df, use_container_width=True)
+                st.session_state["tfidf"] = vectorizer
+                st.session_state["tfidf_matrix"] = tfidf_matrix
+
+                tfidf_df = pd.DataFrame(
+                    tfidf_matrix.toarray(),
+                    columns=vectorizer.get_feature_names_out()
+                )
+
+                st.success(f"Jumlah Dokumen: {tfidf_matrix.shape[0]} | Jumlah Term: {tfidf_matrix.shape[1]}")
+                st.dataframe(tfidf_df, use_container_width=True)
 
 elif menu == "Klasifikasi":
 
