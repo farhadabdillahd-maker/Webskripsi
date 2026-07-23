@@ -45,7 +45,6 @@ try:
     for _, row in kamus.iterrows():
         KAMUS_DICT[row["kata_kunci"]] = {
             "kategori": row["kategori"],
-            "kelas": row["kelas"]
         }
 
     def label_kejahatan(text):
@@ -63,7 +62,6 @@ try:
 
         return {
             "kategori": "Kejahatan Ringan",
-            "kelas": "K2"
         }
 
 
