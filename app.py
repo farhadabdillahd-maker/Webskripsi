@@ -2289,29 +2289,32 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
             st.stop()
 
         data = st.session_state["df"]
+
         col = None
         for c in ["Stemming","stemming","hasil_stemming","Final_Text","final_text"]:
             if c in data.columns:
                 col = c
                 break
+
         if col is None:
-            st.error("Kolom hasil stemming tidak ditemukan.")
+            st.error(f"Kolom hasil stemming tidak ditemukan. Kolom yang tersedia: {list(data.columns)}")
         else:
             vec = TfidfVectorizer()
             X = vec.fit_transform(data[col].fillna("").astype(str))
             tfidf_df = pd.DataFrame(X.toarray(), columns=vec.get_feature_names_out())
-            a, b, c = st.columns(3)
-            a.metric("Dokumen", X.shape[0])
-            b.metric("Vocabulary", len(vec.get_feature_names_out()))
-            c.metric("Fitur", X.shape[1])
-            st.dataframe(tfidf_df, use_container_width=True, height=500)
-            st.download_button(
-                "📥 Download TF-IDF CSV",
-                tfidf_df.to_csv(index=False).encode("utf-8-sig"),
-                "hasil_tfidf.csv",
-                "text/csv",
-                use_container_width=True
-            )
+            st.dataframe(tfidf_df)
+                a, b, c = st.columns(3)
+                a.metric("Dokumen", X.shape[0])
+                b.metric("Vocabulary", len(vec.get_feature_names_out()))
+                c.metric("Fitur", X.shape[1])
+                st.dataframe(tfidf_df, use_container_width=True, height=500)
+                st.download_button(
+                    "📥 Download TF-IDF CSV",
+                    tfidf_df.to_csv(index=False).encode("utf-8-sig"),
+                    "hasil_tfidf.csv",
+                    "text/csv",
+                    use_container_width=True
+                )
     elif menu == "Klasifikasi":
 
         st.markdown("""
