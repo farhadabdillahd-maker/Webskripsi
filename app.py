@@ -1596,10 +1596,10 @@ if menu == "Prediksi" and uploaded_file is None:
                 txt = input_text.lower()
 
                 for _, row in kamus.iterrows():
-                    if row["kata_kunci"] in txt:
-                        prediction = row["kategori"]
-                        detected = True
-                        break
+        if row["kata_kunci"] in txt:
+            prediction = row["kategori"]
+            detected = True
+            break
 
                 if not detected:
                     txt = re.sub(r"[^\w\s]", "", txt)
@@ -1868,21 +1868,21 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
     # Menggunakan kamus_kejahatan.csv sebagai sumber kata kunci
 
     def auto_label(text):
-    text = str(text).lower()
+        text = str(text).lower()
 
-    for _, row in kamus.iterrows():
+        for _, row in kamus.iterrows():
         if row["kata_kunci"] in text:
             return row["kategori"]
 
-    return "Kejahatan Ringan"
+        return "Kejahatan Ringan"
 
-    # =====================================================
-    # PREPROCESSING
-    # =====================================================
+        # =====================================================
+        # PREPROCESSING
+        # =====================================================
 
-    with st.spinner(
+        with st.spinner(
         "Melakukan preprocessing dataset..."
-    ):
+        ):
 
         df["Case Folding"] = df[
             "Judul Media Nasional"
@@ -1910,63 +1910,63 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
             "Judul Media Nasional"
         ].apply(auto_label)
 
-    # =====================================================
-    # KPI DASHBOARD
-    # =====================================================
+        # =====================================================
+        # KPI DASHBOARD
+        # =====================================================
 
-    total_data = len(df)
+        total_data = len(df)
 
-    total_malam = len(
+        total_malam = len(
         df[
             df["Label"] == "Kejahatan Berat"
         ]
-    )
+        )
 
-    total_umum = len(
+        total_umum = len(
         df[
             df["Label"] == "Kejahatan Ringan"
         ]
-    )
+        )
 
-    col1, col2, col3, col4 = st.columns(4)
+        col1, col2, col3, col4 = st.columns(4)
 
-    with col1:
+        with col1:
 
         st.metric(
             "📄 Total Data",
             f"{total_data:,}"
         )
 
-    with col2:
+        with col2:
 
         st.metric(
             "🌙 Kejahatan Berat",
             f"{total_malam:,}"
         )
 
-    with col3:
+        with col3:
 
         st.metric(
             "☀️ Kejahatan Ringan",
             f"{total_umum:,}"
         )
 
-    with col4:
+        with col4:
 
         st.metric(
             "📊 Status",
             "Loaded"
         )
 
-    st.markdown("<br>", unsafe_allow_html=True)
+        st.markdown("<br>", unsafe_allow_html=True)
 
 
-    # =====================================
-    # DOWNLOAD HASIL PREPROCESSING
-    # =====================================
-    st.markdown("---")
+        # =====================================
+        # DOWNLOAD HASIL PREPROCESSING
+        # =====================================
+        st.markdown("---")
 
-    preprocessing_download = df[
+        preprocessing_download = df[
         [
             "Judul Media Nasional",
             "Case Folding",
@@ -1976,13 +1976,13 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
             "Final Text",
             "Label"
         ]
-    ]# =====================================================
-    # DISTRIBUSI LABEL
-    # =====================================================
+        ]# =====================================================
+        # DISTRIBUSI LABEL
+        # =====================================================
 
-    chart_col1, chart_col2 = st.columns([2,1])
+        chart_col1, chart_col2 = st.columns([2,1])
 
-    with chart_col1:
+        with chart_col1:
 
         st.markdown("""
         <div class="card">
@@ -2011,7 +2011,7 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
 
         st.pyplot(fig)
 
-    with chart_col2:
+        with chart_col2:
 
         st.markdown("""
         <div class="card">
@@ -2041,12 +2041,12 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
         </div>
         """, unsafe_allow_html=True)
 
-    st.markdown("<br>", unsafe_allow_html=True)
-    # =====================================================
-# MENU UPLOAD DATASET
-# =====================================================
+        st.markdown("<br>", unsafe_allow_html=True)
+        # =====================================================
+        # MENU UPLOAD DATASET
+        # =====================================================
 
-    if menu == "Upload Dataset":
+        if menu == "Upload Dataset":
 
         st.markdown("""
         <div class="card">
@@ -2069,11 +2069,11 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
             f"Dataset berhasil dimuat ({len(df)} data)"
         )
 
-    # =====================================================
-    # MENU PREPROCESSING
-    # =====================================================
+        # =====================================================
+        # MENU PREPROCESSING
+        # =====================================================
 
-    elif menu == "Preprocessing":
+        elif menu == "Preprocessing":
 
         st.markdown("""
         <div class="card">
@@ -2274,11 +2274,11 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
                     "Kejahatan Ringan",
                     total_umum
                 )
-    # =====================================================
-    # MENU KLASIFIKASI
-    # =====================================================
+        # =====================================================
+        # MENU KLASIFIKASI
+        # =====================================================
 
-    elif menu == "Klasifikasi":
+        elif menu == "Klasifikasi":
 
         st.markdown("""
         <div class="card">
@@ -2662,16 +2662,16 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
                 "⚠️ Model masih perlu ditingkatkan."
             )
 
-    # =====================================================
-    # MENU PREDIKSI
-    # =====================================================
+        # =====================================================
+        # MENU PREDIKSI
+        # =====================================================
 
 
-    # =====================================================
-    # MENU ABOUT
-    # =====================================================
+        # =====================================================
+        # MENU ABOUT
+        # =====================================================
 
-    elif menu == "About":
+        elif menu == "About":
 
         st.markdown("""
         <div class="card">
@@ -2683,18 +2683,18 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
         c1,c2=st.columns([1,2])
         with c2:
             st.markdown("""
-### 👨‍💻 Developer Profile
+        ### 👨‍💻 Developer Profile
 
-**NOBP** : 22101152630058
+        **NOBP** : 22101152630058
 
-**Nama** : FARHAD ABDILLAH DARNAZ
+        **Nama** : FARHAD ABDILLAH DARNAZ
 
-**Jurusan** : TEKNIK INFORMATIKA
+        **Jurusan** : TEKNIK INFORMATIKA
 
-Aplikasi ini dibuat sebagai implementasi algoritma **Naïve Bayes** untuk klasifikasi tingkat kejahatan pada Polres Pasaman menggunakan Python, Streamlit, dan TF‑IDF.
-""")
+        Aplikasi ini dibuat sebagai implementasi algoritma **Naïve Bayes** untuk klasifikasi tingkat kejahatan pada Polres Pasaman menggunakan Python, Streamlit, dan TF‑IDF.
+        """)
 
-    elif menu == "Prediksi":
+        elif menu == "Prediksi":
 
         st.markdown("""
         <div class="card">
@@ -2722,11 +2722,11 @@ Aplikasi ini dibuat sebagai implementasi algoritma **Naïve Bayes** untuk klasif
 
         # Menggunakan kamus_kejahatan.csv sebagai sumber kata kunci
 
-    # =====================================
-    # LOAD MODEL
-    # =====================================
+        # =====================================
+        # LOAD MODEL
+        # =====================================
 
-    try:
+        try:
 
         model = joblib.load(
             "model_naive_bayes.pkl"
@@ -2809,17 +2809,17 @@ Aplikasi ini dibuat sebagai implementasi algoritma **Naïve Bayes** untuk klasif
                     f"Hasil Prediksi : {prediction}"
                 )
 
-    except:
+        except:
 
         st.error("""
-Model belum tersedia.
+        Model belum tersedia.
 
-Silakan jalankan menu 🤖 Klasifikasi sekali
-agar file berikut dibuat:
+        Silakan jalankan menu 🤖 Klasifikasi sekali
+        agar file berikut dibuat:
 
-• model_naive_bayes.pkl
-• tfidf_vectorizer.pkl
-""")
+        • model_naive_bayes.pkl
+        • tfidf_vectorizer.pkl
+        """)
 
         st.markdown("<br>", unsafe_allow_html=True)
 
@@ -2919,86 +2919,86 @@ agar file berikut dibuat:
         )
 
 
-st.markdown("""
-<style>
-html,body,[data-testid="stAppViewContainer"],.stApp,.main{
-    background:transparent !important;
-}
-.block-container{
-    background:transparent !important;
-}
-</style>
-""", unsafe_allow_html=True)
+        st.markdown("""
+        <style>
+        html,body,[data-testid="stAppViewContainer"],.stApp,.main{
+        background:transparent !important;
+        }
+        .block-container{
+        background:transparent !important;
+        }
+        </style>
+        """, unsafe_allow_html=True)
 
 
 
-st.markdown("""
-<style>
+        st.markdown("""
+        <style>
 
-/* Semua card putih */
-div[style*="background:#fff"],
-div[style*="background: white"],
-div[style*="background:#ffffff"],
-div[style*="background:rgba(255,255,255"]{
-    color:#000 !important;
-}
-div[style*="background:#fff"] *,
-div[style*="background: white"] *,
-div[style*="background:#ffffff"] *,
-div[style*="background:rgba(255,255,255"] *{
-    color:#000 !important;
-    -webkit-text-fill-color:#000 !important;
-}
-</style>
-""", unsafe_allow_html=True)
-
-
-
-st.markdown(r"""
-<style>
-/* ABOUT dan card putih */
-div[style*="background:#fff"] *,
-div[style*="background:#ffffff"] *,
-div[style*="background: white"] *,
-div[style*="background:rgba(255,255,255"] *,
-.about-card, .about-card *,
-.about-section, .about-section *{
-    color:#000000 !important;
-    -webkit-text-fill-color:#000000 !important;
-}
-</style>
-""", unsafe_allow_html=True)
+        /* Semua card putih */
+        div[style*="background:#fff"],
+        div[style*="background: white"],
+        div[style*="background:#ffffff"],
+        div[style*="background:rgba(255,255,255"]{
+        color:#000 !important;
+        }
+        div[style*="background:#fff"] *,
+        div[style*="background: white"] *,
+        div[style*="background:#ffffff"] *,
+        div[style*="background:rgba(255,255,255"] *{
+        color:#000 !important;
+        -webkit-text-fill-color:#000 !important;
+        }
+        </style>
+        """, unsafe_allow_html=True)
 
 
 
-st.markdown(r"""
-<style>
-/* Semua teks di container putih pada menu Prediksi menjadi hitam */
-div[data-testid="stTextInput"] label,
-div[data-testid="stTextArea"] label,
-div[data-testid="stFileUploader"] label,
-div[data-testid="stSelectbox"] label,
-div[data-testid="stRadio"] label,
-div[data-testid="stCheckbox"] label,
-div[data-testid="stForm"] *,
-div[data-testid="stForm"] label,
-div[data-testid="stForm"] p,
-div[data-testid="stForm"] span,
-div[data-testid="stForm"] h1,
-div[data-testid="stForm"] h2,
-div[data-testid="stForm"] h3,
-div[data-testid="stForm"] h4,
-div[data-testid="stAlert"] *,
-div[style*="background:#fff"] *,
-div[style*="background:#ffffff"] *{
-    color:#000 !important;
-    -webkit-text-fill-color:#000 !important;
-}
+        st.markdown(r"""
+        <style>
+        /* ABOUT dan card putih */
+        div[style*="background:#fff"] *,
+        div[style*="background:#ffffff"] *,
+        div[style*="background: white"] *,
+        div[style*="background:rgba(255,255,255"] *,
+        .about-card, .about-card *,
+        .about-section, .about-section *{
+        color:#000000 !important;
+        -webkit-text-fill-color:#000000 !important;
+        }
+        </style>
+        """, unsafe_allow_html=True)
 
-/* input tetap hitam di atas background putih */
-input, textarea{
-    color:#000 !important;
-    -webkit-text-fill-color:#000 !important;
-}
-</style>
-""", unsafe_allow_html=True)
+
+
+        st.markdown(r"""
+        <style>
+        /* Semua teks di container putih pada menu Prediksi menjadi hitam */
+        div[data-testid="stTextInput"] label,
+        div[data-testid="stTextArea"] label,
+        div[data-testid="stFileUploader"] label,
+        div[data-testid="stSelectbox"] label,
+        div[data-testid="stRadio"] label,
+        div[data-testid="stCheckbox"] label,
+        div[data-testid="stForm"] *,
+        div[data-testid="stForm"] label,
+        div[data-testid="stForm"] p,
+        div[data-testid="stForm"] span,
+        div[data-testid="stForm"] h1,
+        div[data-testid="stForm"] h2,
+        div[data-testid="stForm"] h3,
+        div[data-testid="stForm"] h4,
+        div[data-testid="stAlert"] *,
+        div[style*="background:#fff"] *,
+        div[style*="background:#ffffff"] *{
+        color:#000 !important;
+        -webkit-text-fill-color:#000 !important;
+        }
+
+        /* input tetap hitam di atas background putih */
+        input, textarea{
+        color:#000 !important;
+        -webkit-text-fill-color:#000 !important;
+        }
+        </style>
+        """, unsafe_allow_html=True)
