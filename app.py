@@ -50,7 +50,6 @@ try:
         }
 
     def label_kejahatan(text):
-        global KAMUS_DICT
         text = str(text).lower()
 
         hasil = {
@@ -68,33 +67,6 @@ try:
 
 except Exception as e:
     st.warning(f"Gagal memuat kamus kejahatan: {e}")
-    KAMUS_DICT = {}
-
-def prediksi_manual(text):
-    global KAMUS_DICT
-    text = str(text).lower().strip()
-
-    hasil = {
-        "kata_kunci": "-",
-        "jenis_perkara": "Tidak Diketahui",
-        "kategori": "Tidak Terklasifikasi",
-        "kelas": "-"
-    }
-
-    for keyword, info in KAMUS_DICT.items():
-        if keyword in text:
-            hasil = {
-                "kata_kunci": keyword,
-                "jenis_perkara": info["jenis_perkara"],
-                "kategori": info["kategori"],
-                "kelas": info["kelas"]
-            }
-            break
-
-    return hasil
-
-# removed dead code
-# st.warning(f"Gagal memuat kamus kejahatan: {e}")
     KAMUS_DICT = {}
 
 from io import BytesIO
@@ -1655,12 +1627,24 @@ if menu == "Prediksi" and uploaded_file is None:
 
         if st.button("🚀 Prediksi"):
             if input_text.strip():
-                hasil = prediksi_manual(input_text)
+                detected = False
+                txt = input_text.lower()
 
-                prediction = hasil["kategori"]
-                jenis_perkara = hasil["jenis_perkara"]
-                kelas = hasil["kelas"]
-                kata_kunci = hasil["kata_kunci"]
+                for k in kejahatan_berat:
+                    if k in txt:
+                        prediction = "Kejahatan Berat"
+                        detected = True
+                        break
+
+                if not detected:
+                    txt = re.sub(r"[^\w\s]", "", txt)
+                    tokens = [w for w in txt.split() if w not in stop_words]
+                    tokens = [stemmer.stem(w) for w in tokens]
+                    vector = tfidf.transform([" ".join(tokens)])
+                    hasil = label_kejahatan(input_text)
+                    prediction = hasil["kategori"]
+                    jenis_perkara = hasil["jenis_perkara"]
+                    kelas = hasil["kelas"]
 
                 st.markdown(f"""
 <div style="background:rgba(24,61,115,.55);padding:16px;border-radius:12px;border:1px solid #3b82f6;">
