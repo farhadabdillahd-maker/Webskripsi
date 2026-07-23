@@ -2650,7 +2650,7 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
             y=h-2*pdf_cm
             c.setFont("Helvetica-Bold",16)
             c.drawString(2*pdf_cm,y,"LAPORAN HASIL KLASIFIKASI NAIVE BAYES")
-            y-=1*cm
+            y-=1*pdf_cm
             c.setFont("Helvetica",11)
             rows=[
                 f"Jumlah Data: {len(df)}",
@@ -2670,7 +2670,7 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
                 f"F1 Score : {f1:.4f}",
             ]
             for r in rows:
-                c.drawString(2*pdf_cm,y,r); y-=0.6*cm
+                c.drawString(2*pdf_cm,y,r); y-=0.6*pdf_cm
             c.showPage(); c.save()
             pdf=buffer.getvalue(); buffer.close()
             return pdf
