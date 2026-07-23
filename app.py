@@ -1683,12 +1683,12 @@ if menu == "Prediksi" and uploaded_file is None:
             else:
                 st.warning("Masukkan judul berita terlebih dahulu.")
 
-    if "history" in st.session_state and st.session_state.history:
-        st.markdown("### 🕘 Riwayat Prediksi")
-        st.dataframe(pd.DataFrame(st.session_state.history), use_container_width=True)
-        if st.button("🗑 Hapus Riwayat"):
-            st.session_state.history=[]
-            st.rerun()
+        if "history" in st.session_state and st.session_state.history:
+            st.markdown("### 🕘 Riwayat Prediksi")
+            st.dataframe(pd.DataFrame(st.session_state.history), use_container_width=True)
+            if st.button("🗑 Hapus Riwayat"):
+                st.session_state.history=[]
+                st.rerun()
 
     except Exception as e:
         st.error(f"Terjadi kesalahan: {e}")
