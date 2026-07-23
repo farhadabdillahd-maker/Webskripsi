@@ -1652,20 +1652,12 @@ if menu == "Prediksi" and uploaded_file is None:
 
         if st.button("🚀 Prediksi"):
             if input_text.strip():
-                detected = False
-                txt = input_text.lower()
+                hasil = prediksi_manual(input_text)
 
-                for k in kejahatan_berat:
-                    if k in txt:
-                        prediction = "Kejahatan Berat"
-                        detected = True
-                        break
-
-                if not detected:
-                    hasil = prediksi_manual(input_text)
-                    prediction = hasil["kategori"]
-                    jenis_perkara = hasil["jenis_perkara"]
-                    kelas = hasil["kelas"]
+                prediction = hasil["kategori"]
+                jenis_perkara = hasil["jenis_perkara"]
+                kelas = hasil["kelas"]
+                kata_kunci = hasil["kata_kunci"]
 
                 st.markdown(f"""
 <div style="background:rgba(24,61,115,.55);padding:16px;border-radius:12px;border:1px solid #3b82f6;">
