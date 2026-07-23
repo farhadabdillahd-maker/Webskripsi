@@ -3006,3 +3006,47 @@ input, textarea{
 }
 </style>
 """, unsafe_allow_html=True)
+
+
+# Tambahkan setelah proses klasifikasi selesai
+
+# ============================
+# DOWNLOAD LAPORAN KLASIFIKASI
+# ============================
+pdf_buffer = BytesIO()
+c = canvas.Canvas(pdf_buffer, pagesize=A4)
+w, h = A4
+
+c.setFont("Helvetica-Bold", 16)
+c.drawString(2*cm, h-2*cm, "LAPORAN HASIL KLASIFIKASI")
+
+c.setFont("Helvetica", 11)
+y = h-3*cm
+
+try:
+    c.drawString(2*cm, y, f"Tanggal : {datetime.now().strftime('%d-%m-%Y %H:%M')}")
+    y -= 0.7*cm
+except:
+    pass
+
+try:
+    c.drawString(2*cm, y, f"Accuracy : {accuracy:.4f}")
+    y -= 0.6*cm
+    c.drawString(2*cm, y, f"Precision : {precision:.4f}")
+    y -= 0.6*cm
+    c.drawString(2*cm, y, f"Recall : {recall:.4f}")
+    y -= 0.6*cm
+    c.drawString(2*cm, y, f"F1-Score : {f1:.4f}")
+except:
+    pass
+
+c.save()
+pdf_buffer.seek(0)
+
+st.download_button(
+    "📄 Download Laporan Hasil Klasifikasi",
+    data=pdf_buffer,
+    file_name="Laporan_Hasil_Klasifikasi.pdf",
+    mime="application/pdf",
+    use_container_width=True
+)
