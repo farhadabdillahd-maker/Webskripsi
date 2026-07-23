@@ -3051,3 +3051,79 @@ input, textarea{
 }
 </style>
 """, unsafe_allow_html=True)
+
+
+def generate_classification_report_pdf():
+    from reportlab.pdfgen import canvas
+    from reportlab.lib.pagesizes import A4
+    from reportlab.lib.units import cm
+    from io import BytesIO
+
+    buffer = BytesIO()
+    pdf = canvas.Canvas(buffer, pagesize=A4)
+
+    x = float(2 * cm)
+    posisi_y = float(A4[1] - (2 * cm))
+
+    pdf.setTitle("Laporan Hasil Klasifikasi")
+    pdf.setFont("Helvetica-Bold", 16)
+    pdf.drawString(x, posisi_y, "LAPORAN HASIL KLASIFIKASI NAIVE BAYES")
+
+    posisi_y -= 30
+    pdf.setFont("Helvetica", 11)
+
+    try:
+        jumlah_data = len(df)
+    except Exception:
+        jumlah_data = "-"
+
+    try:
+        train_data = len(y_train)
+    except Exception:
+        train_data = "-"
+
+    try:
+        test_data = len(y_test)
+    except Exception:
+        test_data = "-"
+
+    try:
+        vocab = X_tfidf.shape[1]
+    except Exception:
+        vocab = "-"
+
+    rows = [
+        f"Jumlah Data : {jumlah_data}",
+        f"Training Data : {train_data}",
+        f"Testing Data : {test_data}",
+        f"Jumlah Vocabulary : {vocab}",
+        "",
+        "Tahapan:",
+        "1. Upload Dataset",
+        "2. Case Folding",
+        "3. Tokenizing",
+        "4. Stopword Removal",
+        "5. Stemming",
+        "6. TF-IDF",
+        "7. Naive Bayes",
+        ""
+    ]
+
+    for name,var in [("Accuracy","accuracy"),("Precision","precision"),("Recall","recall"),("F1-Score","f1")]:
+        try:
+            val = globals()[var]
+            rows.append(f"{name} : {float(val):.4f}")
+        except Exception:
+            rows.append(f"{name} : -")
+
+    for r in rows:
+        pdf.drawString(x, posisi_y, str(r))
+        posisi_y -= 20
+        if posisi_y < 50:
+            pdf.showPage()
+            pdf.setFont("Helvetica",11)
+            posisi_y = float(A4[1]-50)
+
+    pdf.save()
+    buffer.seek(0)
+    return buffer.getvalue()
