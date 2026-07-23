@@ -2284,10 +2284,10 @@ if menu == "TF-IDF":
     else:
         X = df["Final Text"]
         if "X_tfidf" not in st.session_state:
-        st.warning("Silakan lakukan TF-IDF terlebih dahulu.")
-        st.stop()
-    tfidf=st.session_state["tfidf"]
-    X_tfidf=st.session_state["X_tfidf"]
+            st.warning("Silakan lakukan TF-IDF terlebih dahulu.")
+            st.stop()
+        tfidf = st.session_state["tfidf"]
+        X_tfidf = st.session_state["X_tfidf"]
     #         X_tfidf = tfidf.fit_transform(X)
         st.session_state["tfidf"]=tfidf
         st.session_state["X_tfidf"]=X_tfidf
