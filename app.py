@@ -1596,10 +1596,10 @@ if menu == "Prediksi" and uploaded_file is None:
                 txt = input_text.lower()
 
                 for _, row in kamus.iterrows():
-        if row["kata_kunci"] in txt:
-            prediction = row["kategori"]
-            detected = True
-            break
+                    if row["kata_kunci"] in txt:
+                        prediction = row["kategori"]
+                        detected = True
+                        break
 
                 if not detected:
                     txt = re.sub(r"[^\w\s]", "", txt)
