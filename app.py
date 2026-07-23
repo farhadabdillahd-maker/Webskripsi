@@ -1677,7 +1677,7 @@ if menu == "Prediksi" and uploaded_file is None:
                     "Waktu": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                     "Judul": input_text,
                     "Prediksi": prediction,
-                    "Probabilitas": f"{probability:.2f}%"
+                    "Probabilitas": "-"
                 })
 
             else:
