@@ -28,7 +28,7 @@ import seaborn as sns
 from io import BytesIO
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import A4
-from reportlab.lib.units import cm
+from reportlab.lib.units import cm as pdf_cm
 from reportlab.lib.utils import ImageReader
 from datetime import datetime
 from io import BytesIO
@@ -1619,24 +1619,24 @@ if menu == "Prediksi" and uploaded_file is None:
                     w, h = A4
 
                     try:
-                        c.drawImage(ImageReader("assets/logo_polri.png"),1.5*conf_matrix,h-3.7*conf_matrix,width=2.4*conf_matrix,height=2.4*conf_matrix,mask='auto')
+                        c.drawImage(ImageReader("assets/logo_polri.png"),1.5*cm,h-3.7*cm,width=2.4*cm,height=2.4*cm,mask='auto')
                     except:
                         pass
                     try:
-                        c.drawImage(ImageReader("assets/logo_polda_sumbar.png"),w-3.9*conf_matrix,h-3.7*conf_matrix,width=2.4*conf_matrix,height=2.4*conf_matrix,mask='auto')
+                        c.drawImage(ImageReader("assets/logo_polda_sumbar.png"),w-3.9*cm,h-3.7*cm,width=2.4*cm,height=2.4*cm,mask='auto')
                     except:
                         pass
 
                     c.setFont("Helvetica-Bold",12)
-                    c.drawCentredString(w/2,h-1.5*conf_matrix,"KEPOLISIAN NEGARA REPUBLIK INDONESIA")
-                    c.drawCentredString(w/2,h-2.1*conf_matrix,"DAERAH SUMATERA BARAT")
-                    c.drawCentredString(w/2,h-2.7*conf_matrix,"RESOR PASAMAN")
+                    c.drawCentredString(w/2,h-1.5*cm,"KEPOLISIAN NEGARA REPUBLIK INDONESIA")
+                    c.drawCentredString(w/2,h-2.1*cm,"DAERAH SUMATERA BARAT")
+                    c.drawCentredString(w/2,h-2.7*cm,"RESOR PASAMAN")
                     c.setFont("Helvetica",10)
-                    c.drawCentredString(w/2,h-3.3*conf_matrix,"Jln. Jend. Sudirman No. 1 Lubuk Sikaping 26311")
+                    c.drawCentredString(w/2,h-3.3*cm,"Jln. Jend. Sudirman No. 1 Lubuk Sikaping 26311")
                     c.setLineWidth(1.2)
-                    c.line(1.5*conf_matrix,h-3.75*conf_matrix,w-1.5*conf_matrix,h-3.75*conf_matrix)
+                    c.line(1.5*cm,h-3.75*cm,w-1.5*cm,h-3.75*cm)
                     c.setLineWidth(0.5)
-                    c.line(1.5*conf_matrix,h-3.9*conf_matrix,w-1.5*conf_matrix,h-3.9*conf_matrix)
+                    c.line(1.5*cm,h-3.9*cm,w-1.5*cm,h-3.9*cm)
 
                     nomor = "B/001/RESKRIM/%s" % datetime.now().strftime("%m/%Y")
                     tanggal = datetime.now().strftime("%d %B %Y")
@@ -1646,7 +1646,7 @@ if menu == "Prediksi" and uploaded_file is None:
                     c.drawCentredString(w/2,y,"LAPORAN HASIL KLASIFIKASI")
                     y -= 1*cm
 
-                    x0=2*cm
+                    x0=2*pdf_cm
                     table_w=w-4*cm
                     row_h=0.8*cm
                     col1=6*cm
@@ -1654,8 +1654,8 @@ if menu == "Prediksi" and uploaded_file is None:
                     c.setFont("Helvetica-Bold",11)
                     c.rect(x0,y-row_h,table_w,row_h)
                     c.line(x0+col1,y,x0+col1,y-row_h)
-                    c.drawCentredString(x0+col1/2,y-0.55*conf_matrix,"Parameter")
-                    c.drawCentredString(x0+col1+(table_w-col1)/2,y-0.55*conf_matrix,"Keterangan")
+                    c.drawCentredString(x0+col1/2,y-0.55*cm,"Parameter")
+                    c.drawCentredString(x0+col1+(table_w-col1)/2,y-0.55*cm,"Keterangan")
 
                     rows=[
                         ("Nomor Surat",nomor),
@@ -1667,17 +1667,17 @@ if menu == "Prediksi" and uploaded_file is None:
                     for p,v in rows:
                         c.rect(x0,yy-row_h,table_w,row_h)
                         c.line(x0+col1,yy,x0+col1,yy-row_h)
-                        c.drawString(x0+0.2*conf_matrix,yy-0.55*conf_matrix,p)
-                        c.drawString(x0+col1+0.2*conf_matrix,yy-0.55*conf_matrix,str(v))
+                        c.drawString(x0+0.2*pdf_cm,yy-0.55*cm,p)
+                        c.drawString(x0+col1+0.2*pdf_cm,yy-0.55*cm,str(v))
                         yy-=row_h
                     y=yy-1*cm
-                    c.drawString(2*conf_matrix,y,"Demikian laporan hasil klasifikasi ini dibuat untuk dipergunakan sebagaimana mestinya.")
-                    y -= 2*cm
-                    c.drawRightString(w-2*conf_matrix,y,"Pasaman, "+tanggal)
+                    c.drawString(2*pdf_cm,y,"Demikian laporan hasil klasifikasi ini dibuat untuk dipergunakan sebagaimana mestinya.")
+                    y -= 2*pdf_cm
+                    c.drawRightString(w-2*pdf_cm,y,"Pasaman, "+tanggal)
                     y -= 0.8*cm
-                    c.drawRightString(w-2*conf_matrix,y,"Kepala Sat Reskrim")
+                    c.drawRightString(w-2*pdf_cm,y,"Kepala Sat Reskrim")
                     y -= 2.5*cm
-                    c.drawRightString(w-2*conf_matrix,y,"(................................)")
+                    c.drawRightString(w-2*pdf_cm,y,"(................................)")
                     c.save()
                     pdf = buffer.getvalue()
                     buffer.close()
@@ -2527,7 +2527,7 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
         )
 
         sns.heatmap(
-            conf_matrix,
+            cm,
             annot=True,
             fmt="d",
             cmap="Blues",
@@ -2647,9 +2647,9 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
             buffer = BytesIO()
             c = canvas.Canvas(buffer, pagesize=A4)
             w,h=A4
-            y=h-2*cm
+            y=h-2*pdf_cm
             c.setFont("Helvetica-Bold",16)
-            c.drawString(2*conf_matrix,y,"LAPORAN HASIL KLASIFIKASI NAIVE BAYES")
+            c.drawString(2*pdf_cm,y,"LAPORAN HASIL KLASIFIKASI NAIVE BAYES")
             y-=1*cm
             c.setFont("Helvetica",11)
             rows=[
@@ -2670,7 +2670,7 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
                 f"F1 Score : {f1:.4f}",
             ]
             for r in rows:
-                c.drawString(2*conf_matrix,y,r); y-=0.6*cm
+                c.drawString(2*pdf_cm,y,r); y-=0.6*cm
             c.showPage(); c.save()
             pdf=buffer.getvalue(); buffer.close()
             return pdf
@@ -3056,14 +3056,14 @@ input, textarea{
 def generate_classification_report_pdf():
     from reportlab.pdfgen import canvas
     from reportlab.lib.pagesizes import A4
-    from reportlab.lib.units import cm
+    from reportlab.lib.units import cm as pdf_cm
     from io import BytesIO
 
     buffer = BytesIO()
     pdf = canvas.Canvas(buffer, pagesize=A4)
 
-    x = float(2 * conf_matrix)
-    posisi_y = float(A4[1] - (2 * conf_matrix))
+    x = float(2 * pdf_cm)
+    posisi_y = float(A4[1] - (2 * pdf_cm))
 
     pdf.setTitle("Laporan Hasil Klasifikasi")
     pdf.setFont("Helvetica-Bold", 16)
