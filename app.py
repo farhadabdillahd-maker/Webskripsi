@@ -1,5 +1,10 @@
 import streamlit as st
 import pandas as pd
+
+# Memuat kamus kejahatan
+kamus = pd.read_csv("kamus_kejahatan.csv")
+kamus["kata_kunci"] = kamus["kata_kunci"].astype(str).str.lower().str.strip()
+
 import re
 import joblib
 import nltk
@@ -1581,9 +1586,7 @@ if menu == "Prediksi" and uploaded_file is None:
 
         stemmer = StemmerFactory().create_stemmer()
 
-        kejahatan_berat = [
-    "curas","pencabulan anak","persetubuhan anak","kdrt","pemerasan","pembunuhan"
-]
+        # Menggunakan kamus_kejahatan.csv sebagai sumber kata kunci
 
         input_text = st.text_area("Masukkan Judul Berita", height=150)
 
@@ -1592,11 +1595,11 @@ if menu == "Prediksi" and uploaded_file is None:
                 detected = False
                 txt = input_text.lower()
 
-                for k in kejahatan_berat:
-                    if k in txt:
-                        prediction = "Kejahatan Berat"
-                        detected = True
-                        break
+                for _, row in kamus.iterrows():
+        if row["kata_kunci"] in txt:
+            prediction = row["kategori"]
+            detected = True
+            break
 
                 if not detected:
                     txt = re.sub(r"[^\w\s]", "", txt)
@@ -1862,21 +1865,16 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
     # AUTO LABEL
     # =====================================================
 
-    kejahatan_berat = [
-    "curas","pencabulan anak","persetubuhan anak","kdrt","pemerasan"
-]
+    # Menggunakan kamus_kejahatan.csv sebagai sumber kata kunci
 
     def auto_label(text):
+    text = str(text).lower()
 
-        text = str(text).lower()
+    for _, row in kamus.iterrows():
+        if row["kata_kunci"] in text:
+            return row["kategori"]
 
-        for keyword in kejahatan_berat:
-
-            if keyword in text:
-
-                return "Kejahatan Berat"
-
-        return "Kejahatan Ringan"
+    return "Kejahatan Ringan"
 
     # =====================================================
     # PREPROCESSING
@@ -2722,9 +2720,7 @@ Aplikasi ini dibuat sebagai implementasi algoritma **Naïve Bayes** untuk klasif
         factory = StemmerFactory()
         stemmer = factory.create_stemmer()
 
-        kejahatan_berat = [
-    "curas","pencabulan anak","persetubuhan anak","kdrt","pemerasan"
-]
+        # Menggunakan kamus_kejahatan.csv sebagai sumber kata kunci
 
     # =====================================
     # LOAD MODEL
