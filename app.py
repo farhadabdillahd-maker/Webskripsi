@@ -70,6 +70,12 @@ try:
 
 
 
+
+
+except Exception as e:
+    st.warning(f"Gagal memuat kamus kejahatan: {e}")
+    KAMUS_DICT = {}
+
 # ===== PATCH NAIVE BAYES PREDICTION =====
 # Tambahkan fungsi ini bila belum ada model/joblib yang dimuat.
 def predict_with_naive_bayes(input_text):
@@ -94,10 +100,6 @@ def predict_with_naive_bayes(input_text):
     }
 
 # ===== END PATCH =====
-
-except Exception as e:
-    st.warning(f"Gagal memuat kamus kejahatan: {e}")
-    KAMUS_DICT = {}
 
 from io import BytesIO
 
