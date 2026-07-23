@@ -1616,7 +1616,7 @@ if menu == "Prediksi" and uploaded_file is None:
                 def generate_police_pdf(judul, hasil):
                     buffer = BytesIO()
                     c = canvas.Canvas(buffer, pagesize=A4)
-                    w, h = A4
+                    PAGE_WIDTH, PAGE_HEIGHT = A4
 
                     try:
                         c.drawImage(ImageReader("assets/logo_polri.png"),1.5*cm,h-3.7*cm,width=2.4*cm,height=2.4*cm,mask='auto')
@@ -1627,11 +1627,11 @@ if menu == "Prediksi" and uploaded_file is None:
                     except:
                         pass
 
-                    c.setFont("Helvetica-Bold",12)
+                    pdf.setFont("Helvetica-Bold",12)
                     c.drawCentredString(w/2,h-1.5*cm,"KEPOLISIAN NEGARA REPUBLIK INDONESIA")
                     c.drawCentredString(w/2,h-2.1*cm,"DAERAH SUMATERA BARAT")
                     c.drawCentredString(w/2,h-2.7*cm,"RESOR PASAMAN")
-                    c.setFont("Helvetica",10)
+                    pdf.setFont("Helvetica",10)
                     c.drawCentredString(w/2,h-3.3*cm,"Jln. Jend. Sudirman No. 1 Lubuk Sikaping 26311")
                     c.setLineWidth(1.2)
                     c.line(1.5*cm,h-3.75*cm,w-1.5*cm,h-3.75*cm)
@@ -1642,7 +1642,7 @@ if menu == "Prediksi" and uploaded_file is None:
                     tanggal = datetime.now().strftime("%d %B %Y")
 
                     y = h-4.5*cm
-                    c.setFont("Helvetica-Bold",14)
+                    pdf.setFont("Helvetica-Bold",14)
                     c.drawCentredString(w/2,y,"LAPORAN HASIL KLASIFIKASI")
                     y -= 1*cm
 
@@ -1651,7 +1651,7 @@ if menu == "Prediksi" and uploaded_file is None:
                     row_h=0.8*cm
                     col1=6*cm
 
-                    c.setFont("Helvetica-Bold",11)
+                    pdf.setFont("Helvetica-Bold",11)
                     c.rect(x0,y-row_h,table_w,row_h)
                     c.line(x0+col1,y,x0+col1,y-row_h)
                     c.drawCentredString(x0+col1/2,y-0.55*cm,"Parameter")
@@ -1662,23 +1662,23 @@ if menu == "Prediksi" and uploaded_file is None:
                         ("Input Teks",judul[:90]),
                         ("Hasil Prediksi",hasil),
                     ]
-                    c.setFont("Helvetica",11)
+                    pdf.setFont("Helvetica",11)
                     yy=y-row_h
                     for p,v in rows:
                         c.rect(x0,yy-row_h,table_w,row_h)
                         c.line(x0+col1,yy,x0+col1,yy-row_h)
-                        c.drawString(x0+0.2*cm,yy-0.55*cm,p)
-                        c.drawString(x0+col1+0.2*cm,yy-0.55*cm,str(v))
+                        pdf.drawString(x0+0.2*cm,yy-0.55*cm,p)
+                        pdf.drawString(x0+col1+0.2*cm,yy-0.55*cm,str(v))
                         yy-=row_h
                     y=yy-1*cm
-                    c.drawString(2*cm,y,"Demikian laporan hasil klasifikasi ini dibuat untuk dipergunakan sebagaimana mestinya.")
+                    pdf.drawString(2*cm,y,"Demikian laporan hasil klasifikasi ini dibuat untuk dipergunakan sebagaimana mestinya.")
                     y -= 2*cm
                     c.drawRightString(w-2*cm,y,"Pasaman, "+tanggal)
                     y -= 0.8*cm
                     c.drawRightString(w-2*cm,y,"Kepala Sat Reskrim")
                     y -= 2.5*cm
                     c.drawRightString(w-2*cm,y,"(................................)")
-                    c.save()
+                    pdf.save()
                     pdf = buffer.getvalue()
                     buffer.close()
                     return pdf
@@ -3014,33 +3014,33 @@ input, textarea{
 # DOWNLOAD LAPORAN KLASIFIKASI
 # ============================
 pdf_buffer = BytesIO()
-c = canvas.Canvas(pdf_buffer, pagesize=A4)
-w, h = A4
+pdf = canvas.Canvas(pdf_buffer, pagesize=A4)
+PAGE_WIDTH, PAGE_HEIGHT = A4
 
-c.setFont("Helvetica-Bold", 16)
-c.drawString(2*cm, h-2*cm, "LAPORAN HASIL KLASIFIKASI")
+pdf.setFont("Helvetica-Bold", 16)
+pdf.drawString(2*cm, PAGE_HEIGHT-2*cm, "LAPORAN HASIL KLASIFIKASI")
 
-c.setFont("Helvetica", 11)
-y = h-3*cm
+pdf.setFont("Helvetica", 11)
+y = PAGE_HEIGHT-3*cm
 
 try:
-    c.drawString(2*cm, y, f"Tanggal : {datetime.now().strftime('%d-%m-%Y %H:%M')}")
+    pdf.drawString(2*cm, y, f"Tanggal : {datetime.now().strftime('%d-%m-%Y %H:%M')}")
     y -= 0.7*cm
 except:
     pass
 
 try:
-    c.drawString(2*cm, y, f"Accuracy : {accuracy:.4f}")
+    pdf.drawString(2*cm, y, f"Accuracy : {accuracy:.4f}")
     y -= 0.6*cm
-    c.drawString(2*cm, y, f"Precision : {precision:.4f}")
+    pdf.drawString(2*cm, y, f"Precision : {precision:.4f}")
     y -= 0.6*cm
-    c.drawString(2*cm, y, f"Recall : {recall:.4f}")
+    pdf.drawString(2*cm, y, f"Recall : {recall:.4f}")
     y -= 0.6*cm
-    c.drawString(2*cm, y, f"F1-Score : {f1:.4f}")
+    pdf.drawString(2*cm, y, f"F1-Score : {f1:.4f}")
 except:
     pass
 
-c.save()
+pdf.save()
 pdf_buffer.seek(0)
 
 st.download_button(
