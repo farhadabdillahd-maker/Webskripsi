@@ -2276,24 +2276,6 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
     # MENU KLASIFIKASI
     # =====================================================
 
-    if menu == "TF-IDF":
-        st.subheader("TF-IDF")
-        if "df" not in locals() and "df" not in globals():
-            st.warning("Silakan upload dataset dan lakukan preprocessing terlebih dahulu.")
-        else:
-            X = df["Final Text"]
-            if "X_tfidf" not in st.session_state:
-                st.warning("Silakan lakukan TF-IDF terlebih dahulu.")
-                st.stop()
-            tfidf = st.session_state["tfidf"]
-            X_tfidf = st.session_state["X_tfidf"]
-        #         X_tfidf = tfidf.fit_transform(X)
-            st.session_state["tfidf"]=tfidf
-            st.session_state["X_tfidf"]=X_tfidf
-            tfidf_df = pd.DataFrame(X_tfidf.toarray(), columns=tfidf.get_feature_names_out())
-            st.success("TF-IDF berhasil dibuat.")
-            st.dataframe(tfidf_df, use_container_width=True)
-
     elif menu == "Klasifikasi":
 
         st.markdown("""
@@ -2324,12 +2306,8 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
             "Melakukan ekstraksi fitur TF-IDF..."
         ):
 
-            if "X_tfidf" not in st.session_state:
-                st.warning("Silakan lakukan TF-IDF terlebih dahulu.")
-                st.stop()
-            tfidf = st.session_state["tfidf"]
-            X_tfidf = st.session_state["X_tfidf"]
-    # 
+            tfidf = TfidfVectorizer()
+
             X_tfidf = tfidf.fit_transform(X)
 
         # =====================================
