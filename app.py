@@ -2276,7 +2276,7 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
     # MENU KLASIFIKASI
     # =====================================================
 
-    el
+    elif menu == "TF-IDF":
 if menu == "TF-IDF":
     st.subheader("TF-IDF")
     if "df" not in locals() and "df" not in globals():
@@ -2295,7 +2295,7 @@ if menu == "TF-IDF":
         st.success("TF-IDF berhasil dibuat.")
         st.dataframe(tfidf_df, use_container_width=True)
 
-if menu == "Klasifikasi":
+    elif menu == "Klasifikasi":
 
         st.markdown("""
         <div class="card">
