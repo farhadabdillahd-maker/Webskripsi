@@ -91,8 +91,6 @@ def predict_with_naive_bayes(input_text):
     return {
         "prediction": prediction,
         "probability": probability,
-        "jenis_perkara": hasil["jenis_perkara"],
-        "kelas": hasil["kelas"]
     }
 
 # ===== END PATCH =====
