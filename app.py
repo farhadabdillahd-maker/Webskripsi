@@ -1774,6 +1774,7 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
 
     df = pd.read_csv(uploaded_file)
     st.session_state["df"] = df
+    st.session_state["df"] = df
 
     # =====================================================
     # VALIDASI KOLOM
@@ -2283,10 +2284,11 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
     elif menu == "TF-IDF":
         st.markdown("<h2 id='tfidf'>🔤 TF-IDF</h2>", unsafe_allow_html=True)
 
-        if 'df' not in globals() and 'df' not in locals():
-            st.warning("Upload dataset dan lakukan preprocessing terlebih dahulu.")
-        else:
-            data = locals().get("df", globals().get("df"))
+        if "df" not in st.session_state:
+            st.warning("Silakan upload dataset dan lakukan preprocessing terlebih dahulu.")
+            st.stop()
+
+        data = st.session_state["df"]
             col = None
             for c in ["Stemming","stemming","hasil_stemming","Final_Text","final_text"]:
                 if c in data.columns:
