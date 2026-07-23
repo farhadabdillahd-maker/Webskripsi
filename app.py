@@ -26,9 +26,35 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 from io import BytesIO
+
+
+# =====================================================
+# GENERATOR LAPORAN PDF
+# =====================================================
+def generate_laporan_pdf(dataset=None, accuracy=None, precision=None, recall=None, f1=None):
+    buffer = BytesIO()
+    pdf = canvas.Canvas(buffer, pagesize=A4)
+    w,h=A4
+    y=h-2*cm
+    pdf.setFont("Helvetica-Bold",16)
+    pdf.drawString(2*cm,y,"LAPORAN HASIL KLASIFIKASI")
+    y-=1*cm
+    pdf.setFont("Helvetica",11)
+    pdf.drawString(2*cm,y,f"Tanggal : {datetime.now().strftime('%d-%m-%Y %H:%M')}")
+    y-=0.8*cm
+    if dataset is not None:
+        pdf.drawString(2*cm,y,f"Jumlah Data : {len(dataset)}")
+        y-=0.6*cm
+    for n,v in [("Accuracy",accuracy),("Precision",precision),("Recall",recall),("F1-Score",f1)]:
+        if v is not None:
+            pdf.drawString(2*cm,y,f"{n}: {v}")
+            y-=0.6*cm
+    pdf.save()
+    buffer.seek(0)
+    return buffer
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import A4
-from reportlab.lib.units import cm as CM
+from reportlab.lib.units import cm
 from reportlab.lib.utils import ImageReader
 from datetime import datetime
 from io import BytesIO
@@ -1616,69 +1642,69 @@ if menu == "Prediksi" and uploaded_file is None:
                 def generate_police_pdf(judul, hasil):
                     buffer = BytesIO()
                     c = canvas.Canvas(buffer, pagesize=A4)
-                    PAGE_WIDTH, PAGE_HEIGHT = A4
+                    w, h = A4
 
                     try:
-                        c.drawImage(ImageReader("assets/logo_polri.png"),1.5*CM,h-3.7*CM,width=2.4*CM,height=2.4*CM,mask='auto')
+                        c.drawImage(ImageReader("assets/logo_polri.png"),1.5*cm,h-3.7*cm,width=2.4*cm,height=2.4*cm,mask='auto')
                     except:
                         pass
                     try:
-                        c.drawImage(ImageReader("assets/logo_polda_sumbar.png"),w-3.9*CM,h-3.7*CM,width=2.4*CM,height=2.4*CM,mask='auto')
+                        c.drawImage(ImageReader("assets/logo_polda_sumbar.png"),w-3.9*cm,h-3.7*cm,width=2.4*cm,height=2.4*cm,mask='auto')
                     except:
                         pass
 
-                    pdf.setFont("Helvetica-Bold",12)
-                    c.drawCentredString(w/2,h-1.5*CM,"KEPOLISIAN NEGARA REPUBLIK INDONESIA")
-                    c.drawCentredString(w/2,h-2.1*CM,"DAERAH SUMATERA BARAT")
-                    c.drawCentredString(w/2,h-2.7*CM,"RESOR PASAMAN")
-                    pdf.setFont("Helvetica",10)
-                    c.drawCentredString(w/2,h-3.3*CM,"Jln. Jend. Sudirman No. 1 Lubuk Sikaping 26311")
+                    c.setFont("Helvetica-Bold",12)
+                    c.drawCentredString(w/2,h-1.5*cm,"KEPOLISIAN NEGARA REPUBLIK INDONESIA")
+                    c.drawCentredString(w/2,h-2.1*cm,"DAERAH SUMATERA BARAT")
+                    c.drawCentredString(w/2,h-2.7*cm,"RESOR PASAMAN")
+                    c.setFont("Helvetica",10)
+                    c.drawCentredString(w/2,h-3.3*cm,"Jln. Jend. Sudirman No. 1 Lubuk Sikaping 26311")
                     c.setLineWidth(1.2)
-                    c.line(1.5*CM,h-3.75*CM,w-1.5*CM,h-3.75*CM)
+                    c.line(1.5*cm,h-3.75*cm,w-1.5*cm,h-3.75*cm)
                     c.setLineWidth(0.5)
-                    c.line(1.5*CM,h-3.9*CM,w-1.5*CM,h-3.9*CM)
+                    c.line(1.5*cm,h-3.9*cm,w-1.5*cm,h-3.9*cm)
 
                     nomor = "B/001/RESKRIM/%s" % datetime.now().strftime("%m/%Y")
                     tanggal = datetime.now().strftime("%d %B %Y")
 
-                    y = h-4.5*CM
-                    pdf.setFont("Helvetica-Bold",14)
+                    y = h-4.5*cm
+                    c.setFont("Helvetica-Bold",14)
                     c.drawCentredString(w/2,y,"LAPORAN HASIL KLASIFIKASI")
-                    y -= 1*CM
+                    y -= 1*cm
 
-                    x0=2*CM
-                    table_w=w-4*CM
-                    row_h=0.8*CM
-                    col1=6*CM
+                    x0=2*cm
+                    table_w=w-4*cm
+                    row_h=0.8*cm
+                    col1=6*cm
 
-                    pdf.setFont("Helvetica-Bold",11)
+                    c.setFont("Helvetica-Bold",11)
                     c.rect(x0,y-row_h,table_w,row_h)
                     c.line(x0+col1,y,x0+col1,y-row_h)
-                    c.drawCentredString(x0+col1/2,y-0.55*CM,"Parameter")
-                    c.drawCentredString(x0+col1+(table_w-col1)/2,y-0.55*CM,"Keterangan")
+                    c.drawCentredString(x0+col1/2,y-0.55*cm,"Parameter")
+                    c.drawCentredString(x0+col1+(table_w-col1)/2,y-0.55*cm,"Keterangan")
 
                     rows=[
                         ("Nomor Surat",nomor),
                         ("Input Teks",judul[:90]),
                         ("Hasil Prediksi",hasil),
                     ]
-                    pdf.setFont("Helvetica",11)
+                    c.setFont("Helvetica",11)
                     yy=y-row_h
                     for p,v in rows:
                         c.rect(x0,yy-row_h,table_w,row_h)
                         c.line(x0+col1,yy,x0+col1,yy-row_h)
-                        pdf.drawString(x0+0.2*CM,yy-0.55*CM,p)
-                        pdf.drawString(x0+col1+0.2*CM,yy-0.55*CM,str(v))
+                        c.drawString(x0+0.2*cm,yy-0.55*cm,p)
+                        c.drawString(x0+col1+0.2*cm,yy-0.55*cm,str(v))
                         yy-=row_h
-                    y=yy-1*CM
-                    pdf.drawString(2*CM,y,"Demikian laporan hasil klasifikasi ini dibuat untuk dipergunakan sebagaimana mestinya.")
-                    y -= 2*CM
-                    c.drawRightString(w-2*CM,y,"Pasaman, "+tanggal)
-                    y -= 0.8*CM
-                    c.drawRightString(w-2*CM,y,"Kepala Sat Reskrim")
-                    y -= 2.5*CM
-                    c.drawRightString(w-2*CM,y,"(................................)")
-                    pdf.save()
+                    y=yy-1*cm
+                    c.drawString(2*cm,y,"Demikian laporan hasil klasifikasi ini dibuat untuk dipergunakan sebagaimana mestinya.")
+                    y -= 2*cm
+                    c.drawRightString(w-2*cm,y,"Pasaman, "+tanggal)
+                    y -= 0.8*cm
+                    c.drawRightString(w-2*cm,y,"Kepala Sat Reskrim")
+                    y -= 2.5*cm
+                    c.drawRightString(w-2*cm,y,"(................................)")
+                    c.save()
                     pdf = buffer.getvalue()
                     buffer.close()
                     return pdf
@@ -2517,7 +2543,7 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
 
         st.markdown("<br>", unsafe_allow_html=True)
 
-        conf_matrix = confusion_matrix(
+        cm = confusion_matrix(
             y_test,
             y_pred
         )
@@ -2527,7 +2553,7 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
         )
 
         sns.heatmap(
-            conf_matrix,
+            cm,
             annot=True,
             fmt="d",
             cmap="Blues",
@@ -3008,72 +3034,22 @@ input, textarea{
 """, unsafe_allow_html=True)
 
 
-# Tambahkan setelah proses klasifikasi selesai
-
-# ============================
-# DOWNLOAD LAPORAN KLASIFIKASI
-# ============================
-pdf_buffer = BytesIO()
-pdf = canvas.Canvas(pdf_buffer, pagesize=A4)
-PAGE_WIDTH, PAGE_HEIGHT = A4
-
-pdf.setFont("Helvetica-Bold", 16)
-pdf.drawString(2*CM, PAGE_HEIGHT-2*CM, "LAPORAN HASIL KLASIFIKASI")
-
-pdf.setFont("Helvetica", 11)
-y = PAGE_HEIGHT-3*CM
-
-try:
-    pdf.drawString(2*CM, y, f"Tanggal : {datetime.now().strftime('%d-%m-%Y %H:%M')}")
-    y -= 0.7*CM
-except:
-    pass
-
-try:
-    pdf.drawString(2*CM, y, f"Accuracy : {accuracy:.4f}")
-    y -= 0.6*CM
-    pdf.drawString(2*CM, y, f"Precision : {precision:.4f}")
-    y -= 0.6*CM
-    pdf.drawString(2*CM, y, f"Recall : {recall:.4f}")
-    y -= 0.6*CM
-    pdf.drawString(2*CM, y, f"F1-Score : {f1:.4f}")
-except:
-    pass
-
-pdf.save()
-pdf_buffer.seek(0)
-
-st.download_button(
-    "📄 Download Laporan Hasil Klasifikasi",
-    data=pdf_buffer,
-    file_name="Laporan_Hasil_Klasifikasi.pdf",
-    mime="application/pdf",
-    use_container_width=True
-)
-
-
-
-# ===================== PDF REPORT =====================
-# TEMPLATE PDF:
-# Halaman 1:
-# - Header POLRI/POLRES PASAMAN
-# - Logo kiri/kanan
-# - Judul laporan
-# - Informasi dataset (nama file, jumlah data, duplikat, missing value)
-# - Grafik distribusi dataset
-# - Confusion Matrix
-# - Accuracy, Precision, Recall, F1-Score
-#
-# Halaman 2:
-# - Ringkasan preprocessing
-# - TF-IDF
-# - Classification Report
-#
-# Halaman 3:
-# - Tabel hasil prediksi
-#
-# Halaman 4:
-# - Kesimpulan otomatis
-#
-# Seluruh nilai diambil dari variabel hasil proses pada aplikasi.
-# ======================================================
+# ================= DOWNLOAD LAPORAN =================
+if 'df' in locals():
+    try:
+        pdf_buffer = generate_laporan_pdf(
+            dataset=df,
+            accuracy=locals().get('accuracy'),
+            precision=locals().get('precision'),
+            recall=locals().get('recall'),
+            f1=locals().get('f1')
+        )
+        st.download_button(
+            "📄 Download Hasil Laporan",
+            data=pdf_buffer,
+            file_name="Laporan_Hasil_Klasifikasi.pdf",
+            mime="application/pdf",
+            use_container_width=True
+        )
+    except Exception:
+        pass
