@@ -2279,29 +2279,29 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
 
     
     elif menu == "TF-IDF":
-    st.markdown("<h2>🔤 TF-IDF</h2>", unsafe_allow_html=True)
-    if "df" not in st.session_state:
-        st.warning("Silakan upload dataset terlebih dahulu.")
-    else:
-        df = st.session_state["df"].copy()
-        text_col = None
-        for c in ["Final_Text","final_text","stemming","Judul Media Nasional"]:
-            if c in df.columns:
-                text_col = c
-                break
-        if text_col is None:
-            st.error("Kolom hasil preprocessing tidak ditemukan.")
+        st.markdown("<h2>🔤 TF-IDF</h2>", unsafe_allow_html=True)
+        if "df" not in st.session_state:
+            st.warning("Silakan upload dataset terlebih dahulu.")
         else:
-            vectorizer = TfidfVectorizer()
-            tfidf_matrix = vectorizer.fit_transform(df[text_col].astype(str))
-            st.session_state["tfidf"] = vectorizer
-            st.session_state["tfidf_matrix"] = tfidf_matrix
-            vocab = pd.DataFrame({
-                "Term": vectorizer.get_feature_names_out()
-            })
-            st.success(f"Jumlah Dokumen : {tfidf_matrix.shape[0]} | Jumlah Term : {tfidf_matrix.shape[1]}")
-            st.dataframe(vocab, use_container_width=True)
-
+            df = st.session_state["df"].copy()
+            text_col = None
+            for c in ["Final_Text","final_text","stemming","Judul Media Nasional"]:
+                if c in df.columns:
+                    text_col = c
+                    break
+            if text_col is None:
+                st.error("Kolom hasil preprocessing tidak ditemukan.")
+            else:
+                vectorizer = TfidfVectorizer()
+                tfidf_matrix = vectorizer.fit_transform(df[text_col].astype(str))
+                st.session_state["tfidf"] = vectorizer
+                st.session_state["tfidf_matrix"] = tfidf_matrix
+                vocab = pd.DataFrame({
+                    "Term": vectorizer.get_feature_names_out()
+                })
+                st.success(f"Jumlah Dokumen : {tfidf_matrix.shape[0]} | Jumlah Term : {tfidf_matrix.shape[1]}")
+                st.dataframe(vocab, use_container_width=True)
+    
     elif menu == "Klasifikasi":
 
         st.markdown("""
