@@ -1562,7 +1562,6 @@ if st.session_state.show_menu:
     menus=[
         "Upload Dataset",
         "Preprocessing",
-        "TF-IDF",
         "Klasifikasi",
         "Prediksi",
         "About"
@@ -1610,7 +1609,7 @@ if menu == "Upload Dataset":
                 del st.session_state["dashboard_upload"]
             st.rerun()
 
-if menu in ["Preprocessing","TF-IDF","Klasifikasi"]:
+if menu in ["Preprocessing","Klasifikasi"]:
     uploaded_file = st.session_state.uploaded_dataset
 
 
@@ -1773,8 +1772,6 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
         pass
 
     df = pd.read_csv(uploaded_file)
-    st.session_state["df"] = df
-    st.session_state["df"] = df
 
     # =====================================================
     # VALIDASI KOLOM
@@ -1910,8 +1907,6 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
         df["Label"] = df[
             "Judul Media Nasional"
         ].apply(auto_label)
-
-    st.session_state["df"] = df.copy()
 
     # =====================================================
     # KPI DASHBOARD
@@ -2281,43 +2276,26 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
     # MENU KLASIFIKASI
     # =====================================================
 
-    
+    el
+if menu == "TF-IDF":
+    st.subheader("TF-IDF")
+    if "df" not in locals() and "df" not in globals():
+        st.warning("Silakan upload dataset dan lakukan preprocessing terlebih dahulu.")
+    else:
+        X = df["Final Text"]
+        if "X_tfidf" not in st.session_state:
+        st.warning("Silakan lakukan TF-IDF terlebih dahulu.")
+        st.stop()
+    tfidf=st.session_state["tfidf"]
+    X_tfidf=st.session_state["X_tfidf"]
+    #         X_tfidf = tfidf.fit_transform(X)
+        st.session_state["tfidf"]=tfidf
+        st.session_state["X_tfidf"]=X_tfidf
+        tfidf_df = pd.DataFrame(X_tfidf.toarray(), columns=tfidf.get_feature_names_out())
+        st.success("TF-IDF berhasil dibuat.")
+        st.dataframe(tfidf_df, use_container_width=True)
 
-    elif menu == "TF-IDF":
-        st.markdown("<h2 id='tfidf'>🔤 TF-IDF</h2>", unsafe_allow_html=True)
-
-        if "df" not in st.session_state:
-            st.warning("Silakan upload dataset dan lakukan preprocessing terlebih dahulu.")
-            st.stop()
-
-        data = st.session_state["df"]
-
-        col = None
-        for c in ["Final Text","Stemming","stemming","Final_Text","final_text","hasil_stemming"]:
-            if c in data.columns:
-                col = c
-                break
-
-        if col is None:
-            st.error(f"Kolom hasil stemming tidak ditemukan. Kolom yang tersedia: {list(data.columns)}")
-        else:
-            vec = TfidfVectorizer()
-            X = vec.fit_transform(data[col].fillna("").astype(str))
-            tfidf_df = pd.DataFrame(X.toarray(), columns=vec.get_feature_names_out())
-            st.dataframe(tfidf_df)
-            a, b, c = st.columns(3)
-            a.metric("Dokumen", X.shape[0])
-            b.metric("Vocabulary", len(vec.get_feature_names_out()))
-            c.metric("Fitur", X.shape[1])
-            st.dataframe(tfidf_df, use_container_width=True, height=500)
-            st.download_button(
-                "📥 Download TF-IDF CSV",
-                tfidf_df.to_csv(index=False).encode("utf-8-sig"),
-                "hasil_tfidf.csv",
-                "text/csv",
-                use_container_width=True
-            )
-    elif menu == "Klasifikasi":
+if menu == "Klasifikasi":
 
         st.markdown("""
         <div class="card">
@@ -2347,8 +2325,12 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
             "Melakukan ekstraksi fitur TF-IDF..."
         ):
 
-            tfidf = TfidfVectorizer()
-
+            if "X_tfidf" not in st.session_state:
+        st.warning("Silakan lakukan TF-IDF terlebih dahulu.")
+        st.stop()
+    tfidf=st.session_state["tfidf"]
+    X_tfidf=st.session_state["X_tfidf"]
+    # 
             X_tfidf = tfidf.fit_transform(X)
 
         # =====================================
