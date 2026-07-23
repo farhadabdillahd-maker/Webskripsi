@@ -52,29 +52,18 @@ try:
     def label_kejahatan(text):
         text = str(text).lower()
 
-        kandidat = []
-
-        for keyword, info in KAMUS_DICT.items():
-            if keyword.strip() and keyword.lower().strip() in text.lower():
-                kandidat.append((len(keyword), keyword, info))
-
-        if kandidat:
-            kandidat.sort(reverse=True)
-            _, keyword, info = kandidat[0]
-
-            return {
-                "kata_kunci": keyword,
-                "jenis_perkara": info["jenis_perkara"],
-                "kategori": info["kategori"],
-                "kelas": info["kelas"]
-            }
-
-        return {
-            "kata_kunci": "-",
+        hasil = {
             "jenis_perkara": "Tidak Diketahui",
-            "kategori": "Tidak Diketahui",
+            "kategori": "Kejahatan Ringan",
             "kelas": "K2"
         }
+
+        for keyword, info in KAMUS_DICT.items():
+            if keyword in text:
+                hasil = info
+                break
+
+        return hasil
 
 except Exception as e:
     st.warning(f"Gagal memuat kamus kejahatan: {e}")
@@ -1614,6 +1603,12 @@ if menu == "Prediksi" and uploaded_file is None:
     </div>
     """, unsafe_allow_html=True)
 
+    model = None
+    tfidf = None
+    if os.path.exists("model_naive_bayes.pkl") and os.path.exists("tfidf_vectorizer.pkl"):
+        model = joblib.load("model_naive_bayes.pkl")
+        tfidf = joblib.load("tfidf_vectorizer.pkl")
+
     try:
 
         try:
@@ -1645,6 +1640,7 @@ if menu == "Prediksi" and uploaded_file is None:
                     txt = re.sub(r"[^\w\s]", "", txt)
                     tokens = [w for w in txt.split() if w not in stop_words]
                     tokens = [stemmer.stem(w) for w in tokens]
+                    vector = tfidf.transform([" ".join(tokens)])
                     hasil = label_kejahatan(input_text)
                     prediction = hasil["kategori"]
                     jenis_perkara = hasil["jenis_perkara"]
@@ -1917,7 +1913,7 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
 
         for keyword in kejahatan_berat:
 
-            if keyword.strip() and keyword.lower().strip() in text.lower():
+            if keyword in text:
 
                 return "Kejahatan Berat"
 
@@ -2768,17 +2764,27 @@ Aplikasi ini dibuat sebagai implementasi algoritma **Naïve Bayes** untuk klasif
         stemmer = factory.create_stemmer()
 
         kejahatan_berat = [
-            "curas","pencabulan anak","persetubuhan anak","kdrt","pemerasan"
-        ]
-        
-        # =====================================
-        # LOAD MODEL
-        # =====================================
-        
+    "curas","pencabulan anak","persetubuhan anak","kdrt","pemerasan"
+]
+
+    # =====================================
+    # LOAD MODEL
+    # =====================================
+
+    try:
+
+        model = joblib.load(
+            "model_naive_bayes.pkl"
+        )
+
+        tfidf = joblib.load(
+            "tfidf_vectorizer.pkl"
+        )
+
         input_text = st.text_area(
-        "Masukkan Judul Berita",
-        height=150,
-        placeholder="Contoh: Polisi menangkap pelaku pencurian pada dini hari..."
+            "Masukkan Judul Berita",
+            height=150,
+            placeholder="Contoh: Polisi menangkap pelaku pencurian pada dini hari..."
         )
 
         if st.button("🚀 Prediksi"):
@@ -2834,17 +2840,33 @@ Aplikasi ini dibuat sebagai implementasi algoritma **Naïve Bayes** untuk klasif
                         for word in tokens
                     ]
 
-                    hasil = label_kejahatan(input_text)
-                    prediction = hasil["kategori"]
-                    jenis_perkara = hasil["jenis_perkara"]
-                    kelas = hasil["kelas"]
-                    kata_kunci = hasil["kata_kunci"]
+                    final_text = " ".join(tokens)
 
-                st.success("Hasil Prediksi Manual")
-                st.write("Kata Kunci:", kata_kunci)
-                st.write("Jenis Perkara:", jenis_perkara)
-                st.write("Kategori:", prediction)
-                st.write("Kelas:", kelas)
+                    vector = tfidf.transform(
+                        [final_text]
+                    )
+
+                    prediction = model.predict(
+                        vector
+                    )[0]
+
+                st.success(
+                    f"Hasil Prediksi : {prediction}"
+                )
+
+    except:
+
+        st.error("""
+Model belum tersedia.
+
+Silakan jalankan menu 🤖 Klasifikasi sekali
+agar file berikut dibuat:
+
+• model_naive_bayes.pkl
+• tfidf_vectorizer.pkl
+""")
+
+        st.markdown("<br>", unsafe_allow_html=True)
 
         # =====================================
         # PIE CHART DISTRIBUSI
