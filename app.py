@@ -52,18 +52,29 @@ try:
     def label_kejahatan(text):
         text = str(text).lower()
 
-        hasil = {
-            "jenis_perkara": "Tidak Diketahui",
-            "kategori": "Kejahatan Ringan",
-            "kelas": "K2"
-        }
+        kandidat = []
 
         for keyword, info in KAMUS_DICT.items():
             if keyword in text:
-                hasil = info
-                break
+                kandidat.append((len(keyword), keyword, info))
 
-        return hasil
+        if kandidat:
+            kandidat.sort(reverse=True)
+            _, keyword, info = kandidat[0]
+
+            return {
+                "kata_kunci": keyword,
+                "jenis_perkara": info["jenis_perkara"],
+                "kategori": info["kategori"],
+                "kelas": info["kelas"]
+            }
+
+        return {
+            "kata_kunci": "-",
+            "jenis_perkara": "Tidak Diketahui",
+            "kategori": "Tidak Diketahui",
+            "kelas": "K2"
+        }
 
 except Exception as e:
     st.warning(f"Gagal memuat kamus kejahatan: {e}")
