@@ -2278,7 +2278,7 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
     # =====================================================
 
     
-elif menu == "TF-IDF":
+    elif menu == "TF-IDF":
     st.markdown("<h2>🔤 TF-IDF</h2>", unsafe_allow_html=True)
     if "df" not in st.session_state:
         st.warning("Silakan upload dataset terlebih dahulu.")
@@ -2302,7 +2302,7 @@ elif menu == "TF-IDF":
             st.success(f"Jumlah Dokumen : {tfidf_matrix.shape[0]} | Jumlah Term : {tfidf_matrix.shape[1]}")
             st.dataframe(vocab, use_container_width=True)
 
-elif menu == "Klasifikasi":
+    elif menu == "Klasifikasi":
 
         st.markdown("""
         <div class="card">
