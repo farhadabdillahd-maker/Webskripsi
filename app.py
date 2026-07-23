@@ -2769,14 +2769,14 @@ Aplikasi ini dibuat sebagai implementasi algoritma **Naïve Bayes** untuk klasif
         stemmer = factory.create_stemmer()
 
         kejahatan_berat = [
-    "curas","pencabulan anak","persetubuhan anak","kdrt","pemerasan"
-]
-
-    # =====================================
-    # LOAD MODEL
-    # =====================================
-
-    input_text = st.text_area(
+            "curas","pencabulan anak","persetubuhan anak","kdrt","pemerasan"
+        ]
+        
+            # =====================================
+            # LOAD MODEL
+            # =====================================
+        
+            input_text = st.text_area(
             "Masukkan Judul Berita",
             height=150,
             placeholder="Contoh: Polisi menangkap pelaku pencurian pada dini hari..."
