@@ -2527,7 +2527,7 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
         )
 
         sns.heatmap(
-            cm,
+            conf_matrix,
             annot=True,
             fmt="d",
             cmap="Blues",
