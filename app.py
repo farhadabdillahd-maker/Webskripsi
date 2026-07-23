@@ -1582,7 +1582,7 @@ if menu == "Prediksi" and uploaded_file is None:
         stemmer = StemmerFactory().create_stemmer()
 
         kejahatan_berat = [
-    "curas","pencabulan anak","persetubuhan anak","kdrt","pemerasan"
+    "curas","pencabulan anak","persetubuhan anak","kdrt","pemerasan","pembunuhan"
 ]
 
         input_text = st.text_area("Masukkan Judul Berita", height=150)
