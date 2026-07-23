@@ -1637,14 +1637,12 @@ if menu == "Prediksi" and uploaded_file is None:
                         break
 
                 if not detected:
-                    txt = re.sub(r"[^\w\s]", "", txt)
-                    tokens = [w for w in txt.split() if w not in stop_words]
-                    tokens = [stemmer.stem(w) for w in tokens]
-                    vector = tfidf.transform([" ".join(tokens)])
-                    hasil = label_kejahatan(input_text)
-                    prediction = hasil["kategori"]
-                    jenis_perkara = hasil["jenis_perkara"]
-                    kelas = hasil["kelas"]
+                    # Prediksi manual menggunakan kamus kejahatan
+hasil = label_kejahatan(input_text)
+
+prediction = hasil["kategori"]
+jenis_perkara = hasil["jenis_perkara"]
+kelas = hasil["kelas"]
 
                 st.markdown(f"""
 <div style="background:rgba(24,61,115,.55);padding:16px;border-radius:12px;border:1px solid #3b82f6;">
