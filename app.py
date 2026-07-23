@@ -76,21 +76,21 @@ except Exception as e:
 # Tambahkan fungsi ini bila belum ada model/joblib yang dimuat.
 def predict_with_naive_bayes(input_text):
     """
-    Menggunakan model Naïve Bayes untuk prediksi.
-    Kamus dipakai hanya sebagai informasi tambahan.
+    Prediksi utama menggunakan Multinomial Naïve Bayes.
+    Kamus digunakan hanya sebagai informasi pendukung.
     """
     clean_text = preprocess_text(input_text)
-
     input_vector = tfidf.transform([clean_text])
 
     prediction = model.predict(input_vector)[0]
-    probability = model.predict_proba(input_vector).max() * 100
+    probability = float(model.predict_proba(input_vector).max() * 100)
 
-    hasil = label_kejahatan(input_text)
+    lexicon_info = label_kejahatan(input_text)
 
     return {
         "prediction": prediction,
         "probability": probability,
+        "lexicon": lexicon_info
     }
 
 # ===== END PATCH =====
