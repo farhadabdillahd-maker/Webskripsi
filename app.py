@@ -37,7 +37,7 @@ from datetime import datetime
 # LOAD KAMUS KEJAHATAN
 # ===========================
 try:
-    KAMUS_PATH = "kamus_kejahatan(1).csv"
+    KAMUS_PATH = "kamus_kejahatan.csv"
     kamus = pd.read_csv(KAMUS_PATH)
     kamus["kata_kunci"] = kamus["kata_kunci"].astype(str).str.lower().str.strip()
 
