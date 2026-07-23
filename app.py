@@ -1614,12 +1614,6 @@ if menu == "Prediksi" and uploaded_file is None:
     </div>
     """, unsafe_allow_html=True)
 
-    model = None
-    tfidf = None
-    if os.path.exists("model_naive_bayes.pkl") and os.path.exists("tfidf_vectorizer.pkl"):
-        model = joblib.load("model_naive_bayes.pkl")
-        tfidf = joblib.load("tfidf_vectorizer.pkl")
-
     try:
 
         try:
