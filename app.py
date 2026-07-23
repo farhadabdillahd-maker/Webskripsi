@@ -2505,8 +2505,7 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
         # =====================================
 
         hasil_df = pd.DataFrame({
-    "Judul Media Nasional": judul_test.reset_index(drop=True) if hasattr(judul_test, "reset_index") else judul_test,
-    "Actual": y_test.reset_index(drop=True) if hasattr(y_test, "reset_index") else y_test,
+    "Actual": y_test.values,
     "Prediction": y_pred
 })
 
