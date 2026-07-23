@@ -125,8 +125,7 @@ def set_gif_background():
     inset:0;
     background:rgba(0,0,0,0.70);
 }}
-html, body,
-                df["Judul Media Nasional"], .stApp,
+html, body, .stApp,
 [data-testid="stAppViewContainer"],
 [data-testid="stHeader"],
 [data-testid="stToolbar"],
@@ -2361,14 +2360,16 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
         # SPLIT DATA
         # =====================================
 
-        X_train, X_test, y_train, y_test, judul_train, judul_test = train_test_split(
+        X_train, X_test, y_train, y_test = train_test_split(
             X_tfidf,
             y,
             test_size=0.5,
             random_state=7
         )
 
-        # =====================================
+        
+judul_test = df.loc[y_test.index, "Judul Media Nasional"] if hasattr(y_test, "index") else None
+# =====================================
         # INFO SPLIT
         # =====================================
 
@@ -2506,7 +2507,7 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
         # =====================================
 
         hasil_df = pd.DataFrame({
-    "Actual": judul_test.reset_index(drop=True),
+    "Actual": judul_test.reset_index(drop=True) if judul_test is not None else y_test.reset_index(drop=True),
     "Prediction": y_pred
 })
 
