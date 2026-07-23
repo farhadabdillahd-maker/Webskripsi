@@ -2772,14 +2772,14 @@ Aplikasi ini dibuat sebagai implementasi algoritma **Naïve Bayes** untuk klasif
             "curas","pencabulan anak","persetubuhan anak","kdrt","pemerasan"
         ]
         
-            # =====================================
-            # LOAD MODEL
-            # =====================================
+        # =====================================
+        # LOAD MODEL
+        # =====================================
         
-            input_text = st.text_area(
-            "Masukkan Judul Berita",
-            height=150,
-            placeholder="Contoh: Polisi menangkap pelaku pencurian pada dini hari..."
+        input_text = st.text_area(
+        "Masukkan Judul Berita",
+        height=150,
+        placeholder="Contoh: Polisi menangkap pelaku pencurian pada dini hari..."
         )
 
         if st.button("🚀 Prediksi"):
