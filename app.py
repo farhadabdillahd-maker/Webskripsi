@@ -1601,6 +1601,12 @@ if menu == "Upload Dataset":
         except Exception:
             pass
         st.session_state.uploaded_dataset = uploaded_file
+        try:
+            uploaded_file.seek(0)
+            st.session_state["df"] = pd.read_csv(uploaded_file)
+            uploaded_file.seek(0)
+        except Exception as e:
+            st.error(f"Gagal membaca dataset: {e}")
 
     # Tampilkan tombol Repeat hanya setelah CSV berhasil di-upload
     if st.session_state.uploaded_dataset is not None:
