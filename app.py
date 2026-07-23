@@ -1881,34 +1881,34 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
         # =====================================================
 
         with st.spinner(
-        "Melakukan preprocessing dataset..."
-        ):
+            "Melakukan preprocessing dataset..."
+            ):
 
-        df["Case Folding"] = df[
-            "Judul Media Nasional"
-        ].apply(case_folding)
+            df["Case Folding"] = df[
+                "Judul Media Nasional"
+            ].apply(case_folding)
 
-        df["Tokenizing"] = df[
-            "Case Folding"
-        ].apply(tokenizing)
+            df["Tokenizing"] = df[
+                "Case Folding"
+            ].apply(tokenizing)
 
-        df["Stopword Removal"] = df[
-            "Tokenizing"
-        ].apply(stopword_removal)
+            df["Stopword Removal"] = df[
+                "Tokenizing"
+            ].apply(stopword_removal)
 
-        df["Stemming"] = df[
-            "Stopword Removal"
-        ].apply(stemming)
+            df["Stemming"] = df[
+                "Stopword Removal"
+            ].apply(stemming)
 
-        df["Final Text"] = df[
-            "Stemming"
-        ].apply(
-            lambda x: " ".join(x)
-        )
+            df["Final Text"] = df[
+                "Stemming"
+            ].apply(
+                lambda x: " ".join(x)
+            )
 
-        df["Label"] = df[
-            "Judul Media Nasional"
-        ].apply(auto_label)
+            df["Label"] = df[
+                "Judul Media Nasional"
+            ].apply(auto_label)
 
         # =====================================================
         # KPI DASHBOARD
