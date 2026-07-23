@@ -50,20 +50,23 @@ try:
         }
 
     def label_kejahatan(text):
-        text = str(text).lower()
+        text = str(text).lower().strip()
 
-        hasil = {
+        # Prioritaskan kata kunci terpanjang agar "pelecehan"
+        # tidak kalah oleh "leceh", dll.
+        for keyword, info in sorted(
+            KAMUS_DICT.items(),
+            key=lambda item: len(item[0]),
+            reverse=True
+        ):
+            if keyword and keyword in text:
+                return info
+
+        return {
             "jenis_perkara": "Tidak Diketahui",
             "kategori": "Kejahatan Ringan",
             "kelas": "K2"
         }
-
-        for keyword, info in KAMUS_DICT.items():
-            if keyword in text:
-                hasil = info
-                break
-
-        return hasil
 
 except Exception as e:
     st.warning(f"Gagal memuat kamus kejahatan: {e}")
