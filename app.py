@@ -1911,6 +1911,8 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
             "Judul Media Nasional"
         ].apply(auto_label)
 
+    st.session_state["df"] = df.copy()
+
     # =====================================================
     # KPI DASHBOARD
     # =====================================================
@@ -2291,7 +2293,7 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
         data = st.session_state["df"]
 
         col = None
-        for c in ["Stemming","stemming","hasil_stemming","Final_Text","final_text"]:
+        for c in ["Final Text","Stemming","stemming","Final_Text","final_text","hasil_stemming"]:
             if c in data.columns:
                 col = c
                 break
