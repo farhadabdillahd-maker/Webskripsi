@@ -1872,7 +1872,7 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
 
         for _, row in kamus.iterrows():
             if row["kata_kunci"] in text:
-            return row["kategori"]
+                return row["kategori"]
 
         return "Kejahatan Ringan"
 
