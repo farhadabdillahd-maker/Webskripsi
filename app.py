@@ -2279,7 +2279,7 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
 
     
 
-    elif menu == "🔤 TF-IDF":
+    elif menu == "TF-IDF":
         st.markdown("<h2 id='tfidf'>🔤 TF-IDF</h2>", unsafe_allow_html=True)
 
         if 'df' not in globals() and 'df' not in locals():
