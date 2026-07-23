@@ -65,6 +65,9 @@ try:
 
         return hasil
 
+except Exception as e:
+    st.warning(f"Gagal memuat kamus kejahatan: {e}")
+    KAMUS_DICT = {}
 
 def prediksi_manual(text):
     text = str(text).lower().strip()
@@ -88,7 +91,6 @@ def prediksi_manual(text):
 
     return hasil
 
-except Exception as e:
     st.warning(f"Gagal memuat kamus kejahatan: {e}")
     KAMUS_DICT = {}
 
