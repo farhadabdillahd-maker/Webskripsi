@@ -2276,8 +2276,7 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
     # MENU KLASIFIKASI
     # =====================================================
 
-    elif menu == "TF-IDF":
-if menu == "TF-IDF":
+    if menu == "TF-IDF":
     st.subheader("TF-IDF")
     if "df" not in locals() and "df" not in globals():
         st.warning("Silakan upload dataset dan lakukan preprocessing terlebih dahulu.")
