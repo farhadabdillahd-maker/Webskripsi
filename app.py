@@ -50,6 +50,7 @@ try:
         }
 
     def label_kejahatan(text):
+        global KAMUS_DICT
         text = str(text).lower()
 
         hasil = {
@@ -70,6 +71,7 @@ except Exception as e:
     KAMUS_DICT = {}
 
 def prediksi_manual(text):
+    global KAMUS_DICT
     text = str(text).lower().strip()
 
     hasil = {
@@ -91,7 +93,8 @@ def prediksi_manual(text):
 
     return hasil
 
-    st.warning(f"Gagal memuat kamus kejahatan: {e}")
+# removed dead code
+# st.warning(f"Gagal memuat kamus kejahatan: {e}")
     KAMUS_DICT = {}
 
 from io import BytesIO
