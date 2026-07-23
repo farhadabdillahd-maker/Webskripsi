@@ -2776,17 +2776,7 @@ Aplikasi ini dibuat sebagai implementasi algoritma **Naïve Bayes** untuk klasif
     # LOAD MODEL
     # =====================================
 
-    try:
-
-        model = joblib.load(
-            "model_naive_bayes.pkl"
-        )
-
-        tfidf = joblib.load(
-            "tfidf_vectorizer.pkl"
-        )
-
-        input_text = st.text_area(
+    input_text = st.text_area(
             "Masukkan Judul Berita",
             height=150,
             placeholder="Contoh: Polisi menangkap pelaku pencurian pada dini hari..."
@@ -2845,33 +2835,17 @@ Aplikasi ini dibuat sebagai implementasi algoritma **Naïve Bayes** untuk klasif
                         for word in tokens
                     ]
 
-                    final_text = " ".join(tokens)
+                    hasil = label_kejahatan(input_text)
+                    prediction = hasil["kategori"]
+                    jenis_perkara = hasil["jenis_perkara"]
+                    kelas = hasil["kelas"]
+                    kata_kunci = hasil["kata_kunci"]
 
-                    vector = tfidf.transform(
-                        [final_text]
-                    )
-
-                    prediction = model.predict(
-                        vector
-                    )[0]
-
-                st.success(
-                    f"Hasil Prediksi : {prediction}"
-                )
-
-    except:
-
-        st.error("""
-Model belum tersedia.
-
-Silakan jalankan menu 🤖 Klasifikasi sekali
-agar file berikut dibuat:
-
-• model_naive_bayes.pkl
-• tfidf_vectorizer.pkl
-""")
-
-        st.markdown("<br>", unsafe_allow_html=True)
+                st.success("Hasil Prediksi Manual")
+                st.write("Kata Kunci:", kata_kunci)
+                st.write("Jenis Perkara:", jenis_perkara)
+                st.write("Kategori:", prediction)
+                st.write("Kelas:", kelas)
 
         # =====================================
         # PIE CHART DISTRIBUSI
