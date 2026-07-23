@@ -55,7 +55,7 @@ try:
         kandidat = []
 
         for keyword, info in KAMUS_DICT.items():
-            if keyword in text:
+            if keyword.strip() and keyword.lower().strip() in text.lower():
                 kandidat.append((len(keyword), keyword, info))
 
         if kandidat:
@@ -1917,7 +1917,7 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
 
         for keyword in kejahatan_berat:
 
-            if keyword in text:
+            if keyword.strip() and keyword.lower().strip() in text.lower():
 
                 return "Kejahatan Berat"
 
