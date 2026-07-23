@@ -2639,6 +2639,51 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
 
         st.pyplot(fig2)
 
+
+        # =====================================
+        # DOWNLOAD LAPORAN KLASIFIKASI PDF
+        # =====================================
+        def generate_classification_report_pdf():
+            buffer = BytesIO()
+            c = canvas.Canvas(buffer, pagesize=A4)
+            w,h=A4
+            y=h-2*cm
+            c.setFont("Helvetica-Bold",16)
+            c.drawString(2*cm,y,"LAPORAN HASIL KLASIFIKASI NAIVE BAYES")
+            y-=1*cm
+            c.setFont("Helvetica",11)
+            rows=[
+                f"Jumlah Data: {len(df)}",
+                f"Training Data: {len(y_train)}",
+                f"Testing Data: {len(y_test)}",
+                f"Vocabulary: {X_tfidf.shape[1]}",
+                "",
+                "Tahapan:",
+                "- Upload Dataset",
+                "- Preprocessing",
+                "- TF-IDF",
+                "- Training Naive Bayes",
+                "",
+                f"Accuracy : {accuracy:.4f}",
+                f"Precision: {precision:.4f}",
+                f"Recall   : {recall:.4f}",
+                f"F1 Score : {f1:.4f}",
+            ]
+            for r in rows:
+                c.drawString(2*cm,y,r); y-=0.6*cm
+            c.showPage(); c.save()
+            pdf=buffer.getvalue(); buffer.close()
+            return pdf
+
+        st.markdown("### 📄 Download Laporan")
+        st.download_button(
+            "📄 Download Laporan Hasil Klasifikasi",
+            data=generate_classification_report_pdf(),
+            file_name="Laporan_Hasil_Klasifikasi_Naive_Bayes.pdf",
+            mime="application/pdf",
+            use_container_width=True
+        )
+
         st.markdown("<br>", unsafe_allow_html=True)
 
             # =====================================
