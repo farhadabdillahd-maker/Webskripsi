@@ -65,6 +65,29 @@ try:
 
         return hasil
 
+
+def prediksi_manual(text):
+    text = str(text).lower().strip()
+
+    hasil = {
+        "kata_kunci": "-",
+        "jenis_perkara": "Tidak Diketahui",
+        "kategori": "Tidak Terklasifikasi",
+        "kelas": "-"
+    }
+
+    for keyword, info in KAMUS_DICT.items():
+        if keyword in text:
+            hasil = {
+                "kata_kunci": keyword,
+                "jenis_perkara": info["jenis_perkara"],
+                "kategori": info["kategori"],
+                "kelas": info["kelas"]
+            }
+            break
+
+    return hasil
+
 except Exception as e:
     st.warning(f"Gagal memuat kamus kejahatan: {e}")
     KAMUS_DICT = {}
