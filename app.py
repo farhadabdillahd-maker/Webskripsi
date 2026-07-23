@@ -3050,3 +3050,30 @@ st.download_button(
     mime="application/pdf",
     use_container_width=True
 )
+
+
+
+# ===================== PDF REPORT =====================
+# TEMPLATE PDF:
+# Halaman 1:
+# - Header POLRI/POLRES PASAMAN
+# - Logo kiri/kanan
+# - Judul laporan
+# - Informasi dataset (nama file, jumlah data, duplikat, missing value)
+# - Grafik distribusi dataset
+# - Confusion Matrix
+# - Accuracy, Precision, Recall, F1-Score
+#
+# Halaman 2:
+# - Ringkasan preprocessing
+# - TF-IDF
+# - Classification Report
+#
+# Halaman 3:
+# - Tabel hasil prediksi
+#
+# Halaman 4:
+# - Kesimpulan otomatis
+#
+# Seluruh nilai diambil dari variabel hasil proses pada aplikasi.
+# ======================================================
