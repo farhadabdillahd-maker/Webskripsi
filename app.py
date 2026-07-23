@@ -44,7 +44,6 @@ try:
     KAMUS_DICT = {}
     for _, row in kamus.iterrows():
         KAMUS_DICT[row["kata_kunci"]] = {
-            "jenis_perkara": row["jenis_perkara"],
             "kategori": row["kategori"],
             "kelas": row["kelas"]
         }
@@ -63,7 +62,6 @@ try:
                 return info
 
         return {
-            "jenis_perkara": "Tidak Diketahui",
             "kategori": "Kejahatan Ringan",
             "kelas": "K2"
         }
