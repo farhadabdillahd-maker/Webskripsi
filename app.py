@@ -26,10 +26,6 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 from io import BytesIO
-from reportlab.pdfgen import canvas
-from reportlab.lib.pagesizes import A4
-from reportlab.lib.units import cm
-from reportlab.lib.utils import ImageReader
 from datetime import datetime
 
 
@@ -640,7 +636,7 @@ flex:none;
 <div class="flow-arrow">➜</div>
 <div class="flow-box">🔍<br>Prediksi</div>
 <div class="flow-arrow">➜</div>
-<div class="flow-box">📄<br>Download PDF</div>
+<div class="flow-box">🕘<br>Riwayat</div>
 </div>
 """, unsafe_allow_html=True)
 
