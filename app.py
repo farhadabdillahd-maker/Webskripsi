@@ -2311,7 +2311,7 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
                 st.success(f"Jumlah Dokumen: {tfidf_matrix.shape[0]} | Jumlah Term: {tfidf_matrix.shape[1]}")
                 st.dataframe(tfidf_df, use_container_width=True)
 
-elif menu == "Klasifikasi":
+    elif menu == "Klasifikasi":
 
         st.markdown("""
         <div class="card">
