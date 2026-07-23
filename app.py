@@ -2309,27 +2309,7 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
                     "text/csv",
                     use_container_width=True
                 )
-    el
-elif menu == "TF-IDF":
-    st.markdown("<h2>🔤 TF-IDF</h2>", unsafe_allow_html=True)
-    if "df" not in locals():
-        if "uploaded_dataset" in st.session_state and st.session_state.uploaded_dataset is not None:
-            df = pd.read_csv(st.session_state.uploaded_dataset)
-        else:
-            st.warning("Upload dataset terlebih dahulu.")
-            st.stop()
-    if "Final_Text" not in df.columns:
-        st.warning("Lakukan preprocessing terlebih dahulu hingga kolom Final_Text tersedia.")
-    else:
-        vectorizer = TfidfVectorizer()
-        X = vectorizer.fit_transform(df["Final_Text"].fillna("").astype(str))
-        tfidf_df = pd.DataFrame(X.toarray(), columns=vectorizer.get_feature_names_out())
-        st.write("### Matriks TF-IDF")
-        st.dataframe(tfidf_df)
-        csv=tfidf_df.to_csv(index=False).encode("utf-8")
-        st.download_button("📥 Download TF-IDF CSV",csv,"tfidf.csv","text/csv")
-
-if menu == "Klasifikasi":
+    elif menu == "Klasifikasi":
 
         st.markdown("""
         <div class="card">
