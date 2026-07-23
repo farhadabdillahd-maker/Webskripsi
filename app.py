@@ -1614,7 +1614,7 @@ if menu == "Prediksi" and uploaded_file is None:
 
                 # ================= PDF SURAT =================
                 # TODO UPDATED: Replace existing PDF body with full report sections.
-def generate_police_pdf(judul, hasil):
+                def generate_police_pdf(judul, hasil):
                     buffer = BytesIO()
                     c = canvas.Canvas(buffer, pagesize=A4)
                     PAGE_WIDTH, PAGE_HEIGHT = A4
