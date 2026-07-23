@@ -2279,10 +2279,10 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
     
 
     elif menu == "🔤 TF-IDF":
-    st.markdown("<h2 id='tfidf'>🔤 TF-IDF</h2>", unsafe_allow_html=True)
-    if 'df' not in globals() and 'df' not in locals():
+        st.markdown("<h2 id='tfidf'>🔤 TF-IDF</h2>", unsafe_allow_html=True)
+        if 'df' not in globals() and 'df' not in locals():
         st.warning("Upload dataset dan lakukan preprocessing terlebih dahulu.")
-    else:
+        else:
         data = locals().get('df', globals().get('df'))
         col=None
         for c in ["Stemming","stemming","hasil_stemming","Final_Text","final_text"]:
@@ -2307,7 +2307,7 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
                 "text/csv",
                 use_container_width=True
             )
-    
+        
     elif menu == "Klasifikasi":
 
         st.markdown("""
