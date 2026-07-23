@@ -1610,7 +1610,7 @@ if menu == "Upload Dataset":
                 del st.session_state["dashboard_upload"]
             st.rerun()
 
-if menu in ["Preprocessing","Klasifikasi"]:
+if menu in ["Preprocessing","TF-IDF","Klasifikasi"]:
     uploaded_file = st.session_state.uploaded_dataset
 
 
