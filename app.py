@@ -2303,18 +2303,18 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
             X = vec.fit_transform(data[col].fillna("").astype(str))
             tfidf_df = pd.DataFrame(X.toarray(), columns=vec.get_feature_names_out())
             st.dataframe(tfidf_df)
-                a, b, c = st.columns(3)
-                a.metric("Dokumen", X.shape[0])
-                b.metric("Vocabulary", len(vec.get_feature_names_out()))
-                c.metric("Fitur", X.shape[1])
-                st.dataframe(tfidf_df, use_container_width=True, height=500)
-                st.download_button(
-                    "📥 Download TF-IDF CSV",
-                    tfidf_df.to_csv(index=False).encode("utf-8-sig"),
-                    "hasil_tfidf.csv",
-                    "text/csv",
-                    use_container_width=True
-                )
+            a, b, c = st.columns(3)
+            a.metric("Dokumen", X.shape[0])
+            b.metric("Vocabulary", len(vec.get_feature_names_out()))
+            c.metric("Fitur", X.shape[1])
+            st.dataframe(tfidf_df, use_container_width=True, height=500)
+            st.download_button(
+                "📥 Download TF-IDF CSV",
+                tfidf_df.to_csv(index=False).encode("utf-8-sig"),
+                "hasil_tfidf.csv",
+                "text/csv",
+                use_container_width=True
+            )
     elif menu == "Klasifikasi":
 
         st.markdown("""
