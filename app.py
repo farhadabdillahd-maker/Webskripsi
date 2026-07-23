@@ -2368,8 +2368,8 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
         )
 
         
-judul_test = df.loc[y_test.index, "Judul Media Nasional"] if hasattr(y_test, "index") else None
-# =====================================
+        judul_test = df.loc[y_test.index, "Judul Media Nasional"] if hasattr(y_test, "index") else None
+        # =====================================
         # INFO SPLIT
         # =====================================
 
@@ -2507,9 +2507,9 @@ judul_test = df.loc[y_test.index, "Judul Media Nasional"] if hasattr(y_test, "in
         # =====================================
 
         hasil_df = pd.DataFrame({
-    "Actual": judul_test.reset_index(drop=True) if judul_test is not None else y_test.reset_index(drop=True),
-    "Prediction": y_pred
-})
+            "Actual": judul_test.reset_index(drop=True) if judul_test is not None else y_test.reset_index(drop=True),
+            "Prediction": y_pred
+        })
 
         st.markdown(
             "<h3 id='hasil-prediksi-testing'>📋 Hasil Prediksi Testing</h3>",
