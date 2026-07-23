@@ -1662,11 +1662,7 @@ if menu == "Prediksi" and uploaded_file is None:
                         break
 
                 if not detected:
-                    txt = re.sub(r"[^\w\s]", "", txt)
-                    tokens = [w for w in txt.split() if w not in stop_words]
-                    tokens = [stemmer.stem(w) for w in tokens]
-                    vector = tfidf.transform([" ".join(tokens)])
-                    hasil = label_kejahatan(input_text)
+                    hasil = prediksi_manual(input_text)
                     prediction = hasil["kategori"]
                     jenis_perkara = hasil["jenis_perkara"]
                     kelas = hasil["kelas"]
