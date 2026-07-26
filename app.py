@@ -1562,7 +1562,6 @@ if st.session_state.show_menu:
     menus=[
         "Upload Dataset",
         "Preprocessing",
-        "TF-IDF",
         "Klasifikasi",
         "Prediksi",
         "About"
@@ -1601,12 +1600,6 @@ if menu == "Upload Dataset":
         except Exception:
             pass
         st.session_state.uploaded_dataset = uploaded_file
-        try:
-            uploaded_file.seek(0)
-            st.session_state["df"] = pd.read_csv(uploaded_file)
-            uploaded_file.seek(0)
-        except Exception as e:
-            st.error(f"Gagal membaca dataset: {e}")
 
     # Tampilkan tombol Repeat hanya setelah CSV berhasil di-upload
     if st.session_state.uploaded_dataset is not None:
@@ -2282,34 +2275,6 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
     # =====================================================
     # MENU KLASIFIKASI
     # =====================================================
-
-    
-    elif menu == "TF-IDF":
-        st.header("🔤 TF-IDF")
-
-        if "df" not in st.session_state:
-            st.warning("Lakukan upload dataset dan preprocessing terlebih dahulu.")
-        else:
-            df = st.session_state["df"].copy()
-
-            text_col = "Final Text" if "Final Text" in df.columns else ("Final_Text" if "Final_Text" in df.columns else None)
-
-            if text_col is None:
-                st.error("Kolom hasil preprocessing tidak ditemukan.")
-            else:
-                vectorizer = TfidfVectorizer()
-                tfidf_matrix = vectorizer.fit_transform(df[text_col].astype(str))
-
-                st.session_state["tfidf"] = vectorizer
-                st.session_state["tfidf_matrix"] = tfidf_matrix
-
-                tfidf_df = pd.DataFrame(
-                    tfidf_matrix.toarray(),
-                    columns=vectorizer.get_feature_names_out()
-                )
-
-                st.success(f"Jumlah Dokumen: {tfidf_matrix.shape[0]} | Jumlah Term: {tfidf_matrix.shape[1]}")
-                st.dataframe(tfidf_df, use_container_width=True)
 
     elif menu == "Klasifikasi":
 
