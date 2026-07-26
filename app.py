@@ -44,7 +44,9 @@ try:
     KAMUS_DICT = {}
     for _, row in kamus.iterrows():
         KAMUS_DICT[row["kata_kunci"]] = {
+            "jenis_perkara": row["jenis_perkara"],
             "kategori": row["kategori"],
+            "kelas": row["kelas"]
         }
 
     def label_kejahatan(text):
@@ -61,39 +63,14 @@ try:
                 return info
 
         return {
+            "jenis_perkara": "Tidak Diketahui",
             "kategori": "Kejahatan Ringan",
+            "kelas": "K2"
         }
-
-
-
-
 
 except Exception as e:
     st.warning(f"Gagal memuat kamus kejahatan: {e}")
     KAMUS_DICT = {}
-
-# ===== PATCH NAIVE BAYES PREDICTION =====
-# Tambahkan fungsi ini bila belum ada model/joblib yang dimuat.
-def predict_with_naive_bayes(input_text):
-    """
-    Menggunakan model Naïve Bayes untuk prediksi.
-    Kamus dipakai hanya sebagai informasi tambahan.
-    """
-    clean_text = preprocess_text(input_text)
-
-    input_vector = tfidf.transform([clean_text])
-
-    prediction = model.predict(input_vector)[0]
-    probability = model.predict_proba(input_vector).max() * 100
-
-    hasil = label_kejahatan(input_text)
-
-    return {
-        "prediction": prediction,
-        "probability": probability,
-    }
-
-# ===== END PATCH =====
 
 from io import BytesIO
 
@@ -1667,6 +1644,8 @@ if menu == "Prediksi" and uploaded_file is None:
                     hasil = label_kejahatan(input_text)
 
                     prediction = hasil["kategori"]
+                    jenis_perkara = hasil["jenis_perkara"]
+                    kelas = hasil["kelas"]
 
                 st.markdown(f"""
 <div style="background:rgba(24,61,115,.55);padding:16px;border-radius:12px;border:1px solid #3b82f6;">
@@ -2388,8 +2367,6 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
             random_state=7
         )
 
-        
-        judul_test = df.loc[y_test.index, "Judul Media Nasional"] if hasattr(y_test, "index") else None
         # =====================================
         # INFO SPLIT
         # =====================================
@@ -2528,8 +2505,10 @@ if menu in ["Upload Dataset","Preprocessing","Klasifikasi"]:
         # =====================================
 
         hasil_df = pd.DataFrame({
-            "Actual": judul_test.reset_index(drop=True) if judul_test is not None else y_test.reset_index(drop=True),
+
+            "Actual": y_test.values,
             "Prediction": y_pred
+
         })
 
         st.markdown(
