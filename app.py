@@ -31,47 +31,6 @@ from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import cm
 from reportlab.lib.utils import ImageReader
 from datetime import datetime
-
-
-# ===========================
-# LOAD KAMUS KEJAHATAN
-# ===========================
-try:
-    KAMUS_PATH = "kamus_kejahatan.csv"
-    kamus = pd.read_csv(KAMUS_PATH)
-    kamus["kata_kunci"] = kamus["kata_kunci"].astype(str).str.lower().str.strip()
-
-    KAMUS_DICT = {}
-    for _, row in kamus.iterrows():
-        KAMUS_DICT[row["kata_kunci"]] = {
-            "jenis_perkara": row["jenis_perkara"],
-            "kategori": row["kategori"],
-            "kelas": row["kelas"]
-        }
-
-    def label_kejahatan(text):
-        text = str(text).lower().strip()
-
-        # Prioritaskan kata kunci terpanjang agar "pelecehan"
-        # tidak kalah oleh "leceh", dll.
-        for keyword, info in sorted(
-            KAMUS_DICT.items(),
-            key=lambda item: len(item[0]),
-            reverse=True
-        ):
-            if keyword and keyword in text:
-                return info
-
-        return {
-            "jenis_perkara": "Tidak Diketahui",
-            "kategori": "Kejahatan Ringan",
-            "kelas": "K2"
-        }
-
-except Exception as e:
-    st.warning(f"Gagal memuat kamus kejahatan: {e}")
-    KAMUS_DICT = {}
-
 from io import BytesIO
 
 
@@ -1640,12 +1599,11 @@ if menu == "Prediksi" and uploaded_file is None:
                         break
 
                 if not detected:
-                    # Prediksi manual menggunakan kamus kejahatan
-                    hasil = label_kejahatan(input_text)
-
-                    prediction = hasil["kategori"]
-                    jenis_perkara = hasil["jenis_perkara"]
-                    kelas = hasil["kelas"]
+                    txt = re.sub(r"[^\w\s]", "", txt)
+                    tokens = [w for w in txt.split() if w not in stop_words]
+                    tokens = [stemmer.stem(w) for w in tokens]
+                    vector = tfidf.transform([" ".join(tokens)])
+                    prediction = model.predict(vector)[0]
 
                 st.markdown(f"""
 <div style="background:rgba(24,61,115,.55);padding:16px;border-radius:12px;border:1px solid #3b82f6;">
