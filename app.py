@@ -26,6 +26,10 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 from io import BytesIO
+from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import A4
+from reportlab.lib.units import cm
+from reportlab.lib.utils import ImageReader
 from datetime import datetime
 
 
@@ -72,21 +76,21 @@ except Exception as e:
 # Tambahkan fungsi ini bila belum ada model/joblib yang dimuat.
 def predict_with_naive_bayes(input_text):
     """
-    Prediksi utama menggunakan Multinomial Naïve Bayes.
-    Kamus digunakan hanya sebagai informasi pendukung.
+    Menggunakan model Naïve Bayes untuk prediksi.
+    Kamus dipakai hanya sebagai informasi tambahan.
     """
     clean_text = preprocess_text(input_text)
+
     input_vector = tfidf.transform([clean_text])
 
     prediction = model.predict(input_vector)[0]
-    probability = float(model.predict_proba(input_vector).max() * 100)
+    probability = model.predict_proba(input_vector).max() * 100
 
-    lexicon_info = label_kejahatan(input_text)
+    hasil = label_kejahatan(input_text)
 
     return {
         "prediction": prediction,
         "probability": probability,
-        "lexicon": lexicon_info
     }
 
 # ===== END PATCH =====
@@ -636,7 +640,7 @@ flex:none;
 <div class="flow-arrow">➜</div>
 <div class="flow-box">🔍<br>Prediksi</div>
 <div class="flow-arrow">➜</div>
-<div class="flow-box">🕘<br>Riwayat</div>
+<div class="flow-box">📄<br>Download PDF</div>
 </div>
 """, unsafe_allow_html=True)
 
@@ -1670,26 +1674,89 @@ if menu == "Prediksi" and uploaded_file is None:
 <span style="font-size:20px;font-weight:700;color:#FFFFFF;">{prediction}</span>
 </div>
 """, unsafe_allow_html=True)
-                # ================= RIWAYAT PREDIKSI =================
-                if "history" not in st.session_state:
-                    st.session_state.history = []
-                st.session_state.history.append({
-                    "Waktu": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-                    "Judul": input_text,
-                    "Prediksi": prediction,
-                    "Probabilitas": "-"
-                })
+
+                # ================= PDF SURAT =================
+                def generate_police_pdf(judul, hasil):
+                    buffer = BytesIO()
+                    c = canvas.Canvas(buffer, pagesize=A4)
+                    w, h = A4
+
+                    try:
+                        c.drawImage(ImageReader("assets/logo_polri.png"),1.5*cm,h-3.7*cm,width=2.4*cm,height=2.4*cm,mask='auto')
+                    except:
+                        pass
+                    try:
+                        c.drawImage(ImageReader("assets/logo_polda_sumbar.png"),w-3.9*cm,h-3.7*cm,width=2.4*cm,height=2.4*cm,mask='auto')
+                    except:
+                        pass
+
+                    c.setFont("Helvetica-Bold",12)
+                    c.drawCentredString(w/2,h-1.5*cm,"KEPOLISIAN NEGARA REPUBLIK INDONESIA")
+                    c.drawCentredString(w/2,h-2.1*cm,"DAERAH SUMATERA BARAT")
+                    c.drawCentredString(w/2,h-2.7*cm,"RESOR PASAMAN")
+                    c.setFont("Helvetica",10)
+                    c.drawCentredString(w/2,h-3.3*cm,"Jln. Jend. Sudirman No. 1 Lubuk Sikaping 26311")
+                    c.setLineWidth(1.2)
+                    c.line(1.5*cm,h-3.75*cm,w-1.5*cm,h-3.75*cm)
+                    c.setLineWidth(0.5)
+                    c.line(1.5*cm,h-3.9*cm,w-1.5*cm,h-3.9*cm)
+
+                    nomor = "B/001/RESKRIM/%s" % datetime.now().strftime("%m/%Y")
+                    tanggal = datetime.now().strftime("%d %B %Y")
+
+                    y = h-4.5*cm
+                    c.setFont("Helvetica-Bold",14)
+                    c.drawCentredString(w/2,y,"LAPORAN HASIL KLASIFIKASI")
+                    y -= 1*cm
+
+                    x0=2*cm
+                    table_w=w-4*cm
+                    row_h=0.8*cm
+                    col1=6*cm
+
+                    c.setFont("Helvetica-Bold",11)
+                    c.rect(x0,y-row_h,table_w,row_h)
+                    c.line(x0+col1,y,x0+col1,y-row_h)
+                    c.drawCentredString(x0+col1/2,y-0.55*cm,"Parameter")
+                    c.drawCentredString(x0+col1+(table_w-col1)/2,y-0.55*cm,"Keterangan")
+
+                    rows=[
+                        ("Nomor Surat",nomor),
+                        ("Input Teks",judul[:90]),
+                        ("Hasil Prediksi",hasil),
+                    ]
+                    c.setFont("Helvetica",11)
+                    yy=y-row_h
+                    for p,v in rows:
+                        c.rect(x0,yy-row_h,table_w,row_h)
+                        c.line(x0+col1,yy,x0+col1,yy-row_h)
+                        c.drawString(x0+0.2*cm,yy-0.55*cm,p)
+                        c.drawString(x0+col1+0.2*cm,yy-0.55*cm,str(v))
+                        yy-=row_h
+                    y=yy-1*cm
+                    c.drawString(2*cm,y,"Demikian laporan hasil klasifikasi ini dibuat untuk dipergunakan sebagaimana mestinya.")
+                    y -= 2*cm
+                    c.drawRightString(w-2*cm,y,"Pasaman, "+tanggal)
+                    y -= 0.8*cm
+                    c.drawRightString(w-2*cm,y,"Kepala Sat Reskrim")
+                    y -= 2.5*cm
+                    c.drawRightString(w-2*cm,y,"(................................)")
+                    c.save()
+                    pdf = buffer.getvalue()
+                    buffer.close()
+                    return pdf
+
+                pdf = generate_police_pdf(input_text, prediction)
+
+                st.download_button(
+                    "📄 Download Laporan Hasil Prediksi (PDF)",
+                    data=pdf,
+                    file_name="Surat_Hasil_Klasifikasi.pdf",
+                    mime="application/pdf"
+                )
 
             else:
                 st.warning("Masukkan judul berita terlebih dahulu.")
-
-        if "history" in st.session_state and st.session_state.history:
-            st.markdown("### 🕘 Riwayat Prediksi")
-            st.dataframe(pd.DataFrame(st.session_state.history), use_container_width=True)
-            if st.button("🗑 Hapus Riwayat"):
-                st.session_state.history=[]
-                st.rerun()
-
     except Exception as e:
         st.error(f"Terjadi kesalahan: {e}")
 
